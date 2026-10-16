@@ -4,6 +4,8 @@ export const story = {
   row: "flex flex-wrap items-center gap-4",
   /** Row of small items such as tags. */
   list: "flex flex-wrap gap-2",
+  /** Vertical stack of larger blocks. */
+  stack: "flex flex-col gap-16",
   /** Keeps a sample card at a readable width. */
   narrow: "max-w-sm",
   /** Space above a component whose hint pops up over it. */

@@ -19,6 +19,27 @@ const siteCodeImports = {
   message: SITE_CODE_MESSAGE,
 };
 
+const CLASS_STRING_MESSAGE = "Class strings belong in the component's .style.ts file, not in .tsx.";
+const classStringRules = [
+  "JSXAttribute[name.name='className'] > Literal",
+  "JSXAttribute[name.name='className'] > JSXExpressionContainer > Literal",
+  "JSXAttribute[name.name='className'] > JSXExpressionContainer > TemplateLiteral",
+  "Property[key.name='className'] > Literal",
+  "Property[key.name='className'] > TemplateLiteral",
+  "JSXAttribute[name.name='className'] CallExpression > Literal",
+  "JSXAttribute[name.name='className'] LogicalExpression > Literal",
+  "JSXAttribute[name.name='className'] ConditionalExpression > Literal",
+].map((selector) => ({ selector, message: CLASS_STRING_MESSAGE }));
+
+const BEHAVIOR_MESSAGE =
+  "Components are presentation: move effects and browser APIs into a useX.ts hook next to the component.";
+const presentationRules = [
+  "ImportSpecifier[imported.name=/^use(Layout|Insertion)?Effect$/]",
+  "MemberExpression[object.name=/^(window|document|navigator|history|location)$/]",
+  "NewExpression[callee.name=/^(IntersectionObserver|ResizeObserver|MutationObserver)$/]",
+  "CallExpression[callee.name=/^(setTimeout|setInterval|requestAnimationFrame)$/]",
+].map((selector) => ({ selector, message: BEHAVIOR_MESSAGE }));
+
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -29,26 +50,18 @@ export default defineConfig([
     },
   },
   {
-    // Architecture rule (AGENTS.md): markup and styling live in separate files.
-    // .tsx files take classes only from X.style.ts; class strings here fail the build.
+    // Architecture rule (AGENTS.md "Component architecture"): a .tsx component is presentation.
+    // Classes come from X.style.ts; behavior (effects, browser APIs, observers) from a useX.ts hook.
     files: ["**/*.tsx"],
     rules: {
-      "no-restricted-syntax": [
-        "error",
-        ...[
-          "JSXAttribute[name.name='className'] > Literal",
-          "JSXAttribute[name.name='className'] > JSXExpressionContainer > Literal",
-          "JSXAttribute[name.name='className'] > JSXExpressionContainer > TemplateLiteral",
-          "Property[key.name='className'] > Literal",
-          "Property[key.name='className'] > TemplateLiteral",
-          "JSXAttribute[name.name='className'] CallExpression > Literal",
-          "JSXAttribute[name.name='className'] LogicalExpression > Literal",
-          "JSXAttribute[name.name='className'] ConditionalExpression > Literal",
-        ].map((selector) => ({
-          selector,
-          message: "Class strings belong in the component's .style.ts file, not in .tsx.",
-        })),
-      ],
+      "no-restricted-syntax": ["error", ...classStringRules, ...presentationRules],
+    },
+  },
+  {
+    // Stories, tests and the Storybook preview aren't components: they may set up browser state.
+    files: ["**/*.stories.tsx", "**/*.test.tsx", ".storybook/**/*.tsx"],
+    rules: {
+      "no-restricted-syntax": ["error", ...classStringRules],
     },
   },
   {

@@ -19,15 +19,26 @@ Everything under `src/design-system/` is a self-contained design system. The sit
 ## Components (`ui/`)
 
 - One folder per component:
-  - `X.tsx`: markup and behavior; no class strings
+  - `X.tsx`: presentation only; renders props and hook results
+  - `useX.ts`: the component's behavior, when it has any (state, effects, browser APIs, timers)
   - `X.style.ts`: every class the component uses
   - `X.stories.tsx`: every variant and state
   - `X.mdx`: the usage guide (template below)
-  - `X.test.tsx`: only when the component has behavior (keyboard, state, links)
+  - `X.test.tsx`: only when the component has behavior; test through the component, as a user would
 - Export it from `ui/index.ts`.
 - **Focus:** every interactive element shows the focus ring from the `focus-ring` component tokens.
 - **Semantics first:** native elements (`button`, `a`, `ol`, `figure`) before ARIA. Visible text or an accessible name on every control.
 - **Motion:** respect `motion-reduce:` (opacity only).
+
+## Component architecture
+
+Three concerns, three files. A component file never mixes them.
+
+- **`X.tsx` is presentation.** It maps props and hook results to markup. Allowed: `useId`, `useState` for trivial display-only state, and calling its own hook. Not allowed: `useEffect`, observers, timers, `window` / `document` / `navigator`, data fetching, class strings.
+- **`useX.ts` is behavior.** State machines, effects, browser APIs, timers and refs that drive them. It returns what the markup needs (`{ status, copy, textRef }`, `{ rootRef, activeId, goTo }`) and never returns JSX. Named after what it does (`useCopyToClipboard`), not after the component, when it could serve more than one.
+- **Pure logic** that needs no React (`slidePositions`, `contrastRatio`) goes in a plain `.ts` module with its own unit test.
+
+Reference implementations: `ui/CopyText/` (`CopyText.tsx` + `useCopyToClipboard.ts`) and `src/components/deck/` (`Deck.tsx` + `useDeck.ts` + `slideState.ts`).
 
 ## Styling architecture
 

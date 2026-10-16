@@ -5,31 +5,42 @@ import * as Stories from "./Timeline.stories";
 
 # Timeline
 
-A career timeline: one entry per company, oldest first. Promotions inside a company are steps of one entry, so growth reads as one arc.
+Two building blocks for telling a career:
 
-<Canvas of={Stories.Default} />
+- **`TimelineAxis`**: a time-scaled line with a tick per year, a span per company and a dot per role. Give it `activeIndex` and it fills up to that company, so a page can move through the career one chapter at a time.
+- **`TimelineChapter`**: one company's story: period, company, a chapter line, the roles held, one line of work and the stack that defined it.
+
+<Canvas of={Stories.Axis} />
 <Controls />
 
 ## Use when
 
-- Showing a sequence of roles or phases where order matters.
-- Each step fits in a period, a name, its roles and one line of summary.
+- Order and pace matter: the axis shows how long each period lasted and how quickly roles changed.
+- Each period fits a chapter line, its roles, one line of summary and a few tags.
 
 ## Don't use when
 
-- Entries need bullets, links or long descriptions: use a list of `Card`s.
-- Order doesn't matter: use an unordered list.
+- Entries need bullets, links or long descriptions: use `Card`s.
+- Order doesn't matter: use a plain list.
+
+## Data
+
+- Entries are oldest first, with `start` / `end` as `"YYYY-MM"` and each role's `start`.
+- The axis runs from January of the first year to the last `end`. Positions come from `timelineScale.ts` (pure, unit-tested) and reach the styles as CSS variables (`--at`, `--from`, `--to`, `--fill`); each span and dot carries `data-state="past | current | future"`.
 
 ## Accessibility
 
-- The timeline is an ordered list (`<ol>`); each company's roles are a nested ordered list named "Roles at …", so the progression is announced, not just drawn.
-- The → arrows between roles are decorative and hidden from screen readers.
-- Pick `headingLevel` so company names fit the page outline (default `h3`).
-- Each entry carries `--i` (its index) so the site can stagger entrances; the component itself doesn't animate.
+- The axis is decorative (`aria-hidden`): nothing it shows is missing from the chapters, so no information depends on position or color.
+- Each chapter is an `<article>` with a heading (`headingLevel`, default `h3`), an ordered list "Roles at …" and a list "Stack at …"; the → arrows are hidden from screen readers.
+- The axis is hidden on small screens, where chapters stack with a side rule.
+- Fill and dot transitions are disabled under reduced motion.
 
 ## Do / Don't
 
-| Do                                         | Don't                    |
-| ------------------------------------------ | ------------------------ |
-| One entry per company; promotions as roles | One entry per promotion  |
-| One-line summaries                         | Paragraphs or tech lists |
+| Do                                           | Don't                              |
+| -------------------------------------------- | ---------------------------------- |
+| One chapter per company; promotions as roles | One chapter per promotion          |
+| A chapter line that says what changed        | Repeating the job title as chapter |
+| Three or four tags that defined the period   | The full CV skills list            |
+
+<Canvas of={Stories.Composed} />

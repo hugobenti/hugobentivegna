@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useId } from "react";
 import { cx } from "../cx";
 import { copyText } from "./CopyText.style";
+import { useCopyToClipboard } from "./useCopyToClipboard";
 
 export type CopyTextProps = {
   /** The text shown and copied, e.g. an email address. */
@@ -16,9 +17,7 @@ export type CopyTextProps = {
   className?: string;
 };
 
-type Status = "idle" | "copied" | "failed";
-
-/** Shows a piece of text that copies itself when clicked. */
+/** Shows a piece of text that copies itself when clicked. Behavior lives in useCopyToClipboard. */
 export function CopyText({
   text,
   hint = "Click to copy",
@@ -26,27 +25,8 @@ export function CopyText({
   failedHint = "Selected — press Ctrl+C (⌘C on Mac)",
   className,
 }: CopyTextProps) {
-  const [status, setStatus] = useState<Status>("idle");
+  const { status, copy, textRef } = useCopyToClipboard<HTMLSpanElement>(text);
   const hintId = useId();
-  const textRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (status === "idle") return;
-    const timer = setTimeout(() => setStatus("idle"), status === "copied" ? 2000 : 6000);
-    return () => clearTimeout(timer);
-  }, [status]);
-
-  async function copy() {
-    try {
-      if (!navigator.clipboard) throw new Error("Clipboard API unavailable");
-      await navigator.clipboard.writeText(text);
-      setStatus("copied");
-    } catch {
-      // The text is already on screen: select it so one shortcut finishes the job.
-      if (textRef.current) window.getSelection()?.selectAllChildren(textRef.current);
-      setStatus("failed");
-    }
-  }
 
   return (
     <span className={cx(copyText.base, className)}>
