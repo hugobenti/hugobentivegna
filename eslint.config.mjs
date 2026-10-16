@@ -19,6 +19,53 @@ const siteCodeImports = {
   message: SITE_CODE_MESSAGE,
 };
 
+const CLASS_STRING_MESSAGE = "Class strings belong in the component's .style.ts file, not in .tsx.";
+const classStringRules = [
+  "JSXAttribute[name.name='className'] > Literal",
+  "JSXAttribute[name.name='className'] > JSXExpressionContainer > Literal",
+  "JSXAttribute[name.name='className'] > JSXExpressionContainer > TemplateLiteral",
+  "Property[key.name='className'] > Literal",
+  "Property[key.name='className'] > TemplateLiteral",
+  "JSXAttribute[name.name='className'] CallExpression > Literal",
+  "JSXAttribute[name.name='className'] LogicalExpression > Literal",
+  "JSXAttribute[name.name='className'] ConditionalExpression > Literal",
+].map((selector) => ({ selector, message: CLASS_STRING_MESSAGE }));
+
+const BEHAVIOR_MESSAGE =
+  "Components are presentation: move effects and browser APIs into a useX.ts hook next to the component.";
+const presentationRules = [
+  "ImportSpecifier[imported.name=/^use(Layout|Insertion)?Effect$/]",
+  "MemberExpression[object.name=/^(window|document|navigator|history|location)$/]",
+  "NewExpression[callee.name=/^(IntersectionObserver|ResizeObserver|MutationObserver)$/]",
+  "CallExpression[callee.name=/^(setTimeout|setInterval|requestAnimationFrame)$/]",
+].map((selector) => ({ selector, message: BEHAVIOR_MESSAGE }));
+
+const LOGIC_MESSAGE =
+  "Components are presentation: derive values in a useX.ts hook or a .ts module, not in .tsx.";
+const logicRules = [
+  // Helper functions, at module level or inside a component.
+  "Program > FunctionDeclaration[id.name=/^[a-z]/]",
+  "Program > ExportNamedDeclaration > FunctionDeclaration[id.name=/^[a-z]/]",
+  "FunctionDeclaration FunctionDeclaration",
+  "VariableDeclarator > :matches(ArrowFunctionExpression, FunctionExpression)",
+  // Computation and formatting.
+  "BinaryExpression[operator=/^[-+*\\/%]$/]",
+  "ConditionalExpression > ConditionalExpression",
+  "TemplateLiteral[expressions.length>0]",
+  "NewExpression[callee.name=/^(Date|URL|Map|Set)$/]",
+  "CallExpression[callee.property.name=/^(filter|reduce|sort|find|findIndex|some|every|flatMap|slice|splice|join|split|replace|replaceAll|toFixed|toLocaleString)$/]",
+  // Plain function calls in markup; only the class/style helpers are allowed.
+  "JSXExpressionContainer > CallExpression[callee.type='Identifier']:not([callee.name=/^(cx|cssVars|stagger)$/])",
+].map((selector) => ({ selector, message: LOGIC_MESSAGE }));
+
+const DATA_MESSAGE =
+  "Data a component renders belongs in an X.data.ts module (or src/content), not in .tsx.";
+const dataRules = [
+  "Program > VariableDeclaration > VariableDeclarator > :matches(ArrayExpression, ObjectExpression, Literal, TemplateLiteral, CallExpression)",
+  "Program > ExportNamedDeclaration > VariableDeclaration > VariableDeclarator > :matches(ArrayExpression, ObjectExpression, Literal, TemplateLiteral, CallExpression)",
+  "MemberExpression > ArrayExpression.object",
+].map((selector) => ({ selector, message: DATA_MESSAGE }));
+
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -29,26 +76,25 @@ export default defineConfig([
     },
   },
   {
-    // Architecture rule (AGENTS.md): markup and styling live in separate files.
-    // .tsx files take classes only from X.style.ts; class strings here fail the build.
+    // Architecture rule (AGENTS.md "Component architecture"): a .tsx component is presentation.
+    // Classes come from X.style.ts, data from X.data.ts / src/content, derived values and behavior
+    // (effects, browser APIs, observers, formatting, computation) from a useX.ts hook.
     files: ["**/*.tsx"],
     rules: {
       "no-restricted-syntax": [
         "error",
-        ...[
-          "JSXAttribute[name.name='className'] > Literal",
-          "JSXAttribute[name.name='className'] > JSXExpressionContainer > Literal",
-          "JSXAttribute[name.name='className'] > JSXExpressionContainer > TemplateLiteral",
-          "Property[key.name='className'] > Literal",
-          "Property[key.name='className'] > TemplateLiteral",
-          "JSXAttribute[name.name='className'] CallExpression > Literal",
-          "JSXAttribute[name.name='className'] LogicalExpression > Literal",
-          "JSXAttribute[name.name='className'] ConditionalExpression > Literal",
-        ].map((selector) => ({
-          selector,
-          message: "Class strings belong in the component's .style.ts file, not in .tsx.",
-        })),
+        ...classStringRules,
+        ...presentationRules,
+        ...logicRules,
+        ...dataRules,
       ],
+    },
+  },
+  {
+    // Stories, tests and the Storybook preview aren't components: they may set up browser state.
+    files: ["**/*.stories.tsx", "**/*.test.tsx", ".storybook/**/*.tsx"],
+    rules: {
+      "no-restricted-syntax": ["error", ...classStringRules],
     },
   },
   {

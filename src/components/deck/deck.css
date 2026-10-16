@@ -1,0 +1,180 @@
+/*
+ * Slide engine: native scroll-snap + scroll-driven choreography (spec §3.2, §6.4).
+ * No scroll-jacking: wheel, touch and keyboard scrolling stay native.
+ *
+ * Hooks (applied through Deck.style.ts):
+ *   .deck          root; gets data-ready once JS has hydrated
+ *   .slide         one full-viewport section; gets data-position / data-seen from Deck
+ *   .slide-steps   a slide made of several full-viewport steps under a pinned header
+ *   .steps-header  the pinned header of a multi-step slide
+ *   .step          one full-viewport step; each is its own snap point
+ *   .reveal        an element that animates with its slide (or step)
+ *   .enter         time-based entrance on first load (hero)
+ * Every animated element reads --i (its index) for staggering.
+ */
+
+.slide {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--hb-space-section) var(--hb-space-gutter);
+}
+
+/* Snapping only where full-screen slides make sense. */
+@media (min-width: 768px) and (min-height: 560px) {
+  html:has(.deck) {
+    scroll-snap-type: y mandatory;
+  }
+
+  .slide {
+    min-height: 100svh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.deck) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------- Multi-step slides ---------- */
+
+.slide-steps {
+  --steps-header: 13rem;
+  display: block;
+  padding: 0;
+}
+
+.steps-header {
+  padding: var(--hb-space-section) var(--hb-space-gutter) 0;
+}
+
+.step {
+  padding: 2.5rem var(--hb-space-gutter) 0;
+}
+
+.step:last-child {
+  padding-bottom: var(--hb-space-section);
+}
+
+@media (min-width: 768px) and (min-height: 560px) {
+  /* The steps snap, not the slide: the header takes no space, so step 0 starts at the slide top. */
+  .slide-steps {
+    min-height: auto;
+    scroll-snap-align: none;
+  }
+
+  .steps-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    height: var(--steps-header);
+    margin-bottom: calc(-1 * var(--steps-header));
+    padding-top: 3.5rem;
+  }
+
+  .step,
+  .step:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding: var(--steps-header) var(--hb-space-gutter) 3rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+/* ---------- 1. Scroll-driven choreography (Chrome, Edge, Safari 26+) ---------- */
+
+@keyframes hb-slide-content {
+  0% {
+    opacity: 0;
+    transform: translateY(2.5rem);
+    filter: blur(6px);
+  }
+  14%,
+  86% {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-2.5rem);
+    filter: blur(6px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) and (min-height: 560px) {
+  @supports (animation-timeline: view()) {
+    /* Progress follows the element through the viewport; later items start a little later. */
+    .reveal {
+      animation: hb-slide-content linear both;
+      animation-timeline: view();
+      animation-range: cover calc(var(--i, 0) * 2%) cover calc(100% - var(--i, 0) * 1%);
+    }
+  }
+}
+
+/* ---------- 2. Fallback: class-driven transitions once JS is ready ---------- */
+
+.deck[data-ready] .reveal {
+  transition:
+    opacity var(--hb-duration-slow) var(--hb-ease-out),
+    transform var(--hb-duration-slow) var(--hb-ease-out),
+    filter var(--hb-duration-slow) var(--hb-ease-out);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+/* Snapping screens without scroll timelines (e.g. Firefox): the active slide is visible. */
+@supports not (animation-timeline: view()) {
+  @media (min-width: 768px) and (min-height: 560px) {
+    .deck[data-ready] .slide:not([data-position="active"]) .reveal {
+      opacity: 0;
+      transform: translateY(1.75rem);
+      filter: blur(4px);
+    }
+
+    .deck[data-ready] .slide[data-position="before"] .reveal {
+      transform: translateY(-1.75rem);
+    }
+  }
+}
+
+/* Small screens: normal scrolling; content fades in once its slide has been seen. */
+@media (max-width: 767px), (max-height: 559px) {
+  .deck[data-ready] .slide:not([data-seen]) .reveal {
+    opacity: 0;
+    transform: translateY(1.75rem);
+  }
+}
+
+/* ---------- 3. First-load entrance (hero) ---------- */
+
+@keyframes hb-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    filter: blur(6px);
+  }
+}
+
+.enter {
+  animation: hb-enter var(--hb-duration-slide) var(--hb-ease-out) both;
+  animation-delay: calc(var(--i, 0) * 120ms + 100ms);
+}
+
+/* ---------- 4. Reduced motion: opacity only, nothing moves ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.reveal, .enter) {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+    transition: opacity var(--hb-duration-base) linear !important;
+  }
+}

@@ -1,43 +1,79 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Timeline, type TimelineEntry } from "./Timeline";
+import { story } from "../story.style";
+import { TimelineAxis } from "./TimelineAxis";
+import { TimelineChapter, type TimelineEntry } from "./TimelineChapter";
 
 // Story data mirrors the site's experience content; the design system can't import src/content.
 const entries: TimelineEntry[] = [
   {
-    period: "2020–2022",
     company: "Itaú Unibanco",
-    roles: ["IT Analyst", "IT Engineer"],
-    summary: "Monitoring portals, Angular, micro-frontends.",
+    start: "2020-01",
+    end: "2022-05",
+    chapter: "Shipping UI at bank scale",
+    roles: [
+      { title: "IT Analyst", start: "2020-01" },
+      { title: "IT Engineer", start: "2021-02" },
+    ],
+    summary: "Monitoring portals and internal tools; micro-frontends.",
+    stack: ["Angular", "RxJS", "TypeScript", "Java"],
   },
   {
-    period: "2022–2025",
     company: "Ouribank",
-    roles: ["Front-End Developer", "Senior", "Front-End Architect"],
+    start: "2022-05",
+    end: "2025-10",
+    chapter: "Building the system others build on",
+    roles: [
+      { title: "Front-End Developer", start: "2022-05" },
+      { title: "Senior", start: "2023-07" },
+      { title: "Front-End Architect", start: "2024-03" },
+    ],
     summary: "From the first design system to front-end architecture.",
+    stack: ["React", "Storybook", "Tailwind CSS", "Vite"],
   },
   {
-    period: "2025–now",
     company: "1global",
-    roles: ["Senior Software Engineer"],
+    start: "2025-11",
+    end: "2026-10",
+    chapter: "Systems for people and AI agents",
+    roles: [{ title: "Senior Software Engineer", start: "2025-11" }],
     summary: "IoT portal, AI-driven development.",
+    stack: ["Next.js", "Playwright", "Claude Code", "MCP"],
   },
 ];
 
 const meta = {
   title: "Components/Timeline",
-  component: Timeline,
-  args: { entries, headingLevel: 3 },
+  component: TimelineAxis,
+  args: { entries, activeIndex: 1 },
   argTypes: {
     entries: { control: false },
-    headingLevel: { control: "inline-radio", options: [2, 3, 4] },
+    activeIndex: { control: { type: "range", min: 0, max: entries.length - 1, step: 1 } },
   },
-} satisfies Meta<typeof Timeline>;
+} satisfies Meta<typeof TimelineAxis>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+/** Move `activeIndex`: the line fills to that company and its dots light up. */
+export const Axis: Story = {};
 
-export const SingleRole: Story = {
-  args: { entries: entries.slice(2) },
+/** Without `activeIndex`, the axis is static and fully filled. */
+export const StaticAxis: Story = {
+  args: { activeIndex: undefined },
+};
+
+export const Chapter: Story = {
+  render: () => <TimelineChapter entry={entries[1] as TimelineEntry} />,
+};
+
+/** Axis above, one chapter per company below: what the site scrolls through step by step. */
+export const Composed: Story = {
+  render: (args) => (
+    <div className={story.stack}>
+      <TimelineAxis {...args} />
+      {entries.map((entry) => (
+        <TimelineChapter key={entry.company} entry={entry} />
+      ))}
+    </div>
+  ),
 };

@@ -19,15 +19,27 @@ Everything under `src/design-system/` is a self-contained design system. The sit
 ## Components (`ui/`)
 
 - One folder per component:
-  - `X.tsx`: markup and behavior; no class strings
+  - `X.tsx`: presentation only; renders props and hook results
+  - `useX.ts`: the component's behavior, when it has any (state, effects, browser APIs, timers)
   - `X.style.ts`: every class the component uses
   - `X.stories.tsx`: every variant and state
   - `X.mdx`: the usage guide (template below)
-  - `X.test.tsx`: only when the component has behavior (keyboard, state, links)
+  - `X.test.tsx`: only when the component has behavior; test through the component, as a user would
 - Export it from `ui/index.ts`.
 - **Focus:** every interactive element shows the focus ring from the `focus-ring` component tokens.
 - **Semantics first:** native elements (`button`, `a`, `ol`, `figure`) before ARIA. Visible text or an accessible name on every control.
 - **Motion:** respect `motion-reduce:` (opacity only).
+
+## Component architecture
+
+Four concerns, four kinds of file. A component file never mixes them.
+
+- **`X.tsx` is presentation only.** It maps props and hook results to markup: JSX, destructuring, `.map` over ready-made arrays, simple conditionals on given values (`status === "copied"`, `index > 0`), and `cx()` / `cssVars()` for classes and CSS variables. Nothing else: no helper functions, arithmetic, template formatting, array manipulation (`filter`, `sort`, `join`…), module-level data, effects, timers, observers or `window` / `document` / `navigator`. ESLint enforces each of these.
+- **`useX.ts` is behavior and derived data.** State, effects, browser APIs, timers, and the view model the markup needs (`useTimelineAxis` → ticks, spans, dots, fill; `useCopyText` → status, message, copy). It never returns JSX. A generic behavior hook is named after what it does (`useCopyToClipboard`) and composed by the component's own hook.
+- **Pure logic** that needs no React (`axisView`, `slidePositions`, `contrastRatio`, `availableNavLinks`) goes in a plain `.ts` module with its own unit test; hooks call it.
+- **`X.data.ts`** holds static data a component renders (illustrative rows, positions, precomputed CSS variables). Site copy lives in `src/content`.
+
+Reference implementations: `ui/Timeline/` (`TimelineAxis.tsx` + `useTimelineAxis.ts` + `timelineScale.ts`), `ui/CopyText/` (`CopyText.tsx` + `useCopyText.ts` + `useCopyToClipboard.ts`) and `src/components/deck/` (`Deck.tsx` + `useDeck.ts` + `slideState.ts`).
 
 ## Styling architecture
 

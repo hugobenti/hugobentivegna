@@ -3,7 +3,7 @@ import { dotNav } from "./DotNav.style";
 export type DotNavItem = { id: string; label: string };
 
 export type DotNavProps = {
-  items: DotNavItem[];
+  items: readonly DotNavItem[];
   /** id of the slide currently in view. */
   activeId: string;
   /** Called with the id of the dot the visitor picked. Scrolling is the caller's job. */

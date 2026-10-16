@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
 import { cx } from "../cx";
 import { copyText } from "./CopyText.style";
+import { useCopyText } from "./useCopyText";
 
 export type CopyTextProps = {
   /** The text shown and copied, e.g. an email address. */
@@ -16,9 +16,7 @@ export type CopyTextProps = {
   className?: string;
 };
 
-type Status = "idle" | "copied" | "failed";
-
-/** Shows a piece of text that copies itself when clicked. */
+/** Shows a piece of text that copies itself when clicked. Behavior lives in useCopyText. */
 export function CopyText({
   text,
   hint = "Click to copy",
@@ -26,27 +24,11 @@ export function CopyText({
   failedHint = "Selected — press Ctrl+C (⌘C on Mac)",
   className,
 }: CopyTextProps) {
-  const [status, setStatus] = useState<Status>("idle");
-  const hintId = useId();
-  const textRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    if (status === "idle") return;
-    const timer = setTimeout(() => setStatus("idle"), status === "copied" ? 2000 : 6000);
-    return () => clearTimeout(timer);
-  }, [status]);
-
-  async function copy() {
-    try {
-      if (!navigator.clipboard) throw new Error("Clipboard API unavailable");
-      await navigator.clipboard.writeText(text);
-      setStatus("copied");
-    } catch {
-      // The text is already on screen: select it so one shortcut finishes the job.
-      if (textRef.current) window.getSelection()?.selectAllChildren(textRef.current);
-      setStatus("failed");
-    }
-  }
+  const { status, message, copy, textRef, hintId } = useCopyText(text, {
+    hint,
+    copiedHint,
+    failedHint,
+  });
 
   return (
     <span className={cx(copyText.base, className)}>
@@ -62,7 +44,7 @@ export function CopyText({
         </svg>
       </button>
       <span id={hintId} role="status" data-state={status} className={copyText.hint}>
-        {status === "copied" ? copiedHint : status === "failed" ? failedHint : hint}
+        {message}
       </span>
     </span>
   );
