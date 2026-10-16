@@ -1,0 +1,37 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./CopyText.stories";
+
+<Meta of={Stories} />
+
+# CopyText
+
+Shows a short piece of text, such as an email address, that copies itself when clicked.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- The visitor is likely to paste the text somewhere else: an email address, a command, a short link.
+- The text should be visible anyway; copying is a convenience on top.
+
+## Don't use when
+
+- The text is long or multi-line: show it in a selectable block.
+- Clicking should navigate (a `mailto:` or a URL): use a link or `Button`, and put `CopyText` beside it if copying helps too.
+
+## Accessibility
+
+- The text is a real `<button>`, so its accessible name is the text itself ("hugobenti@gmail.com, button") and it works with Enter and Space.
+- The hint ("Click to copy") is the button's description, read after the name; it is also a `role="status"` live region, so "Copied" or the failure message is announced without moving focus.
+- Hover isn't required: the hint also shows on keyboard focus, and the dotted underline plus copy icon signal the affordance on touch screens.
+- If copying fails (permission denied, insecure page, older browser), the text gets selected and the hint explains the shortcut. It never fails silently.
+
+## Do / Don't
+
+| Do                                       | Don't                                   |
+| ---------------------------------------- | --------------------------------------- |
+| Show the exact text that will be copied  | A generic "Copy" label hiding the value |
+| Keep a `mailto:` button next to an email | Make the email both copy and navigate   |
+
+<Canvas of={Stories.ClipboardBlocked} />

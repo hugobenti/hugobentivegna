@@ -6,6 +6,8 @@ export const story = {
   list: "flex flex-wrap gap-2",
   /** Keeps a sample card at a readable width. */
   narrow: "max-w-sm",
+  /** Space above a component whose hint pops up over it. */
+  hintRoom: "pt-12",
   eyebrow: "text-label text-subtle uppercase",
   title: "mt-2 font-display text-h3 font-bold",
   body: "mt-3 text-small text-muted",
