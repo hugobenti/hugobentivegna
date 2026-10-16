@@ -1,0 +1,58 @@
+{
+  "palette": {
+    "$type": "color",
+    "ink": {
+      "$description": "Midnight neutrals: near-black to near-white.",
+      "950": { "$value": "#0a0a0d" },
+      "900": { "$value": "#131318" },
+      "850": { "$value": "#1b1b22" },
+      "700": { "$value": "#2a2a33" },
+      "500": { "$value": "#8b8b96" },
+      "400": { "$value": "#a5a5b0" },
+      "50": { "$value": "#f4f4f6" }
+    },
+    "blue": {
+      "$description": "Midnight's electric-blue accent.",
+      "400": { "$value": "#5aa2ff" },
+      "glow": { "$value": "#408cff59" }
+    },
+    "solar": {
+      "$description": "Made-up warm brand used by the live-rebrand demo.",
+      "950": { "$value": "#140d08" },
+      "900": { "$value": "#1f150e" },
+      "850": { "$value": "#2a1d13" },
+      "700": { "$value": "#3d2b1d" },
+      "500": { "$value": "#a8927f" },
+      "400": { "$value": "#c4b09d" },
+      "50": { "$value": "#fbf3ec" },
+      "accent": { "$value": "#ff9f43" },
+      "focus": { "$value": "#ffb870" },
+      "glow": { "$value": "#ff9f4352" }
+    },
+    "forest": {
+      "$description": "Made-up green brand used by the live-rebrand demo.",
+      "950": { "$value": "#07110c" },
+      "900": { "$value": "#0d1a13" },
+      "850": { "$value": "#13241b" },
+      "700": { "$value": "#1f3a2c" },
+      "500": { "$value": "#86a596" },
+      "400": { "$value": "#a3bfb1" },
+      "50": { "$value": "#eef7f2" },
+      "accent": { "$value": "#3ddc97" },
+      "focus": { "$value": "#6be8b1" },
+      "glow": { "$value": "#3ddc974d" }
+    },
+    "pixel": {
+      "$description": "PixelCraft slide palette.",
+      "950": { "$value": "#0f0e17" },
+      "900": { "$value": "#1a1825" },
+      "850": { "$value": "#232136" },
+      "700": { "$value": "#3a3754" },
+      "500": { "$value": "#a7a9be" },
+      "400": { "$value": "#c3c4d4" },
+      "50": { "$value": "#fffffe" },
+      "accent": { "$value": "#ffd803" },
+      "glow": { "$value": "#ffd80340" }
+    }
+  }
+}

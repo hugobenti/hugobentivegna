@@ -1,0 +1,18 @@
+{
+  "duration": {
+    "$type": "duration",
+    "fast": { "$value": "150ms", "$description": "Hover and press feedback." },
+    "base": { "$value": "300ms", "$description": "Small state changes." },
+    "slow": { "$value": "600ms", "$description": "Content entering a slide." },
+    "slide": { "$value": "900ms", "$description": "Scripted slide sequences." }
+  },
+  "ease": {
+    "$type": "cubicBezier",
+    "out": { "$value": [0.2, 0.7, 0.2, 1], "$description": "Default for things arriving." },
+    "in-out": { "$value": [0.65, 0, 0.35, 1], "$description": "Things moving between two places." },
+    "emphasized": {
+      "$value": [0.3, 1.4, 0.4, 1],
+      "$description": "Slight overshoot for playful emphasis; use sparingly."
+    }
+  }
+}

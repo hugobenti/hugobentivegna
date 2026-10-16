@@ -1,1 +1,9 @@
 @import "tailwindcss";
+@import "../design-system/tokens/generated/tokens.css";
+@import "../design-system/tokens/generated/theme.css";
+
+@layer base {
+  body {
+    @apply bg-bg font-sans text-body text-fg antialiased;
+  }
+}

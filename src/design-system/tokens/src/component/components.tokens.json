@@ -1,0 +1,34 @@
+{
+  "button": {
+    "primary": {
+      "$type": "color",
+      "bg": { "$value": "{color.accent}", "$description": "Primary button fill." },
+      "fg": { "$value": "{color.on-accent}", "$description": "Primary button label." }
+    },
+    "secondary": {
+      "$type": "color",
+      "bg": { "$value": "{color.raised}", "$description": "Secondary button fill." },
+      "fg": { "$value": "{color.fg}", "$description": "Secondary button label." },
+      "border": { "$value": "{color.line}", "$description": "Secondary button outline." }
+    },
+    "radius": {
+      "$type": "dimension",
+      "$value": "{radius.pill}",
+      "$description": "Button corner radius."
+    }
+  },
+  "card": {
+    "bg": { "$type": "color", "$value": "{color.surface}", "$description": "Card fill." },
+    "border": { "$type": "color", "$value": "{color.line}", "$description": "Card outline." },
+    "radius": { "$type": "dimension", "$value": "{radius.lg}", "$description": "Card corners." }
+  },
+  "focus-ring": {
+    "color": { "$type": "color", "$value": "{color.focus}", "$description": "Focus ring color." },
+    "width": { "$type": "dimension", "$value": "2px", "$description": "Focus ring thickness." },
+    "offset": {
+      "$type": "dimension",
+      "$value": "3px",
+      "$description": "Gap between element and ring."
+    }
+  }
+}
