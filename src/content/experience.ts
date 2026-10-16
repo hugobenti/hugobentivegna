@@ -4,6 +4,7 @@ export const experience: ExperienceContent = {
   title: "Experience",
   entries: [
     {
+      id: "itau",
       company: "Itaú Unibanco",
       start: "2020-01",
       end: "2022-05",
@@ -16,6 +17,7 @@ export const experience: ExperienceContent = {
       stack: ["Angular", "RxJS", "TypeScript", "Java"],
     },
     {
+      id: "ouribank",
       company: "Ouribank",
       start: "2022-05",
       end: "2025-10",
@@ -29,6 +31,7 @@ export const experience: ExperienceContent = {
       stack: ["React", "Storybook", "Tailwind CSS", "Vite"],
     },
     {
+      id: "oneglobal",
       company: "1global",
       start: "2025-11",
       // Hugo left in 2026; month to confirm.

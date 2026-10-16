@@ -20,9 +20,16 @@ export interface SiteContent {
   nav: NavLink[];
 }
 
+/** Stable id per company, used to pair a chapter with its visual artifact. */
+export type ExperienceId = "itau" | "ouribank" | "oneglobal";
+
+export interface ExperienceEntry extends TimelineEntry {
+  id: ExperienceId;
+}
+
 export interface ExperienceContent {
   title: string;
-  entries: TimelineEntry[];
+  entries: ExperienceEntry[];
 }
 
 /** A slide's anchor id (also its URL hash) and its name in the dot navigation. */

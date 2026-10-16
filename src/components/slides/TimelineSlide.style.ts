@@ -7,5 +7,6 @@ export const timelineSlide = {
   inner: column,
   title: "font-display text-h2 font-bold text-fg",
   axis: "mt-6",
-  chapter: column,
+  /** Chapter on the left, its artifact on the right from md up. */
+  step: `${column} md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-center md:gap-12`,
 };

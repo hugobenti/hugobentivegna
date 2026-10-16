@@ -36,3 +36,26 @@ test("the chapter crossing the centre of the screen drives the axis", () => {
   centreLineObserver().report('[data-step="2"]', true);
   expect(spanStates(container)).toEqual(["past", "past", "current"]);
 });
+
+/** data-active of each step's artifact, oldest first. */
+function artifactStates(container: HTMLElement) {
+  return [...container.querySelectorAll("[data-step]")].map((step) =>
+    step.querySelector("[data-artifact]")?.getAttribute("data-active"),
+  );
+}
+
+test("every chapter has a decorative artifact that adds nothing to the accessibility tree", () => {
+  const { container } = render(<TimelineSlide />);
+  for (const step of container.querySelectorAll("[data-step]")) {
+    const artifact = step.querySelector("[data-artifact]");
+    expect(artifact).toHaveAttribute("aria-hidden", "true");
+    expect(artifact?.querySelector("a, button, input, select, textarea, [tabindex]")).toBeNull();
+  }
+});
+
+test("only the artifact of the chapter in focus plays", () => {
+  const { container } = render(<TimelineSlide />);
+  expect(artifactStates(container)).toEqual(["true", "false", "false"]);
+  centreLineObserver().report('[data-step="2"]', true);
+  expect(artifactStates(container)).toEqual(["false", "false", "true"]);
+});

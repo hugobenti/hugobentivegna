@@ -1,5 +1,5 @@
 import { cx } from "../cx";
-import { cssVars } from "./cssVars";
+import { cssVars } from "../cssVars";
 import { timelineAxis } from "./Timeline.style";
 import { timelineScale, type ScaleEntry } from "./timelineScale";
 
