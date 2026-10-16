@@ -1,0 +1,36 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Card.stories";
+
+<Meta of={Stories} />
+
+# Card
+
+A surface that groups related content, lifted from the page by the `card` component tokens.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- Grouping content that belongs together: a case study, a project, a metric.
+- Showing several comparable items side by side.
+
+## Don't use when
+
+- The content is the whole slide: use the slide itself as the surface.
+- You'd nest a card inside a card: flatten the layout instead.
+
+## Accessibility
+
+- Choose the element with `as`: `article` for standalone content, `li` inside a list, `div` otherwise.
+- `interactive` only adds visual feedback. The card itself is not clickable: put a real `Button` or link inside it so keyboard and screen-reader users can reach the action.
+- `focus-within` highlights the card border when its link or button has focus.
+
+## Do / Don't
+
+| Do                                   | Don't                        |
+| ------------------------------------ | ---------------------------- |
+| A heading inside every card          | Cards with no text hierarchy |
+| A real link or button for the action | `onClick` on the whole card  |
+
+<Canvas of={Stories.Interactive} />
