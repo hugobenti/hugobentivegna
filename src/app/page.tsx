@@ -1,8 +1,15 @@
+import { Deck } from "@/components/deck/Deck";
+import { HeroSlide } from "@/components/slides/HeroSlide";
+import { TimelineSlide } from "@/components/slides/TimelineSlide";
+import { slides } from "@/content/slides";
+
 export default function Home() {
   return (
     <main>
-      <h1>Hugo Bentivegna</h1>
-      <p>Senior Software Engineer · São Paulo</p>
+      <Deck slides={Object.values(slides)}>
+        <HeroSlide />
+        <TimelineSlide />
+      </Deck>
     </main>
   );
 }
