@@ -1,0 +1,47 @@
+{
+  "color": {
+    "$type": "color",
+    "bg": { "$value": "{palette.ink.950}", "$description": "Page background." },
+    "surface": { "$value": "{palette.ink.900}", "$description": "Cards and panels on the page." },
+    "raised": {
+      "$value": "{palette.ink.850}",
+      "$description": "Hover state and elements above a surface."
+    },
+    "fg": { "$value": "{palette.ink.50}", "$description": "Primary text." },
+    "muted": { "$value": "{palette.ink.400}", "$description": "Secondary text." },
+    "subtle": {
+      "$value": "{palette.ink.500}",
+      "$description": "Tertiary text: labels, kickers, captions."
+    },
+    "accent": {
+      "$value": "{palette.blue.400}",
+      "$description": "Brand accent: highlights, primary actions, active states."
+    },
+    "on-accent": { "$value": "{palette.ink.950}", "$description": "Text on an accent fill." },
+    "line": { "$value": "{palette.ink.700}", "$description": "Decorative borders and dividers." },
+    "focus": { "$value": "{palette.blue.400}", "$description": "Keyboard focus ring." },
+    "glow": {
+      "$value": "{palette.blue.glow}",
+      "$description": "Soft radial light behind hero content."
+    }
+  },
+  "font": {
+    "$type": "fontFamily",
+    "display": { "$value": "{font.family.sans}", "$description": "Headlines." },
+    "body": { "$value": "{font.family.sans}", "$description": "Running text and UI." },
+    "code": { "$value": "{font.family.mono}", "$description": "Code, diffs and technical labels." }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "glow": {
+      "$value": {
+        "color": "{color.glow}",
+        "offsetX": "0px",
+        "offsetY": "0px",
+        "blur": "64px",
+        "spread": "0px"
+      },
+      "$description": "Accent-tinted glow for highlighted elements."
+    }
+  }
+}

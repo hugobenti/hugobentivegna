@@ -1,0 +1,15 @@
+{
+  "shadow": {
+    "$type": "shadow",
+    "card": {
+      "$value": {
+        "color": "#00000066",
+        "offsetX": "0px",
+        "offsetY": "12px",
+        "blur": "32px",
+        "spread": "-12px"
+      },
+      "$description": "Lift for cards on dark surfaces."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "space": {
+    "$type": "dimension",
+    "unit": {
+      "$value": "4px",
+      "$description": "Base spacing unit; Tailwind's numeric spacing scale multiplies it (p-4 = 16px)."
+    },
+    "gutter": {
+      "$value": "clamp(1.25rem, 5vw, 4.5rem)",
+      "$description": "Horizontal page padding of a slide."
+    },
+    "section": {
+      "$value": "clamp(4rem, 10vh, 8rem)",
+      "$description": "Vertical padding of a slide when it flows (small screens)."
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "sm": { "$value": "6px" },
+    "md": { "$value": "10px" },
+    "lg": { "$value": "16px" },
+    "pill": { "$value": "999px" }
+  }
+}

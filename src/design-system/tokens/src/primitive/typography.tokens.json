@@ -1,0 +1,56 @@
+{
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "sans": {
+        "$value": ["var(--font-inter-tight)", "ui-sans-serif", "system-ui", "sans-serif"],
+        "$description": "Inter Tight, loaded by next/font."
+      },
+      "mono": {
+        "$value": ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
+        "$description": "JetBrains Mono, loaded by next/font."
+      },
+      "pixel": {
+        "$value": ["var(--font-silkscreen)", "ui-monospace", "monospace"],
+        "$description": "Silkscreen, used only by the pixel theme."
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": { "$value": 400 },
+      "medium": { "$value": 500 },
+      "bold": { "$value": 700 },
+      "extrabold": { "$value": 800 }
+    },
+    "size": {
+      "$type": "dimension",
+      "display": { "$value": "clamp(2.75rem, 1.6rem + 4.6vw, 5.75rem)" },
+      "h1": { "$value": "clamp(2.25rem, 1.5rem + 3vw, 4rem)" },
+      "h2": { "$value": "clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem)" },
+      "h3": { "$value": "clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem)" },
+      "body": { "$value": "1.0625rem" },
+      "small": { "$value": "0.875rem" },
+      "label": { "$value": "0.75rem" }
+    }
+  },
+  "line-height": {
+    "$type": "number",
+    "display": { "$value": 1 },
+    "h1": { "$value": 1.05 },
+    "h2": { "$value": 1.1 },
+    "h3": { "$value": 1.2 },
+    "body": { "$value": 1.6 },
+    "small": { "$value": 1.5 },
+    "label": { "$value": 1.4 }
+  },
+  "letter-spacing": {
+    "$type": "dimension",
+    "display": { "$value": "-0.045em" },
+    "h1": { "$value": "-0.035em" },
+    "h2": { "$value": "-0.03em" },
+    "h3": { "$value": "-0.02em" },
+    "body": { "$value": "0em" },
+    "small": { "$value": "0em" },
+    "label": { "$value": "0.16em" }
+  }
+}
