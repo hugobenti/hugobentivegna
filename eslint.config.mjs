@@ -23,6 +23,35 @@ export default defineConfig([
   ...nextVitals,
   ...nextTs,
   {
+    rules: {
+      // `const { a, ...rest } = props` is how components drop props they handle themselves.
+      "@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true }],
+    },
+  },
+  {
+    // Architecture rule (AGENTS.md): markup and styling live in separate files.
+    // .tsx files take classes only from X.style.ts; class strings here fail the build.
+    files: ["**/*.tsx"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        ...[
+          "JSXAttribute[name.name='className'] > Literal",
+          "JSXAttribute[name.name='className'] > JSXExpressionContainer > Literal",
+          "JSXAttribute[name.name='className'] > JSXExpressionContainer > TemplateLiteral",
+          "Property[key.name='className'] > Literal",
+          "Property[key.name='className'] > TemplateLiteral",
+          "JSXAttribute[name.name='className'] CallExpression > Literal",
+          "JSXAttribute[name.name='className'] LogicalExpression > Literal",
+          "JSXAttribute[name.name='className'] ConditionalExpression > Literal",
+        ].map((selector) => ({
+          selector,
+          message: "Class strings belong in the component's .style.ts file, not in .tsx.",
+        })),
+      ],
+    },
+  },
+  {
     files: ["src/design-system/**/*.{ts,tsx,mts,mjs}"],
     rules: {
       "no-restricted-imports": ["error", { patterns: [siteCodeImports] }],

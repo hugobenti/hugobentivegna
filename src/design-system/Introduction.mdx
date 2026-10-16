@@ -1,0 +1,41 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Hugo Bentivegna — Design System
+
+The UI kit behind [hugobentivegna.vercel.app](https://hugobentivegna.vercel.app). Every component on the site comes from here, and every color, font, size and motion value comes from a design token.
+
+## How it fits together
+
+```
+tokens (DTCG JSON) → Style Dictionary → CSS variables + Tailwind theme → UI kit → site
+```
+
+- **Primitive tokens** hold raw values (`palette.ink.950`, `radius.lg`).
+- **Semantic tokens** say what a value is for (`color.bg`, `color.accent`, `font.display`).
+- **Component tokens** say where it is used (`button.primary.bg`).
+
+Components only use semantic and component tokens through Tailwind utilities such as `bg-surface`, `text-muted` or `font-display`. Tailwind's default palette is removed, so a raw color can't sneak in.
+
+## Themes
+
+A theme remaps the semantic layer under `[data-theme="…"]`. Switch themes with the **paintbrush** in the toolbar:
+
+| Theme             | Used for                                |
+| ----------------- | --------------------------------------- |
+| `midnight`        | The whole site (default)                |
+| `solar`, `forest` | Made-up brands in the live-rebrand demo |
+| `pixel`           | The PixelCraft slide                    |
+
+Every theme passes WCAG 2.2 AA contrast; a test fails the build if one doesn't. The full token reference lives on the site's [/system](https://hugobentivegna.vercel.app/system) page.
+
+## Reading a component page
+
+Each component page starts with a **usage guide** written for people and AI agents alike:
+
+- **Use when** and **Don't use when**
+- **Accessibility**: what the component guarantees and what the caller must provide
+- **Do / Don't**: the mistakes worth avoiding
+
+Below it: a live canvas, the props table and every story. The **Accessibility** panel runs axe on each story.

@@ -1,0 +1,36 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Tag.stories";
+
+<Meta of={Stories} />
+
+# Tag
+
+A small, non-interactive label: a technology, a category, a status.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- Listing technologies on a case study or project.
+- Marking a category or status next to a title.
+
+## Don't use when
+
+- It should do something when clicked: use `Button`.
+- The information is essential to understand the content: put it in the text.
+
+## Accessibility
+
+- Renders a `<span>`; it is read as plain text.
+- Several tags in a row are a list: wrap them in `<ul aria-label="…">` with one `<li>` per tag (see **Group**).
+- Text uses `muted`, which meets 4.5:1 on `bg` and `surface` in every theme.
+
+## Do / Don't
+
+| Do                         | Don't               |
+| -------------------------- | ------------------- |
+| One or two words per tag   | Sentences in a tag  |
+| A labelled list for groups | A row of bare spans |
+
+<Canvas of={Stories.Group} />

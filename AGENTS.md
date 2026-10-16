@@ -23,25 +23,29 @@ Dependencies flow one way: **tokens → ui → site**.
 
 - **Boundary:** nothing under `src/design-system/` may import `src/app`, `src/components` or `src/content`; `tokens` may not import `ui`. ESLint enforces it and CI fails on a violation. Do not disable the rule; move the code instead.
 - **No third-party UI kit.** Build components in `src/design-system/ui`.
-- **Token-only styling.** Components use Tailwind utilities mapped to tokens (`bg-surface`, `text-muted`, `ring-focus`…). No raw hex values in components.
+- **Markup and styling live in separate files.** A `.tsx` file holds structure and behavior only; it never contains class strings. Every component's classes live in a plain object in `X.style.ts` next to it, and the component composes them with `cx()`. Stories use `story.style.ts`. ESLint fails the build on a class string in `className` inside `.tsx`. Full rule and example: `src/design-system/AGENTS.md` → "Styling architecture". This applies to site components (`src/components`) too.
+- **Token-only styling.** Style files use Tailwind utilities mapped to tokens (`bg-surface`, `text-muted`, `outline-focus`…). Tailwind's default palette and scales are removed, so raw colors can't be used.
 - **Accessibility is a requirement:** semantic HTML, visible focus (`focus-visible`), WCAG 2.2 AA contrast (tested per theme), and `prefers-reduced-motion` honored (opacity fades only).
 - **No scroll-jacking:** never `preventDefault` wheel, touch or keyboard scrolling.
 - **Copy:** all text lives in `src/content`. Never use "vibe coding", "10× with AI" or hype wording; no 1global UI Kit adoption metrics; never show a phone number.
 
 ## Commands
 
-| Command          | What it does                        |
-| ---------------- | ----------------------------------- |
-| `pnpm dev`       | Next.js dev server                  |
-| `pnpm build`     | production build                    |
-| `pnpm lint`      | ESLint (includes the boundary rule) |
-| `pnpm typecheck` | route types + `tsc --noEmit`        |
-| `pnpm test`      | Vitest + Testing Library            |
-| `pnpm format`    | Prettier                            |
+| Command                | What it does                                          |
+| ---------------------- | ----------------------------------------------------- |
+| `pnpm dev`             | Next.js dev server                                    |
+| `pnpm build`           | production build                                      |
+| `pnpm lint`            | ESLint (includes the boundary rule)                   |
+| `pnpm typecheck`       | route types + `tsc --noEmit`                          |
+| `pnpm test`            | Vitest + Testing Library                              |
+| `pnpm storybook`       | Storybook at http://localhost:6006                    |
+| `pnpm build-storybook` | static Storybook in `storybook-static/`               |
+| `pnpm tokens`          | regenerate design tokens (other scripts run it first) |
+| `pnpm format`          | Prettier                                              |
 
 ## Workflow
 
-Work in small stages (≤ ~20 files). Every stage is reviewed by Hugo before it is committed and pushed. Write the failing test first for anything with logic; run lint, typecheck, test and build before asking for review.
+Never commit to `main`. Each stage of work gets its own branch (`feat/<name>`), stays small (≤ ~20 files) and lands through a pull request that Hugo reviews and merges; CI must be green. Write the failing test first for anything with logic; run lint, typecheck, test and build (and `build-storybook` for design-system changes) before asking for review. Design-system rules: `src/design-system/AGENTS.md`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
