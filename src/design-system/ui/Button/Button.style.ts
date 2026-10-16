@@ -1,8 +1,10 @@
+import { focusRing } from "../focus.style";
+
 export const button = {
   base: [
     "inline-flex items-center justify-center gap-2 rounded-(--hb-button-radius) font-medium whitespace-nowrap",
     "transition-[background-color,border-color,filter] duration-(--hb-duration-fast) ease-out",
-    "focus-visible:outline-(length:--hb-focus-ring-width) focus-visible:outline-offset-(length:--hb-focus-ring-offset) focus-visible:outline-(color:--hb-focus-ring-color)",
+    focusRing,
     "disabled:pointer-events-none disabled:opacity-50",
   ].join(" "),
   /** Visual weight. One `primary` per view; `secondary` beside it; `ghost` for low emphasis. */

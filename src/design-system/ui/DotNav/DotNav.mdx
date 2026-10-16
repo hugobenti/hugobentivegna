@@ -1,0 +1,35 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./DotNav.stories";
+
+<Meta of={Stories} />
+
+# DotNav
+
+Slide position dots: one labelled button per slide, the current one highlighted.
+
+<Canvas of={Stories.Interactive} />
+<Controls />
+
+## Use when
+
+- The page is a sequence of full-screen slides and the visitor needs to see where they are and jump around.
+
+## Don't use when
+
+- The page scrolls normally: use regular in-page links.
+- There are more than about ten sections: dots stop being readable; use a labelled menu.
+
+## Accessibility
+
+- A `<nav>` landmark (default name "Slides") holding an ordered list of real `<button>`s.
+- Every dot's accessible name is its slide label; sighted mouse users get the same text as a tooltip.
+- The current slide has `aria-current="true"`, and its look comes from that attribute, so what is announced and what is shown can't disagree.
+- Each target is 24×24 px (WCAG 2.2 target size) even though the visible dot is smaller.
+- DotNav only reports the chosen id through `onSelect`. The caller scrolls, using `behavior: "auto"` when the visitor prefers reduced motion.
+
+## Do / Don't
+
+| Do                                       | Don't                                  |
+| ---------------------------------------- | -------------------------------------- |
+| Short slide labels ("Experience")        | Numbers as labels ("Slide 2")          |
+| Let native scrolling move between slides | Hijack wheel or keys to drive the dots |

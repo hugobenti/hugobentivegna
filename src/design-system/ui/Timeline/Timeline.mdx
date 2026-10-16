@@ -1,0 +1,35 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Timeline.stories";
+
+<Meta of={Stories} />
+
+# Timeline
+
+A career timeline: one entry per company, oldest first. Promotions inside a company are steps of one entry, so growth reads as one arc.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- Showing a sequence of roles or phases where order matters.
+- Each step fits in a period, a name, its roles and one line of summary.
+
+## Don't use when
+
+- Entries need bullets, links or long descriptions: use a list of `Card`s.
+- Order doesn't matter: use an unordered list.
+
+## Accessibility
+
+- The timeline is an ordered list (`<ol>`); each company's roles are a nested ordered list named "Roles at …", so the progression is announced, not just drawn.
+- The → arrows between roles are decorative and hidden from screen readers.
+- Pick `headingLevel` so company names fit the page outline (default `h3`).
+- Each entry carries `--i` (its index) so the site can stagger entrances; the component itself doesn't animate.
+
+## Do / Don't
+
+| Do                                         | Don't                    |
+| ------------------------------------------ | ------------------------ |
+| One entry per company; promotions as roles | One entry per promotion  |
+| One-line summaries                         | Paragraphs or tech lists |
