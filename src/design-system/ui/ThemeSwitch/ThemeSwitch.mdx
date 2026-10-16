@@ -1,0 +1,36 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./ThemeSwitch.stories";
+
+<Meta of={Stories} />
+
+# ThemeSwitch
+
+A segmented control for picking exactly one option, such as a theme or a brand.
+
+<Canvas of={Stories.Interactive} />
+<Controls />
+
+## Use when
+
+- The visitor chooses one of two to five short options and sees the result immediately (the live-rebrand slide).
+
+## Don't use when
+
+- The choice triggers an action rather than a state: use `Button`s.
+- There are many options or long labels: use a select.
+- Several options can be on at once: use checkboxes.
+
+## Accessibility
+
+- Built on native `<input type="radio">` inside a `<fieldset>`; the `label` prop becomes the `<legend>`, announced as the group name.
+- The browser provides the keyboard model: one tab stop on the checked option, arrow keys move and select.
+- The radios are visually hidden, not removed, so focus stays on them; the visible segment shows the focus ring through `has-focus-visible:` and the selection through `has-checked:`.
+- Every switch gets its own radio group name (`useId`), so two switches on one page never interfere.
+- Selected text uses `on-accent` on `accent`, which passes 4.5:1 in every theme.
+
+## Do / Don't
+
+| Do                          | Don't                            |
+| --------------------------- | -------------------------------- |
+| One or two words per option | Sentences as options             |
+| Apply the choice instantly  | Ask for a separate "Apply" click |
