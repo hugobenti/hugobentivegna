@@ -1,7 +1,8 @@
-import { cx } from "../cx";
 import { cssVars } from "../cssVars";
+import { cx } from "../cx";
 import { timelineAxis } from "./Timeline.style";
-import { timelineScale, type ScaleEntry } from "./timelineScale";
+import type { ScaleEntry } from "./timelineScale";
+import { useTimelineAxis } from "./useTimelineAxis";
 
 export type TimelineAxisProps = {
   /** Oldest first. */
@@ -14,45 +15,35 @@ export type TimelineAxisProps = {
   className?: string;
 };
 
-type State = "past" | "current" | "future";
-
 /** A time-scaled career axis: a tick per year, a span per company, a dot per role. Decorative. */
 export function TimelineAxis({ entries, activeIndex, className }: TimelineAxisProps) {
-  const scale = timelineScale(entries);
-  const stateOf = (index: number): State =>
-    activeIndex === undefined || index < activeIndex
-      ? "past"
-      : index === activeIndex
-        ? "current"
-        : "future";
-  const fill = activeIndex === undefined ? 100 : (scale.spans[activeIndex]?.to ?? 0);
-
+  const { ticks, spans, dots, fill } = useTimelineAxis(entries, activeIndex);
   return (
     <div className={cx(timelineAxis.base, className)} aria-hidden="true">
-      {scale.ticks.map((tick) => (
-        <span key={tick.year} className={timelineAxis.tick} style={cssVars({ at: `${tick.at}%` })}>
+      {ticks.map((tick) => (
+        <span key={tick.year} className={timelineAxis.tick} style={cssVars({ at: tick.at })}>
           {tick.year}
         </span>
       ))}
       <span className={timelineAxis.track} />
-      <span className={timelineAxis.fill} style={cssVars({ fill: `${fill}%` })} />
+      <span className={timelineAxis.fill} style={cssVars({ fill })} />
       <span className={timelineAxis.spans}>
-        {scale.spans.map((span, index) => (
+        {spans.map((span) => (
           <span
             key={span.company}
-            data-state={stateOf(index)}
+            data-state={span.state}
             className={timelineAxis.span}
-            style={cssVars({ from: `${span.from}%`, to: `${span.to}%` })}
+            style={cssVars({ from: span.from, to: span.to })}
           />
         ))}
       </span>
-      {scale.roles.map((role) => (
+      {dots.map((dot) => (
         <span
-          key={`${role.title}-${role.start}`}
-          data-state={stateOf(role.entry)}
+          key={dot.key}
+          data-state={dot.state}
           className={timelineAxis.dot}
-          style={cssVars({ at: `${role.at}%` })}
-          title={`${role.title} · ${role.start}`}
+          style={cssVars({ at: dot.at })}
+          title={dot.title}
         />
       ))}
     </div>

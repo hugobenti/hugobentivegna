@@ -1,25 +1,13 @@
 "use client";
 
-import type { ComponentType } from "react";
 import { experience } from "@/content/experience";
 import { slides } from "@/content/slides";
-import type { ExperienceId } from "@/content/types";
 import { TimelineAxis, TimelineChapter, cx } from "@/design-system/ui";
 import { deck } from "../deck/Deck.style";
 import { Slide } from "../deck/Slide";
 import { useActiveStep } from "../deck/useActiveStep";
-import type { ArtifactProps } from "./experience/ArtifactFrame";
-import { ItauArtifact } from "./experience/ItauArtifact";
-import { OneGlobalArtifact } from "./experience/OneGlobalArtifact";
-import { OuribankArtifact } from "./experience/OuribankArtifact";
+import { artifacts } from "./experience/artifacts";
 import { timelineSlide } from "./TimelineSlide.style";
-
-/** The visual that sits beside each company's chapter. */
-const artifacts: Record<ExperienceId, ComponentType<ArtifactProps>> = {
-  itau: ItauArtifact,
-  ouribank: OuribankArtifact,
-  oneglobal: OneGlobalArtifact,
-};
 
 /**
  * Experience: the axis stays pinned while each company is its own scroll step. The chapter

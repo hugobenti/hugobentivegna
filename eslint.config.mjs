@@ -40,6 +40,32 @@ const presentationRules = [
   "CallExpression[callee.name=/^(setTimeout|setInterval|requestAnimationFrame)$/]",
 ].map((selector) => ({ selector, message: BEHAVIOR_MESSAGE }));
 
+const LOGIC_MESSAGE =
+  "Components are presentation: derive values in a useX.ts hook or a .ts module, not in .tsx.";
+const logicRules = [
+  // Helper functions, at module level or inside a component.
+  "Program > FunctionDeclaration[id.name=/^[a-z]/]",
+  "Program > ExportNamedDeclaration > FunctionDeclaration[id.name=/^[a-z]/]",
+  "FunctionDeclaration FunctionDeclaration",
+  "VariableDeclarator > :matches(ArrowFunctionExpression, FunctionExpression)",
+  // Computation and formatting.
+  "BinaryExpression[operator=/^[-+*\\/%]$/]",
+  "ConditionalExpression > ConditionalExpression",
+  "TemplateLiteral[expressions.length>0]",
+  "NewExpression[callee.name=/^(Date|URL|Map|Set)$/]",
+  "CallExpression[callee.property.name=/^(filter|reduce|sort|find|findIndex|some|every|flatMap|slice|splice|join|split|replace|replaceAll|toFixed|toLocaleString)$/]",
+  // Plain function calls in markup; only the class/style helpers are allowed.
+  "JSXExpressionContainer > CallExpression[callee.type='Identifier']:not([callee.name=/^(cx|cssVars|stagger)$/])",
+].map((selector) => ({ selector, message: LOGIC_MESSAGE }));
+
+const DATA_MESSAGE =
+  "Data a component renders belongs in an X.data.ts module (or src/content), not in .tsx.";
+const dataRules = [
+  "Program > VariableDeclaration > VariableDeclarator > :matches(ArrayExpression, ObjectExpression, Literal, TemplateLiteral, CallExpression)",
+  "Program > ExportNamedDeclaration > VariableDeclaration > VariableDeclarator > :matches(ArrayExpression, ObjectExpression, Literal, TemplateLiteral, CallExpression)",
+  "MemberExpression > ArrayExpression.object",
+].map((selector) => ({ selector, message: DATA_MESSAGE }));
+
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -51,10 +77,17 @@ export default defineConfig([
   },
   {
     // Architecture rule (AGENTS.md "Component architecture"): a .tsx component is presentation.
-    // Classes come from X.style.ts; behavior (effects, browser APIs, observers) from a useX.ts hook.
+    // Classes come from X.style.ts, data from X.data.ts / src/content, derived values and behavior
+    // (effects, browser APIs, observers, formatting, computation) from a useX.ts hook.
     files: ["**/*.tsx"],
     rules: {
-      "no-restricted-syntax": ["error", ...classStringRules, ...presentationRules],
+      "no-restricted-syntax": [
+        "error",
+        ...classStringRules,
+        ...presentationRules,
+        ...logicRules,
+        ...dataRules,
+      ],
     },
   },
   {

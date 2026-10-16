@@ -1,3 +1,4 @@
+import { navLinks } from "@/content/navigation";
 import { site } from "@/content/site";
 import { slides } from "@/content/slides";
 import { cx } from "@/design-system/ui";
@@ -5,11 +6,6 @@ import { deck } from "../deck/Deck.style";
 import { Slide } from "../deck/Slide";
 import { stagger } from "../deck/stagger";
 import { hero } from "./HeroSlide.style";
-
-// Links only appear once their slide exists, so the nav never points at a missing section.
-const navLinks = site.nav.filter((link) =>
-  Object.values(slides).some((slide) => slide.id === link.slideId),
-);
 
 export function HeroSlide() {
   return (
@@ -24,7 +20,7 @@ export function HeroSlide() {
           <ul className={hero.navList}>
             {navLinks.map((link) => (
               <li key={link.slideId}>
-                <a href={`#${link.slideId}`} className={hero.navLink}>
+                <a href={link.href} className={hero.navLink}>
                   {link.label}
                 </a>
               </li>

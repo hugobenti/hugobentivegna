@@ -1,9 +1,8 @@
 "use client";
 
-import { useId } from "react";
 import { cx } from "../cx";
 import { copyText } from "./CopyText.style";
-import { useCopyToClipboard } from "./useCopyToClipboard";
+import { useCopyText } from "./useCopyText";
 
 export type CopyTextProps = {
   /** The text shown and copied, e.g. an email address. */
@@ -17,7 +16,7 @@ export type CopyTextProps = {
   className?: string;
 };
 
-/** Shows a piece of text that copies itself when clicked. Behavior lives in useCopyToClipboard. */
+/** Shows a piece of text that copies itself when clicked. Behavior lives in useCopyText. */
 export function CopyText({
   text,
   hint = "Click to copy",
@@ -25,8 +24,11 @@ export function CopyText({
   failedHint = "Selected — press Ctrl+C (⌘C on Mac)",
   className,
 }: CopyTextProps) {
-  const { status, copy, textRef } = useCopyToClipboard<HTMLSpanElement>(text);
-  const hintId = useId();
+  const { status, message, copy, textRef, hintId } = useCopyText(text, {
+    hint,
+    copiedHint,
+    failedHint,
+  });
 
   return (
     <span className={cx(copyText.base, className)}>
@@ -42,7 +44,7 @@ export function CopyText({
         </svg>
       </button>
       <span id={hintId} role="status" data-state={status} className={copyText.hint}>
-        {status === "copied" ? copiedHint : status === "failed" ? failedHint : hint}
+        {message}
       </span>
     </span>
   );

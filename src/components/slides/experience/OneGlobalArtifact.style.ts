@@ -12,7 +12,6 @@ export const oneGlobalArtifact = {
   terminal: "flex flex-col gap-1.5 rounded-md border border-line bg-bg p-3 font-mono text-label",
   line: `flex gap-2 text-muted ${artifact.appear} -translate-x-1 opacity-0 group-data-[active=true]:translate-x-0 group-data-[active=true]:opacity-100`,
   prompt: "text-subtle",
-  /** Emphasis inside a line: what the step produced. */
-  result: "text-fg",
-  ok: "text-accent",
+  /** What the step produced: plain result, or a passed check. */
+  tone: { result: "text-fg", ok: "text-accent" },
 };

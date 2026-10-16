@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { periodLabel, timelineScale, type ScaleEntry } from "./timelineScale";
+import { axisView, periodLabel, timelineScale, type ScaleEntry } from "./timelineScale";
 
 const entries: ScaleEntry[] = [
   {
@@ -49,4 +49,36 @@ test("every role dot knows which entry it belongs to", () => {
 test("period labels use years; a single-year entry shows one year", () => {
   expect(periodLabel({ start: "2020-01", end: "2022-05" })).toBe("2020–2022");
   expect(periodLabel({ start: "2025-11", end: "2025-12" })).toBe("2025");
+});
+
+test("the axis view marks entries before the active one as past and after it as future", () => {
+  const view = axisView(entries, 1);
+  expect(view.spans.map((span) => span.state)).toEqual(["past", "current"]);
+  expect(axisView(entries, 0).spans.map((span) => span.state)).toEqual(["current", "future"]);
+});
+
+test("role dots take the state of the entry they belong to", () => {
+  expect(axisView(entries, 0).dots.map((dot) => dot.state)).toEqual([
+    "current",
+    "current",
+    "future",
+  ]);
+});
+
+test("the line fills to the end of the active entry", () => {
+  expect(axisView(entries, 0).fill).toBe(`${(28 / 48) * 100}%`);
+  expect(axisView(entries, 1).fill).toBe("100%");
+});
+
+test("without an active entry the axis is static: everything past, fully filled", () => {
+  const view = axisView(entries);
+  expect(view.spans.map((span) => span.state)).toEqual(["past", "past"]);
+  expect(view.fill).toBe("100%");
+});
+
+test("positions come out as CSS percentages and dots carry a readable title", () => {
+  const view = axisView(entries);
+  expect(view.ticks.map((tick) => tick.at)).toEqual(["0%", "25%", "50%", "75%", "100%"]);
+  expect(view.spans[0]).toMatchObject({ from: "0%", to: `${(28 / 48) * 100}%` });
+  expect(view.dots[1]).toMatchObject({ title: "Engineer · 2021-02", at: `${(13 / 48) * 100}%` });
 });

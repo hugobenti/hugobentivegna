@@ -8,3 +8,6 @@ export const slides = {
   hero: { id: "hero", label: "Intro" },
   timeline: { id: "timeline", label: "Experience" },
 } as const satisfies Record<string, SlideMeta>;
+
+/** The slides as a list, in page order (for the deck and its dots). */
+export const slideList: readonly SlideMeta[] = Object.values(slides);

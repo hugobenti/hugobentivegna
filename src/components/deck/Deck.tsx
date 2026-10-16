@@ -18,7 +18,7 @@ export function Deck({ slides, children }: DeckProps) {
   return (
     <div ref={rootRef} className={deck.root}>
       {children}
-      <DotNav items={[...slides]} activeId={activeId} onSelect={goTo} className={deck.dots} />
+      <DotNav items={slides} activeId={activeId} onSelect={goTo} className={deck.dots} />
     </div>
   );
 }
