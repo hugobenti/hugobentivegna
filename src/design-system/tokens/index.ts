@@ -1,6 +1,6 @@
 import generated from "./generated/tokens.json";
 
-export type ThemeName = "midnight" | "solar" | "forest" | "pixel";
+export type ThemeName = "midnight" | "pixel";
 export type TokenLayer = "primitive" | "semantic" | "component";
 
 export interface TokenEntry {
@@ -20,7 +20,7 @@ export interface TokenEntry {
   description?: string;
 }
 
-export const themes: readonly ThemeName[] = ["midnight", "solar", "forest", "pixel"];
+export const themes: readonly ThemeName[] = ["midnight", "pixel"];
 
 export const tokens = generated as readonly TokenEntry[];
 
