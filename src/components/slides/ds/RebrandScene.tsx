@@ -36,7 +36,7 @@ export function RebrandScene({ view, layout }: RebrandSceneProps) {
         data-state={view.system.state}
         className={rebrandScene.system}
       >
-        <svg viewBox="0 0 40 40" className={rebrandScene.avatar}>
+        <svg viewBox="0 0 40 40" className={rebrandScene.systemAvatar}>
           <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
           <path
             d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"

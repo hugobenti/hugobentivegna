@@ -13,7 +13,7 @@ export const rebrandSlide = {
   kicker: "font-mono text-label text-subtle uppercase",
   title: "mt-4 font-display text-h2 font-extrabold text-balance text-fg",
   lead: "mt-4 max-w-2xl text-body text-muted",
-  closing: "max-w-2xl text-body text-fg",
+  closing: "mt-6 max-w-2xl text-body text-fg",
   summaries: "sr-only",
   /** One panel while playing; both acts' end states side by side under reduced motion. */
   frames: {
@@ -38,16 +38,20 @@ export const rebrandScene = {
   systemName: "font-mono text-small text-fg",
   systemStatus:
     "font-mono text-label text-subtle transition-colors group-data-[state=released]/system:text-accent",
-  /** Connectors from the system down to each product; they light up as the release lands. */
+  /**
+   * Connectors from the system down to each product; they light up as the release lands. Only
+   * drawn where the products sit in one row under the system.
+   */
   wires: {
-    wide: `-mt-5 grid h-5 grid-cols-3 gap-3 lg:grid-cols-6 ${actPart}`,
-    compact: `-mt-5 grid h-5 grid-cols-3 gap-3 ${actPart}`,
+    wide: `-mt-5 hidden h-5 grid-cols-6 gap-3 lg:grid ${actPart}`,
+    compact: "hidden",
   },
   wire: "mx-auto block h-full w-0.5 origin-top scale-y-0 bg-accent transition-[scale] duration-(--hb-duration-base) data-[lit=true]:scale-y-100",
 
+  /** Two per row on phones so names and amounts stay readable. */
   products: {
-    wide: "grid grid-cols-3 gap-3 lg:grid-cols-6",
-    compact: "grid grid-cols-3 gap-3",
+    wide: "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6",
+    compact: "grid grid-cols-2 gap-3 sm:grid-cols-3",
   },
   /**
    * A made-up product screen with its own mini theme: it re-declares the kit's button tokens
@@ -62,10 +66,10 @@ export const rebrandScene = {
     "flex items-center justify-between gap-2 bg-(color:--hb-button-primary-bg) px-3 py-2 text-(color:--hb-button-primary-fg) transition-colors duration-(--hb-duration-slow)",
   /** The brand's type changes with the rebrand too: heavier and wider. */
   productName:
-    "truncate text-label font-semibold tracking-normal transition-[font-weight,letter-spacing] duration-(--hb-duration-slow) group-data-[rebranded=true]/product:font-extrabold group-data-[rebranded=true]/product:tracking-wider",
-  productVersion: "font-mono text-label opacity-80",
+    "truncate text-label font-medium tracking-normal transition-[font-weight,letter-spacing] duration-(--hb-duration-slow) group-data-[rebranded=true]/product:font-extrabold group-data-[rebranded=true]/product:tracking-wider",
+  productVersion: "font-mono text-small opacity-80",
   productBody: "flex flex-col gap-2 p-3",
-  balanceLabel: "text-label text-subtle",
+  balanceLabel: "text-small text-subtle",
   balance: "truncate text-small font-bold text-fg tabular-nums",
   line: "block h-1.5 rounded-pill bg-raised",
   lineShort: "block h-1.5 w-3/5 rounded-pill bg-raised",
@@ -77,7 +81,11 @@ export const rebrandScene = {
     compact: `grid grid-cols-3 gap-3 ${actPart}`,
   },
   developer: "group/dev flex flex-col items-center gap-2",
-  avatar: "size-8 text-line group-data-[state=done]/dev:text-subtle md:size-10",
+  /** Dim while working (pulsing without reduced motion), bright once done. */
+  avatar:
+    "size-8 text-line group-data-[state=done]/dev:text-subtle group-data-[state=working]/dev:motion-safe:animate-pulse md:size-10",
+  systemAvatar:
+    "size-8 shrink-0 text-subtle group-data-[state=working]/system:motion-safe:animate-pulse md:size-10",
   avatarHead: "fill-current",
   avatarLaptop: "fill-raised stroke-subtle",
   track: `${track} w-14`,

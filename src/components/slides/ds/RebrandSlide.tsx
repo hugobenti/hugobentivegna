@@ -48,11 +48,8 @@ export function RebrandSlide() {
               <RebrandScene key={view.act} view={view} layout={still ? "compact" : "wide"} />
             ))}
           </div>
+          <p className={rebrandSlide.closing}>{rebrand.closing}</p>
         </div>
-
-        <p className={cx(deck.reveal, rebrandSlide.closing)} style={stagger(4)}>
-          {rebrand.closing}
-        </p>
       </div>
     </Slide>
   );
