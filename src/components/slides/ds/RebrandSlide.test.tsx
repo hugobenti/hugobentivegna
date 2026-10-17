@@ -67,7 +67,19 @@ test("each act plays only while its own step is on screen", () => {
   act(() => vi.advanceTimersByTime(ACT2_MS));
   expect(rebrandedIn(container, "with")).toBe(6);
   expect(container).toHaveTextContent(rebrand.system.released);
-  expect(rebrandedIn(container, "without")).toBe(0);
+  // Act 1 is still on screen above, so it keeps its end state.
+  expect(rebrandedIn(container, "without")).toBe(6);
+});
+
+test("an act only animates while it plays, never while it waits or holds", () => {
+  const { container } = render(<RebrandSlide />);
+  const playing = () => container.querySelectorAll('[data-playing="true"]').length;
+  expect(playing()).toBe(0);
+  reportStep(0, true);
+  act(() => vi.advanceTimersByTime(1000));
+  expect(playing()).toBe(1);
+  act(() => vi.advanceTimersByTime(ACT1_MS));
+  expect(playing()).toBe(0);
 });
 
 test("reduced motion shows each act at its end", () => {

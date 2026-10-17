@@ -8,7 +8,7 @@ import { problemSlide } from "./ProblemSlide.style";
 
 const { problem } = designSystemCase;
 
-/** Opens the design-system case with the problem: one source of truth in design, copies in code. */
+/** Chapter 01 of the design-system case: one source of truth in design, copies in code. */
 export function ProblemSlide() {
   return (
     <Slide slide={slides.dsProblem} className={problemSlide.slide}>

@@ -12,7 +12,7 @@ type RebrandSceneProps = {
 /** One act of the rebrand scene: decorative, the slide's copy and summaries tell the story. */
 export function RebrandScene({ view }: RebrandSceneProps) {
   return (
-    <div data-act={view.act} className={rebrandScene.panel}>
+    <div data-act={view.act} data-playing={view.playing} className={rebrandScene.panel}>
       <div className={rebrandScene.header}>
         <div>
           <p className={rebrandScene.actLabel}>{view.label}</p>

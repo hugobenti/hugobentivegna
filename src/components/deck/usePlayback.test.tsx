@@ -2,6 +2,7 @@ import { act, render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import {
+  FakeIntersectionObserver,
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
@@ -30,6 +31,16 @@ function stubReducedMotion(reduce: boolean) {
 const shown = () => screen.getByText(/elapsed=/).textContent;
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
 const report = (visible: boolean) => centreLineObserver().report("[data-probe]", visible);
+/** The element leaving (or entering) the screen altogether, not just the centre line. */
+function reportOnScreen(visible: boolean) {
+  const observer = FakeIntersectionObserver.instances.find(
+    (instance) =>
+      !instance.options.rootMargin?.startsWith("-50%") &&
+      instance.observed.some((element) => element.matches("[data-probe]")),
+  );
+  if (!observer) throw new Error("no on-screen IntersectionObserver for the probe");
+  observer.report("[data-probe]", visible);
+}
 
 beforeEach(() => {
   installFakeIntersectionObserver();
@@ -57,17 +68,43 @@ test("waits at 0 until the slide crosses the centre line, then plays to the end 
   expect(shown()).toContain(`elapsed=${DURATION} `);
 });
 
-test("leaving resets to 0 and coming back replays from the start", () => {
+test("leaving the screen resets to 0 and coming back replays from the start", () => {
   render(<Probe />);
   report(true);
   advance(1500);
   report(false);
+  reportOnScreen(false);
   expect(shown()).toContain("elapsed=0 ");
   advance(1000);
   expect(shown()).toContain("elapsed=0 ");
+  reportOnScreen(true);
   report(true);
   advance(300);
   expect(shown()).toContain("elapsed=300 ");
+});
+
+test("leaving only the centre line keeps the end state while it is still on screen", () => {
+  render(<Probe />);
+  report(true);
+  advance(DURATION + 1000);
+  report(false);
+  advance(1000);
+  expect(shown()).toContain(`elapsed=${DURATION} `);
+  report(true);
+  advance(300);
+  expect(shown()).toContain(`elapsed=${DURATION} `);
+});
+
+test("leaving the centre line mid-play pauses, and coming back resumes", () => {
+  render(<Probe />);
+  report(true);
+  advance(1500);
+  report(false);
+  advance(1000);
+  expect(shown()).toContain("elapsed=1500 ");
+  report(true);
+  advance(300);
+  expect(shown()).toContain("elapsed=1800 ");
 });
 
 test("already active on mount (deep link) plays", () => {

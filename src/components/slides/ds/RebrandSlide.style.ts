@@ -19,7 +19,8 @@ export const rebrandSlide = {
 };
 
 export const rebrandScene = {
-  panel: "flex flex-col gap-5 rounded-lg border border-line bg-surface p-5 md:p-6",
+  /** Pulses below only run while `data-playing` is true: an act never blinks while it waits. */
+  panel: "group/panel flex flex-col gap-5 rounded-lg border border-line bg-surface p-5 md:p-6",
   header: "flex flex-wrap items-end justify-between gap-4",
   actLabel: "font-mono text-label text-subtle uppercase",
   actTitle: "mt-1 font-display text-h3 font-bold text-fg",
@@ -58,7 +59,7 @@ export const rebrandScene = {
   /** The brand's type changes with the rebrand too: heavier and wider. */
   productName:
     "truncate text-label font-medium tracking-normal transition-[font-weight,letter-spacing] duration-(--hb-duration-slow) group-data-[rebranded=true]/product:font-extrabold group-data-[rebranded=true]/product:tracking-wider",
-  productVersion: "font-mono text-small opacity-80",
+  productVersion: "font-mono text-small",
   productBody: "flex flex-col gap-2 p-3",
   balanceLabel: "text-small text-subtle",
   balance: "truncate text-small font-bold text-fg tabular-nums",
@@ -70,9 +71,9 @@ export const rebrandScene = {
   developer: "group/dev flex items-center gap-3 border-t border-line px-3 py-2",
   /** Dim while working (pulsing without reduced motion), bright once done. */
   avatar:
-    "size-7 shrink-0 text-line group-data-[state=done]/dev:text-subtle group-data-[state=working]/dev:motion-safe:animate-pulse",
+    "size-7 shrink-0 text-line group-data-[state=done]/dev:text-subtle group-data-[playing=true]/panel:group-data-[state=working]/dev:motion-safe:animate-pulse",
   systemAvatar:
-    "size-8 shrink-0 text-subtle group-data-[state=working]/system:motion-safe:animate-pulse md:size-10",
+    "size-8 shrink-0 text-subtle group-data-[playing=true]/panel:group-data-[state=working]/system:motion-safe:animate-pulse md:size-10",
   avatarHead: "fill-current",
   avatarLaptop: "fill-raised stroke-subtle",
   track: `${track} flex-1`,

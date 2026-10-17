@@ -34,6 +34,8 @@ export interface SceneView {
   developers: string;
   /** "3/6": products rebranded out of all of them. */
   count: string;
+  /** True only between the first and last frame, so nothing animates while waiting or holding. */
+  playing: boolean;
   showDevelopers: boolean;
   system: {
     visible: boolean;
@@ -47,8 +49,8 @@ export interface SceneView {
 const fraction = (value: number, total: number) =>
   cssVars({ progress: Math.min(1, Math.max(0, value / total)) });
 
-/** The markup's view of one frame, `elapsed` ms into the scene. */
-function sceneView(frame: SceneFrame, elapsed: number): SceneView {
+/** The markup's view of one frame, `elapsed` ms into an act lasting `duration` ms. */
+function sceneView(frame: SceneFrame, elapsed: number, duration: number): SceneView {
   const inAct2 = frame.act === "with";
   return {
     act: frame.act,
@@ -56,6 +58,7 @@ function sceneView(frame: SceneFrame, elapsed: number): SceneView {
     title: rebrand.acts[frame.act].title,
     developers: rebrand.developers[frame.act],
     count: `${frame.rebranded}/${frame.products.length}`,
+    playing: elapsed > 0 && elapsed < duration,
     showDevelopers: !inAct2,
     system: {
       visible: inAct2,
@@ -79,7 +82,7 @@ function useAct(act: SceneAct) {
   const duration = act === "without" ? ACT1_MS : ACT2_MS;
   const { ref, elapsed } = usePlayback<HTMLDivElement>(duration);
   const frame = act === "without" ? act1Frame(elapsed) : act2Frame(elapsed);
-  return { ref, view: sceneView(frame, elapsed) };
+  return { ref, view: sceneView(frame, elapsed, duration) };
 }
 
 /**

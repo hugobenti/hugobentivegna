@@ -16,7 +16,7 @@ export function DecisionSlide() {
   const { ref, groups, parts, progress, caption } = useButtonBuild();
   return (
     <Slide slide={slides.dsDecision}>
-      <div ref={ref} data-playback="" className={decisionSlide.content}>
+      <div className={decisionSlide.content}>
         <div>
           <p className={cx(deck.reveal, decisionSlide.kicker)} style={stagger(0)}>
             {decision.kicker}
@@ -29,7 +29,12 @@ export function DecisionSlide() {
           </p>
         </div>
 
-        <div className={cx(deck.reveal, decisionSlide.demo)} style={stagger(3)}>
+        <div
+          ref={ref}
+          data-playback=""
+          className={cx(deck.reveal, decisionSlide.demo)}
+          style={stagger(3)}
+        >
           <ul aria-label={decision.tokensLabel} className={decisionSlide.groups}>
             {groups.map((group) => (
               <li key={group.label}>
