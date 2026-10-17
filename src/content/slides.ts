@@ -7,9 +7,10 @@ import type { SlideMeta } from "./types";
 export const slides = {
   hero: { id: "hero", label: "Intro" },
   timeline: { id: "timeline", label: "Experience" },
-  dsProblem: { id: "design-systems", label: "Design systems" },
+  dsCover: { id: "design-systems", label: "Design systems" },
+  dsProblem: { id: "problem", label: "The problem" },
   dsDecision: { id: "one-system", label: "One system" },
-  dsRebrand: { id: "rebrand", label: "Rebrand" },
+  dsRebrand: { id: "rebrand", label: "The rebrand" },
   contact: { id: "contact", label: "Contact" },
 } as const satisfies Record<string, SlideMeta>;
 

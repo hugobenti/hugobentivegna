@@ -8,7 +8,7 @@ const fill =
 
 export const rebrandSlide = {
   slide: "overflow-hidden",
-  glow: "pointer-events-none absolute -top-1/4 -right-1/4 size-[60vmax] rounded-pill bg-[radial-gradient(circle,var(--hb-color-glow),transparent_60%)] opacity-60 blur-3xl",
+  glow: "pointer-events-none absolute inset-0 bg-[radial-gradient(35%_30%_at_80%_30%,var(--hb-color-glow),transparent)] opacity-60",
   content: "relative mx-auto flex w-full max-w-6xl flex-col gap-8",
   kicker: "font-mono text-label text-subtle uppercase",
   title: "mt-4 font-display text-h2 font-extrabold text-balance text-fg",

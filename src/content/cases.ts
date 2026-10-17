@@ -2,13 +2,28 @@ import type { DesignSystemCase } from "./types";
 
 /** Design-system case: the real story, told without naming the company (spec 2026-10-17). */
 export const designSystemCase: DesignSystemCase = {
+  cover: {
+    kicker: "Case study · Design systems",
+    title: "The design system behind a digital bank's 5+ products.",
+    body: "How design and code became one system, and what happened when the brand changed.",
+    meta: [
+      { label: "When", value: "2022 – 2025" },
+      { label: "My role", value: "Built it, then scaled it as front-end architect" },
+      { label: "With", value: "The design team and product squads" },
+    ],
+    chapters: [
+      { number: "01", label: "The problem" },
+      { number: "02", label: "One system" },
+      { number: "03", label: "The rebrand" },
+    ],
+  },
   problem: {
-    kicker: "Case · Design systems",
+    kicker: "01 · The problem",
     title: "Figma had the screens. Code had copies.",
     body: "At a digital bank with 5+ products, the design team kept every screen in Figma. In code, each project rebuilt the same components, so every change had to be made once per product.",
   },
   decision: {
-    kicker: "One system, built together",
+    kicker: "02 · One system, built together",
     title:
       "A well-documented design system is the source of truth that connects design and development.",
     body: "As the components matured in code, the Figma library matured with them. Colors and type kept the same names on both sides, and I was the engineering voice in design discussions.",
@@ -24,7 +39,7 @@ export const designSystemCase: DesignSystemCase = {
     buttonLabel: "A real Button",
   },
   rebrand: {
-    kicker: "The test",
+    kicker: "03 · The rebrand",
     title: "Then the brand changed, across 5+ products.",
     lead: "A dark theme had already tested the names. The rebrand was the real one.",
     closing: "The squads updated a version and fixed a few details in their page CSS.",

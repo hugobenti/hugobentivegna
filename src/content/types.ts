@@ -86,6 +86,14 @@ export interface TraceOption {
 export type SceneAct = "without" | "with";
 
 export interface DesignSystemCase {
+  /** Cover: frames what follows as a case study, with when, my role and the chapters. */
+  cover: {
+    kicker: string;
+    title: string;
+    body: string;
+    meta: { label: string; value: string }[];
+    chapters: { number: string; label: string }[];
+  };
   /** Slide 1: the problem the system solved. */
   problem: {
     kicker: string;
