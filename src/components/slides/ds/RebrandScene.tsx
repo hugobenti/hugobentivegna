@@ -54,7 +54,12 @@ export function RebrandScene({ view, layout }: RebrandSceneProps) {
               <span className={rebrandScene.fill} style={view.system.progress} />
             </span>
           </span>
-          <span className={rebrandScene.systemStatus}>{view.system.status}</span>
+          <span className={rebrandScene.systemStatus}>
+            <span className={rebrandScene.statusText}>{view.system.status}</span>
+            <span className={rebrandScene.statusSizer} aria-hidden="true">
+              {rebrand.system.released}
+            </span>
+          </span>
         </div>
       ) : (
         <div className={rebrandScene.noSystem}>{rebrand.system.missing}</div>

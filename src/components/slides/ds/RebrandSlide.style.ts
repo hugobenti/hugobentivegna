@@ -45,8 +45,14 @@ export const rebrandScene = {
     "mx-auto flex h-16 w-full max-w-sm items-center justify-center rounded-md border border-dashed border-line px-4 font-mono text-label text-subtle md:h-17",
   systemText: "flex min-w-0 flex-1 flex-col gap-2",
   systemName: "font-mono text-small text-fg",
+  /**
+   * The status stacks the current label over an invisible copy of the longest one, so its width
+   * never changes and the progress track beside it keeps its length when "released" appears.
+   */
   systemStatus:
-    "font-mono text-label text-subtle transition-colors group-data-[state=released]/system:text-accent",
+    "grid shrink-0 justify-items-end font-mono text-label text-subtle transition-colors group-data-[state=released]/system:text-accent",
+  statusText: "[grid-area:1/1]",
+  statusSizer: "invisible [grid-area:1/1]",
   /**
    * Connectors from the system down to each product; they light up as the release lands. Only
    * drawn where the products sit in one row under the system.
