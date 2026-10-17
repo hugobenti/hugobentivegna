@@ -1,3 +1,4 @@
+import type { ThemeName, TokenLayer } from "@/design-system/tokens";
 import type { TimelineEntry } from "@/design-system/ui";
 
 export interface NavLink {
@@ -66,4 +67,66 @@ export interface NotFoundContent {
   title: string;
   body: string;
   back: LinkContent;
+}
+
+export interface TitledText {
+  title: string;
+  body: string;
+}
+
+/** A component token the visitor can trace, and the kit Button variant it styles. */
+export interface TraceOption {
+  /** Token name in tokens.json, e.g. "button.primary.bg". */
+  token: string;
+  label: string;
+  variant: "primary" | "secondary";
+}
+
+/** The themes the rebrand slide offers: the made-up rebrands plus the site's own. */
+export type RebrandTheme = Extract<ThemeName, "midnight" | "solar" | "forest">;
+
+/** A made-up product screen, built from kit components to show a rebrand. */
+export interface ProductMock {
+  brand: string;
+  status: string;
+  title: string;
+  body: string;
+  tags: string[];
+  primaryAction: string;
+  secondaryAction: string;
+  /** Tells screen-reader users what the (non-interactive) mock shows. */
+  caption: string;
+}
+
+export interface DesignSystemCase {
+  thesis: {
+    kicker: string;
+    statement: string;
+    /** What drives the thesis. */
+    pillars: TitledText[];
+    /** One line of career context; the timeline covers the rest. */
+    context: string;
+  };
+  trace: TitledText & {
+    kicker: string;
+    /** Name of the token picker, announced before its options. */
+    pickerLabel: string;
+    /** The first option is traced when the slide loads. */
+    options: [TraceOption, ...TraceOption[]];
+    /** How each layer is named on the slide. */
+    layers: Record<TokenLayer, string>;
+    /** Names the list of steps for screen readers. */
+    chainLabel: string;
+    /** Heading of the last step: the token in use. */
+    inUse: string;
+    buttonLabel: string;
+  };
+  rebrand: TitledText & {
+    kicker: string;
+    /** Says the themes are made up. */
+    note: string;
+    switchLabel: string;
+    options: { value: RebrandTheme; label: string }[];
+    product: ProductMock;
+  };
 }

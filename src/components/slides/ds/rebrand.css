@@ -1,0 +1,22 @@
+/*
+ * Live rebrand (RebrandSlide): when the theme changes inside a view transition, the new look
+ * spreads from the switch's side of the slide over the old one. useThemeTransition skips the
+ * transition entirely for visitors who prefer reduced motion.
+ */
+
+@keyframes hb-rebrand-reveal {
+  from {
+    clip-path: circle(0% at 0% 60%);
+  }
+  to {
+    clip-path: circle(150% at 0% 60%);
+  }
+}
+
+::view-transition-old(hb-rebrand) {
+  animation: none;
+}
+
+::view-transition-new(hb-rebrand) {
+  animation: hb-rebrand-reveal var(--hb-duration-slide) var(--hb-ease-out);
+}
