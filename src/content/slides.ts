@@ -8,7 +8,7 @@ export const slides = {
   hero: { id: "hero", label: "Intro" },
   timeline: { id: "timeline", label: "Experience" },
   dsProblem: { id: "design-systems", label: "Design systems" },
-  dsTokens: { id: "tokens", label: "Tokens" },
+  dsDecision: { id: "one-system", label: "One system" },
   dsRebrand: { id: "rebrand", label: "Rebrand" },
   contact: { id: "contact", label: "Contact" },
 } as const satisfies Record<string, SlideMeta>;

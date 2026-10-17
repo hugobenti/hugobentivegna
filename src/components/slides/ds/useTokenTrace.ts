@@ -1,10 +1,10 @@
-import { type CSSProperties, useState } from "react";
+import type { CSSProperties } from "react";
 import { designSystemCase } from "@/content/cases";
-import type { TraceOption } from "@/content/types";
 import { tokens } from "@/design-system/tokens";
-import { traceToken } from "./tokenTrace";
+import { usePlayback } from "../../deck/usePlayback";
+import { traceDuration, traceFrame, traceToken } from "./tokenTrace";
 
-const { options, layers } = designSystemCase.trace;
+const { options, layers } = designSystemCase.decision;
 
 export interface TraceStep {
   name: string;
@@ -14,33 +14,37 @@ export interface TraceStep {
   layer: string;
   /** Paints the swatch with the variable itself, so it shows what the page really uses. */
   swatch: CSSProperties;
+  /** Whether the trace has reached this step yet. */
+  shown: boolean;
 }
 
-/** Token trace view model: the picked token and its chain, read palette → component. */
+/**
+ * Token trace view model: plays through the case's tokens by itself, revealing each chain from
+ * palette to component and then the Button that uses it.
+ */
 export function useTokenTrace() {
-  const [selected, setSelected] = useState<TraceOption>(options[0]);
+  const { ref, elapsed } = usePlayback<HTMLDivElement>(traceDuration(options.length));
+  const frame = traceFrame(elapsed, options.length);
+  const option = options[frame.option] ?? options[0];
 
   // traceToken returns a fresh array, so reversing it in place is safe (and works in every
   // browser Next.js supports, unlike toReversed()).
-  const steps: TraceStep[] = traceToken(tokens, selected.token)
+  const steps: TraceStep[] = traceToken(tokens, option.token)
     .reverse()
-    .map((entry) => ({
+    .map((entry, index) => ({
       name: entry.name,
       cssVar: entry.cssVar,
       resolved: entry.resolved,
       layer: layers[entry.layer],
       swatch: { backgroundColor: `var(${entry.cssVar})` },
+      shown: index < frame.revealed,
     }));
 
   return {
-    picker: {
-      options: options.map((option) => ({ value: option.token, label: option.label })),
-      value: selected.token,
-      onChange: (token: string) =>
-        setSelected(options.find((option) => option.token === token) ?? selected),
-    },
+    ref,
+    option,
     steps,
-    /** The kit Button variant the token styles, for the live preview. */
-    variant: selected.variant,
+    /** The live Button appears after the last step, in the variant the token styles. */
+    button: { shown: frame.revealed > steps.length, variant: option.variant },
   };
 }

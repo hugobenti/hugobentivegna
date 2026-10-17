@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { tokens } from "@/design-system/tokens";
-import { traceToken } from "./tokenTrace";
+import { traceDuration, traceFrame, traceToken } from "./tokenTrace";
 
 const names = (chain: readonly { name: string }[]) => chain.map((entry) => entry.name);
 
@@ -32,5 +32,28 @@ describe("traceToken", () => {
 
   test("an unknown name returns an empty chain", () => {
     expect(traceToken(tokens, "button.tertiary.bg")).toEqual([]);
+  });
+});
+
+describe("traceFrame", () => {
+  test("starts on the first token with its palette step showing", () => {
+    expect(traceFrame(0, 3)).toEqual({ option: 0, revealed: 1 });
+  });
+
+  test("reveals the chain one step at a time, palette first", () => {
+    expect(traceFrame(700, 3)).toEqual({ option: 0, revealed: 3 });
+  });
+
+  test("moves to the next token and starts its chain over", () => {
+    expect(traceFrame(1600, 3)).toEqual({ option: 1, revealed: 1 });
+  });
+
+  test("ends on the last token with its whole chain and the Button", () => {
+    expect(traceFrame(traceDuration(3), 3)).toEqual({ option: 2, revealed: 4 });
+    expect(traceFrame(99_999, 3)).toEqual({ option: 2, revealed: 4 });
+  });
+
+  test("finishes within 5 s, so it needs no pause control (WCAG 2.2.2)", () => {
+    expect(traceDuration(3)).toBeLessThanOrEqual(5000);
   });
 });

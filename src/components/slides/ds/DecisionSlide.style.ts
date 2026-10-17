@@ -1,14 +1,20 @@
-export const tokenTraceSlide = {
-  /** Copy and picker on the left, the chain on the right from md up. */
+/** Fades an item in when the trace reaches it (data-shown="true"); it only moves without reduced motion. */
+const appear =
+  "opacity-0 transition-[opacity,translate] duration-(--hb-duration-base) ease-out data-[shown=true]:opacity-100 motion-safe:translate-y-2 motion-safe:data-[shown=true]:translate-y-0";
+
+export const decisionSlide = {
+  /** Copy on the left, the trace on the right from md up. */
   content:
     "mx-auto grid w-full max-w-6xl gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] md:items-center md:gap-16",
   kicker: "font-mono text-label text-subtle uppercase",
-  title: "mt-6 font-display text-h1 font-extrabold text-balance text-fg",
+  title: "mt-6 font-display text-h2 font-extrabold text-balance text-fg",
   body: "mt-6 max-w-xl text-body text-muted",
-  picker: "mt-8",
+  /** Names the token being traced right now. */
+  tracing: "mb-6 font-mono text-label text-subtle uppercase",
+  tracingToken: "ml-2 text-accent",
   chain: "flex flex-col gap-8",
   /** One layer of the chain. */
-  step: "group/step relative flex items-center gap-4 rounded-md border border-line bg-surface p-4",
+  step: `group/step relative flex items-center gap-4 rounded-md border border-line bg-surface p-4 ${appear}`,
   /** Decorative arrow in the gap below a step, pointing to the next layer; none after the last. */
   arrow: "absolute top-full left-9 mt-1 text-small text-subtle group-last/step:hidden",
   /** `subtle` outline (3:1 on the surface) so near-black values still read as a swatch. */
@@ -17,7 +23,6 @@ export const tokenTraceSlide = {
   layer: "font-mono text-label text-subtle uppercase",
   name: "font-mono text-small font-medium text-fg",
   meta: "flex flex-wrap gap-x-3 font-mono text-label text-muted",
-  inUse:
-    "mt-8 flex items-center justify-between gap-4 rounded-md border border-dashed border-line p-4",
+  inUse: `mt-8 flex items-center justify-between gap-4 rounded-md border border-dashed border-line p-4 ${appear}`,
   inUseLabel: "font-mono text-label text-subtle uppercase",
 };

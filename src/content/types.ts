@@ -74,7 +74,7 @@ export interface TitledText {
   body: string;
 }
 
-/** A component token the visitor can trace, and the kit Button variant it styles. */
+/** A component token the trace plays through, and the kit Button variant it styles. */
 export interface TraceOption {
   /** Token name in tokens.json, e.g. "button.primary.bg". */
   token: string;
@@ -105,11 +105,12 @@ export interface DesignSystemCase {
     title: string;
     body: string;
   };
-  trace: TitledText & {
+  /** Slide 2: the decision, shown by a token trace that plays by itself. */
+  decision: TitledText & {
     kicker: string;
-    /** Name of the token picker, announced before its options. */
-    pickerLabel: string;
-    /** The first option is traced when the slide loads. */
+    /** Labels the token being traced right now. */
+    tracing: string;
+    /** Traced in this order; the trace ends on the last one. */
     options: [TraceOption, ...TraceOption[]];
     /** How each layer is named on the slide. */
     layers: Record<TokenLayer, string>;

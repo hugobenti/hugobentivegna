@@ -7,15 +7,15 @@ export const designSystemCase: DesignSystemCase = {
     title: "Figma had the screens. Code had copies.",
     body: "At a digital bank with 5+ products, the design team kept every screen in Figma. In code, each project rebuilt the same components, so every change had to be made once per product.",
   },
-  trace: {
-    kicker: "Tokens you can follow",
-    title: "From palette to button, every color has a name.",
-    body: "Components never use raw colors. They point to a semantic role, and the role points to a palette value. Pick a token and follow it through the layers.",
-    pickerLabel: "Token to trace",
+  decision: {
+    kicker: "One system, built together",
+    title:
+      "A well-documented design system is the source of truth that connects design and development.",
+    body: "As the components matured in code, the Figma library matured with them. Colors and type kept the same names on both sides, and I was the engineering voice in design discussions.",
+    tracing: "Tracing",
     options: [
       { token: "button.primary.bg", label: "Primary fill", variant: "primary" },
       { token: "button.primary.fg", label: "Primary label", variant: "primary" },
-      { token: "button.secondary.bg", label: "Secondary fill", variant: "secondary" },
       { token: "button.secondary.border", label: "Secondary outline", variant: "secondary" },
     ],
     chainLabel: "Token chain, from palette to component",
