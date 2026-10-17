@@ -1,4 +1,3 @@
-import type { TokenLayer } from "@/design-system/tokens";
 import type { TimelineEntry } from "@/design-system/ui";
 
 export interface NavLink {
@@ -74,12 +73,13 @@ export interface TitledText {
   body: string;
 }
 
-/** A component token the trace plays through, and the kit Button variant it styles. */
-export interface TraceOption {
-  /** Token name in tokens.json, e.g. "button.primary.bg". */
-  token: string;
-  label: string;
-  variant: "primary" | "secondary";
+/** One step of building a button from tokens: which part it styles and the tokens it applies. */
+export interface BuildStep {
+  part: "shape" | "fill" | "label" | "type";
+  /** Leads the step's caption; the hook adds the tokens it applies. */
+  caption: string;
+  /** Token names in tokens.json, e.g. "button.primary.bg". */
+  tokens: string[];
 }
 
 /** The rebrand scene's two acts: the same rebrand without, then with, a design system. */
@@ -100,20 +100,18 @@ export interface DesignSystemCase {
     title: string;
     body: string;
   };
-  /** Slide 2: the decision, shown by a token trace that plays by itself. */
+  /** Slide 2: the decision, shown by tokens building a button. */
   decision: TitledText & {
     kicker: string;
-    /** Labels the token being traced right now. */
-    tracing: string;
-    /** Traced in this order; the trace ends on the last one. */
-    options: [TraceOption, ...TraceOption[]];
-    /** How each layer is named on the slide. */
-    layers: Record<TokenLayer, string>;
-    /** Names the list of steps for screen readers. */
-    chainLabel: string;
-    /** Heading of the last step: the token in use. */
-    inUse: string;
+    /** Names the token list for screen readers. */
+    tokensLabel: string;
+    /** The tokens on show, grouped; `display` replaces a value that reads badly (a font stack). */
+    groups: { label: string; tokens: { token: string; display?: string }[] }[];
+    /** Build order. */
+    steps: [BuildStep, ...BuildStep[]];
     buttonLabel: string;
+    /** Replaces the step caption once the button is built. */
+    done: string;
   };
   /** Slide 3: the test. The copy carries the outcome; the scene replays it. */
   rebrand: {

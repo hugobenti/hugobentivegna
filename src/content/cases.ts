@@ -27,16 +27,31 @@ export const designSystemCase: DesignSystemCase = {
     title:
       "A well-documented design system is the source of truth that connects design and development.",
     body: "As the components matured in code, the Figma library matured with them. Colors and type kept the same names on both sides, and I was the engineering voice in design discussions.",
-    tracing: "Tracing",
-    options: [
-      { token: "button.primary.bg", label: "Primary fill", variant: "primary" },
-      { token: "button.primary.fg", label: "Primary label", variant: "primary" },
-      { token: "button.secondary.border", label: "Secondary outline", variant: "secondary" },
+    tokensLabel: "Tokens the button is built from",
+    groups: [
+      { label: "Shape", tokens: [{ token: "button.radius" }] },
+      { label: "Color", tokens: [{ token: "button.primary.bg" }, { token: "button.primary.fg" }] },
+      {
+        label: "Typography",
+        tokens: [
+          { token: "font.body", display: "Inter Tight" },
+          { token: "font.size.small" },
+          { token: "font.weight.medium" },
+        ],
+      },
     ],
-    chainLabel: "Token chain, from palette to component",
-    layers: { primitive: "Primitive", semantic: "Semantic", component: "Component" },
-    inUse: "In use",
-    buttonLabel: "A real Button",
+    steps: [
+      { part: "shape", caption: "Shape", tokens: ["button.radius"] },
+      { part: "fill", caption: "Fill", tokens: ["button.primary.bg"] },
+      { part: "label", caption: "Label", tokens: ["button.primary.fg"] },
+      {
+        part: "type",
+        caption: "Type",
+        tokens: ["font.body", "font.size.small", "font.weight.medium"],
+      },
+    ],
+    buttonLabel: "Continue",
+    done: "Every value is a named token, shared with Figma.",
   },
   rebrand: {
     kicker: "03 · The rebrand",

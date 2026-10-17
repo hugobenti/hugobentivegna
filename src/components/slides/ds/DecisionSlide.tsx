@@ -2,18 +2,18 @@
 
 import { designSystemCase } from "@/content/cases";
 import { slides } from "@/content/slides";
-import { Button, cx } from "@/design-system/ui";
+import { cx } from "@/design-system/ui";
 import { deck } from "../../deck/Deck.style";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
 import { decisionSlide } from "./DecisionSlide.style";
-import { useTokenTrace } from "./useTokenTrace";
+import { useButtonBuild } from "./useButtonBuild";
 
 const { decision } = designSystemCase;
 
-/** The decision: one system shared by design and code, shown by a token trace that plays itself. */
+/** The decision: one system shared by design and code, shown by tokens building a button. */
 export function DecisionSlide() {
-  const { ref, option, steps, button } = useTokenTrace();
+  const { ref, groups, parts, progress, caption } = useButtonBuild();
   return (
     <Slide slide={slides.dsDecision}>
       <div ref={ref} data-playback="" className={decisionSlide.content}>
@@ -29,33 +29,40 @@ export function DecisionSlide() {
           </p>
         </div>
 
-        <div className={deck.reveal} style={stagger(3)}>
-          <p className={decisionSlide.tracing}>
-            {decision.tracing} <span className={decisionSlide.tracingToken}>{option.label}</span>
-          </p>
-          <ol key={option.token} aria-label={decision.chainLabel} className={decisionSlide.chain}>
-            {steps.map((step) => (
-              <li key={step.name} data-shown={step.shown} className={decisionSlide.step}>
-                <span className={decisionSlide.swatch} style={step.swatch} aria-hidden="true" />
-                <span className={decisionSlide.stepText}>
-                  <span className={decisionSlide.layer}>{step.layer}</span>
-                  <code className={decisionSlide.name}>{step.name}</code>
-                  <span className={decisionSlide.meta}>
-                    <code>{step.cssVar}</code>
-                    <span>{step.resolved}</span>
-                  </span>
-                </span>
-                <span className={decisionSlide.arrow} aria-hidden="true">
-                  ↓
-                </span>
+        <div className={cx(deck.reveal, decisionSlide.demo)} style={stagger(3)}>
+          <ul aria-label={decision.tokensLabel} className={decisionSlide.groups}>
+            {groups.map((group) => (
+              <li key={group.label}>
+                <p className={decisionSlide.groupLabel}>{group.label}</p>
+                <ul className={decisionSlide.tokens}>
+                  {group.tokens.map((token) => (
+                    <li key={token.name} data-state={token.state} className={decisionSlide.token}>
+                      {token.swatch ? (
+                        <span
+                          className={decisionSlide.swatch}
+                          style={token.swatch}
+                          aria-hidden="true"
+                        />
+                      ) : null}
+                      <code className={decisionSlide.tokenName}>{token.name}</code>
+                      <span className={decisionSlide.tokenValue}>{token.value}</span>
+                    </li>
+                  ))}
+                </ul>
               </li>
             ))}
-          </ol>
-          <div data-shown={button.shown} className={decisionSlide.inUse}>
-            <span className={decisionSlide.inUseLabel}>{decision.inUse}</span>
-            <Button variant={button.variant} tabIndex={-1}>
+          </ul>
+
+          <div className={decisionSlide.stage}>
+            <span data-preview="" {...parts} aria-hidden="true" className={decisionSlide.preview}>
               {decision.buttonLabel}
-            </Button>
+            </span>
+            <span className={decisionSlide.progress} aria-hidden="true">
+              {progress.map((step) => (
+                <span key={step.part} data-on={step.on} className={decisionSlide.progressStep} />
+              ))}
+            </span>
+            <p className={decisionSlide.caption}>{caption}</p>
           </div>
         </div>
       </div>

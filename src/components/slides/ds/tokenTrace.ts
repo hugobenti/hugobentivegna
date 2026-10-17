@@ -30,31 +30,3 @@ export function traceToken(
   const end = chain.at(-1);
   return end ? chain.map((entry) => ({ ...entry, resolved: end.resolved })) : chain;
 }
-
-/** Time between two steps of a chain appearing. */
-export const TRACE_STEP_MS = 350;
-/** Time each token is on screen before the trace moves to the next one. */
-export const TRACE_SEGMENT_MS = 1600;
-/** Items revealed per token: the three chain steps, then the Button using it. */
-const TRACE_ITEMS = 4;
-
-/** How long the trace plays through `optionCount` tokens. */
-export function traceDuration(optionCount: number): number {
-  return optionCount * TRACE_SEGMENT_MS;
-}
-
-/**
- * What the auto-playing trace shows `elapsed` ms in: which token (`option`) and how many of its
- * items are visible, palette first. Ends on the last token, fully revealed.
- */
-export function traceFrame(
-  elapsed: number,
-  optionCount: number,
-): { option: number; revealed: number } {
-  if (elapsed >= traceDuration(optionCount)) {
-    return { option: optionCount - 1, revealed: TRACE_ITEMS };
-  }
-  const option = Math.floor(elapsed / TRACE_SEGMENT_MS);
-  const local = elapsed - option * TRACE_SEGMENT_MS;
-  return { option, revealed: Math.min(TRACE_ITEMS, 1 + Math.floor(local / TRACE_STEP_MS)) };
-}
