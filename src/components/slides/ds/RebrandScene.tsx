@@ -17,7 +17,7 @@ export function RebrandScene({ view, layout }: RebrandSceneProps) {
     <div data-act={view.act} className={rebrandScene.act}>
       <div className={rebrandScene.header}>
         <div>
-          <p className={rebrandScene.actLabel}>{view.label}</p>
+          {layout === "compact" ? <p className={rebrandScene.actLabel}>{view.label}</p> : null}
           <p className={rebrandScene.actTitle}>{view.title}</p>
         </div>
         <div className={rebrandScene.counters}>
@@ -56,15 +56,15 @@ export function RebrandScene({ view, layout }: RebrandSceneProps) {
           </span>
           <span className={rebrandScene.systemStatus}>{view.system.status}</span>
         </div>
-      ) : null}
+      ) : (
+        <div className={rebrandScene.noSystem}>{rebrand.system.missing}</div>
+      )}
 
-      {view.system.visible ? (
-        <div className={rebrandScene.wires[layout]}>
-          {view.products.map((product) => (
-            <span key={product.name} data-lit={product.wired} className={rebrandScene.wire} />
-          ))}
-        </div>
-      ) : null}
+      <div data-visible={view.system.visible} className={rebrandScene.wires[layout]}>
+        {view.products.map((product) => (
+          <span key={product.name} data-lit={product.wired} className={rebrandScene.wire} />
+        ))}
+      </div>
 
       <ul className={rebrandScene.products[layout]}>
         {view.products.map((product) => (
@@ -86,28 +86,30 @@ export function RebrandScene({ view, layout }: RebrandSceneProps) {
                 {rebrand.product.action}
               </Button>
             </div>
-            {view.showDevelopers ? (
-              <div data-state={product.developer} className={rebrandScene.developer}>
-                <svg viewBox="0 0 40 40" className={rebrandScene.avatar}>
-                  <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
-                  <path
-                    d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"
-                    className={rebrandScene.avatarHead}
-                  />
-                  <rect
-                    x="11"
-                    y="29"
-                    width="18"
-                    height="8"
-                    rx="2"
-                    className={rebrandScene.avatarLaptop}
-                  />
-                </svg>
-                <span className={rebrandScene.track}>
-                  <span className={rebrandScene.fill} style={product.progress} />
-                </span>
-              </div>
-            ) : null}
+            <div
+              data-visible={view.showDevelopers}
+              data-state={product.developer}
+              className={rebrandScene.developer}
+            >
+              <svg viewBox="0 0 40 40" className={rebrandScene.avatar}>
+                <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
+                <path
+                  d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"
+                  className={rebrandScene.avatarHead}
+                />
+                <rect
+                  x="11"
+                  y="29"
+                  width="18"
+                  height="8"
+                  rx="2"
+                  className={rebrandScene.avatarLaptop}
+                />
+              </svg>
+              <span className={rebrandScene.track}>
+                <span className={rebrandScene.fill} style={product.progress} />
+              </span>
+            </div>
           </li>
         ))}
       </ul>

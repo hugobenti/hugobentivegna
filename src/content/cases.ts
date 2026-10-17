@@ -75,7 +75,11 @@ export const designSystemCase: DesignSystemCase = {
     developers: { without: "6 developers", with: "1 developer" },
     rebrandedLabel: "products rebranded",
     controls: { pause: "Pause", play: "Play", replay: "Replay" },
-    system: { name: "design-system", released: "v2.0 released" },
+    system: {
+      name: "design-system",
+      released: "v2.0 released",
+      missing: "No shared component library",
+    },
     versions: { before: "v1.8", after: "v2.0" },
     products: ["Accounts", "Payments", "Cards", "Invest", "Exchange", "Loans"],
     product: { balanceLabel: "Balance", balance: "$ 12,480.00", action: "Continue" },

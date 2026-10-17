@@ -128,7 +128,8 @@ export interface DesignSystemCase {
     rebrandedLabel: string;
     /** The scene's one control: it runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
     controls: { pause: string; play: string; replay: string };
-    system: { name: string; released: string };
+    /** `missing` fills the system's place in act 1, where there is no shared library yet. */
+    system: { name: string; released: string; missing: string };
     versions: { before: string; after: string };
     /** Made-up product names, one per developer in act 1. */
     products: readonly string[];

@@ -72,11 +72,8 @@ export function RebrandSlide() {
               ))}
             </div>
           </div>
+          <p className={rebrandSlide.closing}>{rebrand.closing}</p>
         </div>
-
-        <p className={cx(deck.reveal, rebrandSlide.closing)} style={stagger(4)}>
-          {rebrand.closing}
-        </p>
       </div>
     </Slide>
   );
