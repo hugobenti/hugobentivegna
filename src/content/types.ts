@@ -1,4 +1,4 @@
-import type { ThemeName, TokenLayer } from "@/design-system/tokens";
+import type { TokenLayer } from "@/design-system/tokens";
 import type { TimelineEntry } from "@/design-system/ui";
 
 export interface NavLink {
@@ -81,24 +81,9 @@ export interface TraceOption {
   label: string;
   variant: "primary" | "secondary";
 }
+
 /** The rebrand scene's two acts: the same rebrand without, then with, a design system. */
 export type SceneAct = "without" | "with";
-
-/** The themes the rebrand slide offers: the made-up rebrands plus the site's own. */
-export type RebrandTheme = Extract<ThemeName, "midnight" | "solar" | "forest">;
-
-/** A made-up product screen, built from kit components to show a rebrand. */
-export interface ProductMock {
-  brand: string;
-  status: string;
-  title: string;
-  body: string;
-  tags: string[];
-  primaryAction: string;
-  secondaryAction: string;
-  /** Tells screen-reader users what the (non-interactive) mock shows. */
-  caption: string;
-}
 
 export interface DesignSystemCase {
   /** Slide 1: the problem the system solved. */
@@ -122,12 +107,24 @@ export interface DesignSystemCase {
     inUse: string;
     buttonLabel: string;
   };
-  rebrand: TitledText & {
+  /** Slide 3: the test. The copy carries the outcome; the scene replays it. */
+  rebrand: {
     kicker: string;
-    /** Says the themes are made up. */
-    note: string;
-    switchLabel: string;
-    options: { value: RebrandTheme; label: string }[];
-    product: ProductMock;
+    title: string;
+    lead: string;
+    /** Shown under the scene from the start, so the payoff never depends on watching. */
+    closing: string;
+    /** Per act: its label, its line in the scene, and a text summary for screen readers. */
+    acts: Record<SceneAct, { label: string; title: string; summary: string }>;
+    /** Counter naming who does the work in each act, e.g. "6 developers". */
+    developers: Record<SceneAct, string>;
+    /** Follows the "3/6" count of rebranded products. */
+    rebrandedLabel: string;
+    system: { name: string; released: string };
+    versions: { before: string; after: string };
+    /** Made-up product names, one per developer in act 1. */
+    products: readonly string[];
+    /** What every mock product screen shows. */
+    product: { balanceLabel: string; balance: string; action: string };
   };
 }

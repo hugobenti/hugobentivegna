@@ -24,26 +24,29 @@ export const designSystemCase: DesignSystemCase = {
     buttonLabel: "A real Button",
   },
   rebrand: {
-    kicker: "Live rebrand",
-    title: "Rebrand the slide without touching a component.",
-    body: "The switch changes one attribute. The semantic layer takes new values and every component here follows. It mirrors how a company-wide rebrand ships through a design system.",
-    note: "Solar and Forest are made-up brands for this demo.",
-    switchLabel: "Theme for this slide",
-    options: [
-      { value: "midnight", label: "Midnight" },
-      { value: "solar", label: "Solar" },
-      { value: "forest", label: "Forest" },
-    ],
-    product: {
-      brand: "Northwind",
-      status: "Ready",
-      title: "Your release is ready to publish",
-      body: "Review the changes, then ship them to every team at once.",
-      tags: ["Tokens", "Components", "Docs"],
-      primaryAction: "Publish",
-      secondaryAction: "Preview",
-      caption:
-        "A made-up product screen built from the kit's Card, Tag and Button, shown in the selected theme.",
+    kicker: "The test",
+    title: "Then the brand changed, across 5+ products.",
+    lead: "A dark theme had already tested the names. The rebrand was the real one.",
+    closing: "The squads updated a version and fixed a few details in their page CSS.",
+    acts: {
+      without: {
+        label: "Without a design system",
+        title: "The same rebrand, done six times.",
+        summary:
+          "Without a design system, a developer on each product makes the same rebrand by hand.",
+      },
+      with: {
+        label: "With the design system",
+        title: "Done once. Every product follows.",
+        summary:
+          "With the design system, one developer changes it once, releases a new version, and every product updates.",
+      },
     },
+    developers: { without: "6 developers", with: "1 developer" },
+    rebrandedLabel: "products rebranded",
+    system: { name: "design-system", released: "v2.0 released" },
+    versions: { before: "v1.8", after: "v2.0" },
+    products: ["Accounts", "Payments", "Cards", "Invest", "Exchange", "Loans"],
+    product: { balanceLabel: "Balance", balance: "$ 12,480.00", action: "Continue" },
   },
 };

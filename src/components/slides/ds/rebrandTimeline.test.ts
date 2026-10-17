@@ -7,7 +7,7 @@ import {
   WAVE_START_MS,
   WAVE_STEP_MS,
   sceneFrame,
-} from "./rebrandScene";
+} from "./rebrandTimeline";
 
 const rebrandedIndexes = (elapsed: number) =>
   sceneFrame(elapsed)

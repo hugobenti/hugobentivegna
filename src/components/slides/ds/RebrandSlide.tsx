@@ -1,27 +1,25 @@
 "use client";
 
 import { designSystemCase } from "@/content/cases";
-import type { RebrandTheme } from "@/content/types";
 import { slides } from "@/content/slides";
-import { Button, Card, Tag, ThemeSwitch, cx } from "@/design-system/ui";
+import { cx } from "@/design-system/ui";
 import { deck } from "../../deck/Deck.style";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
-import "./rebrand.css";
+import { RebrandScene } from "./RebrandScene";
 import { rebrandSlide } from "./RebrandSlide.style";
-import { useThemeTransition } from "./useThemeTransition";
+import { useRebrandScene } from "./useRebrandScene";
 
 const { rebrand } = designSystemCase;
-const { product } = rebrand;
 
 /**
- * Live rebrand: the switch sets this slide's data-theme, so the semantic tokens take the new
- * theme's values and every kit component here follows, with no component changes.
+ * The test: the rebrand. The copy carries the outcome from the start; the scene replays it,
+ * first without a design system, then with one.
  */
 export function RebrandSlide() {
-  const { theme, selected, select } = useThemeTransition<RebrandTheme>("midnight");
+  const { ref, still, frames } = useRebrandScene();
   return (
-    <Slide slide={slides.dsRebrand} theme={theme} className={rebrandSlide.slide}>
+    <Slide slide={slides.dsRebrand} className={rebrandSlide.slide}>
       <div className={rebrandSlide.glow} aria-hidden="true" />
       <div className={rebrandSlide.content}>
         <div>
@@ -31,47 +29,30 @@ export function RebrandSlide() {
           <h2 className={cx(deck.reveal, rebrandSlide.title)} style={stagger(1)}>
             {rebrand.title}
           </h2>
-          <p className={cx(deck.reveal, rebrandSlide.body)} style={stagger(2)}>
-            {rebrand.body}
-          </p>
-          <div className={cx(deck.reveal, rebrandSlide.switch)} style={stagger(3)}>
-            <ThemeSwitch
-              label={rebrand.switchLabel}
-              options={rebrand.options}
-              value={selected}
-              onChange={select}
-            />
-          </div>
-          <p className={cx(deck.reveal, rebrandSlide.note)} style={stagger(4)}>
-            {rebrand.note}
+          <p className={cx(deck.reveal, rebrandSlide.lead)} style={stagger(2)}>
+            {rebrand.lead}
           </p>
         </div>
 
-        <figure className={cx(deck.reveal, rebrandSlide.figure)} style={stagger(3)}>
-          <div inert>
-            <Card className={rebrandSlide.mock}>
-              <div className={rebrandSlide.mockHeader}>
-                <span className={rebrandSlide.brand}>{product.brand}</span>
-                <Tag>{product.status}</Tag>
-              </div>
-              <p className={rebrandSlide.mockTitle}>{product.title}</p>
-              <p className={rebrandSlide.mockBody}>{product.body}</p>
-              <div className={rebrandSlide.track}>
-                <div className={rebrandSlide.fill} />
-              </div>
-              <div className={rebrandSlide.tags}>
-                {product.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </div>
-              <div className={rebrandSlide.actions}>
-                <Button>{product.primaryAction}</Button>
-                <Button variant="secondary">{product.secondaryAction}</Button>
-              </div>
-            </Card>
+        <div ref={ref} data-playback="" className={deck.reveal} style={stagger(3)}>
+          <ul className={rebrandSlide.summaries}>
+            <li>{rebrand.acts.without.summary}</li>
+            <li>{rebrand.acts.with.summary}</li>
+          </ul>
+          <div
+            inert
+            aria-hidden="true"
+            className={still ? rebrandSlide.frames.still : rebrandSlide.frames.playing}
+          >
+            {frames.map((view) => (
+              <RebrandScene key={view.act} view={view} layout={still ? "compact" : "wide"} />
+            ))}
           </div>
-          <figcaption className={rebrandSlide.caption}>{product.caption}</figcaption>
-        </figure>
+        </div>
+
+        <p className={cx(deck.reveal, rebrandSlide.closing)} style={stagger(4)}>
+          {rebrand.closing}
+        </p>
       </div>
     </Slide>
   );

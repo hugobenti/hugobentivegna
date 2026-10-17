@@ -40,7 +40,4 @@ export function sceneFrame(elapsed: number): SceneFrame {
 }
 
 /** The end of each act, shown side by side when the visitor prefers reduced motion. */
-export const STILL_FRAMES: readonly SceneFrame[] = [
-  sceneFrame(ACT2_START_MS - 1),
-  sceneFrame(SCENE_MS),
-];
+export const STILL_ELAPSED: readonly number[] = [ACT2_START_MS - 1, SCENE_MS];

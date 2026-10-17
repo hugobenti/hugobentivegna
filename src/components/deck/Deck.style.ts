@@ -12,9 +12,6 @@ export const deck = {
   reveal: "reveal",
   /** Time-based entrance on first load. */
   enter: "enter",
-  /**
-   * Dot navigation: vertically centred on the right, hidden where slides don't snap. Its own
-   * view-transition name keeps it above a slide that animates (the live rebrand).
-   */
-  dots: "fixed top-1/2 right-3 z-10 hidden -translate-y-1/2 md:block [@media(max-height:559px)]:hidden [view-transition-name:hb-dots]",
+  /** Dot navigation: vertically centred on the right, hidden where slides don't snap. */
+  dots: "fixed top-1/2 right-3 z-10 hidden -translate-y-1/2 md:block [@media(max-height:559px)]:hidden",
 };
