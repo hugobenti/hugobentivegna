@@ -4,13 +4,13 @@ import type { SceneAct } from "@/content/types";
 import { cssVars } from "@/design-system/ui";
 import { usePlayback } from "../../deck/usePlayback";
 import {
-  ACT2_START_MS,
+  ACT1_MS,
+  ACT2_MS,
   DEV_FINISH_MS,
-  SCENE_MS,
-  STILL_ELAPSED,
   SYSTEM_RELEASE_MS,
   type SceneFrame,
-  sceneFrame,
+  act1Frame,
+  act2Frame,
 } from "./rebrandTimeline";
 
 const { rebrand } = designSystemCase;
@@ -61,7 +61,7 @@ function sceneView(frame: SceneFrame, elapsed: number): SceneView {
       visible: inAct2,
       state: frame.system,
       status: frame.system === "released" ? rebrand.system.released : rebrand.versions.before,
-      progress: fraction(elapsed - ACT2_START_MS, SYSTEM_RELEASE_MS - ACT2_START_MS),
+      progress: fraction(elapsed, SYSTEM_RELEASE_MS),
     },
     products: frame.products.map((product, index) => ({
       name: rebrand.products[index] ?? "",
@@ -74,13 +74,24 @@ function sceneView(frame: SceneFrame, elapsed: number): SceneView {
   };
 }
 
+/** One act's playback: it runs while that act's own scroll step crosses the centre line. */
+function useAct(act: SceneAct) {
+  const duration = act === "without" ? ACT1_MS : ACT2_MS;
+  const { ref, elapsed } = usePlayback<HTMLDivElement>(duration);
+  const frame = act === "without" ? act1Frame(elapsed) : act2Frame(elapsed);
+  return { ref, view: sceneView(frame, elapsed) };
+}
+
 /**
- * Rebrand scene view model: plays act 1 then act 2 while the slide is active. Visitors who
- * prefer reduced motion get both acts at their end, side by side.
+ * Rebrand scene view model: one entry per act, each played by its own scroll step. Visitors who
+ * prefer reduced motion get each act at its end.
  */
 export function useRebrandScene() {
-  const { ref, elapsed, still } = usePlayback<HTMLDivElement>(SCENE_MS);
-  const moments = still ? STILL_ELAPSED : [elapsed];
-  const frames = moments.map((moment) => sceneView(sceneFrame(moment), moment));
-  return { ref, still, frames };
+  const without = useAct("without");
+  const withSystem = useAct("with");
+  return {
+    withoutRef: without.ref,
+    withRef: withSystem.ref,
+    views: { without: without.view, with: withSystem.view },
+  };
 }

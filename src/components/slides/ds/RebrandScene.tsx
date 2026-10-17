@@ -7,12 +7,10 @@ const { rebrand } = designSystemCase;
 
 type RebrandSceneProps = {
   view: SceneView;
-  /** `compact` keeps three products per row, for the side-by-side still frames. */
-  layout: "wide" | "compact";
 };
 
-/** One frame of the rebrand scene: decorative, the slide's copy and summaries tell the story. */
-export function RebrandScene({ view, layout }: RebrandSceneProps) {
+/** One act of the rebrand scene: decorative, the slide's copy and summaries tell the story. */
+export function RebrandScene({ view }: RebrandSceneProps) {
   return (
     <div data-act={view.act} className={rebrandScene.panel}>
       <div className={rebrandScene.header}>
@@ -31,35 +29,42 @@ export function RebrandScene({ view, layout }: RebrandSceneProps) {
         </div>
       </div>
 
-      <div
-        data-visible={view.system.visible}
-        data-state={view.system.state}
-        className={rebrandScene.system}
-      >
-        <svg viewBox="0 0 40 40" className={rebrandScene.systemAvatar}>
-          <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
-          <path
-            d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"
-            className={rebrandScene.avatarHead}
-          />
-          <rect x="11" y="29" width="18" height="8" rx="2" className={rebrandScene.avatarLaptop} />
-        </svg>
-        <span className={rebrandScene.systemText}>
-          <span className={rebrandScene.systemName}>{rebrand.system.name}</span>
-          <span className={rebrandScene.systemTrack}>
-            <span className={rebrandScene.fill} style={view.system.progress} />
+      {view.system.visible ? (
+        <div data-state={view.system.state} className={rebrandScene.system}>
+          <svg viewBox="0 0 40 40" className={rebrandScene.systemAvatar}>
+            <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
+            <path
+              d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"
+              className={rebrandScene.avatarHead}
+            />
+            <rect
+              x="11"
+              y="29"
+              width="18"
+              height="8"
+              rx="2"
+              className={rebrandScene.avatarLaptop}
+            />
+          </svg>
+          <span className={rebrandScene.systemText}>
+            <span className={rebrandScene.systemName}>{rebrand.system.name}</span>
+            <span className={rebrandScene.systemTrack}>
+              <span className={rebrandScene.fill} style={view.system.progress} />
+            </span>
           </span>
-        </span>
-        <span className={rebrandScene.systemStatus}>{view.system.status}</span>
-      </div>
+          <span className={rebrandScene.systemStatus}>{view.system.status}</span>
+        </div>
+      ) : null}
 
-      <div data-visible={view.system.visible} className={rebrandScene.wires[layout]}>
-        {view.products.map((product) => (
-          <span key={product.name} data-lit={product.wired} className={rebrandScene.wire} />
-        ))}
-      </div>
+      {view.system.visible ? (
+        <div className={rebrandScene.wires}>
+          {view.products.map((product) => (
+            <span key={product.name} data-lit={product.wired} className={rebrandScene.wire} />
+          ))}
+        </div>
+      ) : null}
 
-      <ul className={rebrandScene.products[layout]}>
+      <ul className={rebrandScene.products}>
         {view.products.map((product) => (
           <li
             key={product.name}
@@ -79,31 +84,28 @@ export function RebrandScene({ view, layout }: RebrandSceneProps) {
                 {rebrand.product.action}
               </Button>
             </div>
-          </li>
-        ))}
-      </ul>
-
-      <ul data-visible={view.showDevelopers} className={rebrandScene.developers[layout]}>
-        {view.products.map((product) => (
-          <li key={product.name} data-state={product.developer} className={rebrandScene.developer}>
-            <svg viewBox="0 0 40 40" className={rebrandScene.avatar}>
-              <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
-              <path
-                d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"
-                className={rebrandScene.avatarHead}
-              />
-              <rect
-                x="11"
-                y="29"
-                width="18"
-                height="8"
-                rx="2"
-                className={rebrandScene.avatarLaptop}
-              />
-            </svg>
-            <span className={rebrandScene.track}>
-              <span className={rebrandScene.fill} style={product.progress} />
-            </span>
+            {view.showDevelopers ? (
+              <div data-state={product.developer} className={rebrandScene.developer}>
+                <svg viewBox="0 0 40 40" className={rebrandScene.avatar}>
+                  <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
+                  <path
+                    d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"
+                    className={rebrandScene.avatarHead}
+                  />
+                  <rect
+                    x="11"
+                    y="29"
+                    width="18"
+                    height="8"
+                    rx="2"
+                    className={rebrandScene.avatarLaptop}
+                  />
+                </svg>
+                <span className={rebrandScene.track}>
+                  <span className={rebrandScene.fill} style={product.progress} />
+                </span>
+              </div>
+            ) : null}
           </li>
         ))}
       </ul>

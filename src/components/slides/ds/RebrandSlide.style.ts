@@ -1,25 +1,21 @@
-/** Shows a part only in the act that uses it, keeping its space so the layout never jumps. */
-const actPart = "transition-opacity duration-(--hb-duration-base) data-[visible=false]:opacity-0";
-
 /** A thin track whose fill grows with `--progress` (0–1). */
 const track = "block h-1 overflow-hidden rounded-pill bg-raised";
 const fill =
   "block h-full origin-left scale-x-(--progress) rounded-pill bg-accent transition-[scale] duration-100 ease-linear";
 
+/** Header and acts share one centred column, inside the slide's side padding. */
+const column = "mx-auto w-full max-w-6xl";
+
 export const rebrandSlide = {
-  slide: "overflow-hidden",
-  glow: "pointer-events-none absolute inset-0 bg-[radial-gradient(35%_30%_at_80%_30%,var(--hb-color-glow),transparent)] opacity-60",
-  content: "relative mx-auto flex w-full max-w-6xl flex-col gap-8",
+  /** Opaque, with a soft page-coloured edge below, so the acts disappear cleanly under it. */
+  header: "bg-bg shadow-[0_1.5rem_1.5rem_var(--hb-color-bg)]",
+  inner: column,
   kicker: "font-mono text-label text-subtle uppercase",
   title: "mt-4 font-display text-h2 font-extrabold text-balance text-fg",
   lead: "mt-4 max-w-2xl text-body text-muted",
+  act: column,
   closing: "mt-6 max-w-2xl text-body text-fg",
-  summaries: "sr-only",
-  /** One panel while playing; both acts' end states side by side under reduced motion. */
-  frames: {
-    playing: "grid",
-    still: "grid gap-6 lg:grid-cols-2",
-  },
+  summary: "sr-only",
 };
 
 export const rebrandScene = {
@@ -33,7 +29,8 @@ export const rebrandScene = {
   counterLabel: "font-mono text-label text-subtle",
 
   /** Act 2: the design system, one developer, and its release. */
-  system: `group/system mx-auto flex w-full max-w-sm items-center gap-3 rounded-md border border-line bg-raised px-4 py-3 transition-[border-color,opacity] duration-(--hb-duration-base) data-[state=released]:border-accent ${actPart}`,
+  system:
+    "group/system mx-auto flex w-full max-w-sm items-center gap-3 rounded-md border border-line bg-raised px-4 py-3 transition-[border-color] duration-(--hb-duration-base) data-[state=released]:border-accent",
   systemText: "flex min-w-0 flex-1 flex-col gap-2",
   systemName: "font-mono text-small text-fg",
   systemStatus:
@@ -42,17 +39,11 @@ export const rebrandScene = {
    * Connectors from the system down to each product; they light up as the release lands. Only
    * drawn where the products sit in one row under the system.
    */
-  wires: {
-    wide: `-mt-5 hidden h-5 grid-cols-6 gap-3 lg:grid ${actPart}`,
-    compact: "hidden",
-  },
+  wires: "-mt-5 hidden h-5 grid-cols-6 gap-3 lg:grid",
   wire: "mx-auto block h-full w-0.5 origin-top scale-y-0 bg-accent transition-[scale] duration-(--hb-duration-base) data-[lit=true]:scale-y-100",
 
   /** Two per row on phones so names and amounts stay readable. */
-  products: {
-    wide: "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6",
-    compact: "grid grid-cols-2 gap-3 sm:grid-cols-3",
-  },
+  products: "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6",
   /**
    * A made-up product screen with its own mini theme: it re-declares the kit's button tokens
    * from the bank palette, so the real Button inside follows the rebrand like any product would.
@@ -75,20 +66,16 @@ export const rebrandScene = {
   lineShort: "block h-1.5 w-3/5 rounded-pill bg-raised",
   action: "mt-1 h-8 w-full px-2 text-label",
 
-  /** Act 1: a developer under every product, each with their own progress. */
-  developers: {
-    wide: `grid grid-cols-3 gap-3 lg:grid-cols-6 ${actPart}`,
-    compact: `grid grid-cols-3 gap-3 ${actPart}`,
-  },
-  developer: "group/dev flex flex-col items-center gap-2",
+  /** Act 1: the product's own developer, with their progress on this rebrand. */
+  developer: "group/dev flex items-center gap-3 border-t border-line px-3 py-2",
   /** Dim while working (pulsing without reduced motion), bright once done. */
   avatar:
-    "size-8 text-line group-data-[state=done]/dev:text-subtle group-data-[state=working]/dev:motion-safe:animate-pulse md:size-10",
+    "size-7 shrink-0 text-line group-data-[state=done]/dev:text-subtle group-data-[state=working]/dev:motion-safe:animate-pulse",
   systemAvatar:
     "size-8 shrink-0 text-subtle group-data-[state=working]/system:motion-safe:animate-pulse md:size-10",
   avatarHead: "fill-current",
   avatarLaptop: "fill-raised stroke-subtle",
-  track: `${track} w-14`,
+  track: `${track} flex-1`,
   fill,
   systemTrack: `${track} w-full`,
 };

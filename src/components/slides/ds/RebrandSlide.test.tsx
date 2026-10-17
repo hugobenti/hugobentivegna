@@ -2,11 +2,11 @@ import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { designSystemCase } from "@/content/cases";
 import {
-  centreLineObserver,
+  FakeIntersectionObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
 import { RebrandSlide } from "./RebrandSlide";
-import { DEV_FINISH_MS, SCENE_MS } from "./rebrandTimeline";
+import { ACT1_MS, ACT2_MS, DEV_FINISH_MS } from "./rebrandTimeline";
 
 const { rebrand } = designSystemCase;
 
@@ -19,8 +19,18 @@ function stubReducedMotion(reduce: boolean) {
   }));
 }
 
-const products = (container: HTMLElement, rebranded: boolean) =>
-  container.querySelectorAll(`[data-rebranded="${rebranded}"]`);
+/** Reports a step's scene crossing (or leaving) the centre line, through its own observer. */
+function reportStep(step: number, visible: boolean) {
+  const selector = `[data-step="${step}"] [data-playback]`;
+  const observer = FakeIntersectionObserver.instances.find((instance) =>
+    instance.observed.some((element) => element.matches(selector)),
+  );
+  if (!observer) throw new Error(`no observer for step ${step}`);
+  observer.report(selector, visible);
+}
+
+const rebrandedIn = (container: HTMLElement, act: "without" | "with") =>
+  container.querySelectorAll(`[data-act="${act}"] [data-rebranded="true"]`).length;
 
 beforeEach(() => {
   installFakeIntersectionObserver();
@@ -35,33 +45,36 @@ afterEach(() => {
 test("the outcome is readable without watching the scene", () => {
   const { container } = render(<RebrandSlide />);
   for (const text of [rebrand.title, rebrand.lead, rebrand.closing]) {
-    expect(screen.getByText(text)).toBeVisible();
+    expect(screen.getByText(text)).toBeInTheDocument();
   }
   expect(screen.getByText(rebrand.acts.without.summary)).toBeInTheDocument();
   expect(screen.getByText(rebrand.acts.with.summary)).toBeInTheDocument();
-  const scene = container.querySelector("[inert]");
-  expect(scene).toHaveAttribute("aria-hidden", "true");
-  expect(scene).toContainElement(container.querySelector("[data-rebranded]") as HTMLElement);
+  const scenes = container.querySelectorAll("[inert]");
+  expect(scenes).toHaveLength(2);
+  scenes.forEach((scene) => expect(scene).toHaveAttribute("aria-hidden", "true"));
   expect(screen.queryAllByRole("radio")).toEqual([]);
 });
 
-test("once active, act 1 gives way to act 2 and every product ends rebranded", () => {
+test("each act plays only while its own step is on screen", () => {
   const { container } = render(<RebrandSlide />);
-  centreLineObserver().report("[data-playback]", true);
-  expect(products(container, false)).toHaveLength(6);
-  expect(container).toHaveTextContent(rebrand.developers.without);
-  act(() => vi.advanceTimersByTime(SCENE_MS));
-  expect(products(container, true)).toHaveLength(6);
-  expect(container).toHaveTextContent(rebrand.developers.with);
+  reportStep(0, true);
+  act(() => vi.advanceTimersByTime(ACT1_MS));
+  expect(rebrandedIn(container, "without")).toBe(6);
+  expect(rebrandedIn(container, "with")).toBe(0);
+
+  reportStep(0, false);
+  reportStep(1, true);
+  act(() => vi.advanceTimersByTime(ACT2_MS));
+  expect(rebrandedIn(container, "with")).toBe(6);
   expect(container).toHaveTextContent(rebrand.system.released);
+  expect(rebrandedIn(container, "without")).toBe(0);
 });
 
-test("reduced motion shows both acts at their end, side by side", () => {
+test("reduced motion shows each act at its end", () => {
   stubReducedMotion(true);
   const { container } = render(<RebrandSlide />);
-  expect(container).toHaveTextContent(rebrand.acts.without.title);
-  expect(container).toHaveTextContent(rebrand.acts.with.title);
-  expect(products(container, true)).toHaveLength(12);
+  expect(rebrandedIn(container, "without")).toBe(6);
+  expect(rebrandedIn(container, "with")).toBe(6);
   expect(container.querySelectorAll('[data-state="working"]')).toHaveLength(0);
 });
 
