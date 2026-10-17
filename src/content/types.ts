@@ -126,6 +126,8 @@ export interface DesignSystemCase {
     developers: Record<SceneAct, string>;
     /** Follows the "3/6" count of rebranded products. */
     rebrandedLabel: string;
+    /** The scene's one control: it runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
+    controls: { pause: string; play: string; replay: string };
     system: { name: string; released: string };
     versions: { before: string; after: string };
     /** Made-up product names, one per developer in act 1. */

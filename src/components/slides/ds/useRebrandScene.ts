@@ -4,13 +4,14 @@ import type { SceneAct } from "@/content/types";
 import { cssVars } from "@/design-system/ui";
 import { usePlayback } from "../../deck/usePlayback";
 import {
-  ACT1_MS,
-  ACT2_MS,
+  ACT2_START_MS,
   DEV_FINISH_MS,
+  SCENE_MS,
   SYSTEM_RELEASE_MS,
   type SceneFrame,
   act1Frame,
   act2Frame,
+  sceneFrame,
 } from "./rebrandTimeline";
 
 const { rebrand } = designSystemCase;
@@ -34,8 +35,6 @@ export interface SceneView {
   developers: string;
   /** "3/6": products rebranded out of all of them. */
   count: string;
-  /** True only between the first and last frame, so nothing animates while waiting or holding. */
-  playing: boolean;
   showDevelopers: boolean;
   system: {
     visible: boolean;
@@ -49,8 +48,8 @@ export interface SceneView {
 const fraction = (value: number, total: number) =>
   cssVars({ progress: Math.min(1, Math.max(0, value / total)) });
 
-/** The markup's view of one frame, `elapsed` ms into an act lasting `duration` ms. */
-function sceneView(frame: SceneFrame, elapsed: number, duration: number): SceneView {
+/** The markup's view of one frame, `elapsed` ms into its own act. */
+function sceneView(frame: SceneFrame, elapsed: number): SceneView {
   const inAct2 = frame.act === "with";
   return {
     act: frame.act,
@@ -58,7 +57,6 @@ function sceneView(frame: SceneFrame, elapsed: number, duration: number): SceneV
     title: rebrand.acts[frame.act].title,
     developers: rebrand.developers[frame.act],
     count: `${frame.rebranded}/${frame.products.length}`,
-    playing: elapsed > 0 && elapsed < duration,
     showDevelopers: !inAct2,
     system: {
       visible: inAct2,
@@ -77,24 +75,38 @@ function sceneView(frame: SceneFrame, elapsed: number, duration: number): SceneV
   };
 }
 
-/** One act's playback: it runs while that act's own scroll step crosses the centre line. */
-function useAct(act: SceneAct) {
-  const duration = act === "without" ? ACT1_MS : ACT2_MS;
-  const { ref, elapsed } = usePlayback<HTMLDivElement>(duration);
-  const frame = act === "without" ? act1Frame(elapsed) : act2Frame(elapsed);
-  return { ref, view: sceneView(frame, elapsed, duration) };
-}
+/** Both acts at their end, side by side, for visitors who prefer reduced motion. */
+const STILL_VIEWS = [
+  sceneView(act1Frame(SCENE_MS), SCENE_MS),
+  sceneView(act2Frame(SCENE_MS), SCENE_MS),
+];
 
 /**
- * Rebrand scene view model: one entry per act, each played by its own scroll step. Visitors who
- * prefer reduced motion get each act at its end.
+ * Rebrand scene view model: act 1 then act 2 on one slide, flagged WITHOUT / WITH, with the one
+ * control the scene needs because it runs longer than 5 s.
  */
 export function useRebrandScene() {
-  const without = useAct("without");
-  const withSystem = useAct("with");
+  const { ref, elapsed, still, paused, finished, toggle } = usePlayback<HTMLDivElement>(SCENE_MS);
+  const frame = sceneFrame(elapsed);
+  const actElapsed = frame.act === "with" ? elapsed - ACT2_START_MS : elapsed;
   return {
-    withoutRef: without.ref,
-    withRef: withSystem.ref,
-    views: { without: without.view, with: withSystem.view },
+    ref,
+    still,
+    views: still ? STILL_VIEWS : [sceneView(frame, actElapsed)],
+    /** Nothing animates while the scene waits, holds at the end, or is paused. */
+    playing: elapsed > 0 && !finished && !paused,
+    flags: (["without", "with"] as const).map((act) => ({
+      act,
+      label: rebrand.acts[act].label,
+      active: !still && frame.act === act,
+    })),
+    control: {
+      label: finished
+        ? rebrand.controls.replay
+        : paused
+          ? rebrand.controls.play
+          : rebrand.controls.pause,
+      toggle,
+    },
   };
 }

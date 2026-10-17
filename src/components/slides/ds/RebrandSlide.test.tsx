@@ -2,11 +2,11 @@ import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { designSystemCase } from "@/content/cases";
 import {
-  FakeIntersectionObserver,
+  centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
 import { RebrandSlide } from "./RebrandSlide";
-import { ACT1_MS, ACT2_MS, DEV_FINISH_MS } from "./rebrandTimeline";
+import { ACT1_MS, ACT2_START_MS, DEV_FINISH_MS, SCENE_MS } from "./rebrandTimeline";
 
 const { rebrand } = designSystemCase;
 
@@ -19,18 +19,12 @@ function stubReducedMotion(reduce: boolean) {
   }));
 }
 
-/** Reports a step's scene crossing (or leaving) the centre line, through its own observer. */
-function reportStep(step: number, visible: boolean) {
-  const selector = `[data-step="${step}"] [data-playback]`;
-  const observer = FakeIntersectionObserver.instances.find((instance) =>
-    instance.observed.some((element) => element.matches(selector)),
-  );
-  if (!observer) throw new Error(`no observer for step ${step}`);
-  observer.report(selector, visible);
-}
-
-const rebrandedIn = (container: HTMLElement, act: "without" | "with") =>
-  container.querySelectorAll(`[data-act="${act}"] [data-rebranded="true"]`).length;
+const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
+const start = () => centreLineObserver().report("[data-playback]", true);
+const rebranded = (container: HTMLElement) =>
+  container.querySelectorAll('[data-rebranded="true"]').length;
+const activeFlag = (container: HTMLElement) =>
+  container.querySelector('[data-flag][data-active="true"]')?.textContent;
 
 beforeEach(() => {
   installFakeIntersectionObserver();
@@ -49,45 +43,66 @@ test("the outcome is readable without watching the scene", () => {
   }
   expect(screen.getByText(rebrand.acts.without.summary)).toBeInTheDocument();
   expect(screen.getByText(rebrand.acts.with.summary)).toBeInTheDocument();
-  const scenes = container.querySelectorAll("[inert]");
-  expect(scenes).toHaveLength(2);
-  scenes.forEach((scene) => expect(scene).toHaveAttribute("aria-hidden", "true"));
+  const scene = container.querySelector("[inert]");
+  expect(scene).toHaveAttribute("aria-hidden", "true");
   expect(screen.queryAllByRole("radio")).toEqual([]);
 });
 
-test("each act plays only while its own step is on screen", () => {
+test("one slide plays act 1, then act 2, and flags which one is showing", () => {
   const { container } = render(<RebrandSlide />);
-  reportStep(0, true);
-  act(() => vi.advanceTimersByTime(ACT1_MS));
-  expect(rebrandedIn(container, "without")).toBe(6);
-  expect(rebrandedIn(container, "with")).toBe(0);
-
-  reportStep(0, false);
-  reportStep(1, true);
-  act(() => vi.advanceTimersByTime(ACT2_MS));
-  expect(rebrandedIn(container, "with")).toBe(6);
+  start();
+  expect(activeFlag(container)).toBe(rebrand.acts.without.label);
+  advance(ACT1_MS);
+  expect(rebranded(container)).toBe(6);
+  advance(ACT2_START_MS - ACT1_MS);
+  expect(activeFlag(container)).toBe(rebrand.acts.with.label);
+  expect(rebranded(container)).toBe(0);
+  advance(SCENE_MS);
+  expect(rebranded(container)).toBe(6);
   expect(container).toHaveTextContent(rebrand.system.released);
-  // Act 1 is still on screen above, so it keeps its end state.
-  expect(rebrandedIn(container, "without")).toBe(6);
 });
 
-test("an act only animates while it plays, never while it waits or holds", () => {
+test("the pause button stops the scene, and play resumes it", () => {
+  const { container } = render(<RebrandSlide />);
+  start();
+  advance(1700);
+  const before = rebranded(container);
+  act(() => screen.getByRole("button", { name: rebrand.controls.pause }).click());
+  advance(3000);
+  expect(rebranded(container)).toBe(before);
+  expect(container.querySelectorAll('[data-playing="true"]')).toHaveLength(0);
+  act(() => screen.getByRole("button", { name: rebrand.controls.play }).click());
+  // Resumes from 1.7 s, so act 1 ends after the remaining time, not a full act.
+  advance(ACT1_MS - 1700);
+  expect(rebranded(container)).toBe(6);
+});
+
+test("once finished, the button replays the scene from act 1", () => {
+  const { container } = render(<RebrandSlide />);
+  start();
+  advance(SCENE_MS);
+  act(() => screen.getByRole("button", { name: rebrand.controls.replay }).click());
+  expect(activeFlag(container)).toBe(rebrand.acts.without.label);
+  expect(rebranded(container)).toBe(0);
+});
+
+test("the scene only animates while it plays, never while it waits or holds", () => {
   const { container } = render(<RebrandSlide />);
   const playing = () => container.querySelectorAll('[data-playing="true"]').length;
   expect(playing()).toBe(0);
-  reportStep(0, true);
-  act(() => vi.advanceTimersByTime(1000));
+  start();
+  advance(1000);
   expect(playing()).toBe(1);
-  act(() => vi.advanceTimersByTime(ACT1_MS));
+  advance(SCENE_MS);
   expect(playing()).toBe(0);
 });
 
-test("reduced motion shows each act at its end", () => {
+test("reduced motion shows both acts at their end, with nothing to pause", () => {
   stubReducedMotion(true);
   const { container } = render(<RebrandSlide />);
-  expect(rebrandedIn(container, "without")).toBe(6);
-  expect(rebrandedIn(container, "with")).toBe(6);
+  expect(rebranded(container)).toBe(12);
   expect(container.querySelectorAll('[data-state="working"]')).toHaveLength(0);
+  expect(screen.queryByRole("button", { name: rebrand.controls.pause })).toBeNull();
 });
 
 test("the content has one product per developer timing", () => {

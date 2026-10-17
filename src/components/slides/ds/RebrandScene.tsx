@@ -7,12 +7,14 @@ const { rebrand } = designSystemCase;
 
 type RebrandSceneProps = {
   view: SceneView;
+  /** `compact` keeps three products per row, for the side-by-side still acts. */
+  layout: "wide" | "compact";
 };
 
 /** One act of the rebrand scene: decorative, the slide's copy and summaries tell the story. */
-export function RebrandScene({ view }: RebrandSceneProps) {
+export function RebrandScene({ view, layout }: RebrandSceneProps) {
   return (
-    <div data-act={view.act} data-playing={view.playing} className={rebrandScene.panel}>
+    <div data-act={view.act} className={rebrandScene.act}>
       <div className={rebrandScene.header}>
         <div>
           <p className={rebrandScene.actLabel}>{view.label}</p>
@@ -57,14 +59,14 @@ export function RebrandScene({ view }: RebrandSceneProps) {
       ) : null}
 
       {view.system.visible ? (
-        <div className={rebrandScene.wires}>
+        <div className={rebrandScene.wires[layout]}>
           {view.products.map((product) => (
             <span key={product.name} data-lit={product.wired} className={rebrandScene.wire} />
           ))}
         </div>
       ) : null}
 
-      <ul className={rebrandScene.products}>
+      <ul className={rebrandScene.products[layout]}>
         {view.products.map((product) => (
           <li
             key={product.name}

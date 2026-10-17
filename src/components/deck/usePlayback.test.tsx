@@ -11,10 +11,16 @@ import { usePlayback } from "./usePlayback";
 const DURATION = 5000;
 
 function Probe() {
-  const { ref, elapsed, still } = usePlayback<HTMLDivElement>(DURATION);
+  const { ref, elapsed, still, paused, finished, toggle } = usePlayback<HTMLDivElement>(DURATION);
   return (
     <div ref={ref} data-probe="">
-      elapsed={elapsed} still={String(still)}
+      <p>
+        elapsed={elapsed} still={String(still)} paused={String(paused)} finished=
+        {String(finished)}
+      </p>
+      <button type="button" onClick={toggle}>
+        toggle
+      </button>
     </div>
   );
 }
@@ -120,4 +126,28 @@ test("reduced motion shows the end state at once and never plays", () => {
   expect(shown()).toContain(`elapsed=${DURATION} still=true`);
   advance(1000);
   expect(shown()).toContain(`elapsed=${DURATION} still=true`);
+});
+
+test("pausing stops time where it is, and playing resumes from there", () => {
+  render(<Probe />);
+  report(true);
+  advance(1000);
+  act(() => screen.getByRole("button", { name: "toggle" }).click());
+  expect(shown()).toContain("paused=true");
+  advance(2000);
+  expect(shown()).toContain("elapsed=1000 ");
+  act(() => screen.getByRole("button", { name: "toggle" }).click());
+  advance(500);
+  expect(shown()).toContain("elapsed=1500 ");
+});
+
+test("once it has finished, the control replays it from the start", () => {
+  render(<Probe />);
+  report(true);
+  advance(DURATION);
+  expect(shown()).toContain("finished=true");
+  act(() => screen.getByRole("button", { name: "toggle" }).click());
+  advance(300);
+  expect(shown()).toContain("elapsed=300 ");
+  expect(shown()).toContain("finished=false");
 });

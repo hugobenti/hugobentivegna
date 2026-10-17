@@ -2,13 +2,16 @@ import { describe, expect, test } from "vitest";
 import {
   ACT1_MS,
   ACT2_MS,
+  ACT2_START_MS,
   DEV_FINISH_MS,
+  SCENE_MS,
   SYSTEM_RELEASE_MS,
   type SceneFrame,
   WAVE_START_MS,
   WAVE_STEP_MS,
   act1Frame,
   act2Frame,
+  sceneFrame,
 } from "./rebrandTimeline";
 
 const rebrandedIndexes = (frame: SceneFrame) =>
@@ -64,8 +67,23 @@ describe("timing", () => {
     expect(WAVE_START_MS + (DEV_FINISH_MS.length - 1) * WAVE_STEP_MS).toBeLessThan(ACT2_MS);
   });
 
-  test("each act runs within 5 s, so it needs no pause control (WCAG 2.2.2)", () => {
-    expect(ACT1_MS).toBeLessThanOrEqual(5000);
-    expect(ACT2_MS).toBeLessThanOrEqual(5000);
+  test("act 1's end holds for a beat before act 2 starts", () => {
+    expect(ACT2_START_MS).toBeGreaterThan(ACT1_MS);
+  });
+});
+
+describe("sceneFrame: both acts on one slide", () => {
+  test("plays act 1 first", () => {
+    expect(sceneFrame(0)).toEqual(act1Frame(0));
+    expect(sceneFrame(ACT1_MS)).toMatchObject({ act: "without", rebranded: 6 });
+  });
+
+  test("then starts act 2 from its own beginning", () => {
+    expect(sceneFrame(ACT2_START_MS)).toEqual(act2Frame(0));
+    expect(sceneFrame(ACT2_START_MS + WAVE_START_MS)).toEqual(act2Frame(WAVE_START_MS));
+  });
+
+  test("ends on act 2's end state", () => {
+    expect(sceneFrame(SCENE_MS)).toEqual(act2Frame(ACT2_MS));
   });
 });

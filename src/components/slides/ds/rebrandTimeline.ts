@@ -11,6 +11,10 @@ export const WAVE_START_MS = 2100;
 export const WAVE_STEP_MS = 200;
 /** Act 2 plays this long, holding its end state after the wave. */
 export const ACT2_MS = 4500;
+/** On one slide, act 2 starts after act 1's end has held for a beat. */
+export const ACT2_START_MS = ACT1_MS + 700;
+/** Both acts, back to back. Longer than 5 s, so the slide offers a pause (WCAG 2.2.2). */
+export const SCENE_MS = ACT2_START_MS + ACT2_MS;
 
 export interface SceneFrame {
   act: SceneAct;
@@ -51,4 +55,9 @@ export function act2Frame(elapsed: number): SceneFrame {
     })),
     elapsed < SYSTEM_RELEASE_MS ? "working" : "released",
   );
+}
+
+/** The whole scene, `elapsed` ms in: act 1, a short hold, then act 2 from its own start. */
+export function sceneFrame(elapsed: number): SceneFrame {
+  return elapsed < ACT2_START_MS ? act1Frame(elapsed) : act2Frame(elapsed - ACT2_START_MS);
 }

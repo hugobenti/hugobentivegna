@@ -74,6 +74,7 @@ export const designSystemCase: DesignSystemCase = {
     },
     developers: { without: "6 developers", with: "1 developer" },
     rebrandedLabel: "products rebranded",
+    controls: { pause: "Pause", play: "Play", replay: "Replay" },
     system: { name: "design-system", released: "v2.0 released" },
     versions: { before: "v1.8", after: "v2.0" },
     products: ["Accounts", "Payments", "Cards", "Invest", "Exchange", "Loans"],

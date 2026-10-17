@@ -3,24 +3,30 @@ const track = "block h-1 overflow-hidden rounded-pill bg-raised";
 const fill =
   "block h-full origin-left scale-x-(--progress) rounded-pill bg-accent transition-[scale] duration-100 ease-linear";
 
-/** Header and acts share one centred column, inside the slide's side padding. */
-const column = "mx-auto w-full max-w-6xl";
-
 export const rebrandSlide = {
-  /** Opaque, with a soft page-coloured edge below, so the acts disappear cleanly under it. */
-  header: "bg-bg shadow-[0_1.5rem_1.5rem_var(--hb-color-bg)]",
-  inner: column,
+  slide: "overflow-hidden",
+  content: "relative mx-auto flex w-full max-w-6xl flex-col gap-6",
   kicker: "font-mono text-label text-subtle uppercase",
   title: "mt-4 font-display text-h2 font-extrabold text-balance text-fg",
   lead: "mt-4 max-w-2xl text-body text-muted",
-  act: column,
-  closing: "mt-6 max-w-2xl text-body text-fg",
-  summary: "sr-only",
+  closing: "max-w-2xl text-body text-fg",
+  summaries: "sr-only",
+  /** The scene's frame. Pulses inside only run while `data-playing` is true. */
+  panel: "group/panel flex flex-col gap-5 rounded-lg border border-line bg-surface p-5 md:p-6",
+  bar: "flex flex-wrap items-center justify-between gap-3",
+  flags: "flex flex-wrap gap-2",
+  /** WITHOUT / WITH: the act on screen is highlighted. */
+  flag: "rounded-pill border border-line px-3 py-1.5 font-mono text-label text-subtle uppercase transition-colors duration-(--hb-duration-base) data-[active=true]:border-accent data-[active=true]:bg-accent data-[active=true]:text-on-accent",
+  control: "h-8 px-4 text-label",
+  /** One act while playing; both acts' end states side by side under reduced motion. */
+  acts: {
+    playing: "grid",
+    still: "grid gap-8 lg:grid-cols-2",
+  },
 };
 
 export const rebrandScene = {
-  /** Pulses below only run while `data-playing` is true: an act never blinks while it waits. */
-  panel: "group/panel flex flex-col gap-5 rounded-lg border border-line bg-surface p-5 md:p-6",
+  act: "flex flex-col gap-5",
   header: "flex flex-wrap items-end justify-between gap-4",
   actLabel: "font-mono text-label text-subtle uppercase",
   actTitle: "mt-1 font-display text-h3 font-bold text-fg",
@@ -40,11 +46,17 @@ export const rebrandScene = {
    * Connectors from the system down to each product; they light up as the release lands. Only
    * drawn where the products sit in one row under the system.
    */
-  wires: "-mt-5 hidden h-5 grid-cols-6 gap-3 lg:grid",
+  wires: {
+    wide: "-mt-5 hidden h-5 grid-cols-6 gap-3 lg:grid",
+    compact: "hidden",
+  },
   wire: "mx-auto block h-full w-0.5 origin-top scale-y-0 bg-accent transition-[scale] duration-(--hb-duration-base) data-[lit=true]:scale-y-100",
 
   /** Two per row on phones so names and amounts stay readable. */
-  products: "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6",
+  products: {
+    wide: "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6",
+    compact: "grid grid-cols-2 gap-3 sm:grid-cols-3",
+  },
   /**
    * A made-up product screen with its own mini theme: it re-declares the kit's button tokens
    * from the bank palette, so the real Button inside follows the rebrand like any product would.

@@ -19,18 +19,22 @@ function subscribeToNothing() {
 }
 
 /**
- * Watch-only playback for a slide animation: `elapsed` runs towards `durationMs` while the
- * element in `ref` crosses the viewport's centre line, pauses when it moves off that line, and
- * holds at the end. Once the element leaves the screen it returns to 0, so coming back replays
- * it. The server render and visitors who prefer reduced motion get the end state (`still`
- * marks the latter).
+ * Slide-animation playback: `elapsed` runs towards `durationMs` while the element in `ref`
+ * crosses the viewport's centre line, pauses when it moves off that line, and holds at the end.
+ * Once the element leaves the screen it returns to 0, so coming back replays it. `toggle`
+ * pauses and resumes, or replays once finished: the control WCAG 2.2.2 asks for when an
+ * animation runs longer than 5 s. The server render and visitors who prefer reduced motion get
+ * the end state (`still` marks the latter).
  */
 export function usePlayback<T extends HTMLElement>(durationMs: number) {
   const ref = useRef<T>(null);
   const [elapsed, setElapsed] = useState(0);
   const [active, setActive] = useState(false);
+  const [paused, setPaused] = useState(false);
+  // Bumped by a replay, so the timer starts again after it stopped at the end.
+  const [run, setRun] = useState(0);
   // Read by the timer, so a tick that lands after the element moved away changes nothing.
-  const playing = useRef({ active: false, elapsed: 0 });
+  const playing = useRef({ active: false, paused: false, elapsed: 0 });
   // false only while rendering on the server, so markup without JavaScript shows the end state.
   const hydrated = useSyncExternalStore(
     subscribeToNothing,
@@ -58,8 +62,9 @@ export function usePlayback<T extends HTMLElement>(durationMs: number) {
     const onScreen = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) continue;
-        playing.current = { active: false, elapsed: 0 };
+        playing.current = { active: false, paused: false, elapsed: 0 };
         setActive(false);
+        setPaused(false);
         setElapsed(0);
       }
     });
@@ -74,14 +79,27 @@ export function usePlayback<T extends HTMLElement>(durationMs: number) {
   useEffect(() => {
     if (!active || still) return;
     const timer = setInterval(() => {
-      if (!playing.current.active) return;
+      if (!playing.current.active || playing.current.paused) return;
       const next = Math.min(playing.current.elapsed + TICK_MS, durationMs);
       playing.current.elapsed = next;
       setElapsed(next);
       if (next === durationMs) clearInterval(timer);
     }, TICK_MS);
     return () => clearInterval(timer);
-  }, [active, still, durationMs]);
+  }, [active, still, durationMs, run]);
 
-  return { ref, elapsed: hydrated && !still ? elapsed : durationMs, still };
+  const toggle = () => {
+    if (playing.current.elapsed >= durationMs) {
+      playing.current = { ...playing.current, paused: false, elapsed: 0 };
+      setPaused(false);
+      setElapsed(0);
+      setRun((count) => count + 1);
+      return;
+    }
+    playing.current.paused = !playing.current.paused;
+    setPaused(playing.current.paused);
+  };
+
+  const shown = hydrated && !still ? elapsed : durationMs;
+  return { ref, elapsed: shown, still, paused, finished: shown >= durationMs, toggle };
 }
