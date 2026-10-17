@@ -21,32 +21,6 @@
       "before": { "$value": "#2f5bd3", "$description": "The deep-blue brand before the rebrand." },
       "after": { "$value": "#0f7a6e", "$description": "The brand after the rebrand." }
     },
-    "solar": {
-      "$description": "Made-up warm brand used by the live-rebrand demo.",
-      "950": { "$value": "#140d08" },
-      "900": { "$value": "#1f150e" },
-      "850": { "$value": "#2a1d13" },
-      "700": { "$value": "#3d2b1d" },
-      "500": { "$value": "#a8927f" },
-      "400": { "$value": "#c4b09d" },
-      "50": { "$value": "#fbf3ec" },
-      "accent": { "$value": "#ff9f43" },
-      "focus": { "$value": "#ffb870" },
-      "glow": { "$value": "#ff9f4352" }
-    },
-    "forest": {
-      "$description": "Made-up green brand used by the live-rebrand demo.",
-      "950": { "$value": "#07110c" },
-      "900": { "$value": "#0d1a13" },
-      "850": { "$value": "#13241b" },
-      "700": { "$value": "#1f3a2c" },
-      "500": { "$value": "#86a596" },
-      "400": { "$value": "#a3bfb1" },
-      "50": { "$value": "#eef7f2" },
-      "accent": { "$value": "#3ddc97" },
-      "focus": { "$value": "#6be8b1" },
-      "glow": { "$value": "#3ddc974d" }
-    },
     "pixel": {
       "$description": "PixelCraft slide palette.",
       "950": { "$value": "#0f0e17" },

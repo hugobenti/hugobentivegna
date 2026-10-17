@@ -11,7 +11,7 @@ const src = (glob) => path.posix.join(here.split(path.sep).join("/"), "src", glo
 const outDir = path.join(here, "generated");
 
 const PREFIX = "hb";
-const THEMES = ["solar", "forest", "pixel"];
+const THEMES = ["pixel"];
 const TRANSFORMS = ["name/kebab", "fontFamily/css", "cubicBezier/css", "shadow/css/shorthand"];
 
 /** @param {{ filePath: string }} token */
