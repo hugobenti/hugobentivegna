@@ -19,7 +19,7 @@ const { product } = rebrand;
  * theme's values and every kit component here follows, with no component changes.
  */
 export function RebrandSlide() {
-  const [theme, setTheme] = useThemeTransition<RebrandTheme>("midnight");
+  const { theme, selected, select } = useThemeTransition<RebrandTheme>("midnight");
   return (
     <Slide slide={slides.dsRebrand} theme={theme} className={rebrandSlide.slide}>
       <div className={rebrandSlide.glow} aria-hidden="true" />
@@ -34,14 +34,15 @@ export function RebrandSlide() {
           <p className={cx(deck.reveal, rebrandSlide.body)} style={stagger(2)}>
             {rebrand.body}
           </p>
-          <ThemeSwitch
-            label={rebrand.switchLabel}
-            options={rebrand.options}
-            value={theme}
-            onChange={setTheme}
-            className={cx(deck.reveal, rebrandSlide.switch)}
-          />
-          <p className={cx(deck.reveal, rebrandSlide.note)} style={stagger(3)}>
+          <div className={cx(deck.reveal, rebrandSlide.switch)} style={stagger(3)}>
+            <ThemeSwitch
+              label={rebrand.switchLabel}
+              options={rebrand.options}
+              value={selected}
+              onChange={select}
+            />
+          </div>
+          <p className={cx(deck.reveal, rebrandSlide.note)} style={stagger(4)}>
             {rebrand.note}
           </p>
         </div>

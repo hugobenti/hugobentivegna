@@ -11,10 +11,14 @@ function mockReducedMotion(reduce: boolean) {
   );
 }
 
-/** jsdom has no View Transitions API: install a fake that runs the update like a browser. */
-function mockViewTransitions() {
+/**
+ * jsdom has no View Transitions API: install a fake that, like a browser, runs the update and
+ * then takes the "new" snapshot. `inspect` runs at that moment.
+ */
+function mockViewTransitions(inspect: () => void = () => {}) {
   const start = vi.fn((update: () => void) => {
     update();
+    inspect();
     return { finished: Promise.resolve(), ready: Promise.resolve() };
   });
   Object.defineProperty(document, "startViewTransition", { value: start, configurable: true });
@@ -29,24 +33,28 @@ afterEach(() => {
 test("switches theme in browsers without the View Transitions API", () => {
   mockReducedMotion(false);
   const { result } = renderHook(() => useThemeTransition<Theme>("midnight"));
-  act(() => result.current[1]("solar"));
-  expect(result.current[0]).toBe("solar");
+  act(() => result.current.select("solar"));
+  expect(result.current.theme).toBe("solar");
+  expect(result.current.selected).toBe("solar");
 });
 
-test("animates the switch with a view transition when the browser has one", () => {
+test("commits the new theme inside the view transition, before the new snapshot", () => {
   mockReducedMotion(false);
-  const start = mockViewTransitions();
+  let painted: Theme | undefined;
   const { result } = renderHook(() => useThemeTransition<Theme>("midnight"));
-  act(() => result.current[1]("forest"));
+  const start = mockViewTransitions(() => {
+    painted = result.current.theme;
+  });
+  act(() => result.current.select("forest"));
   expect(start).toHaveBeenCalledOnce();
-  expect(result.current[0]).toBe("forest");
+  expect(painted).toBe("forest");
 });
 
 test("switches instantly when the visitor prefers reduced motion", () => {
   mockReducedMotion(true);
   const start = mockViewTransitions();
   const { result } = renderHook(() => useThemeTransition<Theme>("midnight"));
-  act(() => result.current[1]("solar"));
+  act(() => result.current.select("solar"));
   expect(start).not.toHaveBeenCalled();
-  expect(result.current[0]).toBe("solar");
+  expect(result.current.theme).toBe("solar");
 });

@@ -22,9 +22,11 @@ test("each step shows its CSS variable and the value it resolves to", () => {
   expect(semantic).toHaveTextContent("#5aa2ff");
 });
 
-test("picking another token traces it and keeps a live Button at the end", async () => {
+test("picking another token traces it, and the live Button switches to the variant it styles", async () => {
   render(<TokenTraceSlide />);
+  const live = screen.getByRole("button", { name: "A real Button" });
+  expect(live.className).toContain("--hb-button-primary-bg");
   await userEvent.click(screen.getByRole("radio", { name: "Secondary outline" }));
   expect(chainNames()).toEqual(["palette.ink.700", "color.line", "button.secondary.border"]);
-  expect(screen.getByRole("button", { name: "A real Button" })).toBeInTheDocument();
+  expect(live.className).toContain("--hb-button-secondary-border");
 });

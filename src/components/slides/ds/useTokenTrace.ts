@@ -20,8 +20,10 @@ export interface TraceStep {
 export function useTokenTrace() {
   const [selected, setSelected] = useState<TraceOption>(options[0]);
 
+  // traceToken returns a fresh array, so reversing it in place is safe (and works in every
+  // browser Next.js supports, unlike toReversed()).
   const steps: TraceStep[] = traceToken(tokens, selected.token)
-    .toReversed()
+    .reverse()
     .map((entry) => ({
       name: entry.name,
       cssVar: entry.cssVar,

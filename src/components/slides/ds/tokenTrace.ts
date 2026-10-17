@@ -6,6 +6,8 @@ const REFERENCE = /^\{([^{}]+)\}$/;
  * Follows a token's `{reference}` chain to the value it ends on, e.g.
  * button.primary.bg → color.accent → palette.blue.400. Semantic tokens are read from `theme`;
  * a theme that doesn't override one inherits midnight's, as it does in the generated CSS.
+ * Every step's `resolved` is the chain's end value in that theme: component tokens are stored
+ * once, resolved against midnight, but in the page they follow the theme like everything else.
  * Returns [] for an unknown name.
  */
 export function traceToken(
@@ -25,5 +27,6 @@ export function traceToken(
     chain.push(entry);
     next = REFERENCE.exec(entry.value)?.[1];
   }
-  return chain;
+  const end = chain.at(-1);
+  return end ? chain.map((entry) => ({ ...entry, resolved: end.resolved })) : chain;
 }

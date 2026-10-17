@@ -27,13 +27,14 @@ export function TokenTraceSlide() {
           <p className={cx(deck.reveal, tokenTraceSlide.body)} style={stagger(2)}>
             {trace.body}
           </p>
-          <ThemeSwitch
-            label={trace.pickerLabel}
-            options={picker.options}
-            value={picker.value}
-            onChange={picker.onChange}
-            className={cx(deck.reveal, tokenTraceSlide.picker)}
-          />
+          <div className={cx(deck.reveal, tokenTraceSlide.picker)} style={stagger(3)}>
+            <ThemeSwitch
+              label={trace.pickerLabel}
+              options={picker.options}
+              value={picker.value}
+              onChange={picker.onChange}
+            />
+          </div>
         </div>
 
         <div className={deck.reveal} style={stagger(3)} aria-live="polite">
@@ -52,6 +53,9 @@ export function TokenTraceSlide() {
                     <code>{step.cssVar}</code>
                     <span>{step.resolved}</span>
                   </span>
+                </span>
+                <span className={tokenTraceSlide.arrow} aria-hidden="true">
+                  ↓
                 </span>
               </li>
             ))}

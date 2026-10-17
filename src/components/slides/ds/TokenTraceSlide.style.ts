@@ -7,12 +7,10 @@ export const tokenTraceSlide = {
   body: "mt-6 max-w-xl text-body text-muted",
   picker: "mt-8",
   chain: "flex flex-col gap-8",
-  /** One layer of the chain; an arrow in the gap below points to the next layer. */
-  step: [
-    "relative flex items-center gap-4 rounded-md border border-line bg-surface p-4",
-    "not-last:after:absolute not-last:after:top-full not-last:after:left-9 not-last:after:mt-1",
-    "not-last:after:text-small not-last:after:text-subtle not-last:after:content-['↓']",
-  ].join(" "),
+  /** One layer of the chain. */
+  step: "group/step relative flex items-center gap-4 rounded-md border border-line bg-surface p-4",
+  /** Decorative arrow in the gap below a step, pointing to the next layer; none after the last. */
+  arrow: "absolute top-full left-9 mt-1 text-small text-subtle group-last/step:hidden",
   /** `subtle` outline (3:1 on the surface) so near-black values still read as a swatch. */
   swatch: "size-10 shrink-0 rounded-sm border border-subtle",
   stepText: "flex min-w-0 flex-col gap-1",

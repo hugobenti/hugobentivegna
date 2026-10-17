@@ -16,7 +16,8 @@ describe("traceToken", () => {
     const chain = traceToken(tokens, "button.primary.bg", "solar");
     expect(names(chain)).toEqual(["button.primary.bg", "color.accent", "palette.solar.accent"]);
     expect(chain[1]?.theme).toBe("solar");
-    expect(chain[2]?.resolved).toBe("#ff9f43");
+    // Every step resolves to the same color in that theme, including the shared component token.
+    expect(chain.map((entry) => entry.resolved)).toEqual(["#ff9f43", "#ff9f43", "#ff9f43"]);
   });
 
   test("falls back to midnight for semantic tokens a theme doesn't override", () => {
