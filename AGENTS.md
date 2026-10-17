@@ -47,6 +47,8 @@ Dependencies flow one way: **tokens → ui → site**.
 
 Never commit to `main`. Each stage of work gets its own branch (`feat/<name>`), stays small (≤ ~20 files) and lands through a pull request that Hugo reviews and merges; CI must be green. Write the failing test first for anything with logic; run lint, typecheck, test and build (and `build-storybook` for design-system changes) before asking for review. Design-system rules: `src/design-system/AGENTS.md`.
 
+**Verifying a production build while Hugo works:** never delete or build into `.next` (his `next dev` and builds use it). Build and serve in isolation: `NEXT_DIST_DIR=.next-verify pnpm build`, then `NEXT_DIST_DIR=.next-verify pnpm start -p <port>` once the build has finished.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know
