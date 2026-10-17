@@ -1,7 +1,7 @@
 import { Deck } from "@/components/deck/Deck";
 import { ContactSlide } from "@/components/slides/ContactSlide";
+import { ProblemSlide } from "@/components/slides/ds/ProblemSlide";
 import { RebrandSlide } from "@/components/slides/ds/RebrandSlide";
-import { ThesisSlide } from "@/components/slides/ds/ThesisSlide";
 import { TokenTraceSlide } from "@/components/slides/ds/TokenTraceSlide";
 import { HeroSlide } from "@/components/slides/HeroSlide";
 import { TimelineSlide } from "@/components/slides/TimelineSlide";
@@ -13,7 +13,7 @@ export default function Home() {
       <Deck slides={slideList}>
         <HeroSlide />
         <TimelineSlide />
-        <ThesisSlide />
+        <ProblemSlide />
         <TokenTraceSlide />
         <RebrandSlide />
         <ContactSlide />

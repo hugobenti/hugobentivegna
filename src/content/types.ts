@@ -99,13 +99,11 @@ export interface ProductMock {
 }
 
 export interface DesignSystemCase {
-  thesis: {
+  /** Slide 1: the problem the system solved. */
+  problem: {
     kicker: string;
-    statement: string;
-    /** What drives the thesis. */
-    pillars: TitledText[];
-    /** One line of career context; the timeline covers the rest. */
-    context: string;
+    title: string;
+    body: string;
   };
   trace: TitledText & {
     kicker: string;

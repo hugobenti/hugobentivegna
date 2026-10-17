@@ -7,7 +7,7 @@ import type { SlideMeta } from "./types";
 export const slides = {
   hero: { id: "hero", label: "Intro" },
   timeline: { id: "timeline", label: "Experience" },
-  dsThesis: { id: "design-systems", label: "Design systems" },
+  dsProblem: { id: "design-systems", label: "Design systems" },
   dsTokens: { id: "tokens", label: "Tokens" },
   dsRebrand: { id: "rebrand", label: "Rebrand" },
   contact: { id: "contact", label: "Contact" },

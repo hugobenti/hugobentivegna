@@ -1,27 +1,11 @@
 import type { DesignSystemCase } from "./types";
 
-/** Design-system case: this site's own system is the exhibit. No metrics (spec §4.3). */
+/** Design-system case: the real story, told without naming the company (spec 2026-10-17). */
 export const designSystemCase: DesignSystemCase = {
-  thesis: {
+  problem: {
     kicker: "Case · Design systems",
-    statement:
-      "A well-documented design system is the source of truth that connects design and development.",
-    pillars: [
-      {
-        title: "Centralized",
-        body: "One set of tokens and components, so every team ships the same decisions.",
-      },
-      {
-        title: "Standardized",
-        body: "Documented usage, so a pattern means the same thing on every screen.",
-      },
-      {
-        title: "Built for the end user",
-        body: "Polish and accessibility live in the parts, not in each screen.",
-      },
-    ],
-    context:
-      "I've built design systems like this at Ouribank and 1global. This site runs on one, and the next slides take it apart.",
+    title: "Figma had the screens. Code had copies.",
+    body: "At a digital bank with 5+ products, the design team kept every screen in Figma. In code, each project rebuilt the same components, so every change had to be made once per product.",
   },
   trace: {
     kicker: "Tokens you can follow",
