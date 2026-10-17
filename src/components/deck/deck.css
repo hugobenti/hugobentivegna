@@ -61,7 +61,11 @@
 }
 
 @media (min-width: 768px) and (min-height: 560px) {
-  /* The steps snap, not the slide: the header takes no space, so step 0 starts at the slide top. */
+  /*
+   * The steps snap, not the slide. The header stays in normal flow (step 0 starts right below
+   * it) so `sticky` keeps it inside its own slide: it scrolls away with the last step instead of
+   * covering the next slide. Each step reserves the header's height at its top.
+   */
   .slide-steps {
     min-height: auto;
     scroll-snap-align: none;
@@ -72,7 +76,6 @@
     top: 0;
     z-index: 1;
     height: var(--steps-header);
-    margin-bottom: calc(-1 * var(--steps-header));
     padding-top: 3.5rem;
   }
 

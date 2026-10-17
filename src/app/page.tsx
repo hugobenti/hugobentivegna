@@ -1,4 +1,5 @@
 import { Deck } from "@/components/deck/Deck";
+import { ContactSlide } from "@/components/slides/ContactSlide";
 import { HeroSlide } from "@/components/slides/HeroSlide";
 import { TimelineSlide } from "@/components/slides/TimelineSlide";
 import { slideList } from "@/content/slides";
@@ -9,6 +10,7 @@ export default function Home() {
       <Deck slides={slideList}>
         <HeroSlide />
         <TimelineSlide />
+        <ContactSlide />
       </Deck>
     </main>
   );

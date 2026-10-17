@@ -2,6 +2,7 @@ import type { SiteContent } from "./types";
 
 export const site: SiteContent = {
   siteUrl: "https://hugobentivegna.vercel.app",
+  domain: "hugobentivegna.vercel.app",
   storybookUrl: "https://hugobentivegna-storybook.vercel.app",
   name: "Hugo Bentivegna",
   role: "Senior Software Engineer",

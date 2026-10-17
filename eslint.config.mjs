@@ -122,6 +122,7 @@ export default defineConfig([
   },
   globalIgnores([
     ".next/**",
+    ".next-verify/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
