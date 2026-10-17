@@ -81,6 +81,8 @@ export interface TraceOption {
   label: string;
   variant: "primary" | "secondary";
 }
+/** The rebrand scene's two acts: the same rebrand without, then with, a design system. */
+export type SceneAct = "without" | "with";
 
 /** The themes the rebrand slide offers: the made-up rebrands plus the site's own. */
 export type RebrandTheme = Extract<ThemeName, "midnight" | "solar" | "forest">;
