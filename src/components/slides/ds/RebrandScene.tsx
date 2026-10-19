@@ -85,8 +85,6 @@ export function RebrandScene({ view, layout }: RebrandSceneProps) {
             <div className={rebrandScene.productBody}>
               <span className={rebrandScene.balanceLabel}>{rebrand.product.balanceLabel}</span>
               <span className={rebrandScene.balance}>{rebrand.product.balance}</span>
-              <span className={rebrandScene.line} />
-              <span className={rebrandScene.lineShort} />
               <Button tabIndex={-1} className={rebrandScene.action}>
                 {rebrand.product.action}
               </Button>
