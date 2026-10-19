@@ -212,4 +212,32 @@ export interface AiCase {
     excerptsLabel: string;
     excerpts: [Excerpt, ...Excerpt[]];
   };
+  /** Chapter 03: a real reviewed change from this repository, from draft to merged. */
+  build: {
+    kicker: string;
+    title: string;
+    body: string;
+    /** Shown under the body: the proof is public. */
+    closing: string;
+    /** Opens this site's repository in a new tab. */
+    repo: LinkContent;
+    review: {
+      /** Heads the panel: which pull request and file. */
+      label: string;
+      /** Draft, Review, Fix, Rule, Checks, Merged (one per timeline stage). */
+      stages: [string, string, string, string, string, string];
+      /** The draft's lines as committed; they end marked removed. */
+      before: string[];
+      /** The line that replaced them. */
+      after: string;
+      /** Read by screen readers before each line, since color marks it on screen. */
+      removedLabel: string;
+      addedLabel: string;
+      comment: { author: string; body: string; resolved: string };
+      /** The lint rule the review turned into. */
+      rule: { file: string; message: string };
+      checks: string[];
+      status: { open: string; merged: string };
+    };
+  };
 }

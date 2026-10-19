@@ -197,4 +197,38 @@ export const aiCase: AiCase = {
       },
     ],
   },
+  build: {
+    kicker: "03 · Build on it",
+    title: "Then page after page, on the same patterns.",
+    body: "AI drafted each page from the kit and the documented patterns. I reviewed every change, and tests decided when a task was done. Speed and quality stopped pulling against each other.",
+    closing: "This site was built the same way. The rules, docs and reviews are on GitHub.",
+    repo: { label: "See the repository", href: "https://github.com/hugobenti/hugobentivegna" },
+    review: {
+      label: "PR #5 · TimelineAxis.tsx",
+      stages: ["Draft", "Review", "Fix", "Rule", "Checks", "Merged"],
+      // TimelineAxis.tsx before and after commit e833f74, trimmed to the lines the review changed.
+      before: [
+        "const scale = timelineScale(entries);",
+        "const stateOf = (index: number): State =>",
+        "  activeIndex === undefined || index < activeIndex",
+        "const fill = activeIndex === undefined ? 100 : (scale.spans[activeIndex]?.to ?? 0);",
+      ],
+      after: "const { ticks, spans, dots, fill } = useTimelineAxis(entries, activeIndex);",
+      removedLabel: "Removed:",
+      addedLabel: "Added:",
+      comment: {
+        author: "Hugo · review",
+        // Hugo's review feedback on PR #5, in the wording he approved on 2026-10-19.
+        body: "Components should only render. Move this logic into a hook and keep it out of the .tsx.",
+        resolved: "Resolved",
+      },
+      rule: {
+        file: "+ eslint.config.mjs · logicRules",
+        message:
+          "Components are presentation: derive values in a useX.ts hook or a .ts module, not in .tsx",
+      },
+      checks: ["lint", "typecheck", "tests", "build"],
+      status: { open: "Open", merged: "Merged" },
+    },
+  },
 };
