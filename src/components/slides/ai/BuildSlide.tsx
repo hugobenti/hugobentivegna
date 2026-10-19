@@ -107,7 +107,7 @@ export function BuildSlide() {
                   data-passed={check.passed}
                   className={buildSlide.check}
                 >
-                  ✓ {check.label}
+                  <span aria-hidden="true">{check.mark}</span> {check.label}
                 </li>
               ))}
             </ul>

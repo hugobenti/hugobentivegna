@@ -192,7 +192,7 @@ export const aiCase: AiCase = {
           {
             text: "Components are presentation: derive values in a useX.ts hook or a .ts module, not in .tsx",
           },
-          { text: "✖ 11 problems (11 errors)", tone: "error", output: true },
+          { text: "✖ 11 problems (11 errors, 0 warnings)", tone: "error", output: true },
         ],
       },
     ],
@@ -206,11 +206,16 @@ export const aiCase: AiCase = {
     review: {
       label: "PR #5 · TimelineAxis.tsx",
       stages: ["Draft", "Review", "Fix", "Rule", "Checks", "Merged"],
-      // TimelineAxis.tsx before and after commit e833f74, trimmed to the lines the review changed.
+      // TimelineAxis.tsx before and after commit e833f74: the lines the hook replaced, verbatim
+      // with one indent level removed.
       before: [
         "const scale = timelineScale(entries);",
         "const stateOf = (index: number): State =>",
         "  activeIndex === undefined || index < activeIndex",
+        '    ? "past"',
+        "    : index === activeIndex",
+        '      ? "current"',
+        '      : "future";',
         "const fill = activeIndex === undefined ? 100 : (scale.spans[activeIndex]?.to ?? 0);",
       ],
       after: "const { ticks, spans, dots, fill } = useTimelineAxis(entries, activeIndex);",
@@ -228,6 +233,8 @@ export const aiCase: AiCase = {
           "Components are presentation: derive values in a useX.ts hook or a .ts module, not in .tsx",
       },
       checks: ["lint", "typecheck", "tests", "build"],
+      /** Pending vs passed is shown by the mark, not only by color. Same width in mono. */
+      checkMarks: { pending: "○", passed: "✓" },
       status: { open: "Open", merged: "Merged" },
     },
   },

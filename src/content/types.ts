@@ -237,6 +237,7 @@ export interface AiCase {
       /** The lint rule the review turned into. */
       rule: { file: string; message: string };
       checks: string[];
+      checkMarks: { pending: string; passed: string };
       status: { open: string; merged: string };
     };
   };

@@ -26,7 +26,10 @@ export function useReviewLoop() {
       "data-ruled": frame.stage >= 3,
     },
     stages: review.stages.map((label, index) => ({ label, on: index <= frame.stage })),
-    checks: review.checks.map((label, index) => ({ label, passed: index < frame.checksPassed })),
+    checks: review.checks.map((label, index) => {
+      const passed = index < frame.checksPassed;
+      return { label, passed, mark: passed ? review.checkMarks.passed : review.checkMarks.pending };
+    }),
     /** Visual only (screen readers get the merged status as text): both labels, one shown. */
     status: [
       { label: review.status.open, shown: !merged },

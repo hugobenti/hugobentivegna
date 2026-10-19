@@ -77,6 +77,19 @@ test("once active, the change goes from draft to merged", () => {
   expect(screen.getByRole("button", { name: controls.replay })).toBeInTheDocument();
 });
 
+test("a check shows its tick only once it has passed, not just a color change", () => {
+  const { container } = render(<BuildSlide />);
+  const ticks = () =>
+    [...container.querySelectorAll("[data-check]")].filter((check) =>
+      check.textContent?.includes("✓"),
+    ).length;
+  start();
+  advance(REVIEW_STAGE_MS[4] - 100);
+  expect(ticks()).toBe(0);
+  advance(REVIEW_MS);
+  expect(ticks()).toBe(review.checks.length);
+});
+
 test("with reduced motion it shows the merged change, with nothing to control", () => {
   stubReducedMotion(true);
   const { container } = render(<BuildSlide />);
