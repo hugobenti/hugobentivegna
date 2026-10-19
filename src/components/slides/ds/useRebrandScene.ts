@@ -86,7 +86,8 @@ const STILL_VIEWS = [
  * control the scene needs because it runs longer than 5 s.
  */
 export function useRebrandScene() {
-  const { ref, elapsed, still, paused, finished, toggle } = usePlayback<HTMLDivElement>(SCENE_MS);
+  const { ref, elapsed, still, paused, finished, controllable, toggle } =
+    usePlayback<HTMLDivElement>(SCENE_MS);
   const frame = sceneFrame(elapsed);
   const actElapsed = frame.act === "with" ? elapsed - ACT2_START_MS : elapsed;
   return {
@@ -101,6 +102,8 @@ export function useRebrandScene() {
       active: !still && frame.act === act,
     })),
     control: {
+      /** Only offered while it can act and something moves (not without JS or motion). */
+      shown: controllable,
       label: finished
         ? rebrand.controls.replay
         : paused

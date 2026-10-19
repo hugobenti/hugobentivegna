@@ -1,4 +1,5 @@
 import { act, render, screen } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { designSystemCase } from "@/content/cases";
 import {
@@ -107,4 +108,11 @@ test("reduced motion shows both acts at their end, with nothing to pause", () =>
 
 test("the content has one product per developer timing", () => {
   expect(rebrand.products).toHaveLength(DEV_FINISH_MS.length);
+});
+
+test("without JavaScript there is no pause button that couldn't work", () => {
+  const html = renderToString(<RebrandSlide />);
+  for (const label of Object.values(rebrand.controls)) {
+    expect(html).not.toMatch(new RegExp(`<button[^>]*>${label}</button>`));
+  }
 });

@@ -53,13 +53,15 @@ export function RebrandSlide() {
                     </span>
                   ))}
                 </p>
-                <Button
-                  variant="secondary"
-                  className={rebrandSlide.control}
-                  onClick={control.toggle}
-                >
-                  {control.label}
-                </Button>
+                {control.shown ? (
+                  <Button
+                    variant="secondary"
+                    className={rebrandSlide.control}
+                    onClick={control.toggle}
+                  >
+                    {control.label}
+                  </Button>
+                ) : null}
               </div>
             )}
             <div
