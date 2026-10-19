@@ -67,3 +67,20 @@ describe.each(themes)("%s theme meets WCAG 2.2 AA", (theme) => {
     expect(ratio(c, fg, bg)).toBeGreaterThanOrEqual(3);
   });
 });
+
+describe("rebrand scene brands meet WCAG 2.2 AA on the mock product screens", () => {
+  const primitive = (name: string) => {
+    const token = tokens.find((t) => t.layer === "primitive" && t.name === name);
+    if (!token) throw new Error(`missing primitive: ${name}`);
+    return token.resolved;
+  };
+
+  test.each(["palette.bank.before", "palette.bank.after"])("%s", (brand) => {
+    // White labels on the brand header and buttons.
+    expect(contrastRatio(primitive("palette.ink.50"), primitive(brand))).toBeGreaterThanOrEqual(
+      4.5,
+    );
+    // A brand fill must read against the dark mock surface.
+    expect(contrastRatio(primitive(brand), primitive("palette.ink.900"))).toBeGreaterThanOrEqual(3);
+  });
+});

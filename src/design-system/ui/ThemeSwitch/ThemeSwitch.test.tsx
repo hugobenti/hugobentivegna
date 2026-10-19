@@ -6,8 +6,8 @@ import { ThemeSwitch } from "./ThemeSwitch";
 
 const options = [
   { value: "midnight", label: "Midnight" },
-  { value: "solar", label: "Solar" },
-  { value: "forest", label: "Forest" },
+  { value: "pixel", label: "Pixel" },
+  { value: "system", label: "System" },
 ];
 
 function Controlled({ onChange }: { onChange?: (value: string) => void }) {
@@ -26,9 +26,9 @@ function Controlled({ onChange }: { onChange?: (value: string) => void }) {
 }
 
 test("is a labelled group of radios with the current value checked", () => {
-  render(<ThemeSwitch label="Brand" options={options} value="solar" onChange={() => {}} />);
+  render(<ThemeSwitch label="Brand" options={options} value="pixel" onChange={() => {}} />);
   expect(screen.getByRole("group", { name: "Brand" })).toBeInTheDocument();
-  expect(screen.getByRole("radio", { name: "Solar" })).toBeChecked();
+  expect(screen.getByRole("radio", { name: "Pixel" })).toBeChecked();
   expect(screen.getByRole("radio", { name: "Midnight" })).not.toBeChecked();
 });
 
@@ -36,9 +36,9 @@ test("clicking an option reports its value", async () => {
   const user = userEvent.setup();
   const onChange = vi.fn();
   render(<Controlled onChange={onChange} />);
-  await user.click(screen.getByText("Forest"));
-  expect(onChange).toHaveBeenLastCalledWith("forest");
-  expect(screen.getByRole("radio", { name: "Forest" })).toBeChecked();
+  await user.click(screen.getByText("System"));
+  expect(onChange).toHaveBeenLastCalledWith("system");
+  expect(screen.getByRole("radio", { name: "System" })).toBeChecked();
 });
 
 test("one tab stop, landing on the checked option", async () => {
@@ -46,13 +46,13 @@ test("one tab stop, landing on the checked option", async () => {
   render(
     <>
       <button type="button">before</button>
-      <ThemeSwitch label="Brand" options={options} value="solar" onChange={() => {}} />
+      <ThemeSwitch label="Brand" options={options} value="pixel" onChange={() => {}} />
       <button type="button">after</button>
     </>,
   );
   screen.getByRole("button", { name: "before" }).focus();
   await user.tab();
-  expect(screen.getByRole("radio", { name: "Solar" })).toHaveFocus();
+  expect(screen.getByRole("radio", { name: "Pixel" })).toHaveFocus();
   await user.tab();
   expect(screen.getByRole("button", { name: "after" })).toHaveFocus();
 });
@@ -63,7 +63,7 @@ test("arrow keys move the selection", async () => {
   render(<Controlled onChange={onChange} />);
   screen.getByRole("radio", { name: "Midnight" }).focus();
   await user.keyboard("{ArrowRight}");
-  expect(onChange).toHaveBeenLastCalledWith("solar");
+  expect(onChange).toHaveBeenLastCalledWith("pixel");
   await user.keyboard("{ArrowLeft}");
   expect(onChange).toHaveBeenLastCalledWith("midnight");
 });
@@ -71,10 +71,10 @@ test("arrow keys move the selection", async () => {
 test("two switches on one page don't share a radio group", () => {
   render(
     <>
-      <ThemeSwitch label="A" options={options} value="solar" onChange={() => {}} />
-      <ThemeSwitch label="B" options={options} value="forest" onChange={() => {}} />
+      <ThemeSwitch label="A" options={options} value="pixel" onChange={() => {}} />
+      <ThemeSwitch label="B" options={options} value="system" onChange={() => {}} />
     </>,
   );
-  const [a, b] = screen.getAllByRole("radio", { name: "Solar" });
+  const [a, b] = screen.getAllByRole("radio", { name: "Pixel" });
   expect(a?.getAttribute("name")).not.toBe(b?.getAttribute("name"));
 });

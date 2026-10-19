@@ -4,8 +4,8 @@ import { ThemeSwitch } from "./ThemeSwitch";
 
 const options = [
   { value: "midnight", label: "Midnight" },
-  { value: "solar", label: "Solar" },
-  { value: "forest", label: "Forest" },
+  { value: "pixel", label: "Pixel" },
+  { value: "system", label: "System" },
 ];
 
 const meta = {
