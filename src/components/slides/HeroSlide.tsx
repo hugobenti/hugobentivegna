@@ -1,4 +1,3 @@
-import { navLinks } from "@/content/navigation";
 import { site } from "@/content/site";
 import { slides } from "@/content/slides";
 import { cx } from "@/design-system/ui";
@@ -11,23 +10,6 @@ export function HeroSlide() {
   return (
     <Slide slide={slides.hero} className={hero.slide}>
       <div className={hero.glow} aria-hidden="true" />
-
-      <header className={cx(deck.enter, hero.topBar)} style={stagger(0)}>
-        <span className={hero.monogram} aria-hidden="true">
-          HB
-        </span>
-        <nav aria-label="Primary">
-          <ul className={hero.navList}>
-            {navLinks.map((link) => (
-              <li key={link.slideId}>
-                <a href={link.href} className={hero.navLink}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </header>
 
       <div className={hero.content}>
         <p className={cx(deck.enter, hero.kicker)} style={stagger(1)}>

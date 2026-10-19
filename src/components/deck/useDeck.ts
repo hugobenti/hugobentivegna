@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { SlideMeta } from "@/content/types";
+import { activeNavLink } from "@/content/navigation";
+import type { NavLink, SlideMeta } from "@/content/types";
 import { hashForSlide, slidePositions } from "./slideState";
 import { CENTRE_LINE, SEEN_LINE } from "./viewport";
 
@@ -10,10 +11,11 @@ import { CENTRE_LINE, SEEN_LINE } from "./viewport";
 
 /**
  * Slide-deck behavior: tracks the slide in view, keeps the URL hash and slide positions
- * (data-position / data-seen, read by deck.css) in sync, and scrolls to a chosen slide.
+ * (data-position / data-seen, read by deck.css) in sync, and scrolls to a chosen slide. Also
+ * reports which header link owns the slide in view (`activeSection`).
  * Scrolling itself stays native; nothing here listens to wheel, touch or keys.
  */
-export function useDeck(slides: readonly SlideMeta[]) {
+export function useDeck(slides: readonly SlideMeta[], nav: readonly NavLink[]) {
   const rootRef = useRef<HTMLDivElement>(null);
   const ids = useMemo(() => slides.map((slide) => slide.id), [slides]);
   // null until the observer has reported a slide, so the URL is never rewritten from a guess.
@@ -66,5 +68,12 @@ export function useDeck(slides: readonly SlideMeta[]) {
     document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
   }, []);
 
-  return { rootRef, activeId: activeId ?? ids[0] ?? "", goTo };
+  const current = activeId ?? ids[0] ?? "";
+  return {
+    rootRef,
+    activeId: current,
+    activeSection: activeNavLink(nav, current),
+    homeHref: `#${ids[0] ?? ""}`,
+    goTo,
+  };
 }

@@ -5,6 +5,7 @@ export { cx } from "./cx";
 export { cssVars } from "./cssVars";
 export { DotNav, type DotNavItem, type DotNavProps } from "./DotNav/DotNav";
 export { focusRing, focusRingWithin } from "./focus.style";
+export { SectionNav, type SectionNavItem, type SectionNavProps } from "./SectionNav/SectionNav";
 export { Tag, type TagProps } from "./Tag/Tag";
 export {
   ThemeSwitch,

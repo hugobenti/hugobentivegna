@@ -71,12 +71,13 @@
     scroll-snap-align: none;
   }
 
+  /* Pinned under the fixed site header (3.5rem tall), with room to breathe below it. */
   .steps-header {
     position: sticky;
     top: 0;
     z-index: 1;
     height: var(--steps-header);
-    padding-top: 3.5rem;
+    padding-top: 5rem;
   }
 
   .step,

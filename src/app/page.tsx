@@ -6,20 +6,19 @@ import { ProblemSlide } from "@/components/slides/ds/ProblemSlide";
 import { RebrandSlide } from "@/components/slides/ds/RebrandSlide";
 import { HeroSlide } from "@/components/slides/HeroSlide";
 import { TimelineSlide } from "@/components/slides/TimelineSlide";
+import { navLinks } from "@/content/navigation";
 import { slideList } from "@/content/slides";
 
 export default function Home() {
   return (
-    <main>
-      <Deck slides={slideList}>
-        <HeroSlide />
-        <TimelineSlide />
-        <CaseCoverSlide />
-        <ProblemSlide />
-        <DecisionSlide />
-        <RebrandSlide />
-        <ContactSlide />
-      </Deck>
-    </main>
+    <Deck slides={slideList} nav={navLinks}>
+      <HeroSlide />
+      <TimelineSlide />
+      <CaseCoverSlide />
+      <ProblemSlide />
+      <DecisionSlide />
+      <RebrandSlide />
+      <ContactSlide />
+    </Deck>
   );
 }
