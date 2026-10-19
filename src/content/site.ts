@@ -25,11 +25,10 @@ export const site: SiteContent = {
       slideId: slides.dsCover.id,
       section: [slides.dsCover.id, slides.dsProblem.id, slides.dsDecision.id, slides.dsRebrand.id],
     },
-    // Shows up on its own once these slides exist (planned ids, spec §4.4).
     {
-      label: "Case 02 · AI-driven development",
-      slideId: "ai-plan",
-      section: ["ai-plan", "ai-loop", "ai-proof"],
+      label: "Case 02 · AI-assisted development",
+      slideId: slides.aiCover.id,
+      section: [slides.aiCover.id, slides.aiGaps.id],
     },
     { label: "Projects", slideId: "pixelcraft" },
     { label: "Contact", slideId: slides.contact.id },

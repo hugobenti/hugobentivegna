@@ -11,6 +11,8 @@ export const slides = {
   dsProblem: { id: "problem", label: "The problem" },
   dsDecision: { id: "one-system", label: "One system" },
   dsRebrand: { id: "rebrand", label: "The rebrand" },
+  aiCover: { id: "ai-development", label: "AI development" },
+  aiGaps: { id: "find-the-gaps", label: "Find the gaps" },
   contact: { id: "contact", label: "Contact" },
 } as const satisfies Record<string, SlideMeta>;
 

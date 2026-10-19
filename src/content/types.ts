@@ -145,3 +145,38 @@ export interface DesignSystemCase {
     product: { balanceLabel: string; balance: string; action: string };
   };
 }
+
+/** What one check in the gap analysis found: the API already does it, or a gap. */
+export type GapResult = "ready" | "gap";
+
+/** One thing product expects, checked against the spec and the code. */
+export interface GapCheck {
+  expectation: string;
+  result: GapResult;
+  /** Names the kind of result, e.g. "Missing endpoint". */
+  badge: string;
+  reason: string;
+}
+
+export interface AiCase {
+  cover: CaseCover;
+  /** Each scene runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
+  controls: { pause: string; play: string; replay: string };
+  /** Chapter 01: an agent compares product docs, the tech spec and the code before any work. */
+  gaps: {
+    kicker: string;
+    title: string;
+    body: string;
+    /** Heads the panel: the feature being checked. */
+    feature: string;
+    /** Marks the panel as an example, not the real portal. */
+    illustration: string;
+    /** Read in this order; `reading` captions the source while the agent reads it. */
+    sources: { label: string; badge?: string; reading: string }[];
+    /** Names the checks list for screen readers. */
+    checksLabel: string;
+    checks: [GapCheck, ...GapCheck[]];
+    /** Replaces the caption once every check has its result. */
+    done: string;
+  };
+}
