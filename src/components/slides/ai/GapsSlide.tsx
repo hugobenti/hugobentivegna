@@ -13,7 +13,7 @@ const { gaps } = aiCase;
 
 /** Chapter 01 of the AI case: an agent checks what product expects against the spec and the code. */
 export function GapsSlide() {
-  const { ref, still, sources, caption, checks, control } = useGapsScene();
+  const { ref, sources, caption, checks, control } = useGapsScene();
   return (
     <Slide slide={slides.aiGaps}>
       <div className={gapsSlide.content}>
@@ -69,11 +69,11 @@ export function GapsSlide() {
             <p className={gapsSlide.caption} aria-hidden="true">
               {caption}
             </p>
-            {still ? null : (
+            {control.shown ? (
               <Button variant="secondary" className={gapsSlide.control} onClick={control.toggle}>
                 {control.label}
               </Button>
-            )}
+            ) : null}
           </div>
           <p className={gapsSlide.summary}>{gaps.done}</p>
         </div>

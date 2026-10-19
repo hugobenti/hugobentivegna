@@ -24,7 +24,8 @@ function subscribeToNothing() {
  * Once the element leaves the screen it returns to 0, so coming back replays it. `toggle`
  * pauses and resumes, or replays once finished: the control WCAG 2.2.2 asks for when an
  * animation runs longer than 5 s. The server render and visitors who prefer reduced motion get
- * the end state (`still` marks the latter).
+ * the end state (`still` marks the latter). `controllable` says whether to offer that control:
+ * only once hydrated (before, nothing could act on it) and only while motion is allowed.
  */
 export function usePlayback<T extends HTMLElement>(durationMs: number) {
   const ref = useRef<T>(null);
@@ -100,6 +101,15 @@ export function usePlayback<T extends HTMLElement>(durationMs: number) {
     setPaused(playing.current.paused);
   };
 
-  const shown = hydrated && !still ? elapsed : durationMs;
-  return { ref, elapsed: shown, still, paused, finished: shown >= durationMs, toggle };
+  const animated = hydrated && !still;
+  const shown = animated ? elapsed : durationMs;
+  return {
+    ref,
+    elapsed: shown,
+    still,
+    paused,
+    finished: shown >= durationMs,
+    controllable: animated,
+    toggle,
+  };
 }

@@ -13,7 +13,8 @@ export type CheckState = "idle" | "checking" | GapResult;
  * check lands its result. All copy is rendered from the start; only the states change.
  */
 export function useGapsScene() {
-  const { ref, elapsed, still, paused, finished, toggle } = usePlayback<HTMLDivElement>(duration);
+  const { ref, elapsed, paused, finished, controllable, toggle } =
+    usePlayback<HTMLDivElement>(duration);
   const frame = gapsFrame(elapsed, gaps.sources.length, gaps.checks.length);
   const stateOf = (check: GapCheck, index: number): CheckState => {
     if (index < frame.resolved) return check.result;
@@ -23,12 +24,13 @@ export function useGapsScene() {
 
   return {
     ref,
-    still,
     sources: gaps.sources.map((source, index) => ({ ...source, on: index < frame.sourcesLit })),
     /** What the agent is doing right now; visual only (the list carries the content). */
     caption: frame.done ? gaps.done : (reading?.reading ?? ""),
     checks: gaps.checks.map((check, index) => ({ ...check, state: stateOf(check, index) })),
     control: {
+      /** Only offered while it can act and something moves (not without JS or motion). */
+      shown: controllable,
       label: finished ? controls.replay : paused ? controls.play : controls.pause,
       toggle,
     },

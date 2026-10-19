@@ -21,18 +21,21 @@ export const gapsSlide = {
 
   checks: "flex flex-col gap-2",
   /**
-   * One expectation. Idle checks are dimmed; a landed result colors the outline. The height
-   * never changes: the badge and the reason only fade in.
+   * One expectation. Idle checks are dimmed with the `muted` text color (AA on every theme,
+   * unlike a faded card); a landed result colors the outline. The height never changes: the
+   * badge and the reason only fade in.
    */
   check: [
     "group/check rounded-md border border-line bg-bg px-4 py-3",
-    "transition-[border-color,opacity] duration-(--hb-duration-slow)",
-    "data-[state=idle]:opacity-40",
+    "transition-[border-color] duration-(--hb-duration-slow)",
     "data-[state=ready]:border-success data-[state=gap]:border-warning",
   ].join(" "),
   /** The badge wraps under the expectation on narrow screens; it always takes its space. */
   checkTop: "flex flex-wrap items-center justify-between gap-x-3 gap-y-1",
-  expectation: "text-small font-medium text-fg",
+  expectation: [
+    "text-small font-medium text-fg transition-colors duration-(--hb-duration-slow)",
+    "group-data-[state=idle]/check:text-muted",
+  ].join(" "),
   /** Text badge naming the result, so the status never relies on color alone. */
   badge: [
     "shrink-0 rounded-pill border border-line px-2.5 py-0.5 font-mono text-label whitespace-nowrap",

@@ -1,4 +1,5 @@
 import { act, render, screen, within } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { aiCase } from "@/content/cases";
 import {
@@ -89,4 +90,12 @@ test("with reduced motion every result shows at once and there is nothing to con
   render(<GapsSlide />);
   expect(states()).toEqual(gaps.checks.map((check) => check.result));
   expect(screen.queryAllByRole("button")).toEqual([]);
+});
+
+test("without JavaScript the page shows the results and no control that couldn't work", () => {
+  const html = renderToString(<GapsSlide />);
+  for (const label of Object.values(controls)) {
+    expect(html).not.toMatch(new RegExp(`<button[^>]*>${label}</button>`));
+  }
+  expect(html).toContain(gaps.checks[0].badge);
 });
