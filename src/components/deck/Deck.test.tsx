@@ -14,9 +14,14 @@ const slides = [
   { id: "contact", label: "Contact" },
 ];
 
+const nav = [
+  { label: "Story", slideId: "timeline", id: "timeline", href: "#timeline" as const },
+  { label: "Contact", slideId: "contact", id: "contact", href: "#contact" as const },
+];
+
 function renderDeck() {
   render(
-    <Deck slides={slides}>
+    <Deck slides={slides} nav={nav}>
       {slides.map((slide) => (
         <Slide key={slide.id} slide={slide}>
           {slide.label}
@@ -97,4 +102,20 @@ test("choosing a dot scrolls that slide into view", () => {
   contact.scrollIntoView = scrollIntoView;
   act(() => screen.getByRole("button", { name: "Contact" }).click());
   expect(scrollIntoView).toHaveBeenCalledWith({ behavior: "smooth" });
+});
+
+test("the header marks the section of the slide in view, and nothing on the intro", () => {
+  const { centre } = renderDeck();
+  const current = () =>
+    nav
+      .map((link) => link.label)
+      .filter(
+        (name) => screen.getByRole("link", { name }).getAttribute("aria-current") === "location",
+      );
+  centre.report("#hero", true);
+  expect(current()).toEqual([]);
+  centre.report("#timeline", true);
+  expect(current()).toEqual(["Story"]);
+  centre.report("#contact", true);
+  expect(current()).toEqual(["Contact"]);
 });

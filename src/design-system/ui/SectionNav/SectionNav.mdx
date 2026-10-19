@@ -1,0 +1,36 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./SectionNav.stories";
+
+<Meta of={Stories} />
+
+# SectionNav
+
+In-page links to the sections of a long page, for a sticky header. The section the visitor is in is shown bold, inside accent brackets: `[ Case 01 · Design systems ]`.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- A long page has a few named sections (an experience timeline, case studies, contact) and the visitor should always see which one they're in.
+
+## Don't use when
+
+- The links go to other pages: use regular navigation links.
+- You need to show position inside a section, slide by slide: that's `DotNav`'s job.
+
+## Accessibility
+
+- A `<nav>` landmark (default name "Sections") holding a list of real links.
+- The active link has `aria-current="location"`, and its look comes from that attribute, so what is announced and what is shown can't disagree.
+- The brackets are decorative (`aria-hidden`), so a link's name is just its label.
+- Brackets and bold weight are reserved for every link, so the row never shifts when the active section changes.
+- On narrow screens the row scrolls sideways and keeps the active link in view, scrolling instantly when the visitor prefers reduced motion. The page itself never moves.
+
+## Do / Don't
+
+| Do                                      | Don't                                    |
+| --------------------------------------- | ---------------------------------------- |
+| Short section names ("Experience")      | One link per slide (use `DotNav`)        |
+| One active section, or none             | Highlight several sections at once       |
+| Hide links to sections that don't exist | Show "coming soon" links that go nowhere |

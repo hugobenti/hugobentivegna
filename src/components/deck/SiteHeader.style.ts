@@ -1,0 +1,14 @@
+import { focusRing } from "@/design-system/ui";
+
+export const siteHeader = {
+  /**
+   * Fixed over every slide, above the dots. Its height fits inside a slide's top padding and a
+   * multi-step slide's pinned header (deck.css), so it never covers content.
+   */
+  bar: "fixed inset-x-0 top-0 z-20 flex h-14 items-center gap-4 border-b border-line bg-bg/85 px-gutter backdrop-blur-md",
+  monogram: ["shrink-0 rounded-sm font-display text-body font-extrabold text-fg", focusRing].join(
+    " ",
+  ),
+  /** Takes the remaining width, so on phones the links scroll inside it. */
+  nav: "min-w-0 flex-1",
+};

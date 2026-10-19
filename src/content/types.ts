@@ -4,6 +4,8 @@ export interface NavLink {
   label: string;
   /** Id of the slide the link jumps to; links to slides that don't exist yet aren't rendered. */
   slideId: string;
+  /** Every slide in this link's section (e.g. a case); defaults to `slideId` alone. */
+  section?: readonly string[];
 }
 
 export interface SiteContent {
@@ -19,6 +21,10 @@ export interface SiteContent {
   /** Hero headline, split so the accent phrase can be styled. */
   headline: { lead: string; accent: string; tail: string };
   supportLine: string;
+  /** The site header: its monogram (a link back to the start) and its section links. */
+  monogram: string;
+  homeLabel: string;
+  navLabel: string;
   nav: NavLink[];
 }
 
