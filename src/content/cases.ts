@@ -1,4 +1,4 @@
-import type { DesignSystemCase } from "./types";
+import type { AiCase, DesignSystemCase } from "./types";
 
 /** Design-system case: the real story, told without naming the company (spec 2026-10-17). */
 export const designSystemCase: DesignSystemCase = {
@@ -83,5 +83,69 @@ export const designSystemCase: DesignSystemCase = {
     versions: { before: "v1.8", after: "v2.0" },
     products: ["Accounts", "Payments", "Cards", "Invest", "Exchange", "Loans"],
     product: { balanceLabel: "Balance", balance: "$ 12,480.00", action: "Continue" },
+  },
+};
+
+/** AI case: how the IoT portal's front-end was set up for AI agents, company not named (spec 2026-10-19). */
+export const aiCase: AiCase = {
+  cover: {
+    kicker: "Case study · AI-assisted development",
+    title: "A front-end built for two readers: engineers and AI agents.",
+    body: "How I set up a new IoT portal so AI could help build it, fast and on-pattern.",
+    meta: [
+      { label: "When", value: "2025 – 2026" },
+      { label: "My role", value: "Built the UI Kit foundation and the portal's pages" },
+      { label: "With", value: "Product, backend teams and AI agents" },
+    ],
+    chapters: [
+      { number: "01", label: "Find the gaps" },
+      { number: "02", label: "Lay the foundation" },
+      { number: "03", label: "Build on it" },
+    ],
+  },
+  controls: { pause: "Pause", play: "Play", replay: "Replay" },
+  gaps: {
+    kicker: "01 · Find the gaps",
+    title: "Before writing code, I asked what was missing.",
+    body: "Through MCP, an AI agent read the product docs, the tech spec and the company's Git repositories. Checking the real code, not just the docs, showed exactly what each screen needed, what the API already did, and what was missing: endpoints, data, filters.",
+    feature: "Feature · Devices",
+    illustration: "Illustration",
+    sources: [
+      { label: "Product docs", reading: "Reading what product expects…" },
+      { label: "Tech spec", reading: "Reading what the tech spec planned…" },
+      {
+        label: "Git repositories",
+        badge: "MCP",
+        reading: "Checking the code in the Git repositories…",
+      },
+    ],
+    checksLabel: "What product expects for the Devices feature",
+    checks: [
+      {
+        expectation: "A list of every device",
+        result: "ready",
+        badge: "Ready",
+        reason: "Planned in the spec and served by the API.",
+      },
+      {
+        expectation: "Filter by several statuses at once",
+        result: "gap",
+        badge: "Filter limit",
+        reason: "The API accepts one status per request.",
+      },
+      {
+        expectation: "Data used this month, per device",
+        result: "gap",
+        badge: "Data not planned",
+        reason: "Product expects it; the tech spec never planned it.",
+      },
+      {
+        expectation: "A history page for each device",
+        result: "gap",
+        badge: "Missing endpoint",
+        reason: "The spec describes it; the code has no route for it yet.",
+      },
+    ],
+    done: "Three gaps found before any code was written.",
   },
 };

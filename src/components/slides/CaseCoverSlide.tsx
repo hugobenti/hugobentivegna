@@ -1,17 +1,19 @@
-import { designSystemCase } from "@/content/cases";
-import { slides } from "@/content/slides";
+import type { CaseCover, SlideMeta } from "@/content/types";
 import { cx } from "@/design-system/ui";
-import { deck } from "../../deck/Deck.style";
-import { Slide } from "../../deck/Slide";
-import { stagger } from "../../deck/stagger";
+import { deck } from "../deck/Deck.style";
+import { Slide } from "../deck/Slide";
+import { stagger } from "../deck/stagger";
 import { caseCoverSlide } from "./CaseCoverSlide.style";
 
-const { cover } = designSystemCase;
+type CaseCoverSlideProps = {
+  slide: SlideMeta;
+  cover: CaseCover;
+};
 
-/** Opens the design-system case: what it is, when, my role, and the chapters ahead. */
-export function CaseCoverSlide() {
+/** Opens a case study: what it is, when, my role, and the chapters ahead. */
+export function CaseCoverSlide({ slide, cover }: CaseCoverSlideProps) {
   return (
-    <Slide slide={slides.dsCover} className={caseCoverSlide.slide}>
+    <Slide slide={slide} className={caseCoverSlide.slide}>
       <div className={caseCoverSlide.glow} aria-hidden="true" />
       <div className={caseCoverSlide.content}>
         <p className={cx(deck.reveal, caseCoverSlide.kicker)} style={stagger(0)}>

@@ -16,6 +16,14 @@
       "400": { "$value": "#5aa2ff" },
       "glow": { "$value": "#408cff59" }
     },
+    "green": {
+      "$description": "Positive status.",
+      "400": { "$value": "#5fd39a" }
+    },
+    "amber": {
+      "$description": "Attention status.",
+      "400": { "$value": "#ffb454" }
+    },
     "bank": {
       "$description": "Made-up bank brands for the design-system case's rebrand scene.",
       "before": { "$value": "#2f5bd3", "$description": "The deep-blue brand before the rebrand." },

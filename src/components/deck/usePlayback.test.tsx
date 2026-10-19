@@ -11,12 +11,13 @@ import { usePlayback } from "./usePlayback";
 const DURATION = 5000;
 
 function Probe() {
-  const { ref, elapsed, still, paused, finished, toggle } = usePlayback<HTMLDivElement>(DURATION);
+  const { ref, elapsed, still, paused, finished, controllable, toggle } =
+    usePlayback<HTMLDivElement>(DURATION);
   return (
     <div ref={ref} data-probe="">
       <p>
         elapsed={elapsed} still={String(still)} paused={String(paused)} finished=
-        {String(finished)}
+        {String(finished)} controllable={String(controllable)}
       </p>
       <button type="button" onClick={toggle}>
         toggle
@@ -60,6 +61,15 @@ afterEach(() => {
 
 test("renders the end state before hydration effects run", () => {
   expect(renderToString(<Probe />)).toContain(`elapsed=<!-- -->${DURATION}`);
+});
+
+test("offers no control before hydration, since nothing could act on it", () => {
+  expect(renderToString(<Probe />)).toContain("controllable=<!-- -->false");
+});
+
+test("offers the control once hydrated, while motion is allowed", () => {
+  render(<Probe />);
+  expect(shown()).toContain("controllable=true");
 });
 
 test("waits at 0 until the slide crosses the centre line, then plays to the end and holds", () => {
@@ -126,6 +136,12 @@ test("reduced motion shows the end state at once and never plays", () => {
   expect(shown()).toContain(`elapsed=${DURATION} still=true`);
   advance(1000);
   expect(shown()).toContain(`elapsed=${DURATION} still=true`);
+});
+
+test("reduced motion offers no control: nothing moves", () => {
+  stubReducedMotion(true);
+  render(<Probe />);
+  expect(shown()).toContain("controllable=false");
 });
 
 test("pausing stops time where it is, and playing resumes from there", () => {
