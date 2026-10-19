@@ -60,6 +60,15 @@ describe.each(themes)("%s theme meets WCAG 2.2 AA", (theme) => {
   });
 
   test.each([
+    ["success", "bg"],
+    ["success", "surface"],
+    ["warning", "bg"],
+    ["warning", "surface"],
+  ])("status text %s on %s ≥ 4.5:1", (fg, bg) => {
+    expect(ratio(c, fg, bg)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  test.each([
     ["accent", "bg"],
     ["focus", "bg"],
     ["focus", "surface"],

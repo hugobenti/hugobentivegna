@@ -91,15 +91,17 @@ export interface BuildStep {
 /** The rebrand scene's two acts: the same rebrand without, then with, a design system. */
 export type SceneAct = "without" | "with";
 
+/** Opens a case study: what it is, when, my role, and the chapters ahead. */
+export interface CaseCover {
+  kicker: string;
+  title: string;
+  body: string;
+  meta: { label: string; value: string }[];
+  chapters: { number: string; label: string }[];
+}
+
 export interface DesignSystemCase {
-  /** Cover: frames what follows as a case study, with when, my role and the chapters. */
-  cover: {
-    kicker: string;
-    title: string;
-    body: string;
-    meta: { label: string; value: string }[];
-    chapters: { number: string; label: string }[];
-  };
+  cover: CaseCover;
   /** Slide 1: the problem the system solved. */
   problem: {
     kicker: string;
