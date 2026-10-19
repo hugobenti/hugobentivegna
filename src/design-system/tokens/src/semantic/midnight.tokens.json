@@ -28,6 +28,10 @@
       "$value": "{palette.amber.400}",
       "$description": "Attention status text and outlines: a gap, a limit."
     },
+    "danger": {
+      "$value": "{palette.red.400}",
+      "$description": "Error status text and outlines: an error, a removed line."
+    },
     "glow": {
       "$value": "{palette.blue.glow}",
       "$description": "Soft radial light behind hero content."

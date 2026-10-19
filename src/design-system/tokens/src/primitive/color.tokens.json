@@ -24,6 +24,10 @@
       "$description": "Attention status.",
       "400": { "$value": "#ffb454" }
     },
+    "red": {
+      "$description": "Error status.",
+      "400": { "$value": "#ff8a8a" }
+    },
     "bank": {
       "$description": "Made-up bank brands for the design-system case's rebrand scene.",
       "before": { "$value": "#2f5bd3", "$description": "The deep-blue brand before the rebrand." },

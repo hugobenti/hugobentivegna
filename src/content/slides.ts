@@ -13,6 +13,7 @@ export const slides = {
   dsRebrand: { id: "rebrand", label: "The rebrand" },
   aiCover: { id: "ai-development", label: "AI development" },
   aiGaps: { id: "find-the-gaps", label: "Find the gaps" },
+  aiFoundation: { id: "foundation", label: "The foundation" },
   contact: { id: "contact", label: "Contact" },
 } as const satisfies Record<string, SlideMeta>;
 
