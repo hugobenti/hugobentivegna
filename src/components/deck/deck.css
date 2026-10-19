@@ -21,14 +21,25 @@
   padding: var(--hb-space-section) var(--hb-space-gutter);
 }
 
+/* Height of the fixed site header (SiteHeader); slides keep their content clear of it. */
+.deck {
+  --hb-site-header: 3.5rem;
+}
+
 /* Snapping only where full-screen slides make sense. */
 @media (min-width: 768px) and (min-height: 560px) {
   html:has(.deck) {
     scroll-snap-type: y mandatory;
   }
 
+  /*
+   * Content sits in the space below the header: a little air under the header, less at the
+   * bottom. The padding is fixed, not a share of the height, so short laptop screens keep room.
+   */
   .slide {
     min-height: 100svh;
+    padding-top: calc(var(--hb-site-header) + 1.5rem);
+    padding-bottom: 2.5rem;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
@@ -71,13 +82,13 @@
     scroll-snap-align: none;
   }
 
-  /* Pinned under the fixed site header (3.5rem tall), with room to breathe below it. */
+  /* Pinned under the fixed site header, with room to breathe below it. */
   .steps-header {
     position: sticky;
     top: 0;
     z-index: 1;
     height: var(--steps-header);
-    padding-top: 5rem;
+    padding-top: calc(var(--hb-site-header) + 1.5rem);
   }
 
   .step,
@@ -115,10 +126,19 @@
 
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) and (min-height: 560px) {
   @supports (animation-timeline: view()) {
-    /* Progress follows the element through the viewport; later items start a little later. */
+    /*
+     * Progress follows the element's slide (or its step, in a multi-step slide) through the
+     * viewport, not the element itself: once a slide is snapped, everything on it is fully shown,
+     * wherever it sits. Later items start a little later.
+     */
+    .slide,
+    .step {
+      view-timeline-name: --hb-reveal;
+    }
+
     .reveal {
       animation: hb-slide-content linear both;
-      animation-timeline: view();
+      animation-timeline: --hb-reveal;
       animation-range: cover calc(var(--i, 0) * 2%) cover calc(100% - var(--i, 0) * 1%);
     }
   }
