@@ -27,7 +27,7 @@ Dependencies flow one way: **tokens → ui → site**.
 - **Token-only styling.** Style files use Tailwind utilities mapped to tokens (`bg-surface`, `text-muted`, `outline-focus`…). Tailwind's default palette and scales are removed, so raw colors can't be used.
 - **Accessibility is a requirement:** semantic HTML, visible focus (`focus-visible`), WCAG 2.2 AA contrast (tested per theme), and `prefers-reduced-motion` honored (opacity fades only).
 - **No scroll-jacking:** never `preventDefault` wheel, touch or keyboard scrolling.
-- **Copy:** all text lives in `src/content`. Never use "vibe coding", "10× with AI" or hype wording; no 1global UI Kit adoption metrics; never show a phone number.
+- **Copy:** all text lives in `src/content`.
 
 ## Commands
 

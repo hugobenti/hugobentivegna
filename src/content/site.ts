@@ -14,7 +14,7 @@ export const site: SiteContent = {
     accent: "built for the people",
     tail: "who use it.",
   },
-  supportLine: "Design systems · Accessibility · AI-assisted development",
+  supportLine: "Design systems · Front-end architecture · AI agents",
   monogram: "HB",
   homeLabel: "Hugo Bentivegna, back to the start",
   navLabel: "Primary",
