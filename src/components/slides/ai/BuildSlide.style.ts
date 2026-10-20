@@ -1,3 +1,5 @@
+import { cx } from "@/design-system/ui";
+
 /**
  * The review panel is one group: its data attributes (commented, removed, fixed, ruled) drive
  * every part below. Parts that arrive later keep their space from the start and only fade in,
@@ -22,51 +24,49 @@ export const buildSlide = {
    * Open while the loop plays; Merged at the end. Both labels share one grid cell, so the
    * badge is as wide as the longer one throughout and nothing around it rewraps.
    */
-  status: [
+  status: cx(
     "grid rounded-pill border border-line px-2.5 py-0.5 font-mono text-label text-subtle",
     "transition-colors duration-(--hb-duration-base) data-[merged=true]:border-accent data-[merged=true]:text-accent",
-  ].join(" "),
+  ),
   statusLabel: "[grid-area:1/1] text-center data-[shown=false]:invisible",
   stages: "flex gap-1.5 px-4 pt-3",
-  stage: [
+  stage: cx(
     "flex-1 border-t-2 border-line pt-1.5 font-mono text-label text-subtle uppercase",
     "transition-colors duration-(--hb-duration-base) data-[on=true]:border-accent data-[on=true]:text-fg",
-  ].join(" "),
+  ),
 
   diff: "flex flex-col gap-3 px-4 py-3",
   lines: "flex flex-col font-mono text-label",
   /** A draft line: plain at first, marked removed once the fix starts. */
-  removed: [
+  removed: cx(
     "flex gap-2 rounded-sm px-2 py-0.5 text-muted transition-colors duration-(--hb-duration-slow)",
     "group-data-[removed=true]/review:bg-danger/10 group-data-[removed=true]/review:text-danger",
-  ].join(" "),
+  ),
   /** The sign is transparent until the line is marked; its space is always there. */
   removedSign: "text-transparent group-data-[removed=true]/review:text-danger",
-  added: [
+  added: cx(
     "flex gap-2 rounded-sm bg-success/10 px-2 py-0.5 text-success opacity-0",
     reveal,
     "group-data-[fixed=true]/review:opacity-100",
-  ].join(" "),
+  ),
   sign: "shrink-0",
   code: "min-w-0 whitespace-pre-wrap [overflow-wrap:anywhere]",
   srLabel: "sr-only",
 
-  comment: [
+  comment: cx(
     "rounded-r-md border-l-2 border-accent bg-raised px-3 py-2 opacity-0",
     reveal,
     "group-data-[commented=true]/review:opacity-100",
-  ].join(" "),
-  commentHeader: "flex gap-2 font-mono text-label text-subtle",
-  resolved: ["text-success opacity-0", reveal, "group-data-[fixed=true]/review:opacity-100"].join(
-    " ",
   ),
+  commentHeader: "flex gap-2 font-mono text-label text-subtle",
+  resolved: cx("text-success opacity-0", reveal, "group-data-[fixed=true]/review:opacity-100"),
   commentBody: "mt-1 text-small text-fg",
 
-  rule: [
+  rule: cx(
     "rounded-md border border-line bg-bg px-3 py-2 font-mono text-label opacity-0",
     reveal,
     "group-data-[ruled=true]/review:opacity-100",
-  ].join(" "),
+  ),
   ruleFile: "text-success",
   ruleMessage: "mt-1 text-muted",
 

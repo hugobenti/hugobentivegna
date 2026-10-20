@@ -1,4 +1,5 @@
 import type { ExcerptLine } from "@/content/types";
+import { cx } from "@/design-system/ui";
 
 export const foundationSlide = {
   /** Copy on the left, the excerpts on the right from lg up (md is too narrow for both). */
@@ -15,19 +16,19 @@ export const foundationSlide = {
    * One excerpt. Unlit cards keep AA text (`muted`); the one in focus gets the accent outline
    * and full-strength text. Only colors change, so the stack never moves.
    */
-  excerpt: [
+  excerpt: cx(
     "group/excerpt rounded-md border border-line bg-surface px-4 py-3",
     "transition-[border-color,box-shadow] duration-(--hb-duration-slow)",
     "data-[on=true]:border-accent data-[on=true]:shadow-[0_0_0_4px_var(--hb-color-glow)]",
-  ].join(" "),
+  ),
   header: "flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 font-mono text-label",
   file: "text-muted",
   fileName: "text-accent",
   reader: "text-subtle",
-  lines: [
+  lines: cx(
     "mt-2 flex flex-col gap-0.5 text-small text-muted",
     "transition-colors duration-(--hb-duration-slow) group-data-[on=true]/excerpt:text-fg",
-  ].join(" "),
+  ),
   /** Per line tone; `error` keeps its color whether or not the card is lit. */
   line: {
     plain: "",

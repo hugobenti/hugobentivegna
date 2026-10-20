@@ -1,4 +1,5 @@
 import { Inter_Tight, JetBrains_Mono, Silkscreen } from "next/font/google";
+import { cx } from "@/design-system/ui";
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -20,8 +21,4 @@ const silkscreen = Silkscreen({
 });
 
 /** Class names that define the --font-* variables the font tokens reference. */
-export const fontVariables = [
-  interTight.variable,
-  jetbrainsMono.variable,
-  silkscreen.variable,
-].join(" ");
+export const fontVariables = cx(interTight.variable, jetbrainsMono.variable, silkscreen.variable);

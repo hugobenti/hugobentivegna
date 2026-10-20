@@ -66,6 +66,13 @@ const dataRules = [
   "MemberExpression > ArrayExpression.object",
 ].map((selector) => ({ selector, message: DATA_MESSAGE }));
 
+const STYLE_COMPOSE_MESSAGE =
+  "Compose classes with cx() in .style.ts: no .join() or template literals, so there's one way to do it and Tailwind sees every class literally.";
+const styleComposeRules = [
+  "CallExpression[callee.property.name='join']",
+  "TemplateLiteral[expressions.length>0]",
+].map((selector) => ({ selector, message: STYLE_COMPOSE_MESSAGE }));
+
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -95,6 +102,15 @@ export default defineConfig([
     files: ["**/*.stories.tsx", "**/*.test.tsx", ".storybook/**/*.tsx"],
     rules: {
       "no-restricted-syntax": ["error", ...classStringRules],
+    },
+  },
+  {
+    // Style files hold class strings composed with cx() (src/design-system/AGENTS.md "Styling architecture").
+    files: ["**/*.style.ts"],
+    // The share card is rendered by Satori from inline style objects, not classes.
+    ignores: ["src/components/og/OgCard.style.ts"],
+    rules: {
+      "no-restricted-syntax": ["error", ...styleComposeRules],
     },
   },
   {

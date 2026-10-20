@@ -31,17 +31,17 @@ Dependencies flow one way: **tokens → ui → site**.
 
 ## Commands
 
-| Command                | What it does                                          |
-| ---------------------- | ----------------------------------------------------- |
-| `pnpm dev`             | Next.js dev server                                    |
-| `pnpm build`           | production build                                      |
-| `pnpm lint`            | ESLint (includes the boundary rule)                   |
-| `pnpm typecheck`       | route types + `tsc --noEmit`                          |
-| `pnpm test`            | Vitest + Testing Library                              |
-| `pnpm storybook`       | Storybook at http://localhost:6006                    |
-| `pnpm build-storybook` | static Storybook in `storybook-static/`               |
-| `pnpm tokens`          | regenerate design tokens (other scripts run it first) |
-| `pnpm format`          | Prettier                                              |
+| Command                | What it does                                             |
+| ---------------------- | -------------------------------------------------------- |
+| `pnpm dev`             | Next.js dev server                                       |
+| `pnpm build`           | production build                                         |
+| `pnpm lint`            | ESLint (boundary, component and style-file rules)        |
+| `pnpm typecheck`       | route types + `tsc --noEmit`                             |
+| `pnpm test`            | Vitest + Testing Library                                 |
+| `pnpm storybook`       | Storybook at http://localhost:6006                       |
+| `pnpm build-storybook` | static Storybook in `storybook-static/`                  |
+| `pnpm tokens`          | regenerate design tokens (other scripts run it first)    |
+| `pnpm format`          | Prettier; also sorts Tailwind classes, inside `cx()` too |
 
 ## Workflow
 

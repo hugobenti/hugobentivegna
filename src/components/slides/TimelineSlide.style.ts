@@ -1,3 +1,5 @@
+import { cx } from "@/design-system/ui";
+
 /** Header and chapters share one centred column, inside the slide's side padding. */
 const column = "mx-auto w-full max-w-6xl";
 
@@ -8,5 +10,8 @@ export const timelineSlide = {
   title: "font-display text-h2 font-bold text-fg",
   axis: "mt-6",
   /** Chapter on the left, its artifact on the right from md up. */
-  step: `${column} md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-center md:gap-12`,
+  step: cx(
+    column,
+    "md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-center md:gap-12",
+  ),
 };

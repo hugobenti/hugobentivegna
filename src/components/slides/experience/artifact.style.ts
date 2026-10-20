@@ -1,3 +1,5 @@
+import { cx } from "@/design-system/ui";
+
 /**
  * Shared look of the Experience artifacts: a small app window that "plays" when its chapter is
  * in focus. The root carries `group` + `data-active`; children react with group-data variants.
@@ -13,10 +15,10 @@ export const artifact = {
   /** Small uppercase caption above a group inside the window. */
   caption: "font-mono text-label text-subtle uppercase",
   /** Base transition for anything that animates in; --i staggers it. */
-  appear: [
+  appear: cx(
     "transition-[opacity,transform,translate,rotate,width,stroke-dashoffset] duration-(--hb-duration-slow) ease-out",
     "[transition-delay:calc(var(--i,0)*90ms)] motion-reduce:transition-none",
-  ].join(" "),
+  ),
   /** Faded and nudged down until the window is active. */
   rise: "translate-y-2 opacity-0 group-data-[active=true]:translate-y-0 group-data-[active=true]:opacity-100",
 };
