@@ -1,4 +1,5 @@
 import type { TSectionNavItem } from "@/design-system/ui";
+
 export type TSiteHeaderProps = {
   /** Where the monogram leads: the first slide. */
   homeHref: string;

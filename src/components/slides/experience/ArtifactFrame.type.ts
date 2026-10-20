@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+
 export type TArtifactProps = {
   /** True while this artifact's chapter is in focus; its contents animate in. */
   active: boolean;

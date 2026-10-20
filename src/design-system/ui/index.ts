@@ -18,4 +18,4 @@ export type { TThemeSwitchOption, TThemeSwitchProps } from "./ThemeSwitch/ThemeS
 export { TimelineAxis } from "./Timeline/TimelineAxis";
 export type { TTimelineAxisProps } from "./Timeline/TimelineAxis.type";
 export { TimelineChapter } from "./Timeline/TimelineChapter";
-export type { TTimelineChapterProps, ITimelineEntry } from "./Timeline/TimelineChapter.type";
+export type { ITimelineEntry, TTimelineChapterProps } from "./Timeline/TimelineChapter.type";

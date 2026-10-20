@@ -14,6 +14,7 @@ import type { ISceneFrame } from "./rebrandTimeline.type";
 import type { ISceneView } from "./useRebrandScene.type";
 
 const { rebrand } = designSystemCase;
+
 const fraction = (value: number, total: number) =>
   cssVars({ progress: Math.min(1, Math.max(0, value / total)) });
 

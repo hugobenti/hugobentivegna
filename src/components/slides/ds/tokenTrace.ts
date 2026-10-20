@@ -1,4 +1,4 @@
-import type { TThemeName, ITokenEntry } from "@/design-system/tokens/tokens.type";
+import type { ITokenEntry, TThemeName } from "@/design-system/tokens";
 
 const REFERENCE = /^\{([^{}]+)\}$/;
 

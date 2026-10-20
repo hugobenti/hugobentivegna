@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+
 export type TCardProps = {
   /** Pick the element that matches the content: `article` for standalone content, `li` inside a list. */
   as?: "div" | "article" | "li";

@@ -1,9 +1,9 @@
 import type {
-  TYearMonth,
+  IAxisView,
   IScaleEntry,
   ITimelineScale,
   TAxisState,
-  IAxisView,
+  TYearMonth,
 } from "./timelineScale.type";
 
 function monthIndex(date: TYearMonth): number {

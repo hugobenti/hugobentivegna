@@ -22,7 +22,7 @@ Everything under `src/design-system/` is a self-contained design system. The sit
   - `X.tsx`: presentation only; renders props and hook results
   - `useX.ts`: the component's behavior, when it has any (state, effects, browser APIs, timers)
   - `X.style.ts`: every class the component uses
-  - `X.type.ts`: every type the component and its hook use (props, view models)
+  - `X.type.ts` / `useX.type.ts`: the types the component / its hook declare (props, view models)
   - `X.stories.tsx`: every variant and state
   - `X.mdx`: the usage guide (template below)
   - `X.test.tsx`: only when the component has behavior; test through the component, as a user would

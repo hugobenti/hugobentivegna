@@ -1,9 +1,11 @@
 "use client";
+
 import { DotNav } from "@/design-system/ui";
 import { deck } from "./Deck.style";
+import type { TDeckProps } from "./Deck.type";
 import { SiteHeader } from "./SiteHeader";
 import { useDeck } from "./useDeck";
-import type { TDeckProps } from "./Deck.type";
+import "./deck.css";
 
 /**
  * The slide deck: the sticky header (the page banner), the slides as the page's main content,

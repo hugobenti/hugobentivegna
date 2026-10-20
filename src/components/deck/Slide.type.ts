@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { ISlideMeta } from "@/content/content.type";
-import type { TThemeName } from "@/design-system/tokens/tokens.type";
+import type { TThemeName } from "@/design-system/tokens";
 
 export type TSlideProps = {
   slide: ISlideMeta;
