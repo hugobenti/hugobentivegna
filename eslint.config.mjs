@@ -73,6 +73,13 @@ const styleComposeRules = [
   "TemplateLiteral[expressions.length>0]",
 ].map((selector) => ({ selector, message: STYLE_COMPOSE_MESSAGE }));
 
+const TYPE_FILE_MESSAGE =
+  "Types live in an X.type.ts file next to the file that uses them (AGENTS.md); stories and tests may keep local types.";
+const typeFileRules = ["TSInterfaceDeclaration", "TSTypeAliasDeclaration"].map((selector) => ({
+  selector,
+  message: TYPE_FILE_MESSAGE,
+}));
+
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -80,6 +87,12 @@ export default defineConfig([
     rules: {
       // `const { a, ...rest } = props` is how components drop props they handle themselves.
       "@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true }],
+      // Interfaces are IName, type aliases TName (AGENTS.md); the rest of the name is PascalCase.
+      "@typescript-eslint/naming-convention": [
+        "error",
+        { selector: "interface", format: ["PascalCase"], prefix: ["I"] },
+        { selector: "typeAlias", format: ["PascalCase"], prefix: ["T"] },
+      ],
     },
   },
   {
@@ -94,6 +107,7 @@ export default defineConfig([
         ...presentationRules,
         ...logicRules,
         ...dataRules,
+        ...typeFileRules,
       ],
     },
   },
@@ -105,12 +119,19 @@ export default defineConfig([
     },
   },
   {
+    files: ["**/*.{ts,mts}"],
+    ignores: ["**/*.type.ts", "**/*.test.ts", "**/*.d.ts"],
+    rules: {
+      "no-restricted-syntax": ["error", ...typeFileRules],
+    },
+  },
+  {
     // Style files hold class strings composed with cx() (src/design-system/AGENTS.md "Styling architecture").
     files: ["**/*.style.ts"],
     // The share card is rendered by Satori from inline style objects, not classes.
     ignores: ["src/components/og/OgCard.style.ts"],
     rules: {
-      "no-restricted-syntax": ["error", ...styleComposeRules],
+      "no-restricted-syntax": ["error", ...styleComposeRules, ...typeFileRules],
     },
   },
   {
