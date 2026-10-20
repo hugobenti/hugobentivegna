@@ -19,12 +19,12 @@ const meta = {
 } satisfies Meta<typeof ThemeSwitch>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: TStory = {};
 
 /** Tab into the group, then use the arrow keys: the selection follows. */
-export const Interactive: Story = {
+export const Interactive: TStory = {
   render: function Render(args) {
     const [value, setValue] = useState(args.value);
     return <ThemeSwitch {...args} value={value} onChange={setValue} />;

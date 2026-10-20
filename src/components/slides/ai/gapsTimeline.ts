@@ -1,3 +1,5 @@
+import type { IGapsFrame } from "./gapsTimeline.type";
+
 /** Pause before the first source lights up. */
 export const GAPS_DELAY_MS = 900;
 /** Time the agent spends reading each source. */
@@ -7,25 +9,13 @@ export const GAPS_CHECK_MS = 1900;
 /** A check's result lands this long after the check appears (a whole number of playback ticks). */
 export const GAPS_REVEAL_MS = 500;
 
-export interface GapsFrame {
-  /** How many sources are lit (they stay lit once read). */
-  sourcesLit: number;
-  /** The source being read right now, or null outside the reading phase. */
-  reading: number | null;
-  /** How many checks have appeared. */
-  shown: number;
-  /** How many checks show their result. */
-  resolved: number;
-  done: boolean;
-}
-
 /** How long the gap check plays for `sources` sources and `checks` checks. */
 export function gapsDuration(sources: number, checks: number): number {
   return GAPS_DELAY_MS + sources * GAPS_SOURCE_MS + checks * GAPS_CHECK_MS;
 }
 
 /** The gap check `elapsed` ms in: the agent reads each source, then resolves each check. */
-export function gapsFrame(elapsed: number, sources: number, checks: number): GapsFrame {
+export function gapsFrame(elapsed: number, sources: number, checks: number): IGapsFrame {
   if (elapsed >= gapsDuration(sources, checks)) {
     return { sourcesLit: sources, reading: null, shown: checks, resolved: checks, done: true };
   }

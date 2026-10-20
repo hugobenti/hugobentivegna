@@ -1,8 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { contrastRatio, themes, tokens, type ThemeName } from "./index";
+import { contrastRatio, themes, tokens } from "./index";
+import type { TThemeName } from "./tokens.type";
 
 /** Resolved semantic colors for a theme; tokens a theme doesn't override fall back to midnight. */
-function semanticColors(theme: ThemeName): Record<string, string> {
+function semanticColors(theme: TThemeName): Record<string, string> {
   const colors: Record<string, string> = {};
   for (const source of ["midnight", theme] as const) {
     for (const t of tokens) {

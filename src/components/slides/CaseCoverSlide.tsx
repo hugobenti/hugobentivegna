@@ -1,17 +1,12 @@
-import type { CaseCover, SlideMeta } from "@/content/types";
 import { cx } from "@/design-system/ui";
 import { deck } from "../deck/Deck.style";
 import { Slide } from "../deck/Slide";
 import { stagger } from "../deck/stagger";
 import { caseCoverSlide } from "./CaseCoverSlide.style";
-
-type CaseCoverSlideProps = {
-  slide: SlideMeta;
-  cover: CaseCover;
-};
+import type { TCaseCoverSlideProps } from "./CaseCoverSlide.type";
 
 /** Opens a case study: what it is, when, my role, and the chapters ahead. */
-export function CaseCoverSlide({ slide, cover }: CaseCoverSlideProps) {
+export function CaseCoverSlide({ slide, cover }: TCaseCoverSlideProps) {
   return (
     <Slide slide={slide} className={caseCoverSlide.slide}>
       <div className={caseCoverSlide.glow} aria-hidden="true" />

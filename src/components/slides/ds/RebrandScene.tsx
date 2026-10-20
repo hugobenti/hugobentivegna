@@ -1,18 +1,12 @@
 import { designSystemCase } from "@/content/cases";
 import { Button } from "@/design-system/ui";
 import { rebrandScene } from "./RebrandSlide.style";
-import type { SceneView } from "./useRebrandScene";
+import type { TRebrandSceneProps } from "./RebrandScene.type";
 
 const { rebrand } = designSystemCase;
 
-type RebrandSceneProps = {
-  view: SceneView;
-  /** `compact` keeps three products per row, for the side-by-side still acts. */
-  layout: "wide" | "compact";
-};
-
 /** One act of the rebrand scene: decorative, the slide's copy and summaries tell the story. */
-export function RebrandScene({ view, layout }: RebrandSceneProps) {
+export function RebrandScene({ view, layout }: TRebrandSceneProps) {
   return (
     <div data-act={view.act} className={rebrandScene.act}>
       <div className={rebrandScene.header}>

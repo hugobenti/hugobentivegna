@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { activeNavLink } from "@/content/navigation";
-import type { NavLink, SlideMeta } from "@/content/types";
+import type { INavLink, ISlideMeta } from "@/content/content.type";
 import { hashForSlide, slidePositions } from "./slideState";
 import { CENTRE_LINE, SEEN_LINE } from "./viewport";
 
@@ -15,7 +15,7 @@ import { CENTRE_LINE, SEEN_LINE } from "./viewport";
  * reports which header link owns the slide in view (`activeSection`).
  * Scrolling itself stays native; nothing here listens to wheel, touch or keys.
  */
-export function useDeck(slides: readonly SlideMeta[], nav: readonly NavLink[]) {
+export function useDeck(slides: readonly ISlideMeta[], nav: readonly INavLink[]) {
   const rootRef = useRef<HTMLDivElement>(null);
   const ids = useMemo(() => slides.map((slide) => slide.id), [slides]);
   // null until the observer has reported a slide, so the URL is never rewritten from a guess.

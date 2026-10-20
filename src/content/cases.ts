@@ -1,7 +1,7 @@
-import type { AiCase, DesignSystemCase } from "./types";
+import type { IAiCase, IDesignSystemCase } from "./content.type";
 
 /** Design-system case: the real story, told without naming the company (spec 2026-10-17). */
-export const designSystemCase: DesignSystemCase = {
+export const designSystemCase: IDesignSystemCase = {
   cover: {
     kicker: "Case study · Design systems",
     title: "The design system behind a digital bank's 5+ products.",
@@ -87,7 +87,7 @@ export const designSystemCase: DesignSystemCase = {
 };
 
 /** AI case: how the IoT portal's front-end was set up for AI agents, company not named (spec 2026-10-19). */
-export const aiCase: AiCase = {
+export const aiCase: IAiCase = {
   cover: {
     kicker: "Case study · AI-assisted development",
     title: "A front-end built for two readers: engineers and AI agents.",

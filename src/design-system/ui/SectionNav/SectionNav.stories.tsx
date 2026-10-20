@@ -20,9 +20,9 @@ const meta = {
 } satisfies Meta<typeof SectionNav>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: TStory = {};
 
 /** Before the first section (the intro): nothing is current. */
-export const NoneActive: Story = { args: { activeId: null } };
+export const NoneActive: TStory = { args: { activeId: null } };

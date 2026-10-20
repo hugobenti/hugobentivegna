@@ -3,18 +3,7 @@
 import { cx } from "../cx";
 import { copyText } from "./CopyText.style";
 import { useCopyText } from "./useCopyText";
-
-export type CopyTextProps = {
-  /** The text shown and copied, e.g. an email address. */
-  text: string;
-  /** Shown on hover and focus; also the control's accessible description. */
-  hint?: string;
-  /** Shown and announced after a successful copy. */
-  copiedHint?: string;
-  /** Shown and announced when copying isn't possible; the text is selected for manual copying. */
-  failedHint?: string;
-  className?: string;
-};
+import type { TCopyTextProps } from "./CopyText.type";
 
 /** Shows a piece of text that copies itself when clicked. Behavior lives in useCopyText. */
 export function CopyText({
@@ -23,7 +12,7 @@ export function CopyText({
   copiedHint = "Copied",
   failedHint = "Selected — press Ctrl+C (⌘C on Mac)",
   className,
-}: CopyTextProps) {
+}: TCopyTextProps) {
   const { status, message, copy, textRef, hintId } = useCopyText(text, {
     hint,
     copiedHint,

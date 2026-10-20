@@ -1,10 +1,10 @@
-export type SlidePosition = "before" | "active" | "after";
+import type { TSlidePosition } from "./slideState.type";
 
 /** Where every slide sits relative to the active one; drives enter/exit styling. */
 export function slidePositions(
   ids: readonly string[],
   activeId: string,
-): Record<string, SlidePosition> {
+): Record<string, TSlidePosition> {
   const activeIndex = ids.indexOf(activeId);
   return Object.fromEntries(
     ids.map((id, index) => [

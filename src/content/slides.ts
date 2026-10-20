@@ -1,4 +1,4 @@
-import type { SlideMeta } from "./types";
+import type { ISlideMeta } from "./content.type";
 
 /**
  * Every slide, in page order. The single source for slide ids (URL hashes) and dot labels:
@@ -16,7 +16,7 @@ export const slides = {
   aiFoundation: { id: "foundation", label: "The foundation" },
   aiBuild: { id: "build-on-it", label: "Build on it" },
   contact: { id: "contact", label: "Contact" },
-} as const satisfies Record<string, SlideMeta>;
+} as const satisfies Record<string, ISlideMeta>;
 
 /** The slides as a list, in page order (for the deck and its dots). */
-export const slideList: readonly SlideMeta[] = Object.values(slides);
+export const slideList: readonly ISlideMeta[] = Object.values(slides);

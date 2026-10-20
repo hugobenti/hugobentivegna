@@ -42,11 +42,11 @@ const meta = {
 } satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: TStory = {};
 
-export const Variants: Story = {
+export const Variants: TStory = {
   render: (args) => (
     <div className={story.row}>
       <Button {...args} variant="primary">
@@ -62,7 +62,7 @@ export const Variants: Story = {
   ),
 };
 
-export const Sizes: Story = {
+export const Sizes: TStory = {
   render: (args) => (
     <div className={story.row}>
       <Button {...args} size="md">
@@ -75,7 +75,7 @@ export const Sizes: Story = {
   ),
 };
 
-export const ExternalLink: Story = {
+export const ExternalLink: TStory = {
   args: {
     href: "https://github.com/hugobenti/pixel-art",
     external: true,
@@ -84,10 +84,10 @@ export const ExternalLink: Story = {
   },
 };
 
-export const Download: Story = {
+export const Download: TStory = {
   args: { href: "/Hugo-Bentivegna-CV-10_2026.pdf", download: true, children: "Download CV" },
 };
 
-export const Disabled: Story = {
+export const Disabled: TStory = {
   args: { disabled: true, children: "Not available" },
 };

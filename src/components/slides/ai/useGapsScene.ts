@@ -1,12 +1,11 @@
 import { aiCase } from "@/content/cases";
-import type { GapCheck, GapResult } from "@/content/types";
+import type { IGapCheck } from "@/content/content.type";
 import { usePlayback } from "../../deck/usePlayback";
 import { gapsDuration, gapsFrame } from "./gapsTimeline";
+import type { TCheckState } from "./useGapsScene.type";
 
 const { gaps, controls } = aiCase;
 const duration = gapsDuration(gaps.sources.length, gaps.checks.length);
-
-export type CheckState = "idle" | "checking" | GapResult;
 
 /**
  * Gap-check view model: once the slide is active the agent reads each source, then every
@@ -16,7 +15,7 @@ export function useGapsScene() {
   const { ref, elapsed, paused, finished, controllable, toggle } =
     usePlayback<HTMLDivElement>(duration);
   const frame = gapsFrame(elapsed, gaps.sources.length, gaps.checks.length);
-  const stateOf = (check: GapCheck, index: number): CheckState => {
+  const stateOf = (check: IGapCheck, index: number): TCheckState => {
     if (index < frame.resolved) return check.result;
     return index < frame.shown ? "checking" : "idle";
   };

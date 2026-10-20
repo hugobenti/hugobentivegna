@@ -1,15 +1,13 @@
 import { site } from "./site";
 import { slideList } from "./slides";
-import type { NavLink } from "./types";
-
-/** A link whose slide exists, ready to render: `id` is its slide id, `href` that slide's hash. */
-export type AvailableNavLink = NavLink & { id: string; href: `#${string}` };
+import type { INavLink } from "./content.type";
+import type { TAvailableNavLink } from "./navigation.type";
 
 /** Nav links whose slide exists, so the nav never points at a section that isn't built yet. */
 export function availableNavLinks(
-  nav: readonly NavLink[],
+  nav: readonly INavLink[],
   slides: readonly { id: string }[],
-): AvailableNavLink[] {
+): TAvailableNavLink[] {
   return nav
     .filter((link) => slides.some((slide) => slide.id === link.slideId))
     .map((link) => ({ ...link, id: link.slideId, href: `#${link.slideId}` }));
@@ -19,7 +17,7 @@ export function availableNavLinks(
  * The link that owns `slideId`: the one whose section contains it (a link without a section owns
  * only its own slide), keyed by the link's `slideId`. Null for slides outside every section.
  */
-export function activeNavLink(nav: readonly NavLink[], slideId: string): string | null {
+export function activeNavLink(nav: readonly INavLink[], slideId: string): string | null {
   const link = nav.find((entry) => (entry.section ?? [entry.slideId]).includes(slideId));
   return link?.slideId ?? null;
 }

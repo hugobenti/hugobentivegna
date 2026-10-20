@@ -1,10 +1,11 @@
 import { artifact } from "./artifact.style";
-import { ArtifactFrame, type ArtifactProps } from "./ArtifactFrame";
+import { ArtifactFrame } from "./ArtifactFrame";
+import type { TArtifactProps } from "./ArtifactFrame.type";
 import { chartPoints, services } from "./ItauArtifact.data";
 import { itauArtifact } from "./ItauArtifact.style";
 
 /** Itaú: a monitoring dashboard whose rows, load bars and traffic line come alive. */
-export function ItauArtifact({ active, className }: ArtifactProps) {
+export function ItauArtifact({ active, className }: TArtifactProps) {
   return (
     <ArtifactFrame title="monitoring.portal" active={active} className={className}>
       <div>

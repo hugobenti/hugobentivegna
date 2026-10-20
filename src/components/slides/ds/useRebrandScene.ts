@@ -1,6 +1,4 @@
-import type { CSSProperties } from "react";
 import { designSystemCase } from "@/content/cases";
-import type { SceneAct } from "@/content/types";
 import { cssVars } from "@/design-system/ui";
 import { usePlayback } from "../../deck/usePlayback";
 import {
@@ -8,48 +6,20 @@ import {
   DEV_FINISH_MS,
   SCENE_MS,
   SYSTEM_RELEASE_MS,
-  type SceneFrame,
   act1Frame,
   act2Frame,
   sceneFrame,
 } from "./rebrandTimeline";
+import type { ISceneFrame } from "./rebrandTimeline.type";
+import type { ISceneView } from "./useRebrandScene.type";
 
 const { rebrand } = designSystemCase;
-
-export interface SceneProductView {
-  name: string;
-  rebranded: boolean;
-  /** The design-system version the product shows (it only moves in act 2). */
-  version: string;
-  developer: "working" | "done";
-  /** Act 2: the connector from the design system to this product is lit. */
-  wired: boolean;
-  /** `--progress` (0–1) for its developer's progress bar. */
-  progress: CSSProperties;
-}
-
-export interface SceneView {
-  act: SceneAct;
-  label: string;
-  title: string;
-  developers: string;
-  /** "3/6": products rebranded out of all of them. */
-  count: string;
-  showDevelopers: boolean;
-  system: {
-    visible: boolean;
-    state: SceneFrame["system"];
-    status: string;
-    progress: CSSProperties;
-  };
-  products: SceneProductView[];
-}
 
 const fraction = (value: number, total: number) =>
   cssVars({ progress: Math.min(1, Math.max(0, value / total)) });
 
 /** The markup's view of one frame, `elapsed` ms into its own act. */
-function sceneView(frame: SceneFrame, elapsed: number): SceneView {
+function sceneView(frame: ISceneFrame, elapsed: number): ISceneView {
   const inAct2 = frame.act === "with";
   return {
     act: frame.act,

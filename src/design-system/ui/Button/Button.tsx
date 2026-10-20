@@ -1,30 +1,8 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { cx } from "../cx";
 import { button } from "./Button.style";
+import type { TButtonProps } from "./Button.type";
 
-type ButtonBase = {
-  /** Visual weight. One `primary` per view; `secondary` beside it; `ghost` for low emphasis. */
-  variant?: keyof typeof button.variant;
-  size?: keyof typeof button.size;
-  children: ReactNode;
-  className?: string;
-};
-
-type NativeButtonProps = ButtonBase & {
-  href?: undefined;
-} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "className">;
-
-type LinkButtonProps = ButtonBase & {
-  /** Renders an `<a>`: use whenever the action navigates or downloads. */
-  href: string;
-  /** Opens in a new tab with `rel="noopener noreferrer"` and announces it to screen readers. */
-  external?: boolean;
-  download?: boolean | string;
-} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children" | "className" | "href" | "download">;
-
-export type ButtonProps = NativeButtonProps | LinkButtonProps;
-
-export function Button(props: ButtonProps) {
+export function Button(props: TButtonProps) {
   const className = cx(
     button.base,
     button.variant[props.variant ?? "primary"],

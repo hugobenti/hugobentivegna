@@ -1,4 +1,5 @@
-import type { SceneAct } from "@/content/types";
+import type { TSceneAct } from "@/content/content.type";
+import type { ISceneFrame } from "./rebrandTimeline.type";
 
 /** Act 1: when each product's own developer finishes the rebrand, one entry per product. */
 export const DEV_FINISH_MS = [2000, 3000, 1600, 3800, 2500, 3400] as const;
@@ -16,15 +17,7 @@ export const ACT2_START_MS = ACT1_MS + 700;
 /** Both acts, back to back. Longer than 5 s, so the slide offers a pause (WCAG 2.2.2). */
 export const SCENE_MS = ACT2_START_MS + ACT2_MS;
 
-export interface SceneFrame {
-  act: SceneAct;
-  products: { rebranded: boolean; developer: "working" | "done" }[];
-  /** How many products show the new brand. */
-  rebranded: number;
-  system: "idle" | "working" | "released";
-}
-
-function frame(act: SceneAct, products: SceneFrame["products"], system: SceneFrame["system"]) {
+function frame(act: TSceneAct, products: ISceneFrame["products"], system: ISceneFrame["system"]) {
   return {
     act,
     products,
@@ -34,7 +27,7 @@ function frame(act: SceneAct, products: SceneFrame["products"], system: SceneFra
 }
 
 /** Act 1, `elapsed` ms in: a developer on every product makes the same rebrand by hand. */
-export function act1Frame(elapsed: number): SceneFrame {
+export function act1Frame(elapsed: number): ISceneFrame {
   return frame(
     "without",
     DEV_FINISH_MS.map((finish) => ({
@@ -46,7 +39,7 @@ export function act1Frame(elapsed: number): SceneFrame {
 }
 
 /** Act 2, `elapsed` ms in: one developer changes the system, then every product follows. */
-export function act2Frame(elapsed: number): SceneFrame {
+export function act2Frame(elapsed: number): ISceneFrame {
   return frame(
     "with",
     DEV_FINISH_MS.map((_, index) => ({
@@ -58,6 +51,6 @@ export function act2Frame(elapsed: number): SceneFrame {
 }
 
 /** The whole scene, `elapsed` ms in: act 1, a short hold, then act 2 from its own start. */
-export function sceneFrame(elapsed: number): SceneFrame {
+export function sceneFrame(elapsed: number): ISceneFrame {
   return elapsed < ACT2_START_MS ? act1Frame(elapsed) : act2Frame(elapsed - ACT2_START_MS);
 }

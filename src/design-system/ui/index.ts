@@ -1,20 +1,21 @@
-export { Button, type ButtonProps } from "./Button/Button";
-export { Card, type CardProps } from "./Card/Card";
-export { CopyText, type CopyTextProps } from "./CopyText/CopyText";
+export { Button } from "./Button/Button";
+export type { TButtonProps } from "./Button/Button.type";
+export { Card } from "./Card/Card";
+export type { TCardProps } from "./Card/Card.type";
+export { CopyText } from "./CopyText/CopyText";
+export type { TCopyTextProps } from "./CopyText/CopyText.type";
 export { cx } from "./cx";
 export { cssVars } from "./cssVars";
-export { DotNav, type DotNavItem, type DotNavProps } from "./DotNav/DotNav";
+export { DotNav } from "./DotNav/DotNav";
+export type { TDotNavItem, TDotNavProps } from "./DotNav/DotNav.type";
 export { focusRing, focusRingWithin } from "./focus.style";
-export { SectionNav, type SectionNavItem, type SectionNavProps } from "./SectionNav/SectionNav";
-export { Tag, type TagProps } from "./Tag/Tag";
-export {
-  ThemeSwitch,
-  type ThemeSwitchOption,
-  type ThemeSwitchProps,
-} from "./ThemeSwitch/ThemeSwitch";
-export { TimelineAxis, type TimelineAxisProps } from "./Timeline/TimelineAxis";
-export {
-  TimelineChapter,
-  type TimelineChapterProps,
-  type TimelineEntry,
-} from "./Timeline/TimelineChapter";
+export { SectionNav } from "./SectionNav/SectionNav";
+export type { TSectionNavItem, TSectionNavProps } from "./SectionNav/SectionNav.type";
+export { Tag } from "./Tag/Tag";
+export type { TTagProps } from "./Tag/Tag.type";
+export { ThemeSwitch } from "./ThemeSwitch/ThemeSwitch";
+export type { TThemeSwitchOption, TThemeSwitchProps } from "./ThemeSwitch/ThemeSwitch.type";
+export { TimelineAxis } from "./Timeline/TimelineAxis";
+export type { TTimelineAxisProps } from "./Timeline/TimelineAxis.type";
+export { TimelineChapter } from "./Timeline/TimelineChapter";
+export type { ITimelineEntry, TTimelineChapterProps } from "./Timeline/TimelineChapter.type";
