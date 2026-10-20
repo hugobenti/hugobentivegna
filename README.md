@@ -7,7 +7,7 @@ Hugo Bentivegna's portfolio — **"High-quality UI, built for the people who use
 
 ## Stack
 
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Style Dictionary (DTCG tokens) · Storybook · Motion · Vitest + Testing Library · Vercel
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Style Dictionary (DTCG tokens) · Storybook · Vitest + Testing Library · Vercel
 
 ## Repo map
 
