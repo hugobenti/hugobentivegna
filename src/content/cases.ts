@@ -148,4 +148,94 @@ export const aiCase: AiCase = {
     ],
     done: "Three gaps found before any code was written.",
   },
+  foundation: {
+    kicker: "02 · Lay the foundation",
+    title: "Rules the agent reads, and rules it can't break.",
+    body: "I documented the UI Kit for two readers: when to use each component, when not to, and how it stays accessible. AGENTS.md set the repository's conventions, and lint rules turned the important ones into errors.",
+    note: "From this site's repository, built the same way.",
+    excerptsLabel: "Excerpts from this site's repository",
+    excerpts: [
+      {
+        file: "AGENTS.md",
+        kind: "repository rules",
+        reader: "read by the agent",
+        source: "AGENTS.md",
+        lines: [
+          { text: "Every .tsx component is presentation only.", tone: "strong" },
+          {
+            text: "It renders props and what its hook returns: no logic, no data, no class strings.",
+          },
+        ],
+      },
+      {
+        file: "Button.mdx",
+        kind: "usage guide",
+        reader: "read by the agent",
+        source: "src/design-system/ui/Button/Button.mdx",
+        lines: [
+          { text: "Don't use when", tone: "label" },
+          { text: "The text is part of a sentence: use a plain link." },
+          {
+            text: "You need more than one primary in the same view: demote the others to secondary or ghost.",
+          },
+        ],
+      },
+      {
+        file: "pnpm lint",
+        kind: "eslint.config.mjs",
+        reader: "enforced on every change",
+        source: "eslint.config.mjs",
+        lines: [
+          // Real output of today's rule on TimelineAxis.tsx as it was before commit e833f74.
+          { text: "TimelineAxis.tsx", tone: "label", output: true },
+          { text: "22:19 error", tone: "error", output: true },
+          {
+            text: "Components are presentation: derive values in a useX.ts hook or a .ts module, not in .tsx",
+          },
+          { text: "✖ 11 problems (11 errors, 0 warnings)", tone: "error", output: true },
+        ],
+      },
+    ],
+  },
+  build: {
+    kicker: "03 · Build on it",
+    title: "Then page after page, on the same patterns.",
+    body: "AI drafted each page from the kit and the documented patterns. I reviewed every change, and tests decided when a task was done. Speed and quality stopped pulling against each other.",
+    closing: "This site was built the same way. The rules, docs and reviews are on GitHub.",
+    repo: { label: "See the repository", href: "https://github.com/hugobenti/hugobentivegna" },
+    review: {
+      label: "PR #5 · TimelineAxis.tsx",
+      stages: ["Draft", "Review", "Fix", "Rule", "Checks", "Merged"],
+      // TimelineAxis.tsx before and after commit e833f74: the lines the hook replaced, verbatim
+      // with one indent level removed.
+      before: [
+        "const scale = timelineScale(entries);",
+        "const stateOf = (index: number): State =>",
+        "  activeIndex === undefined || index < activeIndex",
+        '    ? "past"',
+        "    : index === activeIndex",
+        '      ? "current"',
+        '      : "future";',
+        "const fill = activeIndex === undefined ? 100 : (scale.spans[activeIndex]?.to ?? 0);",
+      ],
+      after: "const { ticks, spans, dots, fill } = useTimelineAxis(entries, activeIndex);",
+      removedLabel: "Removed:",
+      addedLabel: "Added:",
+      comment: {
+        author: "Hugo · review",
+        // Hugo's review feedback on PR #5, in the wording he approved on 2026-10-19.
+        body: "Components should only render. Move this logic into a hook and keep it out of the .tsx.",
+        resolved: "Resolved",
+      },
+      rule: {
+        file: "+ eslint.config.mjs · logicRules",
+        message:
+          "Components are presentation: derive values in a useX.ts hook or a .ts module, not in .tsx",
+      },
+      checks: ["lint", "typecheck", "tests", "build"],
+      /** Pending vs passed is shown by the mark, not only by color. Same width in mono. */
+      checkMarks: { pending: "○", passed: "✓" },
+      status: { open: "Open", merged: "Merged" },
+    },
+  },
 };

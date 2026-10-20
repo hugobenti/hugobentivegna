@@ -158,6 +158,28 @@ export interface GapCheck {
   reason: string;
 }
 
+/**
+ * One line of a repository excerpt. Its text appears verbatim in the excerpt's source file
+ * (markdown emphasis and backticks aside), unless `output` marks it as a tool's output.
+ */
+export interface ExcerptLine {
+  text: string;
+  tone?: "strong" | "label" | "error";
+  output?: true;
+}
+
+/** A short excerpt of a file in this site's repository, shown as it is. */
+export interface Excerpt {
+  /** What the card is headed with, e.g. "AGENTS.md" or "pnpm lint". */
+  file: string;
+  kind: string;
+  /** Who acts on it, e.g. "read by the agent". */
+  reader: string;
+  /** Repository path the lines are quoted from. */
+  source: string;
+  lines: ExcerptLine[];
+}
+
 export interface AiCase {
   cover: CaseCover;
   /** Each scene runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
@@ -178,5 +200,45 @@ export interface AiCase {
     checks: [GapCheck, ...GapCheck[]];
     /** Replaces the caption once every check has its result. */
     done: string;
+  };
+  /** Chapter 02: the rules agents read, and the lint rules they can't break. */
+  foundation: {
+    kicker: string;
+    title: string;
+    body: string;
+    /** Says where the excerpts come from. */
+    note: string;
+    /** Names the excerpts list for screen readers. */
+    excerptsLabel: string;
+    excerpts: [Excerpt, ...Excerpt[]];
+  };
+  /** Chapter 03: a real reviewed change from this repository, from draft to merged. */
+  build: {
+    kicker: string;
+    title: string;
+    body: string;
+    /** Shown under the body: the proof is public. */
+    closing: string;
+    /** Opens this site's repository in a new tab. */
+    repo: LinkContent;
+    review: {
+      /** Heads the panel: which pull request and file. */
+      label: string;
+      /** Draft, Review, Fix, Rule, Checks, Merged (one per timeline stage). */
+      stages: [string, string, string, string, string, string];
+      /** The draft's lines as committed; they end marked removed. */
+      before: string[];
+      /** The line that replaced them. */
+      after: string;
+      /** Read by screen readers before each line, since color marks it on screen. */
+      removedLabel: string;
+      addedLabel: string;
+      comment: { author: string; body: string; resolved: string };
+      /** The lint rule the review turned into. */
+      rule: { file: string; message: string };
+      checks: string[];
+      checkMarks: { pending: string; passed: string };
+      status: { open: string; merged: string };
+    };
   };
 }

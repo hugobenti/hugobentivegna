@@ -1,4 +1,6 @@
 import { Deck } from "@/components/deck/Deck";
+import { BuildSlide } from "@/components/slides/ai/BuildSlide";
+import { FoundationSlide } from "@/components/slides/ai/FoundationSlide";
 import { GapsSlide } from "@/components/slides/ai/GapsSlide";
 import { CaseCoverSlide } from "@/components/slides/CaseCoverSlide";
 import { ContactSlide } from "@/components/slides/ContactSlide";
@@ -22,6 +24,8 @@ export default function Home() {
       <RebrandSlide />
       <CaseCoverSlide slide={slides.aiCover} cover={aiCase.cover} />
       <GapsSlide />
+      <FoundationSlide />
+      <BuildSlide />
       <ContactSlide />
     </Deck>
   );
