@@ -1,19 +1,9 @@
-import type { ReactNode } from "react";
-import type { SlideMeta } from "@/content/types";
-import type { ThemeName } from "@/design-system/tokens";
 import { cx } from "@/design-system/ui";
 import { deck } from "./Deck.style";
-
-type SlideProps = {
-  slide: SlideMeta;
-  /** Re-themes this slide only (e.g. the PixelCraft slide). */
-  theme?: ThemeName;
-  className?: string;
-  children: ReactNode;
-};
+import type { TSlideProps } from "./Slide.type";
 
 /** One full-viewport section of the deck; its id is the URL hash. */
-export function Slide({ slide, theme, className, children }: SlideProps) {
+export function Slide({ slide, theme, className, children }: TSlideProps) {
   return (
     <section
       id={slide.id}

@@ -1,4 +1,4 @@
-import type { ThemeName, TokenEntry } from "@/design-system/tokens";
+import type { TThemeName, ITokenEntry } from "@/design-system/tokens/tokens.type";
 
 const REFERENCE = /^\{([^{}]+)\}$/;
 
@@ -11,11 +11,11 @@ const REFERENCE = /^\{([^{}]+)\}$/;
  * Returns [] for an unknown name.
  */
 export function traceToken(
-  tokens: readonly TokenEntry[],
+  tokens: readonly ITokenEntry[],
   name: string,
-  theme: ThemeName = "midnight",
-): TokenEntry[] {
-  const chain: TokenEntry[] = [];
+  theme: TThemeName = "midnight",
+): ITokenEntry[] {
+  const chain: ITokenEntry[] = [];
   let next: string | undefined = name;
   while (next !== undefined) {
     const current: string = next;

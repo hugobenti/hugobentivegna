@@ -1,7 +1,7 @@
 import { slides } from "./slides";
-import type { SiteContent } from "./types";
+import type { ISiteContent } from "./content.type";
 
-export const site: SiteContent = {
+export const site: ISiteContent = {
   siteUrl: "https://hugobentivegna.vercel.app",
   domain: "hugobentivegna.vercel.app",
   storybookUrl: "https://hugobentivegna-storybook.vercel.app",

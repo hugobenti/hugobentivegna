@@ -9,11 +9,11 @@ const meta = {
 } satisfies Meta<typeof Tag>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: TStory = {};
 
-export const Group: Story = {
+export const Group: TStory = {
   render: () => (
     <ul className={story.list} aria-label="Technologies">
       {["React", "Next.js", "TypeScript", "Storybook", "Accessibility"].map((name) => (

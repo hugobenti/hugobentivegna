@@ -1,27 +1,11 @@
 import { cx } from "../cx";
 import { Tag } from "../Tag/Tag";
 import { timelineChapter } from "./Timeline.style";
-import type { ScaleEntry } from "./timelineScale";
 import { useTimelineChapter } from "./useTimelineChapter";
-
-export interface TimelineEntry extends ScaleEntry {
-  /** One line on what this period was about, e.g. "Building the system others build on". */
-  chapter: string;
-  /** One line about the work. */
-  summary: string;
-  /** A few technologies that defined the period. */
-  stack: string[];
-}
-
-export type TimelineChapterProps = {
-  entry: TimelineEntry;
-  /** Heading level of the company name, so the chapter fits the page outline. */
-  headingLevel?: 2 | 3 | 4;
-  className?: string;
-};
+import type { TTimelineChapterProps } from "./TimelineChapter.type";
 
 /** One company's chapter: period, company, what it was about, roles held, summary and stack. */
-export function TimelineChapter({ entry, headingLevel = 3, className }: TimelineChapterProps) {
+export function TimelineChapter({ entry, headingLevel = 3, className }: TTimelineChapterProps) {
   const { Heading, period, rolesLabel, stackLabel } = useTimelineChapter(entry, headingLevel);
   return (
     <article className={cx(timelineChapter.base, className)}>

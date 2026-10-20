@@ -1,7 +1,8 @@
 import { expect, test } from "vitest";
-import { axisView, periodLabel, timelineScale, type ScaleEntry } from "./timelineScale";
+import { axisView, periodLabel, timelineScale } from "./timelineScale";
+import type { IScaleEntry } from "./timelineScale.type";
 
-const entries: ScaleEntry[] = [
+const entries: IScaleEntry[] = [
   {
     company: "A",
     start: "2020-01",

@@ -1,11 +1,12 @@
 import { cx } from "@/design-system/ui";
 import { artifact } from "./artifact.style";
-import { ArtifactFrame, type ArtifactProps } from "./ArtifactFrame";
+import { ArtifactFrame } from "./ArtifactFrame";
+import type { TArtifactProps } from "./ArtifactFrame.type";
 import { cards, pieces, swatches } from "./OuribankArtifact.data";
 import { ouribankArtifact as s } from "./OuribankArtifact.style";
 
 /** Ouribank: loose tokens, components and patterns snapping into one organized library. */
-export function OuribankArtifact({ active, className }: ArtifactProps) {
+export function OuribankArtifact({ active, className }: TArtifactProps) {
   return (
     <ArtifactFrame title="design-system / library" active={active} className={className}>
       <div className={s.layer}>

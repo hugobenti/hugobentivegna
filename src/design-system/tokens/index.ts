@@ -1,28 +1,9 @@
 import generated from "./generated/tokens.json";
+import type { TThemeName, ITokenEntry } from "./tokens.type";
 
-export type ThemeName = "midnight" | "pixel";
-export type TokenLayer = "primitive" | "semantic" | "component";
+export const themes: readonly TThemeName[] = ["midnight", "pixel"];
 
-export interface TokenEntry {
-  /** Dot path, e.g. "color.accent". */
-  name: string;
-  /** CSS custom property, e.g. "--hb-color-accent". */
-  cssVar: string;
-  /** DTCG $type. */
-  type: string;
-  /** Authored value, possibly a reference like "{palette.blue.400}". */
-  value: string;
-  /** Fully resolved value. */
-  resolved: string;
-  layer: TokenLayer;
-  /** Theme a semantic value belongs to; null for primitives and component tokens. */
-  theme: ThemeName | null;
-  description?: string;
-}
-
-export const themes: readonly ThemeName[] = ["midnight", "pixel"];
-
-export const tokens = generated as readonly TokenEntry[];
+export const tokens = generated as readonly ITokenEntry[];
 
 /** WCAG 2.x relative luminance of an opaque #rgb / #rrggbb color. */
 function luminance(hex: string): number {

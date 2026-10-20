@@ -1,6 +1,6 @@
-import type { TimelineEntry } from "@/design-system/ui";
+import type { ITimelineEntry } from "@/design-system/ui";
 
-export interface NavLink {
+export interface INavLink {
   label: string;
   /** Id of the slide the link jumps to; links to slides that don't exist yet aren't rendered. */
   slideId: string;
@@ -8,7 +8,7 @@ export interface NavLink {
   section?: readonly string[];
 }
 
-export interface SiteContent {
+export interface ISiteContent {
   siteUrl: string;
   /** The site's address as people read it, e.g. on the share card. */
   domain: string;
@@ -25,62 +25,62 @@ export interface SiteContent {
   monogram: string;
   homeLabel: string;
   navLabel: string;
-  nav: NavLink[];
+  nav: INavLink[];
 }
 
 /** Stable id per company, used to pair a chapter with its visual artifact. */
-export type ExperienceId = "itau" | "ouribank" | "oneglobal";
+export type TExperienceId = "itau" | "ouribank" | "oneglobal";
 
-export interface ExperienceEntry extends TimelineEntry {
-  id: ExperienceId;
+export interface IExperienceEntry extends ITimelineEntry {
+  id: TExperienceId;
 }
 
-export interface ExperienceContent {
+export interface IExperienceContent {
   title: string;
-  entries: ExperienceEntry[];
+  entries: IExperienceEntry[];
 }
 
 /** A slide's anchor id (also its URL hash) and its name in the dot navigation. */
-export interface SlideMeta {
+export interface ISlideMeta {
   id: string;
   label: string;
 }
 
-export interface LinkContent {
+export interface ILinkContent {
   label: string;
   href: string;
 }
 
-export interface ContactContent {
+export interface IContactContent {
   kicker: string;
   /** Closing statement. */
   title: string;
   intro: string;
   email: string;
   /** Opens the visitor's mail app. */
-  emailAction: LinkContent;
+  emailAction: ILinkContent;
   /** Profiles that open in a new tab. */
-  profiles: LinkContent[];
+  profiles: ILinkContent[];
   /** The CV as published (unchanged PDF in public/). */
-  cv: LinkContent;
+  cv: ILinkContent;
   credit: string;
-  storybook: LinkContent;
+  storybook: ILinkContent;
 }
 
-export interface NotFoundContent {
+export interface INotFoundContent {
   code: string;
   title: string;
   body: string;
-  back: LinkContent;
+  back: ILinkContent;
 }
 
-export interface TitledText {
+export interface ITitledText {
   title: string;
   body: string;
 }
 
 /** One step of building a button from tokens: which part it styles and the tokens it applies. */
-export interface BuildStep {
+export interface IBuildStep {
   part: "shape" | "fill" | "label" | "type";
   /** Leads the step's caption; the hook adds the tokens it applies. */
   caption: string;
@@ -89,10 +89,10 @@ export interface BuildStep {
 }
 
 /** The rebrand scene's two acts: the same rebrand without, then with, a design system. */
-export type SceneAct = "without" | "with";
+export type TSceneAct = "without" | "with";
 
 /** Opens a case study: what it is, when, my role, and the chapters ahead. */
-export interface CaseCover {
+export interface ICaseCover {
   kicker: string;
   title: string;
   body: string;
@@ -100,8 +100,8 @@ export interface CaseCover {
   chapters: { number: string; label: string }[];
 }
 
-export interface DesignSystemCase {
-  cover: CaseCover;
+export interface IDesignSystemCase {
+  cover: ICaseCover;
   /** Slide 1: the problem the system solved. */
   problem: {
     kicker: string;
@@ -109,14 +109,14 @@ export interface DesignSystemCase {
     body: string;
   };
   /** Slide 2: the decision, shown by tokens building a button. */
-  decision: TitledText & {
+  decision: ITitledText & {
     kicker: string;
     /** Names the token list for screen readers. */
     tokensLabel: string;
     /** The tokens on show, grouped; `display` replaces a value that reads badly (a font stack). */
     groups: { label: string; tokens: { token: string; display?: string }[] }[];
     /** Build order. */
-    steps: [BuildStep, ...BuildStep[]];
+    steps: [IBuildStep, ...IBuildStep[]];
     buttonLabel: string;
     /** Replaces the step caption once the button is built. */
     done: string;
@@ -129,9 +129,9 @@ export interface DesignSystemCase {
     /** Shown under the scene from the start, so the payoff never depends on watching. */
     closing: string;
     /** Per act: its label, its line in the scene, and a text summary for screen readers. */
-    acts: Record<SceneAct, { label: string; title: string; summary: string }>;
+    acts: Record<TSceneAct, { label: string; title: string; summary: string }>;
     /** Counter naming who does the work in each act, e.g. "6 developers". */
-    developers: Record<SceneAct, string>;
+    developers: Record<TSceneAct, string>;
     /** Follows the "3/6" count of rebranded products. */
     rebrandedLabel: string;
     /** The scene's one control: it runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
@@ -147,12 +147,12 @@ export interface DesignSystemCase {
 }
 
 /** What one check in the gap analysis found: the API already does it, or a gap. */
-export type GapResult = "ready" | "gap";
+export type TGapResult = "ready" | "gap";
 
 /** One thing product expects, checked against the spec and the code. */
-export interface GapCheck {
+export interface IGapCheck {
   expectation: string;
-  result: GapResult;
+  result: TGapResult;
   /** Names the kind of result, e.g. "Missing endpoint". */
   badge: string;
   reason: string;
@@ -162,14 +162,14 @@ export interface GapCheck {
  * One line of a repository excerpt. Its text appears verbatim in the excerpt's source file
  * (markdown emphasis and backticks aside), unless `output` marks it as a tool's output.
  */
-export interface ExcerptLine {
+export interface IExcerptLine {
   text: string;
   tone?: "strong" | "label" | "error";
   output?: true;
 }
 
 /** A short excerpt of a file in this site's repository, shown as it is. */
-export interface Excerpt {
+export interface IExcerpt {
   /** What the card is headed with, e.g. "AGENTS.md" or "pnpm lint". */
   file: string;
   kind: string;
@@ -177,11 +177,11 @@ export interface Excerpt {
   reader: string;
   /** Repository path the lines are quoted from. */
   source: string;
-  lines: ExcerptLine[];
+  lines: IExcerptLine[];
 }
 
-export interface AiCase {
-  cover: CaseCover;
+export interface IAiCase {
+  cover: ICaseCover;
   /** Each scene runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
   controls: { pause: string; play: string; replay: string };
   /** Chapter 01: an agent compares product docs, the tech spec and the code before any work. */
@@ -197,7 +197,7 @@ export interface AiCase {
     sources: { label: string; badge?: string; reading: string }[];
     /** Names the checks list for screen readers. */
     checksLabel: string;
-    checks: [GapCheck, ...GapCheck[]];
+    checks: [IGapCheck, ...IGapCheck[]];
     /** Replaces the caption once every check has its result. */
     done: string;
   };
@@ -210,7 +210,7 @@ export interface AiCase {
     note: string;
     /** Names the excerpts list for screen readers. */
     excerptsLabel: string;
-    excerpts: [Excerpt, ...Excerpt[]];
+    excerpts: [IExcerpt, ...IExcerpt[]];
   };
   /** Chapter 03: a real reviewed change from this repository, from draft to merged. */
   build: {
@@ -220,7 +220,7 @@ export interface AiCase {
     /** Shown under the body: the proof is public. */
     closing: string;
     /** Opens this site's repository in a new tab. */
-    repo: LinkContent;
+    repo: ILinkContent;
     review: {
       /** Heads the panel: which pull request and file. */
       label: string;

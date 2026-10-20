@@ -1,4 +1,4 @@
-import type { ExcerptLine } from "@/content/types";
+import type { IExcerptLine } from "@/content/content.type";
 import { cx } from "@/design-system/ui";
 
 export const foundationSlide = {
@@ -35,7 +35,7 @@ export const foundationSlide = {
     strong: "font-semibold",
     label: "font-mono text-label text-subtle",
     error: "font-mono text-label text-danger",
-  } satisfies Record<NonNullable<ExcerptLine["tone"]> | "plain", string>,
+  } satisfies Record<NonNullable<IExcerptLine["tone"]> | "plain", string>,
 
   footer: "flex min-h-8 justify-end",
   control: "h-8 px-4 text-label",

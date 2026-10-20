@@ -1,6 +1,6 @@
-import type { ExperienceContent } from "./types";
+import type { IExperienceContent } from "./content.type";
 
-export const experience: ExperienceContent = {
+export const experience: IExperienceContent = {
   title: "Experience",
   entries: [
     {

@@ -1,9 +1,9 @@
 import { site } from "./site";
-import type { ContactContent, NotFoundContent } from "./types";
+import type { IContactContent, INotFoundContent } from "./content.type";
 
 const email = "hugobenti@gmail.com";
 
-export const contact: ContactContent = {
+export const contact: IContactContent = {
   kicker: "Contact",
   title: "Let's build something people enjoy using.",
   intro:
@@ -19,7 +19,7 @@ export const contact: ContactContent = {
   storybook: { label: "Explore the design system", href: site.storybookUrl },
 };
 
-export const notFound: NotFoundContent = {
+export const notFound: INotFoundContent = {
   code: "404",
   title: "This slide doesn't exist.",
   body: "The link may be old, or the page moved. Everything lives on the home deck.",

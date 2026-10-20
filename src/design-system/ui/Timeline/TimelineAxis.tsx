@@ -1,22 +1,11 @@
 import { cssVars } from "../cssVars";
 import { cx } from "../cx";
 import { timelineAxis } from "./Timeline.style";
-import type { ScaleEntry } from "./timelineScale";
 import { useTimelineAxis } from "./useTimelineAxis";
-
-export type TimelineAxisProps = {
-  /** Oldest first. */
-  entries: readonly ScaleEntry[];
-  /**
-   * Entry currently in focus: the line fills up to its end, earlier entries read as past and
-   * later ones as future. Leave it out for a static axis with everything filled.
-   */
-  activeIndex?: number;
-  className?: string;
-};
+import type { TTimelineAxisProps } from "./TimelineAxis.type";
 
 /** A time-scaled career axis: a tick per year, a span per company, a dot per role. Decorative. */
-export function TimelineAxis({ entries, activeIndex, className }: TimelineAxisProps) {
+export function TimelineAxis({ entries, activeIndex, className }: TTimelineAxisProps) {
   const { ticks, spans, dots, fill } = useTimelineAxis(entries, activeIndex);
   return (
     <div className={cx(timelineAxis.base, className)} aria-hidden="true">

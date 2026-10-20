@@ -17,12 +17,12 @@ const meta = {
 } satisfies Meta<typeof CopyText>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: TStory = {};
 
 /** Click it: the clipboard is unavailable here, so the text gets selected with a shortcut hint. */
-export const ClipboardBlocked: Story = {
+export const ClipboardBlocked: TStory = {
   beforeEach: () => {
     // Shadow the Clipboard API for this story only; deleting the own property restores it.
     Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });

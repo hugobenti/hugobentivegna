@@ -22,12 +22,12 @@ const meta = {
 } satisfies Meta<typeof DotNav>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: TStory = {};
 
 /** Click or tab to a dot and press Enter: the active slide follows. */
-export const Interactive: Story = {
+export const Interactive: TStory = {
   render: function Render(args) {
     const [activeId, setActiveId] = useState(args.activeId);
     return <DotNav {...args} activeId={activeId} onSelect={setActiveId} />;

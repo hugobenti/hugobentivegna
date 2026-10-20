@@ -1,11 +1,9 @@
 import type { CSSProperties } from "react";
 import { cssVars } from "@/design-system/ui";
+import type { TServiceState } from "./ItauArtifact.type";
 
 // Illustrative only: an abstract monitoring portal, not real systems or data.
-
-type ServiceState = "ok" | "warn";
-
-const rawServices: { name: string; state: ServiceState; load: number }[] = [
+const rawServices: { name: string; state: TServiceState; load: number }[] = [
   { name: "payments-api", state: "ok", load: 72 },
   { name: "ledger", state: "ok", load: 48 },
   { name: "auth", state: "warn", load: 91 },
@@ -14,7 +12,7 @@ const rawServices: { name: string; state: ServiceState; load: number }[] = [
 
 export const services: {
   name: string;
-  state: ServiceState;
+  state: TServiceState;
   warn: boolean;
   /** Stagger order of the row. */
   rowStyle: CSSProperties;

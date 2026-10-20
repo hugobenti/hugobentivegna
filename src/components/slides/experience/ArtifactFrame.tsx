@@ -1,21 +1,9 @@
-import type { ReactNode } from "react";
 import { cx } from "@/design-system/ui";
 import { artifact } from "./artifact.style";
-
-export type ArtifactProps = {
-  /** True while this artifact's chapter is in focus; its contents animate in. */
-  active: boolean;
-  className?: string;
-};
-
-type ArtifactFrameProps = ArtifactProps & {
-  /** Text in the window's title bar, e.g. "monitoring.portal". */
-  title: string;
-  children: ReactNode;
-};
+import type { TArtifactFrameProps } from "./ArtifactFrame.type";
 
 /** Decorative app window around an Experience artifact. Hidden from assistive technology. */
-export function ArtifactFrame({ title, active, className, children }: ArtifactFrameProps) {
+export function ArtifactFrame({ title, active, className, children }: TArtifactFrameProps) {
   return (
     <div
       data-artifact=""

@@ -1,10 +1,11 @@
 import { artifact } from "./artifact.style";
-import { ArtifactFrame, type ArtifactProps } from "./ArtifactFrame";
+import { ArtifactFrame } from "./ArtifactFrame";
+import type { TArtifactProps } from "./ArtifactFrame.type";
 import { devices, workflow } from "./OneGlobalArtifact.data";
 import { oneGlobalArtifact as s } from "./OneGlobalArtifact.style";
 
 /** 1global: an IoT fleet beside a plan → agent → review → test workflow, played step by step. */
-export function OneGlobalArtifact({ active, className }: ArtifactProps) {
+export function OneGlobalArtifact({ active, className }: TArtifactProps) {
   return (
     <ArtifactFrame title="iot.portal" active={active} className={className}>
       <div>

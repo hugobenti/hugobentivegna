@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { story } from "../story.style";
 import { TimelineAxis } from "./TimelineAxis";
-import { TimelineChapter, type TimelineEntry } from "./TimelineChapter";
+import { TimelineChapter } from "./TimelineChapter";
+import type { ITimelineEntry } from "./TimelineChapter.type";
 
 // Story data mirrors the site's experience content; the design system can't import src/content.
-const entries: TimelineEntry[] = [
+const entries: ITimelineEntry[] = [
   {
     company: "Itaú Unibanco",
     start: "2020-01",
@@ -52,22 +53,22 @@ const meta = {
 } satisfies Meta<typeof TimelineAxis>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
 /** Move `activeIndex`: the line fills to that company and its dots light up. */
-export const Axis: Story = {};
+export const Axis: TStory = {};
 
 /** Without `activeIndex`, the axis is static and fully filled. */
-export const StaticAxis: Story = {
+export const StaticAxis: TStory = {
   args: { activeIndex: undefined },
 };
 
-export const Chapter: Story = {
-  render: () => <TimelineChapter entry={entries[1] as TimelineEntry} />,
+export const Chapter: TStory = {
+  render: () => <TimelineChapter entry={entries[1] as ITimelineEntry} />,
 };
 
 /** Axis above, one chapter per company below: what the site scrolls through step by step. */
-export const Composed: Story = {
+export const Composed: TStory = {
   render: (args) => (
     <div className={story.stack}>
       <TimelineAxis {...args} />

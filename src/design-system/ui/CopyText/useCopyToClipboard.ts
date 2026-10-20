@@ -1,18 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-
-export type CopyStatus = "idle" | "copied" | "failed";
+import type { TCopyStatus } from "./useCopyToClipboard.type";
 
 /** How long each result stays before the status returns to idle. */
-const RESET_AFTER_MS: Record<Exclude<CopyStatus, "idle">, number> = { copied: 2000, failed: 6000 };
+const RESET_AFTER_MS: Record<Exclude<TCopyStatus, "idle">, number> = { copied: 2000, failed: 6000 };
 
 /**
  * Copies `text` to the clipboard and reports the result. When copying isn't possible, the
  * element behind `textRef` is selected so a single shortcut finishes the job.
  */
 export function useCopyToClipboard<T extends HTMLElement>(text: string) {
-  const [status, setStatus] = useState<CopyStatus>("idle");
+  const [status, setStatus] = useState<TCopyStatus>("idle");
   const textRef = useRef<T>(null);
 
   useEffect(() => {

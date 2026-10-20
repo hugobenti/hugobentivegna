@@ -30,11 +30,11 @@ const meta = {
 } satisfies Meta<typeof Card>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type TStory = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: TStory = {};
 
-export const Interactive: Story = {
+export const Interactive: TStory = {
   args: {
     interactive: true,
     children: (

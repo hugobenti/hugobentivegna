@@ -6,15 +6,15 @@ import {
   DEV_FINISH_MS,
   SCENE_MS,
   SYSTEM_RELEASE_MS,
-  type SceneFrame,
   WAVE_START_MS,
   WAVE_STEP_MS,
   act1Frame,
   act2Frame,
   sceneFrame,
 } from "./rebrandTimeline";
+import type { ISceneFrame } from "./rebrandTimeline.type";
 
-const rebrandedIndexes = (frame: SceneFrame) =>
+const rebrandedIndexes = (frame: ISceneFrame) =>
   frame.products.map((product, index) => (product.rebranded ? index : -1)).filter((i) => i >= 0);
 
 describe("act 1: without a design system", () => {

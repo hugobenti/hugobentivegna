@@ -1,17 +1,11 @@
 import { aiCase } from "@/content/cases";
-import type { ExcerptLine } from "@/content/types";
 import { usePlayback } from "../../deck/usePlayback";
 import { foundationDuration, foundationFrame } from "./foundationTimeline";
+import type { IShownLine } from "./useFoundationScene.type";
 
 const { foundation, controls } = aiCase;
 const count = foundation.excerpts.length;
 const duration = foundationDuration(count);
-
-/** A line as rendered: lines without a tone are `plain`. */
-export interface ShownLine {
-  text: string;
-  tone: NonNullable<ExcerptLine["tone"]> | "plain";
-}
 
 /**
  * Foundation view model: once the slide is active each excerpt is lit in turn, then all of
@@ -25,7 +19,7 @@ export function useFoundationScene() {
     ref,
     excerpts: foundation.excerpts.map((excerpt, index) => ({
       ...excerpt,
-      lines: excerpt.lines.map((line): ShownLine => ({
+      lines: excerpt.lines.map((line): IShownLine => ({
         text: line.text,
         tone: line.tone ?? "plain",
       })),

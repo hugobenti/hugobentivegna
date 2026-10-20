@@ -1,24 +1,13 @@
 import { useId } from "react";
 import { cx } from "../cx";
 import { themeSwitch } from "./ThemeSwitch.style";
-
-export type ThemeSwitchOption = { value: string; label: string };
-
-export type ThemeSwitchProps = {
-  options: ThemeSwitchOption[];
-  /** Value of the selected option. */
-  value: string;
-  onChange: (value: string) => void;
-  /** Name of the group, announced before the options. */
-  label: string;
-  className?: string;
-};
+import type { TThemeSwitchProps } from "./ThemeSwitch.type";
 
 /**
  * Segmented control for picking one option, e.g. a theme. Built on native radio inputs,
  * so arrow keys, the single tab stop and screen-reader announcements come from the browser.
  */
-export function ThemeSwitch({ options, value, onChange, label, className }: ThemeSwitchProps) {
+export function ThemeSwitch({ options, value, onChange, label, className }: TThemeSwitchProps) {
   const name = useId();
   return (
     <fieldset className={cx(themeSwitch.base, className)}>
