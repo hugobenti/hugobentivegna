@@ -1,3 +1,5 @@
+import { cx } from "@/design-system/ui";
+
 /** A thin track whose fill grows with `--progress` (0–1). */
 const track = "block h-1 overflow-hidden rounded-pill bg-raised";
 const fill =
@@ -79,11 +81,11 @@ export const rebrandScene = {
    * A made-up product screen with its own mini theme: it re-declares the kit's button tokens
    * from the bank palette, so the real Button inside follows the rebrand like any product would.
    */
-  product: [
+  product: cx(
     "group/product overflow-hidden rounded-md border border-line bg-bg",
     "[--hb-button-primary-bg:var(--hb-palette-bank-before)] [--hb-button-primary-fg:var(--hb-palette-ink-50)] [--hb-button-radius:var(--hb-radius-sm)]",
     "data-[rebranded=true]:[--hb-button-primary-bg:var(--hb-palette-bank-after)] data-[rebranded=true]:[--hb-button-radius:var(--hb-radius-pill)]",
-  ].join(" "),
+  ),
   productBar:
     "flex items-center justify-between gap-2 bg-(color:--hb-button-primary-bg) px-3 py-2 text-(color:--hb-button-primary-fg) transition-colors duration-(--hb-duration-slow)",
   /** The brand's type changes with the rebrand too: heavier and wider. */
@@ -106,7 +108,7 @@ export const rebrandScene = {
     "size-7 shrink-0 text-subtle group-data-[playing=true]/panel:group-data-[state=working]/system:motion-safe:animate-pulse",
   avatarHead: "fill-current",
   avatarLaptop: "fill-raised stroke-subtle",
-  track: `${track} flex-1`,
+  track: cx(track, "flex-1"),
   fill,
-  systemTrack: `${track} w-full`,
+  systemTrack: cx(track, "w-full"),
 };

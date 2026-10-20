@@ -1,12 +1,13 @@
 import { focusRing } from "../focus.style";
+import { cx } from "../cx";
 
 export const button = {
-  base: [
+  base: cx(
     "inline-flex items-center justify-center gap-2 rounded-(--hb-button-radius) font-medium whitespace-nowrap",
     "transition-[background-color,border-color,filter] duration-(--hb-duration-fast) ease-out",
     focusRing,
     "disabled:pointer-events-none disabled:opacity-50",
-  ].join(" "),
+  ),
   /** Visual weight. One `primary` per view; `secondary` beside it; `ghost` for low emphasis. */
   variant: {
     primary:

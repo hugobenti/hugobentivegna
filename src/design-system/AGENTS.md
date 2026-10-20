@@ -45,7 +45,7 @@ Reference implementations: `ui/Timeline/` (`TimelineAxis.tsx` + `useTimelineAxis
 
 Markup and styling never share a file.
 
-- **`X.style.ts` owns every class.** It exports one plain object per component: `base` for the classes every instance gets, one key per variant mapping each option to its classes, and named keys for other parts (`newTabHint`, `interactive`). No helpers, no logic.
+- **`X.style.ts` owns every class.** It exports one plain object per component: `base` for the classes every instance gets, one key per variant mapping each option to its classes, and named keys for other parts (`newTabHint`, `interactive`). No logic: values are plain strings, or `cx()` over strings and shared pieces (`focusRing`, `reveal`). A class list that fits on one line stays one string; a longer one, or one that reuses a shared piece, is `cx()` with one group per line (layout, color, states). `.join()` and template literals fail ESLint, so Tailwind always sees every class literally.
 - **`X.tsx` owns structure and behavior.** It imports the object and composes classes with `cx()`: `cx(button.base, button.variant[variant], className)`. A class string in `className` (literal, template, or inside a call/conditional) fails ESLint.
 - **Variants are declared once.** Prop types come from the style object (`variant?: keyof typeof button.variant`), so a variant can't exist in props without a style. Defaults live in the component's props (`variant = "primary"`).
 - **Callers extend, never override.** A component accepts `className` and passes it last to `cx()`; use it for layout (margins, width), not to restyle internals.
@@ -55,7 +55,11 @@ Markup and styling never share a file.
 ```ts
 // Button.style.ts
 export const button = {
-  base: "inline-flex items-center rounded-(--hb-button-radius) …",
+  base: cx(
+    "inline-flex items-center rounded-(--hb-button-radius) …",
+    "disabled:pointer-events-none disabled:opacity-50",
+    focusRing,
+  ),
   variant: { primary: "bg-(color:--hb-button-primary-bg) …", ghost: "text-fg hover:bg-raised" },
   size: { md: "h-10 px-5 text-small", lg: "h-12 px-7 text-body" },
 };
