@@ -12,13 +12,13 @@ export const timelineAxis = {
   fill: cx("absolute top-9 left-0 h-px w-(--fill) bg-accent", progress),
   spans: "absolute inset-x-0 top-11",
   span: cx(
-    "absolute h-1 left-(--from) w-[calc(var(--to)-var(--from))] rounded-pill",
-    "data-[state=past]:bg-muted/40 data-[state=current]:bg-accent data-[state=future]:bg-line",
+    "absolute left-(--from) h-1 w-[calc(var(--to)-var(--from))] rounded-pill",
+    "data-[state=current]:bg-accent data-[state=future]:bg-line data-[state=past]:bg-muted/40",
     progress,
   ),
   dot: cx(
     "absolute top-9 left-(--at) size-3 -translate-1/2 rounded-pill ring-4 ring-bg",
-    "data-[state=past]:bg-accent data-[state=current]:scale-125 data-[state=current]:bg-accent data-[state=future]:bg-line",
+    "data-[state=current]:scale-125 data-[state=current]:bg-accent data-[state=future]:bg-line data-[state=past]:bg-accent",
     progress,
   ),
 };

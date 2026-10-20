@@ -22,7 +22,7 @@ export const itauArtifact = {
   chart: "h-16 w-full overflow-visible",
   /** The line draws itself: dash offset runs from full length to zero (pathLength is 100). */
   chartLine: cx(
-    "fill-none stroke-accent [stroke-dasharray:100] [stroke-dashoffset:100] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2]",
+    "fill-none stroke-accent [stroke-width:2] [stroke-dasharray:100] [stroke-dashoffset:100] [stroke-linecap:round] [stroke-linejoin:round]",
     "group-data-[active=true]:[stroke-dashoffset:0]",
     artifact.appear,
     "duration-[1.4s]",

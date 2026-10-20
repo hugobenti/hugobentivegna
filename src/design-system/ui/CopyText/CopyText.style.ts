@@ -20,6 +20,6 @@ export const copyText = {
     "rounded-sm bg-raised px-2 py-1 font-sans text-label text-fg shadow-card",
     "opacity-0 transition-opacity duration-(--hb-duration-fast) ease-out",
     "peer-hover:opacity-100 peer-focus-visible:opacity-100",
-    "data-[state=copied]:opacity-100 data-[state=copied]:text-accent data-[state=failed]:opacity-100",
+    "data-[state=copied]:text-accent data-[state=copied]:opacity-100 data-[state=failed]:opacity-100",
   ),
 };

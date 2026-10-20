@@ -30,7 +30,7 @@ export const gapsSlide = {
   check: cx(
     "group/check rounded-md border border-line bg-bg px-4 py-3",
     "transition-[border-color] duration-(--hb-duration-slow)",
-    "data-[state=ready]:border-success data-[state=gap]:border-warning",
+    "data-[state=gap]:border-warning data-[state=ready]:border-success",
   ),
   /** The badge wraps under the expectation on narrow screens; it always takes its space. */
   checkTop: "flex flex-wrap items-center justify-between gap-x-3 gap-y-1",
@@ -48,9 +48,9 @@ export const gapsSlide = {
   /** The reason's line is always reserved; it unrolls inside it, so nothing around it moves. */
   reason: cx(
     "mt-1 block text-small text-muted",
-    "[clip-path:inset(0_0_100%_0)] opacity-0 transition-[clip-path,opacity] duration-(--hb-duration-slow)",
-    "group-data-[state=ready]/check:[clip-path:inset(0)] group-data-[state=ready]/check:opacity-100",
-    "group-data-[state=gap]/check:[clip-path:inset(0)] group-data-[state=gap]/check:opacity-100",
+    "opacity-0 transition-[clip-path,opacity] duration-(--hb-duration-slow) [clip-path:inset(0_0_100%_0)]",
+    "group-data-[state=ready]/check:opacity-100 group-data-[state=ready]/check:[clip-path:inset(0)]",
+    "group-data-[state=gap]/check:opacity-100 group-data-[state=gap]/check:[clip-path:inset(0)]",
   ),
 
   footer: "flex min-h-8 items-center justify-between gap-4",
