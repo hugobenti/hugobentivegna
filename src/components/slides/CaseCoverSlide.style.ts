@@ -6,6 +6,8 @@ export const caseCoverSlide = {
    */
   glow: "pointer-events-none absolute inset-0 bg-[radial-gradient(40%_45%_at_75%_45%,var(--hb-color-glow),transparent)]",
   content: "relative mx-auto w-full max-w-6xl",
+  /** Five logo pixels of clear space: 2× (10 px) below 640 px, 4× (20 px) from it up. */
+  mark: "mb-6 inline-block p-2.5 sm:p-5",
   kicker: "font-mono text-label text-subtle uppercase",
   title: "mt-6 max-w-4xl font-display text-h1 font-extrabold text-balance text-fg",
   body: "mt-6 max-w-2xl text-body text-muted",

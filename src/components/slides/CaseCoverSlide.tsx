@@ -6,11 +6,16 @@ import { caseCoverSlide } from "./CaseCoverSlide.style";
 import type { TCaseCoverSlideProps } from "./CaseCoverSlide.type";
 
 /** Opens a case study: what it is, when, my role, and the chapters ahead. */
-export function CaseCoverSlide({ slide, cover }: TCaseCoverSlideProps) {
+export function CaseCoverSlide({ slide, cover, mark }: TCaseCoverSlideProps) {
   return (
     <Slide slide={slide} className={caseCoverSlide.slide}>
       <div className={caseCoverSlide.glow} aria-hidden="true" />
       <div className={caseCoverSlide.content}>
+        {mark ? (
+          <div className={cx(deck.reveal, caseCoverSlide.mark)} style={stagger(0)}>
+            {mark}
+          </div>
+        ) : null}
         <p className={cx(deck.reveal, caseCoverSlide.kicker)} style={stagger(0)}>
           {cover.kicker}
         </p>
