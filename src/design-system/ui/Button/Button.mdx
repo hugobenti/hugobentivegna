@@ -27,6 +27,9 @@ An action the visitor can take. Renders a native `<button>`, or an `<a>` when it
 - With `href` it is a real link: middle-click, "open in new tab" and the browser status bar all work.
 - `external` adds `target="_blank"`, `rel="noopener noreferrer"`, a visual ↗ and the hidden text "(opens in a new tab)".
 - The focus ring uses the `focus-ring` component tokens and meets 3:1 contrast.
+- Sizes: `sm` is 32 px high, for compact controls such as PlaybackControl; `md` is 40 px and `lg` 48 px. Every target is at least 24 px (WCAG 2.5.8).
+- Disabled applies to the native `<button>` only: it dims the button, removes it from the tab order and ignores clicks. A link (`href`) has no disabled state and the prop is not accepted: when an action isn't available, render a disabled `<button>` or leave the link out. Don't fake it with `pointer-events` or `aria-disabled`, which keep a dead link focusable.
+- Hover only changes color or brightness: it never carries information, so touch and keyboard users miss nothing.
 - The label is the accessible name. Icon-only buttons are not supported: always pass text.
 
 ## Do / Don't
@@ -37,5 +40,28 @@ An action the visitor can take. Renders a native `<button>`, or an `<a>` when it
 | One `primary` per view                  | Several competing `primary` buttons |
 | Short verb-first labels ("Download CV") | Vague labels ("Click here")         |
 
+## Variants
+
 <Canvas of={Stories.Variants} />
+
+## Sizes
+
+<Canvas of={Stories.Sizes} />
+
+## Every variant, size and state
+
+<Canvas of={Stories.Matrix} />
+
+## Keyboard focus
+
+<Canvas of={Stories.Focus} />
+
+## Link buttons
+
 <Canvas of={Stories.ExternalLink} />
+<Canvas of={Stories.Download} />
+
+## Disabled and submit
+
+<Canvas of={Stories.Disabled} />
+<Canvas of={Stories.Submit} />

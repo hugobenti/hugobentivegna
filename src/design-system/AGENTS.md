@@ -52,6 +52,7 @@ Markup and styling never share a file.
 - **Callers extend, never override.** A component accepts `className` and passes it last to `cx()`; use it for layout (margins, width), not to restyle internals.
 - **Token-only utilities.** `bg-surface`, `text-muted`, `font-display`, `rounded-lg`; component tokens through typed arbitrary values, e.g. `bg-(color:--hb-button-primary-bg)`. Never raw hex; Tailwind defaults don't exist here.
 - **Stories** take layout and sample-content classes from `ui/story.style.ts`; the Storybook canvas from `.storybook/preview.style.ts`.
+- **Story `argTypes`** follow one convention. Derive `options` from the style object (`options: Object.keys(button.variant)`), so a new variant shows up in Controls by itself. Write a `description` only for what the prop's JSDoc doesn't already say, and `table.defaultValue` only when the default isn't a destructured default (docgen reads those). Don't hand-write `table.type.summary`. Props that are data or callbacks get `control: "object"` or the default (`fn()` spy in `args`); never `() => {}`. Layout wrappers go in a `decorators` entry or `render`, never in the meta `args`, so Controls only lists real props. A component with two parts (`TimelineAxis`, `TimelineChapter`) gets one meta per part, each with its own Controls.
 
 ```ts
 // Button.style.ts

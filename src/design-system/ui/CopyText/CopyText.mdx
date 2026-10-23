@@ -34,4 +34,13 @@ Shows a short piece of text, such as an email address, that copies itself when c
 | Show the exact text that will be copied  | A generic "Copy" label hiding the value |
 | Keep a `mailto:` button next to an email | Make the email both copy and navigate   |
 
+## States
+
+<Canvas of={Stories.HintVisible} />
+<Canvas of={Stories.Copied} />
 <Canvas of={Stories.ClipboardBlocked} />
+
+## Custom messages and long text
+
+<Canvas of={Stories.CustomHints} />
+<Canvas of={Stories.LongText} />
