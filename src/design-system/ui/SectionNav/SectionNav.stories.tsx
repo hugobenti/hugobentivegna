@@ -5,7 +5,7 @@ const items = [
   { id: "timeline", label: "Experience", href: "#timeline" },
   { id: "design-systems", label: "Case 01 · Design systems", href: "#design-systems" },
   { id: "ai-plan", label: "Case 02 · AI-driven development", href: "#ai-plan" },
-  { id: "pixelcraft", label: "Projects", href: "#pixelcraft" },
+  { id: "pixelhb", label: "Projects", href: "#pixelhb" },
   { id: "contact", label: "Contact", href: "#contact" },
 ];
 
