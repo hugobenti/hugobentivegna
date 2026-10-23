@@ -14,7 +14,7 @@ src/design-system/ui       the hand-built UI kit (components, stories, usage gui
 src/app                    Next.js routes
 src/components             site components (slide engine, slides, sequences)
 src/content                all site copy, typed
-.storybook                 Storybook config (documents src/design-system)
+.storybook                 Storybook config (documents src/design-system under Components/ and Foundations/, and shared site parts in src/components under Site/)
 ```
 
 Dependencies flow one way: **tokens → ui → site**.
@@ -46,7 +46,7 @@ Dependencies flow one way: **tokens → ui → site**.
 
 ## Workflow
 
-Never commit to `main`. Each stage of work gets its own branch (`feat/<name>`), stays small (≤ ~20 files) and lands through a pull request that Hugo reviews and merges; CI must be green. Write the failing test first for anything with logic; run lint, typecheck, test and build (and `build-storybook` for design-system changes) before asking for review. Design-system rules: `src/design-system/AGENTS.md`.
+Never commit to `main`. Each stage of work gets its own branch (`feat/<name>`), stays small (≤ ~20 files) and lands through a pull request that Hugo reviews and merges; CI must be green. Write the failing test first for anything with logic; run lint, typecheck, test and build (and `build-storybook` for design-system or shared-component changes; a shared piece used by more than one slide gets a story and an mdx) before asking for review. Design-system rules: `src/design-system/AGENTS.md`.
 
 **Verifying a production build while Hugo works:** never delete or build into `.next` (his `next dev` and builds use it). Build and serve in isolation: `NEXT_DIST_DIR=.next-verify pnpm build`, then `NEXT_DIST_DIR=.next-verify pnpm start -p <port>` once the build has finished.
 

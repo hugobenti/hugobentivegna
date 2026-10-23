@@ -1,0 +1,39 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./OgCard.stories";
+
+<Meta of={Stories} />
+
+# OgCard
+
+The link-preview card: the hero flattened to 1200 × 630 for LinkedIn, Slack and email.
+
+<Canvas of={Stories.Default} />
+
+It takes no props, so there are no controls: its copy is `site` content and its colors are the generated tokens.
+
+## Use when
+
+- `src/app/opengraph-image.tsx` renders it with `ImageResponse` at `size` (1200 × 630) from `ogImage.ts`, with Inter Tight at weights 400 and 800 loaded by `ogFonts()`.
+
+## Don't use when
+
+- You need a component for the page itself: this one is an image. Its look mirrors the hero, but only `opengraph-image.tsx` renders it.
+- You want to style it with classes: `next/og` (Satori) understands only inline styles, so `OgCard.style.ts` exports style objects. It is the one style file exempt from the class-string rules.
+
+## Behavior
+
+- The colors come from `ogPalette` in `ogImage.ts`, which reads the generated tokens (`color.bg`, `fg`, `muted`, `subtle`, `accent`, `glow`), because the renderer can't read CSS variables.
+- The story scales the 1200 × 630 card to half size in a clipped box. In Storybook the card is drawn by the browser, with the preview's font; the published image is drawn by Satori with Inter Tight.
+
+## Accessibility
+
+- The card is an image, not page content: the alternative text is `alt` in `ogImage.ts`, which spells out the name, role and headline.
+- Text colors are the tokens tested for AA on `bg`.
+
+## Do / Don't
+
+| Do                                             | Don't                                      |
+| ---------------------------------------------- | ------------------------------------------ |
+| Take colors from `ogPalette` (tokens)          | Hard-code a hex value in the style objects |
+| Keep the headline to what fits three lines     | Add more copy to the card                  |
+| Keep `alt` in sync with the headline in `site` | Leave the default alt                      |

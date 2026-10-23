@@ -1,0 +1,40 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./SiteHeader.stories";
+
+<Meta of={Stories} />
+
+# SiteHeader
+
+The bar fixed to the top of every slide: the monogram that leads home, then the sections with the one in view marked.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- It is the page banner of the deck: `Deck` renders it once, above the slides.
+- The sections are the header links; `activeSection` comes from `useDeck`.
+
+## Don't use when
+
+- You need a second navigation: use `SectionNav` directly, with its own label.
+- The page is not a deck: the bar is `fixed` and its height (`--hb-site-header`) is defined by `deck.css`.
+
+## Accessibility
+
+- A `<header>` (the banner landmark) holding a monogram link and a `SectionNav` (a labelled `<nav>`).
+- The monogram's visible text is "HB"; its accessible name is `site.homeLabel`, and it starts with the visible text, as WCAG 2.5.3 (Label in Name) asks: "HB, Hugo Bentivegna: back to the start".
+- The text, names and nav label come from `src/content/site`: this is the one component whose story uses real site content, because that is what it shows.
+- On phones the links scroll sideways inside the bar (see **Narrow**); the monogram never shrinks.
+- In Storybook the bar is pinned to its stage, not to the page: the stage sets `--hb-site-header`, as `.deck` does in the site.
+
+## Do / Don't
+
+| Do                                         | Don't                        |
+| ------------------------------------------ | ---------------------------- |
+| Pass `null` when no section owns the slide | Mark the last-seen section   |
+| Keep link labels to one or two words       | Add sentences to the header  |
+| Point `homeHref` at the first slide        | Point it at an external page |
+
+<Canvas of={Stories.NoneActive} />
+<Canvas of={Stories.Narrow} />
