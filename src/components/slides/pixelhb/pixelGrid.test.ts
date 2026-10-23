@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import { pixelFill } from "./PixelArt.style";
-import { beside, gridCells, gridRuns, gridSize } from "./pixelGrid";
+import { beside, cellStates, gridCells, gridRuns, gridSize } from "./pixelGrid";
 import { HEART, LOCKUP, COMPUTER, PENCIL, WORDMARK } from "./pixelArt.data";
 
 test("the brand grids have the sizes the brand spec gives", () => {
@@ -34,4 +34,9 @@ test("every key used by the grids has a fill", () => {
 
 test("beside puts grids top-aligned with a gap and pads the shorter one", () => {
   expect(beside(["a"], ["b", "c"], 1)).toEqual(["a.b", "..c"]);
+});
+
+test("cellStates turns on only the listed cells", () => {
+  expect(cellStates(4, [1, 3])).toEqual(["off", "on", "off", "on"]);
+  expect(cellStates(2, [])).toEqual(["off", "off"]);
 });

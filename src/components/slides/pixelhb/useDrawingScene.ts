@@ -2,10 +2,10 @@ import { pixelhbCase } from "@/content/cases";
 import { usePlayback } from "../../deck/usePlayback";
 import { drawingDuration, drawingOrder, drawnCount } from "./drawingTimeline";
 import { COMPUTER } from "./pixelArt.data";
-import { gridSize } from "./pixelGrid";
+import { cellStates, gridSize } from "./pixelGrid";
 
-const { width, height } = gridSize(COMPUTER);
 /** Outline first, then the case, the screen, its text in blue then grey (with the keys), and the light. */
+const { width, height } = gridSize(COMPUTER);
 const order = drawingOrder(COMPUTER, ["M", "m", "G", "r", "q", "Y"]);
 
 /**
@@ -16,7 +16,6 @@ const order = drawingOrder(COMPUTER, ["M", "m", "G", "r", "q", "Y"]);
 export function useDrawingScene() {
   const { ref, elapsed } = usePlayback<HTMLDivElement>(drawingDuration);
   const drawn = drawnCount(elapsed, order.length);
-  const cellState = Array.from({ length: width * height }, () => "off");
-  for (const index of order.slice(0, drawn)) cellState[index] = "on";
+  const cellState = cellStates(width * height, order.slice(0, drawn));
   return { ref, grid: COMPUTER, cellState, label: pixelhbCase.drawing };
 }
