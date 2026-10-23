@@ -8,6 +8,8 @@ export const story = {
   stack: "flex flex-col gap-16",
   /** Keeps a sample card at a readable width. */
   narrow: "max-w-sm",
+  /** A centred column with room around it, for copy that fills its parent. */
+  column: "mx-auto max-w-xl p-8",
   /** Space above a component whose hint pops up over it. */
   hintRoom: "pt-12",
   eyebrow: "text-label text-subtle uppercase",

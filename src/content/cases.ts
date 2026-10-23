@@ -74,7 +74,6 @@ export const designSystemCase: IDesignSystemCase = {
     },
     developers: { without: "6 developers", with: "1 developer" },
     rebrandedLabel: "products rebranded",
-    controls: { pause: "Pause", play: "Play", replay: "Replay" },
     system: {
       name: "design-system",
       released: "v2.0 released",
@@ -103,7 +102,6 @@ export const aiCase: IAiCase = {
       { number: "03", label: "Build on it" },
     ],
   },
-  controls: { pause: "Pause", play: "Play", replay: "Replay" },
   gaps: {
     kicker: "01 · Find the gaps",
     title: "Before writing code, I asked what was missing.",
@@ -244,7 +242,6 @@ export const aiCase: IAiCase = {
 export const pixelhbCase: IPixelhbCase = {
   mark: "PixelHB",
   drawing: "A retro computer drawn pixel by pixel in PixelHB colors",
-  controls: { pause: "Pause", play: "Play", replay: "Replay" },
   exact: {
     kicker: "01 · The editor",
     title: "Everything you need to draw pixel art, in the browser.",

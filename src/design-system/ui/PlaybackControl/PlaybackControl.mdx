@@ -1,0 +1,37 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./PlaybackControl.stories";
+
+<Meta of={Stories} />
+
+# PlaybackControl
+
+The pause, play and replay button of an animation.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- An animation runs for more than 5 seconds. WCAG 2.2.2 (Pause, Stop, Hide) asks for a way to pause it.
+- A scene finishes and can be watched again: the same button becomes **Replay**.
+
+## Don't use when
+
+- The animation is shorter than 5 seconds: no control is needed.
+- It should navigate or submit: use `Button`.
+
+## Accessibility
+
+- A native `<button>` whose visible text is its accessible name. The label always names the action the next press performs, so it changes from Pause to Play to Replay with the state.
+- With `shown={false}` nothing renders. Offer the control only while it can act: not before scripts run, and not when the visitor prefers reduced motion (the animation does not play then).
+- Keyboard and focus come from `Button`: the focus ring and the 32 px target (`sm`).
+
+## Do / Don't
+
+| Do                                      | Don't                            |
+| --------------------------------------- | -------------------------------- |
+| Name the action: Pause, Play, Replay    | Name the state: Paused, Playing  |
+| Place it next to the animation it stops | Put it far from what it controls |
+| Use `className` for layout              | Restyle its colors or size       |
+
+<Canvas of={Stories.States} />

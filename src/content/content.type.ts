@@ -1,5 +1,11 @@
 import type { ITimelineEntry } from "@/design-system/ui";
 
+export interface IPlaybackLabels {
+  pause: string;
+  play: string;
+  replay: string;
+}
+
 export interface INavLink {
   label: string;
   /** Id of the slide the link jumps to; links to slides that don't exist yet aren't rendered. */
@@ -27,6 +33,8 @@ export interface ISiteContent {
   navLabel: string;
   /** Names the section dots at the side of the page. */
   dotsLabel: string;
+  /** Labels of the pause control every animation longer than 5 s offers (WCAG 2.2.2). */
+  playback: IPlaybackLabels;
   nav: INavLink[];
 }
 
@@ -136,8 +144,6 @@ export interface IDesignSystemCase {
     developers: Record<TSceneAct, string>;
     /** Follows the "3/6" count of rebranded products. */
     rebrandedLabel: string;
-    /** The scene's one control: it runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
-    controls: { pause: string; play: string; replay: string };
     /** `missing` fills the system's place in act 1, where there is no shared library yet. */
     system: { name: string; released: string; missing: string };
     versions: { before: string; after: string };
@@ -188,8 +194,6 @@ export interface IPixelhbCase {
   mark: string;
   /** The accessible name of the drawing that paints itself beside the cover. */
   drawing: string;
-  /** The chapters run longer than 5 s, so they can be paused (WCAG 2.2.2). */
-  controls: { pause: string; play: string; replay: string };
   /** Chapter 01: four tools lit one at a time, each with a small demo, then the links. */
   exact: {
     kicker: string;
@@ -212,8 +216,6 @@ export interface ITool {
 
 export interface IAiCase {
   cover: ICaseCover;
-  /** Each scene runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
-  controls: { pause: string; play: string; replay: string };
   /** Chapter 01: an agent compares product docs, the tech spec and the code before any work. */
   gaps: {
     kicker: string;

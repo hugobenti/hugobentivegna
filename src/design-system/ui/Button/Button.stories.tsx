@@ -19,8 +19,9 @@ const meta = {
     },
     size: {
       control: "inline-radio",
-      options: ["md", "lg"],
-      table: { type: { summary: '"md" | "lg"' }, defaultValue: { summary: "md" } },
+      options: ["sm", "md", "lg"],
+      description: "`sm` for compact controls such as pause and replay.",
+      table: { type: { summary: '"sm" | "md" | "lg"' }, defaultValue: { summary: "md" } },
     },
     href: {
       control: "text",
@@ -65,6 +66,9 @@ export const Variants: TStory = {
 export const Sizes: TStory = {
   render: (args) => (
     <div className={story.row}>
+      <Button {...args} size="sm">
+        Small
+      </Button>
       <Button {...args} size="md">
         Medium
       </Button>

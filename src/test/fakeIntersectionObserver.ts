@@ -24,6 +24,17 @@ export class FakeIntersectionObserver {
     return [];
   }
 
+  /** Reports every element this observer watches, so a test needs no marker in the markup. */
+  reportAll(isIntersecting: boolean) {
+    if (this.observed.length === 0) throw new Error("this observer watches nothing");
+    act(() =>
+      this.callback(
+        this.observed.map((target) => ({ target, isIntersecting }) as IntersectionObserverEntry),
+        this as unknown as IntersectionObserver,
+      ),
+    );
+  }
+
   /** Reports whether the observed element matching `selector` intersects this observer's root. */
   report(selector: string, isIntersecting: boolean) {
     const target = this.observed.find((element) => element.matches(selector));
