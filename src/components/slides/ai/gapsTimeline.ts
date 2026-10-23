@@ -1,3 +1,4 @@
+import { stepAt, stepsDuration } from "../../deck/stepTimeline";
 import type { IGapsFrame } from "./gapsTimeline.type";
 
 /** Pause before the first source lights up. */
@@ -11,25 +12,26 @@ export const GAPS_REVEAL_MS = 500;
 
 /** How long the gap check plays for `sources` sources and `checks` checks. */
 export function gapsDuration(sources: number, checks: number): number {
-  return GAPS_DELAY_MS + sources * GAPS_SOURCE_MS + checks * GAPS_CHECK_MS;
+  return stepsDuration(
+    stepsDuration(GAPS_DELAY_MS, GAPS_SOURCE_MS, sources),
+    GAPS_CHECK_MS,
+    checks,
+  );
 }
 
 /** The gap check `elapsed` ms in: the agent reads each source, then resolves each check. */
 export function gapsFrame(elapsed: number, sources: number, checks: number): IGapsFrame {
-  if (elapsed >= gapsDuration(sources, checks)) {
-    return { sourcesLit: sources, reading: null, shown: checks, resolved: checks, done: true };
-  }
-  if (elapsed < GAPS_DELAY_MS) {
-    return { sourcesLit: 0, reading: null, shown: 0, resolved: 0, done: false };
-  }
-  const checksStart = GAPS_DELAY_MS + sources * GAPS_SOURCE_MS;
-  if (elapsed < checksStart) {
-    const reading = Math.floor((elapsed - GAPS_DELAY_MS) / GAPS_SOURCE_MS);
+  const reading = stepAt(elapsed, GAPS_DELAY_MS, GAPS_SOURCE_MS, sources);
+  if (reading === -1) return { sourcesLit: 0, reading: null, shown: 0, resolved: 0, done: false };
+  if (reading < sources) {
     return { sourcesLit: reading + 1, reading, shown: 0, resolved: 0, done: false };
   }
-  const intoChecks = elapsed - checksStart;
-  const current = Math.floor(intoChecks / GAPS_CHECK_MS);
-  const landed = intoChecks - current * GAPS_CHECK_MS >= GAPS_REVEAL_MS;
+  const checksStart = stepsDuration(GAPS_DELAY_MS, GAPS_SOURCE_MS, sources);
+  const current = stepAt(elapsed, checksStart, GAPS_CHECK_MS, checks);
+  if (current === checks) {
+    return { sourcesLit: sources, reading: null, shown: checks, resolved: checks, done: true };
+  }
+  const landed = elapsed - checksStart - current * GAPS_CHECK_MS >= GAPS_REVEAL_MS;
   return {
     sourcesLit: sources,
     reading: null,

@@ -1,12 +1,8 @@
 import { cx } from "@/design-system/ui";
+import { chapterLayout } from "../ChapterIntro/ChapterIntro.style";
 
 export const gapsSlide = {
-  /** Copy on the left, the gap check on the right from lg up (md is too narrow for both). */
-  content:
-    "mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:items-center lg:gap-16",
-  kicker: "font-mono text-label text-subtle uppercase",
-  title: "mt-6 font-display text-h2 font-extrabold text-balance text-fg",
-  body: "mt-6 max-w-xl text-body text-muted",
+  content: chapterLayout.columns,
 
   panel: "flex flex-col gap-4 rounded-lg border border-line bg-surface p-5",
   header: "flex items-start justify-between gap-4",
@@ -56,7 +52,7 @@ export const gapsSlide = {
   footer: "flex min-h-8 items-center justify-between gap-4",
   /** Two lines reserved: the closing line wraps on phones, and the panel must not grow. */
   caption: "min-h-[2lh] text-small text-muted",
-  control: "h-8 shrink-0 px-4 text-label",
+  control: "shrink-0",
   /** The outcome for screen readers; the caption above is visual only. */
   summary: "sr-only",
 };

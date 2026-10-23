@@ -1,13 +1,9 @@
 import type { IExcerptLine } from "@/content/content.type";
 import { cx } from "@/design-system/ui";
+import { chapterLayout } from "../ChapterIntro/ChapterIntro.style";
 
 export const foundationSlide = {
-  /** Copy on the left, the excerpts on the right from lg up (md is too narrow for both). */
-  content:
-    "mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:items-center lg:gap-16",
-  kicker: "font-mono text-label text-subtle uppercase",
-  title: "mt-6 font-display text-h2 font-extrabold text-balance text-fg",
-  body: "mt-6 max-w-xl text-body text-muted",
+  content: chapterLayout.columns,
   note: "mt-6 font-mono text-label text-subtle",
 
   demo: "flex flex-col gap-3",
@@ -38,5 +34,4 @@ export const foundationSlide = {
   } satisfies Record<NonNullable<IExcerptLine["tone"]> | "plain", string>,
 
   footer: "flex min-h-8 justify-end",
-  control: "h-8 px-4 text-label",
 };
