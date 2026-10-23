@@ -4,6 +4,7 @@ import { designSystemCase } from "@/content/cases";
 import { slides } from "@/content/slides";
 import { cx } from "@/design-system/ui";
 import { deck } from "../../deck/Deck.style";
+import { ChapterIntro } from "../ChapterIntro/ChapterIntro";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
 import { decisionSlide } from "./DecisionSlide.style";
@@ -18,23 +19,10 @@ export function DecisionSlide() {
     <Slide slide={slides.dsDecision}>
       <div className={decisionSlide.content}>
         <div>
-          <p className={cx(deck.reveal, decisionSlide.kicker)} style={stagger(0)}>
-            {decision.kicker}
-          </p>
-          <h2 className={cx(deck.reveal, decisionSlide.title)} style={stagger(1)}>
-            {decision.title}
-          </h2>
-          <p className={cx(deck.reveal, decisionSlide.body)} style={stagger(2)}>
-            {decision.body}
-          </p>
+          <ChapterIntro kicker={decision.kicker} title={decision.title} body={decision.body} />
         </div>
 
-        <div
-          ref={ref}
-          data-playback=""
-          className={cx(deck.reveal, decisionSlide.demo)}
-          style={stagger(3)}
-        >
+        <div ref={ref} className={cx(deck.reveal, decisionSlide.demo)} style={stagger(3)}>
           <ul aria-label={decision.tokensLabel} className={decisionSlide.groups}>
             {groups.map((group) => (
               <li key={group.label}>

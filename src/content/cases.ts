@@ -74,7 +74,6 @@ export const designSystemCase: IDesignSystemCase = {
     },
     developers: { without: "6 developers", with: "1 developer" },
     rebrandedLabel: "products rebranded",
-    controls: { pause: "Pause", play: "Play", replay: "Replay" },
     system: {
       name: "design-system",
       released: "v2.0 released",
