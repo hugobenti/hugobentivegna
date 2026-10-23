@@ -39,10 +39,10 @@ export const Interactive: TStory = {
     interactive: true,
     children: (
       <>
-        <h3 className={story.title}>PixelCraft</h3>
+        <h3 className={story.title}>PixelHB</h3>
         <p className={story.body}>A pixel-art editor built for one artist.</p>
         <div className={story.footer}>
-          <Button href="https://pixel-art-pi-livid.vercel.app" external variant="secondary">
+          <Button href="https://pixelhb.vercel.app" external variant="secondary">
             Try it live
           </Button>
         </div>

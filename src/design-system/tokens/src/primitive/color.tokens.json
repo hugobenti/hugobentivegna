@@ -14,6 +14,10 @@
     "blue": {
       "$description": "Midnight's electric-blue accent.",
       "400": { "$value": "#5aa2ff" },
+      "700": {
+        "$value": "#2c64c8",
+        "$description": "The accent's shade: the second blue in the PixelHB case's illustrations."
+      },
       "glow": { "$value": "#408cff59" }
     },
     "green": {
@@ -32,6 +36,22 @@
       "$description": "Made-up bank brands for the design-system case's rebrand scene.",
       "before": { "$value": "#2f5bd3", "$description": "The deep-blue brand before the rebrand." },
       "after": { "$value": "#0f7a6e", "$description": "The brand after the rebrand." }
+    },
+    "pixelhb": {
+      "$description": "PixelHB brand colors, fixed in every context (brand.md Palette).",
+      "amber-light": { "$value": "#F6C66E" },
+      "amber": { "$value": "#EDA743" },
+      "amber-shade": { "$value": "#C27A1E" },
+      "wood": { "$value": "#F2D3A6" },
+      "wood-shade": { "$value": "#D6AA78" },
+      "graphite": { "$value": "#2A2C38" },
+      "graphite-shine": { "$value": "#8A8D9C" },
+      "stamp": { "$value": "#1A1C24" },
+      "ferrule": { "$value": "#D9D4C8" },
+      "ferrule-ridge": { "$value": "#8E897E" },
+      "eraser": { "$value": "#E5868A" },
+      "eraser-shine": { "$value": "#F2A7A9" },
+      "eraser-shade": { "$value": "#B13E53" }
     }
   }
 }

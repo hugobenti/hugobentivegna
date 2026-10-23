@@ -13,8 +13,6 @@ export { SectionNav } from "./SectionNav/SectionNav";
 export type { TSectionNavItem, TSectionNavProps } from "./SectionNav/SectionNav.type";
 export { Tag } from "./Tag/Tag";
 export type { TTagProps } from "./Tag/Tag.type";
-export { ThemeSwitch } from "./ThemeSwitch/ThemeSwitch";
-export type { TThemeSwitchOption, TThemeSwitchProps } from "./ThemeSwitch/ThemeSwitch.type";
 export { TimelineAxis } from "./Timeline/TimelineAxis";
 export type { TTimelineAxisProps } from "./Timeline/TimelineAxis.type";
 export { TimelineChapter } from "./Timeline/TimelineChapter";

@@ -11,10 +11,9 @@ Everything under `src/design-system/` is a self-contained design system. The sit
 ## Tokens (`tokens/`)
 
 - Source of truth: DTCG JSON in `tokens/src/`. Run `pnpm tokens` to regenerate `tokens/generated/` (git-ignored).
-- Layers: `primitive/` raw values → `semantic/midnight` purpose → `component/` usage. Themes in `themes/` only remap semantic tokens to primitives.
+- Layers: `primitive/` raw values → `semantic/midnight` purpose → `component/` usage.
 - **Add a token:** put raw values in `primitive/`, give it meaning in `semantic/` (with a `$description`), reference semantics from `component/`.
-- **Add a theme:** add `themes/<name>.tokens.json`, add the name to `THEMES` in `build.mjs`, to `TThemeName` in `tokens.type.ts` and to `themes` in `index.ts`. The contrast test covers it automatically.
-- Every theme must pass WCAG 2.2 AA (`contrast.test.ts`). Fix the token, never the test.
+- Every color pair must pass WCAG 2.2 AA (`contrast.test.ts`). Fix the token, never the test.
 
 ## Components (`ui/`)
 

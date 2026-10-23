@@ -18,6 +18,7 @@ export const site: ISiteContent = {
   monogram: "HB",
   homeLabel: "Hugo Bentivegna, back to the start",
   navLabel: "Primary",
+  dotsLabel: "Sections",
   nav: [
     { label: "Experience", slideId: slides.timeline.id },
     {
@@ -30,7 +31,11 @@ export const site: ISiteContent = {
       slideId: slides.aiCover.id,
       section: [slides.aiCover.id, slides.aiGaps.id, slides.aiFoundation.id, slides.aiBuild.id],
     },
-    { label: "Projects", slideId: "pixelcraft" },
+    {
+      label: "Case 03 · PixelHB",
+      slideId: slides.pixelCover.id,
+      section: [slides.pixelCover.id, slides.pixelExact.id],
+    },
     { label: "Contact", slideId: slides.contact.id },
   ],
 };

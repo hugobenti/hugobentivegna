@@ -1,21 +1,31 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import {
   FakeIntersectionObserver,
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { site } from "@/content/site";
 import { Deck } from "./Deck";
 import { Slide } from "./Slide";
 
 const slides = [
   { id: "hero", label: "Intro" },
   { id: "timeline", label: "Experience" },
+  { id: "case-cover", label: "Case cover" },
+  { id: "case-chapter", label: "Case chapter" },
   { id: "contact", label: "Contact" },
 ];
 
 const nav = [
   { label: "Story", slideId: "timeline", id: "timeline", href: "#timeline" as const },
+  {
+    label: "Case",
+    slideId: "case-cover",
+    section: ["case-cover", "case-chapter"],
+    id: "case-cover",
+    href: "#case-cover" as const,
+  },
   { label: "Contact", slideId: "contact", id: "contact", href: "#contact" as const },
 ];
 
@@ -47,7 +57,7 @@ afterEach(() => {
 
 test("watches every slide against the viewport's centre line", () => {
   const { centre } = renderDeck();
-  expect(centre.observed.map((element) => element.id)).toEqual(["hero", "timeline", "contact"]);
+  expect(centre.observed.map((element) => element.id)).toEqual(slides.map((slide) => slide.id));
 });
 
 test("leaves the URL alone until a slide is actually seen", () => {
@@ -59,10 +69,7 @@ test("leaves the URL alone until a slide is actually seen", () => {
 test("the slide crossing the centre line becomes active, however tall it is", () => {
   const { centre } = renderDeck();
   centre.report("#timeline", true);
-  expect(screen.getByRole("button", { name: "Experience" })).toHaveAttribute(
-    "aria-current",
-    "true",
-  );
+  expect(screen.getByRole("button", { name: "Story" })).toHaveAttribute("aria-current", "true");
   expect(location.hash).toBe("#timeline");
   expect(document.getElementById("hero")?.dataset.position).toBe("before");
   expect(document.getElementById("timeline")?.dataset.position).toBe("active");
@@ -116,6 +123,28 @@ test("the header marks the section of the slide in view, and nothing on the intr
   expect(current()).toEqual([]);
   centre.report("#timeline", true);
   expect(current()).toEqual(["Story"]);
+  centre.report("#contact", true);
+  expect(current()).toEqual(["Contact"]);
+});
+
+test("one dot per section: the intro, then each header link, marking the section in view", () => {
+  const { centre } = renderDeck();
+  const dots = within(screen.getByRole("navigation", { name: site.dotsLabel }));
+  const current = () =>
+    dots
+      .getAllByRole("button")
+      .filter((dot) => dot.getAttribute("aria-current") === "true")
+      .map((dot) => dot.textContent);
+  expect(dots.getAllByRole("button").map((dot) => dot.textContent)).toEqual([
+    "Intro",
+    "Story",
+    "Case",
+    "Contact",
+  ]);
+  centre.report("#hero", true);
+  expect(current()).toEqual(["Intro"]);
+  centre.report("#case-chapter", true);
+  expect(current()).toEqual(["Case"]);
   centre.report("#contact", true);
   expect(current()).toEqual(["Contact"]);
 });
