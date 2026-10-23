@@ -1,0 +1,37 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Motion.stories";
+
+<Meta of={Stories} />
+
+# Motion
+
+Four durations and three easings. Motion gives feedback; it never carries information alone.
+
+<Canvas of={Stories.Durations} />
+
+## Easings
+
+<Canvas of={Stories.Easings} />
+
+## Use when
+
+- Hover and press feedback: `fast`.
+- Content entering a slide: `slow` with `ease.out`.
+- Moving between two places: `ease.in-out`.
+
+## Don't use when
+
+- `emphasized` everywhere: it overshoots and should be rare.
+- Motion that must be seen to understand the page.
+
+## Accessibility
+
+- Anything that moves honors `prefers-reduced-motion` (`motion-reduce:` utilities): the demo above jumps instead of moving when it's on.
+- Animations longer than 5 s get a pause control (`PlaybackControl`), WCAG 2.2.2.
+
+## Do / Don't
+
+| Do                                          | Don't                  |
+| ------------------------------------------- | ---------------------- |
+| Token durations and easings                 | Hard-coded `ms` values |
+| Opacity or color changes for reduced motion | Removing the end state |

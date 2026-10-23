@@ -1,0 +1,41 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Typography.stories";
+
+<Meta of={Stories} />
+
+# Typography
+
+Two families (Inter Tight and JetBrains Mono), four weights and a seven-step scale. Size, line height and letter spacing travel together.
+
+<Canvas of={Stories.Scale} />
+
+## Families
+
+<Canvas of={Stories.Families} />
+
+## Weights
+
+<Canvas of={Stories.Weights} />
+
+## Use when
+
+- Setting any text: use the matching utility (`text-h2`, `text-body`, `font-display`) so all three values apply.
+- Technical labels, code and numbers: the `code` family (`font-mono`).
+
+## Don't use when
+
+- A size that isn't in the scale: pick the nearest step.
+- Headings that skip levels for size: keep the outline right and change the look with the utility.
+
+## Accessibility
+
+- Sizes in `rem` and `clamp()` follow the visitor's browser font size; nothing is fixed in `px`.
+- Body text uses a 1.6 line height; each step sets its own letter spacing (the label step is tracked wide).
+- Heading level and size are independent: choose the level for the outline, the size for the look.
+
+## Do / Don't
+
+| Do                               | Don't                      |
+| -------------------------------- | -------------------------- |
+| `text-h2 font-display font-bold` | `text-[28px]`              |
+| One display headline per slide   | Display size inside a card |

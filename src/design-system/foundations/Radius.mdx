@@ -1,0 +1,33 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Radius.stories";
+
+<Meta of={Stories} />
+
+# Radius
+
+Four corner radii, from small to pill.
+
+<Canvas of={Stories.Scale} />
+
+## Component radius
+
+<Canvas of={Stories.ComponentRadius} />
+
+## Use when
+
+- Rounding any box: use the utility (`rounded-md`) or the component token when one exists.
+
+## Don't use when
+
+- Mixing radii inside one element.
+- A radius that isn't in the scale.
+
+## Accessibility
+
+- Radius is decoration: no information depends on it.
+
+## Do / Don't
+
+| Do                                                 | Don't                      |
+| -------------------------------------------------- | -------------------------- |
+| `rounded-lg` for cards, `rounded-pill` for buttons | Custom radii per component |

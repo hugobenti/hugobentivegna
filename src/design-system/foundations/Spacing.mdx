@@ -1,0 +1,36 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Spacing.stories";
+
+<Meta of={Stories} />
+
+# Spacing
+
+Spacing multiplies one unit (4 px): `p-4` is 16 px. Page-level spacing uses two fluid tokens.
+
+<Canvas of={Stories.Scale} />
+
+## Layout tokens
+
+<Canvas of={Stories.Layout} />
+
+## Use when
+
+- Padding, margin and gap: use the numeric utilities (`p-4`, `gap-6`).
+- Slide padding: `px-gutter` and `py-section`.
+
+## Don't use when
+
+- A one-off pixel value: round to the nearest multiple of the unit.
+- Using `gutter` or `section` inside components: they are for slides.
+
+## Accessibility
+
+- Interactive targets are at least 24 px (WCAG 2.5.8); the unit makes 32 px (`h-8`) and 40 px (`h-10`) easy.
+- Fluid page spacing keeps content readable from phones to wide screens.
+
+## Do / Don't
+
+| Do                    | Don't                                |
+| --------------------- | ------------------------------------ |
+| Multiples of the unit | Arbitrary values such as `mt-[13px]` |
+| Gap on the parent     | Margins on every child               |
