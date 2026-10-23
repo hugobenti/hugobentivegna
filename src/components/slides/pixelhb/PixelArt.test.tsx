@@ -22,3 +22,15 @@ test("cells mode draws one rect per pixel", () => {
   const { container } = render(<PixelArt grid={LOCKUP} label="PixelHB" size="lockup" cells />);
   expect(container.querySelectorAll("rect")).toHaveLength(gridCells(LOCKUP).length);
 });
+
+test("cell state marks each cell by its index and leaves other drawings alone", () => {
+  const grid = ["y.y"];
+  const { container, rerender } = render(
+    <PixelArt grid={grid} label="Two" size="icon1x" cells cellState={["on", "off", "off"]} />,
+  );
+  const rects = [...container.querySelectorAll("rect")];
+  expect(rects.map((rect) => rect.getAttribute("data-state"))).toEqual(["on", "off"]);
+  expect(rects.map((rect) => rect.getAttribute("data-index"))).toEqual(["0", "2"]);
+  rerender(<PixelArt grid={grid} label="Two" size="icon1x" cells />);
+  expect(container.querySelector("rect")).not.toHaveAttribute("data-state");
+});

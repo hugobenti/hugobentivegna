@@ -37,4 +37,6 @@ export const pixelArtSize = {
 
 export const pixelArt = {
   base: "block shrink-0",
+  /** A cell with a state is hidden until it is "on"; opacity only, so the box never moves. */
+  cell: "data-[state=off]:opacity-0 data-[state=on]:opacity-100 motion-safe:transition-opacity",
 };

@@ -33,7 +33,7 @@ export const site: ISiteContent = {
     {
       label: "Case 03 · PixelHB",
       slideId: slides.pixelCover.id,
-      section: [slides.pixelCover.id],
+      section: [slides.pixelCover.id, slides.pixelBrand.id],
     },
     { label: "Contact", slideId: slides.contact.id },
   ],

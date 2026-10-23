@@ -1,11 +1,12 @@
 import { useMemo } from "react";
-import { pixelFill } from "./PixelArt.style";
+import { cx } from "@/design-system/ui";
+import { pixelArt, pixelFill } from "./PixelArt.style";
 import type { IPixelRect } from "./PixelArt.type";
 import { gridCells, gridRuns, gridSize } from "./pixelGrid";
 import type { TPixelGrid } from "./pixelGrid.type";
 
 /** The svg view model: its viewBox and the rects that draw the grid (runs, or cells when asked). */
-export function usePixelArt(grid: TPixelGrid, cells = false) {
+export function usePixelArt(grid: TPixelGrid, cells = false, cellState?: readonly string[]) {
   return useMemo(() => {
     const { width, height } = gridSize(grid);
     const rects: IPixelRect[] = cells
@@ -13,7 +14,8 @@ export function usePixelArt(grid: TPixelGrid, cells = false) {
           ...cell,
           id: `${cell.x}-${cell.y}`,
           width: 1,
-          className: pixelFill[cell.key],
+          state: cellState?.[cell.index],
+          className: cellState ? cx(pixelFill[cell.key], pixelArt.cell) : pixelFill[cell.key],
         }))
       : gridRuns(grid).map((run) => ({
           ...run,
@@ -21,5 +23,5 @@ export function usePixelArt(grid: TPixelGrid, cells = false) {
           className: pixelFill[run.key],
         }));
     return { viewBox: `0 0 ${width} ${height}`, rects };
-  }, [grid, cells]);
+  }, [grid, cells, cellState]);
 }

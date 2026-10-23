@@ -243,6 +243,25 @@ export const aiCase: IAiCase = {
 /** PixelHB case: a pixel-art editor I designed and built (spec 2026-10-23). */
 export const pixelhbCase: IPixelhbCase = {
   mark: "PixelHB",
+  brand: {
+    kicker: "01 · Signed in pixels",
+    title: "One grid, every size.",
+    body: "The mark is a pixel pencil with my initials, HB, stamped on it. It's real pixel art: the grids in the brand spec generate the logo, the favicon, the app icons and the social image.",
+    rulesLabel: "Brand rules",
+    rules: [
+      "Whole-number scaling only",
+      "Crisp edges, never smoothed",
+      "Five pixels of clear space",
+      "The pencil is never recolored",
+    ],
+    caption: "pencil · 33 × 7",
+    assets: [
+      { label: "Logo", size: "lockup2x", grid: "lockup" },
+      { label: "Favicon · 16 px", size: "icon1x", grid: "icon" },
+      { label: "Icon · 48 px", size: "icon3x", grid: "icon" },
+    ],
+    done: "Same pixels at every size.",
+  },
   cover: {
     kicker: "Case 03 · Personal project",
     title: "I needed a pixel-art editor, so I built one.",

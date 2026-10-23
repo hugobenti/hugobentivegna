@@ -7,6 +7,7 @@ import { ContactSlide } from "@/components/slides/ContactSlide";
 import { DecisionSlide } from "@/components/slides/ds/DecisionSlide";
 import { ProblemSlide } from "@/components/slides/ds/ProblemSlide";
 import { RebrandSlide } from "@/components/slides/ds/RebrandSlide";
+import { BrandSlide } from "@/components/slides/pixelhb/BrandSlide";
 import { PixelArt } from "@/components/slides/pixelhb/PixelArt";
 import { LOCKUP } from "@/components/slides/pixelhb/pixelArt.data";
 import { HeroSlide } from "@/components/slides/HeroSlide";
@@ -33,6 +34,7 @@ export default function Home() {
         cover={pixelhbCase.cover}
         mark={<PixelArt grid={LOCKUP} label={pixelhbCase.mark} size="lockup" />}
       />
+      <BrandSlide />
       <ContactSlide />
     </Deck>
   );

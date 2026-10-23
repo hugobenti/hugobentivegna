@@ -1,3 +1,4 @@
+import type { TPixelArtSize } from "@/components/slides/pixelhb/PixelArt.type";
 import type { ITimelineEntry } from "@/design-system/ui";
 
 export interface INavLink {
@@ -184,6 +185,27 @@ export interface IPixelhbCase {
   cover: ICaseCover;
   /** The accessible name of the logo lockup on the cover. */
   mark: string;
+  /** Chapter 01: the pencil draws itself, then the same grid shows at three sizes. */
+  brand: {
+    kicker: string;
+    title: string;
+    body: string;
+    /** Names the rules list for screen readers. */
+    rulesLabel: string;
+    rules: string[];
+    /** Captions the pencil grid (its size in pixels). */
+    caption: string;
+    assets: IBrandAsset[];
+    /** Replaces the caption once everything is drawn; also read by screen readers. */
+    done: string;
+  };
+}
+
+export interface IBrandAsset {
+  label: string;
+  size: TPixelArtSize;
+  /** Which brand grid it draws. */
+  grid: "lockup" | "icon";
 }
 
 export interface IAiCase {
