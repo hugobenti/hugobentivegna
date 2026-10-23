@@ -25,6 +25,8 @@ export interface ISiteContent {
   monogram: string;
   homeLabel: string;
   navLabel: string;
+  /** Names the section dots at the side of the page. */
+  dotsLabel: string;
   nav: INavLink[];
 }
 

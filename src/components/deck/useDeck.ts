@@ -12,7 +12,8 @@ import { CENTRE_LINE, SEEN_LINE } from "./viewport";
 /**
  * Slide-deck behavior: tracks the slide in view, keeps the URL hash and slide positions
  * (data-position / data-seen, read by deck.css) in sync, and scrolls to a chosen slide. Also
- * reports which header link owns the slide in view (`activeSection`).
+ * reports which header link owns the slide in view (`activeSection`) and builds the dots: one
+ * per section (the first slide, then each header link), so a case is one dot, not one per slide.
  * Scrolling itself stays native; nothing here listens to wheel, touch or keys.
  */
 export function useDeck(slides: readonly ISlideMeta[], nav: readonly INavLink[]) {
@@ -68,11 +69,19 @@ export function useDeck(slides: readonly ISlideMeta[], nav: readonly INavLink[])
     document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
   }, []);
 
+  const dots = useMemo(
+    () => [...slides.slice(0, 1), ...nav.map((link) => ({ id: link.slideId, label: link.label }))],
+    [slides, nav],
+  );
+
   const current = activeId ?? ids[0] ?? "";
+  const activeSection = activeNavLink(nav, current);
   return {
     rootRef,
-    activeId: current,
-    activeSection: activeNavLink(nav, current),
+    dots,
+    /** The dot of the section in view: its header link, or the slide itself (the intro). */
+    activeDot: activeSection ?? current,
+    activeSection,
     homeHref: `#${ids[0] ?? ""}`,
     goTo,
   };
