@@ -184,6 +184,8 @@ export interface IPixelhbCase {
   cover: ICaseCover;
   /** The accessible name of the logo lockup on the cover. */
   mark: string;
+  /** The accessible name of the drawing that paints itself beside the cover. */
+  drawing: string;
 }
 
 export interface IAiCase {

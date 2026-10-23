@@ -1,14 +1,14 @@
 import { expect, test } from "vitest";
 import { pixelFill } from "./PixelArt.style";
 import { beside, gridCells, gridRuns, gridSize } from "./pixelGrid";
-import { HEART, LOCKUP, PENCIL, SQUARE_ICON, WORDMARK } from "./pixelArt.data";
+import { HEART, LOCKUP, COMPUTER, PENCIL, WORDMARK } from "./pixelArt.data";
 
 test("the brand grids have the sizes the brand spec gives", () => {
   expect(gridSize(PENCIL)).toEqual({ width: 33, height: 7 });
   expect(gridSize(WORDMARK)).toEqual({ width: 37, height: 7 });
-  expect(gridSize(SQUARE_ICON)).toEqual({ width: 16, height: 16 });
   expect(gridSize(LOCKUP)).toEqual({ width: 74, height: 7 });
   expect(gridSize(HEART)).toEqual({ width: 12, height: 12 });
+  expect(gridSize(COMPUTER)).toEqual({ width: 16, height: 16 });
 });
 
 test("runs merge same-key neighbours in a row", () => {
@@ -26,8 +26,8 @@ test("a ragged grid is rejected", () => {
   expect(() => gridSize(["..", "."])).toThrow("ragged grid");
 });
 
-test("every key used by the five grids has a fill", () => {
-  const used = new Set([...PENCIL, ...WORDMARK, ...SQUARE_ICON, ...LOCKUP, ...HEART].join(""));
+test("every key used by the grids has a fill", () => {
+  const used = new Set([...PENCIL, ...WORDMARK, ...LOCKUP, ...HEART, ...COMPUTER].join(""));
   used.delete(".");
   for (const key of used) expect(pixelFill).toHaveProperty(key);
 });

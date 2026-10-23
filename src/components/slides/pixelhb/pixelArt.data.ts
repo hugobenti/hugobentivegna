@@ -25,26 +25,6 @@ export const WORDMARK: TPixelGrid = [
   "i.....iii.i...i..iiii.iii.h...h.hhhh.",
 ];
 
-/** The pencil seen from its tip, 16 × 16: favicon, app icons. */
-export const SQUARE_ICON: TPixelGrid = [
-  "................",
-  ".....yyyyYY.....",
-  "....yyyyyYYY....",
-  "...yyywwwwYYY...",
-  "..yyywwwwwwYYY..",
-  ".yyywwwwwwwwYYY.",
-  ".YYwwwqqGGwwwYY.",
-  ".YYwwwqGGGwwwYY.",
-  ".YYwwwGGGGWWWYY.",
-  ".YYwwwGGGGWWWYY.",
-  ".ooowwwWWWWWooo.",
-  "..ooowwWWWWooo..",
-  "...ooowWWWooo...",
-  "....oooooooo....",
-  ".....oooooo.....",
-  "................",
-];
-
 /** Horizontal lockup: pencil, a gap of 4 pixels, wordmark (74 × 7). */
 export const LOCKUP: TPixelGrid = beside(PENCIL, WORDMARK, 4);
 
@@ -62,4 +42,28 @@ export const HEART: TPixelGrid = [
   "....krrk....",
   ".....kk.....",
   "............",
+];
+
+/**
+ * The cover's drawing, 16 × 16: a retro computer in the brand palette. A beige case with a
+ * ridge outline (`m`, `M`), a dark screen (`G`) with a line of blue text, a grey one and a blue cursor (`r`, `q`),
+ * an amber power light (`Y`), and a keyboard with grey keys (`q`).
+ */
+export const COMPUTER: TPixelGrid = [
+  "................",
+  ".MMMMMMMMMMMMMM.",
+  ".MmmmmmmmmmmmmM.",
+  ".MmGGGGGGGGGGmM.",
+  ".MmGrrrGGGGGGmM.",
+  ".MmGGGGGGGGGGmM.",
+  ".MmGqqqqqGGGGmM.",
+  ".MmGGGGGGGGGGmM.",
+  ".MmGrGGGGGGGGmM.",
+  ".MmmmmmmmmmmmmM.",
+  ".MmmmmmmmmYYmmM.",
+  ".MMMMMMMMMMMMMM.",
+  "......MMMM......",
+  "..MmmmmmmmmmmM..",
+  "..MmqmqmqmqmmM..",
+  "..MMMMMMMMMMMM..",
 ];

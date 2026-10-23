@@ -243,6 +243,7 @@ export const aiCase: IAiCase = {
 /** PixelHB case: a pixel-art editor I designed and built (spec 2026-10-23). */
 export const pixelhbCase: IPixelhbCase = {
   mark: "PixelHB",
+  drawing: "A retro computer drawn pixel by pixel in PixelHB colors",
   cover: {
     kicker: "Case 03 · Personal project",
     title: "PixelHB: a pixel-art editor, designed and built by Hugo Bentivegna.",
@@ -251,9 +252,6 @@ export const pixelhbCase: IPixelhbCase = {
       { label: "When", value: "2026" },
       { label: "My role", value: "Product, brand, design and code" },
     ],
-    chapters: [
-      { number: "01", label: "Signed in pixels" },
-      { number: "02", label: "Pixel-exact" },
-    ],
+    chapters: [{ number: "01", label: "The editor" }],
   },
 };
