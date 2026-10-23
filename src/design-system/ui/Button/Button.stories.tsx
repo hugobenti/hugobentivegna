@@ -77,7 +77,7 @@ export const Sizes: TStory = {
 
 export const ExternalLink: TStory = {
   args: {
-    href: "https://github.com/hugobenti/pixel-art",
+    href: "https://github.com/hugobenti/pixelHB",
     external: true,
     variant: "secondary",
     children: "View code",

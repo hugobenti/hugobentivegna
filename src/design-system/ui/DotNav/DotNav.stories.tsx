@@ -7,7 +7,7 @@ const items = [
   { id: "timeline", label: "Experience" },
   { id: "ds-thesis", label: "Design systems" },
   { id: "ai-plan", label: "AI-driven development" },
-  { id: "pixelcraft", label: "PixelCraft" },
+  { id: "pixelhb", label: "PixelHB" },
   { id: "contact", label: "Contact" },
 ];
 
