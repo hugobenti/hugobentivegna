@@ -1,22 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { useState } from "react";
+import { fn } from "storybook/test";
 import { story } from "../story.style";
 import { PlaybackControl } from "./PlaybackControl";
+
+const labels = ["Pause", "Play", "Replay"];
 
 const meta = {
   title: "Components/PlaybackControl",
   component: PlaybackControl,
-  args: { label: "Pause", onToggle: () => {} },
+  args: { label: "Pause", onToggle: fn() },
   argTypes: {
     label: {
+      control: "inline-radio",
+      options: labels,
       description: "What the next press does. It is also the accessible name.",
-      table: { type: { summary: "string" } },
     },
-    onToggle: { table: { type: { summary: "() => void" } } },
     shown: {
       control: "boolean",
       description: "`false` renders nothing, e.g. before scripts run or when motion is reduced.",
-      table: { type: { summary: "boolean" }, defaultValue: { summary: "true" } },
+      table: { defaultValue: { summary: "true" } },
     },
     className: { description: "Layout only: margins, width, shrink." },
   },
@@ -28,24 +31,31 @@ type TStory = StoryObj<typeof meta>;
 export const Default: TStory = {};
 
 export const States: TStory = {
-  render: () => (
+  render: (args) => (
     <div className={story.row}>
-      <PlaybackControl label="Pause" onToggle={() => {}} />
-      <PlaybackControl label="Play" onToggle={() => {}} />
-      <PlaybackControl label="Replay" onToggle={() => {}} />
+      {labels.map((label) => (
+        <PlaybackControl key={label} label={label} onToggle={args.onToggle} />
+      ))}
     </div>
   ),
 };
 
-function Cycle() {
-  const labels = ["Pause", "Play", "Replay"];
-  const [step, setStep] = useState(0);
-  return (
-    <PlaybackControl
-      label={labels[step] ?? "Pause"}
-      onToggle={() => setStep((current) => (current + 1) % labels.length)}
-    />
-  );
-}
+/** With `shown={false}` nothing renders: the canvas below is empty on purpose. */
+export const Hidden: TStory = { args: { shown: false } };
 
-export const Interactive: TStory = { render: () => <Cycle /> };
+/** Press it: the label steps through Pause, Play and Replay, as it does on a scene. */
+export const Interactive: TStory = {
+  render: function Render(args) {
+    const [step, setStep] = useState(0);
+    return (
+      <PlaybackControl
+        {...args}
+        label={labels[step] ?? "Pause"}
+        onToggle={() => {
+          args.onToggle();
+          setStep((current) => (current + 1) % labels.length);
+        }}
+      />
+    );
+  },
+};

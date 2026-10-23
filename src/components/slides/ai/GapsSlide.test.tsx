@@ -2,27 +2,21 @@ import { act, render, screen, within } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { aiCase } from "@/content/cases";
+import { site } from "@/content/site";
 import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { stubReducedMotion } from "@/test/reducedMotion";
 import { GapsSlide } from "./GapsSlide";
 import { GAPS_DELAY_MS, GAPS_REVEAL_MS, GAPS_SOURCE_MS, gapsDuration } from "./gapsTimeline";
 
-const { gaps, controls } = aiCase;
+const { gaps } = aiCase;
+const controls = site.playback;
 const duration = gapsDuration(gaps.sources.length, gaps.checks.length);
 
-function stubReducedMotion(reduce: boolean) {
-  vi.stubGlobal("matchMedia", (query: string) => ({
-    matches: reduce && query.includes("reduce"),
-    media: query,
-    addEventListener() {},
-    removeEventListener() {},
-  }));
-}
-
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
-const start = () => centreLineObserver().report("[data-playback]", true);
+const start = () => centreLineObserver().reportAll(true);
 const checks = () =>
   within(screen.getByRole("list", { name: gaps.checksLabel })).getAllByRole("listitem");
 const states = () => checks().map((check) => check.getAttribute("data-state"));

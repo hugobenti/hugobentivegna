@@ -1,4 +1,5 @@
 import { cx } from "@/design-system/ui";
+import { chapterLayout } from "../ChapterIntro/ChapterIntro.style";
 
 /**
  * The review panel is one group: its data attributes (commented, removed, fixed, ruled) drive
@@ -8,12 +9,7 @@ import { cx } from "@/design-system/ui";
 const reveal = "transition-opacity duration-(--hb-duration-slow)";
 
 export const buildSlide = {
-  /** Copy on the left, the review on the right from lg up (md is too narrow for both). */
-  content:
-    "mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,32rem)] lg:items-center lg:gap-16",
-  kicker: "font-mono text-label text-subtle uppercase",
-  title: "mt-6 font-display text-h2 font-extrabold text-balance text-fg",
-  body: "mt-6 max-w-xl text-body text-muted",
+  content: chapterLayout.columns,
   closing: "mt-6 max-w-xl text-body text-fg",
   repo: "mt-6",
 
@@ -75,5 +71,5 @@ export const buildSlide = {
   check:
     "text-subtle transition-colors duration-(--hb-duration-base) data-[passed=true]:text-success",
   /** Wide enough for its longest label, so Pause → Replay never rewraps the checks. */
-  control: "h-8 min-w-24 shrink-0 px-4 text-label",
+  control: "min-w-24 shrink-0",
 };

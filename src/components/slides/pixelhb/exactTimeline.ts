@@ -1,3 +1,4 @@
+import { stepAt, stepsDuration } from "../../deck/stepTimeline";
 import type { IExactFrame, TExactCardState } from "./exactTimeline.type";
 
 /** Pause before the first card lights. */
@@ -9,15 +10,15 @@ const FILL_SHARE = 0.85;
 
 /** How long the slide plays for `cards` cards. */
 export function exactDuration(cards: number): number {
-  return EXACT_DELAY_MS + cards * EXACT_STEP_MS;
+  return stepsDuration(EXACT_DELAY_MS, EXACT_STEP_MS, cards);
 }
 
 /** The slide `elapsed` ms in: nothing, then each card in turn, then all of them lit. */
 export function exactFrame(elapsed: number, cards: number): IExactFrame {
-  if (elapsed >= exactDuration(cards)) return { current: null, progress: 1, all: true };
-  if (elapsed < EXACT_DELAY_MS) return { current: null, progress: 0, all: false };
+  const current = stepAt(elapsed, EXACT_DELAY_MS, EXACT_STEP_MS, cards);
+  if (current === cards) return { current: null, progress: 1, all: true };
+  if (current === -1) return { current: null, progress: 0, all: false };
   const into = elapsed - EXACT_DELAY_MS;
-  const current = Math.floor(into / EXACT_STEP_MS);
   return { current, progress: (into - current * EXACT_STEP_MS) / EXACT_STEP_MS, all: false };
 }
 

@@ -8,8 +8,14 @@ export const story = {
   stack: "flex flex-col gap-16",
   /** Keeps a sample card at a readable width. */
   narrow: "max-w-sm",
-  /** A centred column with room around it, for copy that fills its parent. */
-  column: "mx-auto max-w-xl p-8",
+  /** Vertical list of cards at a readable width. */
+  cards: "flex max-w-sm flex-col gap-4",
+  /** Labelled blocks of a state matrix: a caption above a row of examples. */
+  matrix: "flex flex-col gap-8",
+  caption: "mb-3 text-label text-subtle uppercase",
+  /** A phone-width frame (375 px) that loads another story, so its `md:` breakpoint is not reached. */
+  phone: "h-[32rem] w-[375px] max-w-full rounded-md border border-line",
+  phoneShort: "h-32 w-[375px] max-w-full rounded-md border border-line",
   /** Space above a component whose hint pops up over it. */
   hintRoom: "pt-12",
   eyebrow: "text-label text-subtle uppercase",

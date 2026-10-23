@@ -1,0 +1,52 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Color.stories";
+
+<Meta of={Stories} />
+
+# Color
+
+Every color is a token. Components use the semantic layer (`bg-surface`, `text-muted`, `border-line`); the palette behind it is raw material.
+
+<Canvas of={Stories.Semantic} />
+
+## Palette
+
+Raw values the semantic colors point to.
+
+<Canvas of={Stories.Palette} />
+
+## Component tokens
+
+Where a semantic color is used by a component.
+
+<Canvas of={Stories.ComponentColors} />
+
+## Contrast
+
+The ratio is calculated from the resolved token values with `contrastRatio()`, the same function `contrast.test.ts` uses to fail the build.
+
+<Canvas of={Stories.Contrast} />
+
+## Use when
+
+- Choosing a color for text, a surface, a border or a state: pick the semantic token by purpose.
+- Checking whether two colors can sit together: read their ratio in the table.
+
+## Don't use when
+
+- You need a color that isn't here: add a token (primitive, then semantic with a `$description`) instead of a hex value.
+- A pair isn't in the table: test it in `contrast.test.ts` before using it.
+
+## Accessibility
+
+- Text pairs need 4.5:1, UI pairs and the focus ring 3:1 (WCAG 2.2 AA). Every pair listed passes.
+- Color never carries meaning alone: status colors always come with text or an icon.
+- `glow` has transparency and is decorative only; it has no contrast to measure.
+
+## Do / Don't
+
+| Do                                     | Don't                               |
+| -------------------------------------- | ----------------------------------- |
+| Semantic tokens (`text-muted`)         | Raw hex or a Tailwind default color |
+| `on-accent` for text on an accent fill | `fg` on `accent`                    |
+| Text with `fg`, `muted` or `subtle`    | `line` for text (decorative only)   |

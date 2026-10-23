@@ -1,4 +1,4 @@
-import type { IPixelCell, IPixelRun, TPixelGrid, TPixelKey } from "./pixelGrid.type";
+import type { IPixelCell, IPixelRun, TCellState, TPixelGrid, TPixelKey } from "./pixelGrid.type";
 
 const EMPTY = ".";
 
@@ -19,6 +19,13 @@ export function gridCells(grid: TPixelGrid): IPixelCell[] {
     }
   });
   return cells;
+}
+
+/** `total` cell states, all `off` except the cells at `onIndices`. */
+export function cellStates(total: number, onIndices: Iterable<number>): TCellState[] {
+  const states = Array.from({ length: total }, (): TCellState => "off");
+  for (const index of onIndices) states[index] = "on";
+  return states;
 }
 
 /** Horizontal runs of one key: the fewest rects that draw the grid. */

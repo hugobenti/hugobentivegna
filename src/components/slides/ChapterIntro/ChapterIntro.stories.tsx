@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { story } from "@/design-system/ui/story.style";
+import { story } from "../../story.style";
 import { ChapterIntro } from "./ChapterIntro";
 
 const meta = {

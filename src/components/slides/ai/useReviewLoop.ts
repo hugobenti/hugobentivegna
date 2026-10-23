@@ -1,8 +1,8 @@
 import { aiCase } from "@/content/cases";
-import { usePlayback } from "../../deck/usePlayback";
+import { usePlaybackControl } from "../../deck/usePlaybackControl";
 import { REVIEW_MS, reviewFrame } from "./reviewTimeline";
 
-const { build, controls } = aiCase;
+const { build } = aiCase;
 const { review } = build;
 
 /**
@@ -11,8 +11,7 @@ const { review } = build;
  * the start; the panel's data attributes say how far the loop has got.
  */
 export function useReviewLoop() {
-  const { ref, elapsed, paused, finished, controllable, toggle } =
-    usePlayback<HTMLDivElement>(REVIEW_MS);
+  const { ref, elapsed, control } = usePlaybackControl<HTMLDivElement>(REVIEW_MS);
   const frame = reviewFrame(elapsed, review.checks.length);
   const merged = frame.stage >= 5;
   return {
@@ -36,11 +35,6 @@ export function useReviewLoop() {
       { label: review.status.merged, shown: merged },
     ],
     merged,
-    control: {
-      /** Only offered while it can act and something moves (not without JS or motion). */
-      shown: controllable,
-      label: finished ? controls.replay : paused ? controls.play : controls.pause,
-      toggle,
-    },
+    control,
   };
 }

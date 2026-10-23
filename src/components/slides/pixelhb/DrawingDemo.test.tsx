@@ -2,21 +2,13 @@ import { act, render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { pixelhbCase } from "@/content/cases";
+import { stubReducedMotion } from "@/test/reducedMotion";
 import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
 import { DrawingDemo } from "./DrawingDemo";
 import { DRAWING_DELAY_MS, DRAWING_MS, drawingDuration } from "./drawingTimeline";
-
-function stubReducedMotion(reduce: boolean) {
-  vi.stubGlobal("matchMedia", (query: string) => ({
-    matches: reduce && query.includes("reduce"),
-    media: query,
-    addEventListener() {},
-    removeEventListener() {},
-  }));
-}
 
 const drawn = (container: HTMLElement) =>
   container.querySelectorAll('rect[data-state="on"]').length;
@@ -36,7 +28,7 @@ test("the canvas starts empty, fills in as it plays, and ends with every pixel d
   const { container } = render(<DrawingDemo />);
   expect(screen.getByRole("img", { name: pixelhbCase.drawing })).toBeInTheDocument();
   expect(drawn(container)).toBe(0);
-  centreLineObserver().report("[data-playback]", true);
+  centreLineObserver().reportAll(true);
   act(() => vi.advanceTimersByTime(DRAWING_DELAY_MS + DRAWING_MS / 2));
   const half = drawn(container);
   expect(half).toBeGreaterThan(0);

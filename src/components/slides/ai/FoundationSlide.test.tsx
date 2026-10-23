@@ -3,27 +3,21 @@ import { act, render, screen, within } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { aiCase } from "@/content/cases";
+import { site } from "@/content/site";
 import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { stubReducedMotion } from "@/test/reducedMotion";
 import { FoundationSlide } from "./FoundationSlide";
 import { FOUNDATION_DELAY_MS, FOUNDATION_STEP_MS, foundationDuration } from "./foundationTimeline";
 
-const { foundation, controls } = aiCase;
+const { foundation } = aiCase;
+const controls = site.playback;
 const duration = foundationDuration(foundation.excerpts.length);
 
-function stubReducedMotion(reduce: boolean) {
-  vi.stubGlobal("matchMedia", (query: string) => ({
-    matches: reduce && query.includes("reduce"),
-    media: query,
-    addEventListener() {},
-    removeEventListener() {},
-  }));
-}
-
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
-const start = () => centreLineObserver().report("[data-playback]", true);
+const start = () => centreLineObserver().reportAll(true);
 const cards = () =>
   within(screen.getByRole("list", { name: foundation.excerptsLabel })).getAllByRole("listitem");
 const lit = () => cards().map((card) => card.getAttribute("data-on"));

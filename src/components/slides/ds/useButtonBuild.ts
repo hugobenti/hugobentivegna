@@ -15,9 +15,8 @@ const duration = buildDuration(steps.length);
  * its tokens to the preview, then holds the finished button.
  */
 export function useButtonBuild() {
-  const { ref, elapsed } = usePlayback<HTMLDivElement>(duration);
+  const { ref, elapsed, finished } = usePlayback<HTMLDivElement>(duration);
   const applied = buildFrame(elapsed, steps.length);
-  const finished = elapsed >= duration;
   const stateOf = (name: string): IBuildToken["state"] => {
     const index = steps.findIndex((step) => step.tokens.includes(name));
     if (index >= applied) return "idle";
