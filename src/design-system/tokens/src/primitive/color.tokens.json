@@ -14,6 +14,10 @@
     "blue": {
       "$description": "Midnight's electric-blue accent.",
       "400": { "$value": "#5aa2ff" },
+      "700": {
+        "$value": "#2c64c8",
+        "$description": "The accent's shade: the second blue in the PixelHB case's illustrations."
+      },
       "glow": { "$value": "#408cff59" }
     },
     "green": {
