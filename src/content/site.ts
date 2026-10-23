@@ -30,7 +30,11 @@ export const site: ISiteContent = {
       slideId: slides.aiCover.id,
       section: [slides.aiCover.id, slides.aiGaps.id, slides.aiFoundation.id, slides.aiBuild.id],
     },
-    { label: "Projects", slideId: "pixelcraft" },
+    {
+      label: "Case 03 · PixelHB",
+      slideId: slides.pixelCover.id,
+      section: [slides.pixelCover.id],
+    },
     { label: "Contact", slideId: slides.contact.id },
   ],
 };

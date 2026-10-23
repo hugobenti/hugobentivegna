@@ -3,7 +3,7 @@ import { activeNavLink, availableNavLinks } from "./navigation";
 
 const nav = [
   { label: "Work", slideId: "timeline" },
-  { label: "Projects", slideId: "pixelcraft" },
+  { label: "Projects", slideId: "pixelhb" },
   { label: "Contact", slideId: "contact" },
 ];
 
