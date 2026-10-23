@@ -26,10 +26,8 @@ export const pixelFill: Record<TPixelKey, string> = {
 /** Whole-number scales only: the spacing unit is 4 px, so each size is a whole multiple of its grid. */
 export const pixelArtSize = {
   lockup: "h-3.5 w-37 sm:h-7 sm:w-74",
-  lockup2x: "h-3.5 w-37",
-  pencil8x: "h-14 w-66",
-  icon1x: "h-4 w-4",
-  icon3x: "h-12 w-12",
+  /** The cover's 16 × 16 drawing: 8 px a pixel, 12 px from 640 px up. */
+  drawing: "h-32 w-32 sm:h-48 sm:w-48",
   heart1x: "h-3 w-3",
   heart2x: "h-6 w-6",
   heart4x: "h-12 w-12",
@@ -37,4 +35,6 @@ export const pixelArtSize = {
 
 export const pixelArt = {
   base: "block shrink-0",
+  /** A cell with a state is hidden until it is "on"; opacity only, so the box never moves. */
+  cell: "data-[state=off]:opacity-0 data-[state=on]:opacity-100 motion-safe:transition-opacity",
 };

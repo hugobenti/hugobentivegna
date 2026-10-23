@@ -4,8 +4,15 @@ import type { TPixelArtProps } from "./PixelArt.type";
 import { usePixelArt } from "./usePixelArt";
 
 /** Draws a text pixel grid as crisp svg rects, colored by classes (never a fill attribute). */
-export function PixelArt({ grid, label, size, className, cells = false }: TPixelArtProps) {
-  const { viewBox, rects } = usePixelArt(grid, cells);
+export function PixelArt({
+  grid,
+  label,
+  size,
+  className,
+  cells = false,
+  cellState,
+}: TPixelArtProps) {
+  const { viewBox, rects } = usePixelArt(grid, cells, cellState);
   return (
     <svg
       role="img"
@@ -19,6 +26,7 @@ export function PixelArt({ grid, label, size, className, cells = false }: TPixel
           key={rect.id}
           data-key={rect.key}
           data-index={rect.index}
+          data-state={rect.state}
           x={rect.x}
           y={rect.y}
           width={rect.width}

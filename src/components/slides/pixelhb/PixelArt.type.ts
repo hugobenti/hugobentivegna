@@ -11,6 +11,11 @@ export type TPixelArtProps = {
   className?: string;
   /** One rect per pixel (with `data-index`) instead of one per run. */
   cells?: boolean;
+  /**
+   * Cells mode only: `"on"` or `"off"` per cell, indexed by `IPixelCell.index` (`y * width + x`),
+   * rendered as `data-state`. Cells fade by opacity alone, so the drawing never moves.
+   */
+  cellState?: readonly string[];
 };
 
 export interface IPixelRect {
@@ -22,5 +27,7 @@ export interface IPixelRect {
   width: number;
   /** Cell index (`y * width + x`); set only in cells mode. */
   index?: number;
+  /** `"on"` or `"off"`; set only when the drawing is given a `cellState`. */
+  state?: string;
   className: string;
 }
