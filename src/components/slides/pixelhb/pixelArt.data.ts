@@ -28,18 +28,18 @@ export const WORDMARK: TPixelGrid = [
 /** Horizontal lockup: pencil, a gap of 4 pixels, wordmark (74 × 7). */
 export const LOCKUP: TPixelGrid = beside(PENCIL, WORDMARK, 4);
 
-/** The illustration sprite for the tools chapter, 12 × 12: `k` outline, `r` fill, `l` highlight. */
+/** The illustration sprite for the tools chapter, 12 × 12: `k` outline, `r` blue, `b` its shade. */
 export const HEART: TPixelGrid = [
   "............",
   ".kkk....kkk.",
   "krrrk..krrrk",
-  "krlrrkkrrrrk",
-  "krlrrrrrrrrk",
-  "krrrrrrrrrrk",
-  ".krrrrrrrrk.",
-  "..krrrrrrk..",
-  "...krrrrk...",
-  "....krrk....",
+  "krrrrkkrrrbk",
+  "krrrrrrrrrbk",
+  "krrrrrrrrbbk",
+  ".krrrrrrrbk.",
+  "..krrrrbbk..",
+  "...krrbbk...",
+  "....kbbk....",
   ".....kk.....",
   "............",
 ];

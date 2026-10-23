@@ -17,7 +17,7 @@ export type TPixelKey =
   | "h"
   | "k"
   | "r"
-  | "l";
+  | "b";
 
 /** One string per row, one character per pixel; `.` is empty. */
 export type TPixelGrid = readonly string[];

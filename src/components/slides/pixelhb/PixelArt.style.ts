@@ -20,7 +20,7 @@ export const pixelFill: Record<TPixelKey, string> = {
   k: "fill-fg",
   h: "fill-(--hb-palette-pixelhb-amber)",
   r: "fill-accent",
-  l: "fill-on-accent",
+  b: "fill-(--hb-palette-blue-700)",
 };
 
 /** Whole-number scales only: the spacing unit is 4 px, so each size is a whole multiple of its grid. */
@@ -31,6 +31,9 @@ export const pixelArtSize = {
   heart1x: "h-3 w-3",
   heart2x: "h-6 w-6",
   heart4x: "h-12 w-12",
+  /** The grid demo: 6 px a pixel, so its 1 px lines leave the pixels readable. */
+  heart6x: "h-18 w-18",
+  loupe: "h-15 w-15",
 };
 
 export const pixelArt = {

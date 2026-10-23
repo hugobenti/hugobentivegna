@@ -186,6 +186,26 @@ export interface IPixelhbCase {
   mark: string;
   /** The accessible name of the drawing that paints itself beside the cover. */
   drawing: string;
+  /** The chapters run longer than 5 s, so they can be paused (WCAG 2.2.2). */
+  controls: { pause: string; play: string; replay: string };
+  /** Chapter 01: four tools lit one at a time, each with a small demo, then the links. */
+  exact: {
+    kicker: string;
+    title: string;
+    body: string;
+    /** Marks each demo as an illustration, not the real app. */
+    illustration: string;
+    tools: [ITool, ITool, ITool, ITool];
+    live: ILinkContent;
+    code: ILinkContent;
+  };
+}
+
+export interface ITool {
+  name: string;
+  body: string;
+  /** Which demo the card draws. */
+  demo: "zoom" | "grid" | "fill" | "loupe";
 }
 
 export interface IAiCase {

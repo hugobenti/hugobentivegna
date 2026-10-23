@@ -13,6 +13,9 @@ const grids: Record<keyof typeof pixelArtSize, TPixelGrid> = {
   heart1x: HEART,
   heart2x: HEART,
   heart4x: HEART,
+  heart6x: HEART,
+  /** The loupe's 5 × 5 patch. */
+  loupe: Array.from({ length: 5 }, () => "rrrrr"),
 };
 
 test("every size is a whole multiple of its grid on both axes, at every breakpoint", () => {

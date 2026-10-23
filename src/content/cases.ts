@@ -244,6 +244,37 @@ export const aiCase: IAiCase = {
 export const pixelhbCase: IPixelhbCase = {
   mark: "PixelHB",
   drawing: "A retro computer drawn pixel by pixel in PixelHB colors",
+  controls: { pause: "Pause", play: "Play", replay: "Replay" },
+  exact: {
+    kicker: "01 · The editor",
+    title: "Everything you need to draw pixel art, in the browser.",
+    body: "Layers, a reference image, undo and redo, and a palette of up to 256 colors. Export a PNG, or the whole file as JSON. Your work saves itself as you draw.",
+    illustration: "Illustration",
+    tools: [
+      {
+        name: "Zoom",
+        body: "Zoom with the wheel, a pinch or the toolbar. Pixels stay crisp at every step.",
+        demo: "zoom",
+      },
+      {
+        name: "Grid",
+        body: "Turn on the pixel grid to see exactly where every pixel sits.",
+        demo: "grid",
+      },
+      {
+        name: "Fill",
+        body: "Fill a shape in one click with the paint bucket.",
+        demo: "fill",
+      },
+      {
+        name: "Color picker",
+        body: "Hold Alt and drag to pick a color from the canvas. The loupe shows it next to your current color.",
+        demo: "loupe",
+      },
+    ],
+    live: { label: "Try it live", href: "https://pixelhb.vercel.app" },
+    code: { label: "View code", href: "https://github.com/hugobenti/pixelHB" },
+  },
   cover: {
     kicker: "Case 03 · Personal project",
     title: "PixelHB: a pixel-art editor, designed and built by Hugo Bentivegna.",
