@@ -1,0 +1,43 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./ArtifactFrame.stories";
+
+<Meta of={Stories} />
+
+# ArtifactFrame
+
+A small app window, with a title bar and a body, around an Experience artifact that "plays" when its chapter is in focus.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- An Experience chapter shows a miniature of the product it describes (`OuribankArtifact`, `ItauArtifact`, `OneGlobalArtifact`).
+- The contents should animate in as the chapter comes into focus.
+
+## Don't use when
+
+- The content is real and must be read or used: the frame is hidden from assistive technology.
+- It should show below `md`: the frame is `hidden md:block` on the site. These stories force it to show.
+
+## Behavior
+
+- The root is a `group` carrying `data-active`. Children react with the shared pieces in `artifact.style.ts`: `appear` is the base transition (`--i`, set with `stagger()`, delays each element by 90 ms) and `rise` fades and nudges an element in once `active` is true.
+- `Inactive` shows the resting state: the title bar, with the contents faded out.
+- Transitions are off under `prefers-reduced-motion` (`motion-reduce:transition-none`).
+
+<Canvas of={Stories.Inactive} />
+
+## Accessibility
+
+- The whole frame is `aria-hidden="true"`: it is an illustration. Whatever it shows must be said in the slide's own text.
+- Nothing inside may be focusable.
+- The title uses `subtle` on `surface`, which meets 4.5:1.
+
+## Do / Don't
+
+| Do                                              | Don't                                  |
+| ----------------------------------------------- | -------------------------------------- |
+| Say in the slide's text what the artifact shows | Rely on the artifact to carry meaning  |
+| Animate with `appear` + `rise` and `stagger()`  | Add one-off transitions per artifact   |
+| Pass layout (width, margins) as `className`     | Restyle the chrome through `className` |

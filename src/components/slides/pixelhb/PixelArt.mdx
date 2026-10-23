@@ -1,0 +1,79 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./PixelArt.stories";
+
+<Meta of={Stories} />
+
+# PixelArt
+
+Draws a text pixel grid as one crisp svg, colored by classes.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- A drawing is made of whole pixels: the logo lockup, the cover's computer, the tools' heart.
+- Its colors should follow the theme (`fg`, `accent`) or be a fixed brand pencil color.
+
+## Don't use when
+
+- The image is a photo or a smooth illustration: use an image.
+- You need a size that is not a whole multiple of the grid: add it to the sizes, never scale with CSS.
+
+## Grid
+
+One string per row, one character per pixel. `.` is empty. All rows share one width. The svg's `viewBox` is the grid's size, so the drawing scales without blur (`shape-rendering="crispEdges"`).
+
+By default one `rect` is drawn per horizontal run of one key: the fewest rects. With `cells`, one `rect` is drawn per pixel, each with `data-index` (`y * width + x`).
+
+## Sizes
+
+`size` is required and picks a whole-number scale: the spacing unit is 4 px, so each size is a whole multiple of its grid.
+
+| Size                                       | Box                                      | For                                           |
+| ------------------------------------------ | ---------------------------------------- | --------------------------------------------- |
+| `lockup`                                   | 296 × 28 px from 640 px (148 × 14 below) | The 74 × 7 logo lockup                        |
+| `drawing`                                  | 192 px from 640 px (128 px below)        | The cover's 16 × 16 drawing                   |
+| `heart1x`, `heart2x`, `heart4x`, `heart6x` | 12, 24, 48 and 72 px                     | The 12 × 12 heart at 1, 2, 4 and 6 px a pixel |
+| `loupe`                                    | 60 px                                    | The color loupe                               |
+
+<Canvas of={Stories.Sizes} />
+
+## Colors
+
+Each character is a key. The brand keys are fixed pencil colors; `d`, `i` and `k` follow the text color, `r` the accent.
+
+| Key | Color                      | Key | Color                |
+| --- | -------------------------- | --- | -------------------- |
+| `y` | amber, light               | `m` | ferrule              |
+| `Y` | amber                      | `M` | ferrule, ridge       |
+| `o` | amber, shade               | `e` | eraser               |
+| `w` | wood                       | `f` | eraser, shine        |
+| `W` | wood, shade                | `E` | eraser, shade        |
+| `G` | graphite                   | `d` | text (`fg`)          |
+| `q` | graphite, shine            | `i` | text (`fg`), the ink |
+| `s` | stamp                      | `k` | text (`fg`), outline |
+| `h` | brand amber (HB)           | `r` | accent               |
+| `b` | blue 700, the shade of `r` |     |                      |
+
+<Canvas of={Stories.Palette} />
+
+## Cells and `cellState`
+
+With `cells`, pass `cellState`: `"on"` or `"off"` per cell, indexed like `data-index`. Each rect gets `data-state`; an `off` cell is transparent and an `on` cell is opaque, with a fade under `motion-safe`. The box never moves: a drawing can paint itself pixel by pixel with no layout shift. Without `cellState` every cell is drawn.
+
+<Canvas of={Stories.Cells} />
+
+## Accessibility
+
+- The svg is `role="img"` with `label` as its accessible name: say what the drawing shows ("Logo lockup", "A pixel computer").
+- Colors are classes (never a `fill` attribute), so they follow the theme.
+- Animating cells fade by opacity alone, so reduced motion needs no extra handling for position.
+
+## Do / Don't
+
+| Do                                               | Don't                                         |
+| ------------------------------------------------ | --------------------------------------------- |
+| Name every drawing with a real `label`           | Leave the label empty or repeat the file name |
+| Use a size made for the grid                     | Resize the svg with `className`               |
+| Use `d`, `i`, `k` for ink that follows the theme | Add a raw hex color to a grid                 |

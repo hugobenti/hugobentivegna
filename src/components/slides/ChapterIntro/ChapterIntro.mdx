@@ -1,0 +1,34 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./ChapterIntro.stories";
+
+<Meta of={Stories} />
+
+# ChapterIntro
+
+The opening copy of a chapter slide: a kicker, the title and a short body.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- A case study chapter opens with a number, a headline and a sentence of context.
+- Every chapter should read the same way: one component keeps the type scale in one place.
+
+## Don't use when
+
+- It is the case cover or the hero: they have their own, larger headline.
+- You need more than three lines of copy: add them after it in the slide.
+
+## Behavior
+
+- Renders three siblings with no wrapper: the `p` kicker, the `h2` title and the `p` body.
+- Each line enters with the slide (`reveal`), staggered 0, 1, 2. Lines you add after it continue at `stagger(3)`.
+- The reveal needs the deck: inside Storybook the lines simply show.
+
+## Accessibility
+
+- The title is the slide's `h2`, so every slide keeps one heading level 2.
+- Colors come from `text-fg`, `text-muted` and `text-subtle`, which meet AA on the page background.
+
+<Canvas of={Stories.LongTitle} />
