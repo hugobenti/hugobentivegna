@@ -1,3 +1,4 @@
+import { stepAt } from "../../deck/stepTimeline";
 import type { TSceneAct } from "@/content/content.type";
 import type { ISceneFrame } from "./rebrandTimeline.type";
 
@@ -43,7 +44,7 @@ export function act2Frame(elapsed: number): ISceneFrame {
   return frame(
     "with",
     DEV_FINISH_MS.map((_, index) => ({
-      rebranded: elapsed >= WAVE_START_MS + index * WAVE_STEP_MS,
+      rebranded: stepAt(elapsed, WAVE_START_MS, WAVE_STEP_MS, DEV_FINISH_MS.length) >= index,
       developer: "done",
     })),
     elapsed < SYSTEM_RELEASE_MS ? "working" : "released",

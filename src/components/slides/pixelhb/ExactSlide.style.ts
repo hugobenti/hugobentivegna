@@ -1,14 +1,12 @@
 import { cx } from "@/design-system/ui";
+import { pixelBlue } from "./PixelArt.style";
 
 export const exactSlide = {
   /** Copy, links and control on the left, the four tool cards on the right from lg up. */
   content:
     "mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:items-center lg:gap-10",
-  kicker: "font-mono text-label text-subtle uppercase",
-  title: "mt-6 font-display text-h2 font-extrabold text-balance text-fg",
-  body: "mt-6 max-w-xl text-body text-muted",
   links: "mt-6 flex flex-wrap gap-3",
-  control: "mt-6 h-8 px-4 text-label",
+  control: "mt-6",
 
   cards: "grid gap-3 sm:grid-cols-2",
   /** The lit card takes the accent border and glow; the colors fade, nothing resizes. */
@@ -52,6 +50,6 @@ export const exactSlide = {
   half: "absolute inset-x-0 h-1/2",
   halfTop: "top-0",
   halfBottom: "bottom-0",
-  ringFill: { r: "bg-accent", b: "bg-(--hb-palette-blue-700)" },
+  ringFill: { r: pixelBlue.r.bg, b: pixelBlue.b.bg },
   lens: "absolute inset-1 overflow-hidden rounded-pill bg-bg",
 };

@@ -1,0 +1,103 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Site/Deck" />
+
+# Deck
+
+The slide engine: native scroll-snap plus scroll-driven choreography. This page is the contract between the deck and everything that goes inside it. It has no live demo, because the deck needs the whole page: its behavior is in `src/components/deck/`.
+
+No scroll-jacking: wheel, touch and keyboard scrolling stay native, and nothing in the deck calls `preventDefault` on them.
+
+## Use when
+
+- You add a slide: wrap it in `Slide` and list it in `src/content`.
+- You animate something with its slide: use `reveal` and `stagger`.
+- You add an animation that runs longer than 5 s: use `usePlaybackControl` and `PlaybackControl`.
+
+## Don't use when
+
+- The page scrolls normally and has no full-viewport sections: the deck's CSS hooks assume them.
+- You want to animate on a timer: `reveal` follows the slide's position, not a clock. Use `enter` for the first load, or `usePlayback` for a scene.
+
+## `Deck` and `Slide`
+
+`Deck` renders the `SiteHeader` (the page banner), the slides inside `<main>`, and a `DotNav`. The slides are its children, and `slides` (the list of `ISlideMeta`) says which ones they are.
+
+`Slide` is one full-viewport `<section>` with `id={slide.id}` (the URL hash), `data-slide`, and `aria-label={slide.label}`. Each slide's `id` must also appear in `slides`.
+
+## `reveal`, `stagger` and `enter`
+
+- `deck.reveal` marks an element that animates with its slide (or step).
+- `stagger(n)` sets `--i`, the element's position in the order. Later items start a little later. Elements in one slide count up from 0 with no gaps.
+- `deck.enter` is a time-based entrance on first load, used by the hero. Its delay is `--i × 120 ms + 100 ms`.
+
+```tsx
+<p className={cx(deck.reveal, chapterIntro.kicker)} style={stagger(0)}>…</p>
+<h2 className={cx(deck.reveal, chapterIntro.title)} style={stagger(1)}>…</h2>
+```
+
+Three paths animate `reveal`, in this order of preference:
+
+1. **Scroll timelines** (Chrome, Edge, Safari 26+): progress follows the slide (or step) through the viewport, from 768 px wide and 560 px tall up.
+2. **Fallback** (no scroll timelines, such as Firefox): once the deck has set `data-ready`, a slide that is not `data-position="active"` hides its reveals.
+3. **Small screens** (under 768 px wide or 560 px tall): normal scrolling; a slide's content fades in once it has been seen (`data-seen`).
+
+Under `prefers-reduced-motion: reduce`, `reveal` and `enter` do not move or blur: only opacity changes.
+
+Storybook does not load `deck.css`, so in stories the `reveal` lines simply show.
+
+## `stepsSlide`, `stepsHeader` and `step`
+
+A slide made of several full-viewport steps under a pinned header: `Slide` with `className={deck.stepsSlide}`, a `deck.stepsHeader` element, then one element per step with `className={deck.step}` and `data-step="n"` (0, 1, 2…). Each step is its own snap point; the slide itself does not snap. `useActiveStep` reports which step crosses the centre of the screen (0 until the observer reports, so without JavaScript the first step is the focus and every step's content is still in the page). Each step is also the timeline of its own `reveal`s.
+
+## `data-position` and `data-seen`
+
+`useDeck` observes every `[data-slide]`:
+
+- **`data-position`** is `before`, `active` or `after`, relative to the slide crossing the viewport's centre line. It is set on every slide whenever the active one changes (slide positions are computed by `slidePositions`).
+- **`data-seen`** is set once, when a slide's top has passed 85% of the viewport height, and stays.
+- The URL hash follows the active slide with `history.replaceState`; the first slide keeps a clean URL.
+- `data-ready` on the root says JavaScript has hydrated; the fallback transitions wait for it, so markup without JavaScript shows everything.
+
+## Navigation: one dot per section
+
+`useDeck` builds the dots: the first slide, then one per header link. A case study is one dot, not one dot per slide. The dot that is lit is the header link that owns the slide in view (`activeSection`), or the slide itself on the intro. Selecting a dot scrolls to its slide (`scrollIntoView`, smooth unless the visitor prefers reduced motion). The dots are hidden where slides do not snap (under `md`, or under 560 px tall).
+
+## `usePlayback` and `usePlaybackControl`
+
+`usePlayback(durationMs)` runs a scene's clock:
+
+- Returns `ref` (attach it to the element), `elapsed`, `paused`, `finished`, `still`, `controllable` and `toggle`.
+- `elapsed` advances every 100 ms (`TICK_MS`) towards `durationMs` while the element crosses the viewport's centre line, pauses when it moves off that line, and holds at the end. CSS transitions smooth the steps between ticks.
+- Once the element leaves the screen it returns to 0, so coming back replays it.
+- `toggle` pauses and resumes, or replays once finished.
+- The server render, and visitors who prefer reduced motion, get the end state: `elapsed` equals `durationMs`, and `still` says it is the latter. `controllable` is true only once hydrated and while motion is allowed.
+
+`usePlaybackControl(durationMs)` is `usePlayback` plus the control WCAG 2.2.2 (Pause, Stop, Hide) asks for on animations longer than 5 s. It returns the same values plus `control`: `{ shown, label, onToggle }`, ready to spread into `PlaybackControl`. The label names the next action: **Replay** when finished, **Play** while paused, otherwise **Pause**.
+
+```tsx
+const { ref, elapsed, control } = usePlaybackControl<HTMLDivElement>(DURATION_MS);
+…
+<div ref={ref}>…</div>
+<PlaybackControl {...control} />
+```
+
+## `PlaybackControl`
+
+A `Button` (`secondary`, `sm`) that renders nothing while `shown` is false, so there is no dead button before scripts run or under reduced motion. See `Components/PlaybackControl`.
+
+## Accessibility
+
+- The header is the page banner and `<main>` holds the slides; each slide is a labelled `<section>`.
+- Scrolling is native and the dots are real buttons: the deck works with keyboard, touch and assistive technology.
+- Anything that moves for more than 5 s must offer `PlaybackControl`.
+- Reduced motion: opacity only.
+
+## Do / Don't
+
+| Do                                                    | Don't                                |
+| ----------------------------------------------------- | ------------------------------------ |
+| Give every animated element `reveal` and `stagger(n)` | Add a one-off scroll listener        |
+| Keep one `h2` per slide                               | Skip heading levels between slides   |
+| Add a section to the dots by adding a header link     | Add a dot for every slide of a case  |
+| Let `data-position` and `data-seen` drive styling     | Read `window.scrollY` in a component |

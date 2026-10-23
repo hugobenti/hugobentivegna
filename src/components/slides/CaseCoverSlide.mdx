@@ -1,0 +1,47 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./CaseCoverSlide.stories";
+
+<Meta of={Stories} />
+
+# CaseCoverSlide
+
+The slide that opens a case study: what it is, when, my role, and the chapters ahead.
+
+<Canvas of={Stories.Default} />
+<Controls />
+
+## Use when
+
+- A case study starts. Every case opens the same way, so the cover is one component fed with an `ICaseCover` from `src/content`.
+- The case has a logo (`mark`) or a picture (`aside`) that belongs next to the headline.
+
+## Don't use when
+
+- It is the hero: it has its own, larger headline and the `enter` entrance.
+- A chapter opens: use `ChapterIntro`.
+
+## Behavior
+
+- Everything enters with the slide (`reveal`), staggered: mark and kicker 0, title 1, body 2, meta 3, chapters 4. The aside enters with the body (2).
+- With an `aside`, the copy sits on the left and the picture on the right from `lg` up; without one, the copy takes the width.
+- A soft glow is drawn inside the slide's own box, so no hard line shows where two slides meet.
+- The reveal and the slide's own layout come from `deck.css`, which Storybook does not load: here the lines simply show, in a stage that stands in for the slide.
+
+<Canvas of={Stories.WithMarkAndAside} />
+
+## Accessibility
+
+- The slide is a labelled `<section>` (`slide.label`); the title is its `h2`.
+- The meta items are a description list (`dl`) and the chapters an ordered list (`ol`), so counts and order are announced.
+- The glow is decorative (`aria-hidden`). The mark and the aside must carry their own accessible name (`PixelArt` takes a `label`).
+- Text uses `fg`, `muted` and `subtle`, which meet AA on the page background.
+
+## Do / Don't
+
+| Do                                                | Don't                           |
+| ------------------------------------------------- | ------------------------------- |
+| Keep the title to a sentence; it is balanced      | Put a paragraph in the title    |
+| Give the mark and aside a text alternative        | Pass a decorative image unnamed |
+| Keep three meta items: the grid has three columns | Add a fourth meta item          |
+
+<Canvas of={Stories.WithMark} />

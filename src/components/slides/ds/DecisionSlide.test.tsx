@@ -43,7 +43,7 @@ test("before the slide is reached, the button is still empty", () => {
 
 test("once active, the tokens build the button step by step, then it holds", () => {
   const { container } = render(<DecisionSlide />);
-  centreLineObserver().report("[data-playback]", true);
+  centreLineObserver().reportAll(true);
   expect(preview(container)).toHaveAttribute("data-shape", "false");
   act(() => vi.advanceTimersByTime(BUILD_DELAY_MS));
   expect(preview(container)).toHaveAttribute("data-shape", "true");

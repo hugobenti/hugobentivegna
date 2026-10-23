@@ -7,7 +7,7 @@ import * as Stories from "./DotNav.stories";
 
 Slide position dots: one labelled button per slide, the current one highlighted.
 
-<Canvas of={Stories.Interactive} />
+<Canvas of={Stories.Default} />
 <Controls />
 
 ## Use when
@@ -33,3 +33,12 @@ Slide position dots: one labelled button per slide, the current one highlighted.
 | ---------------------------------------- | -------------------------------------- |
 | Short slide labels ("Experience")        | Numbers as labels ("Slide 2")          |
 | Let native scrolling move between slides | Hijack wheel or keys to drive the dots |
+
+## States
+
+Click or tab to a dot and press Enter: the active slide follows.
+
+<Canvas of={Stories.Interactive} />
+<Canvas of={Stories.FirstActive} />
+<Canvas of={Stories.LastActive} />
+<Canvas of={Stories.Many} />

@@ -144,8 +144,6 @@ export interface IDesignSystemCase {
     developers: Record<TSceneAct, string>;
     /** Follows the "3/6" count of rebranded products. */
     rebrandedLabel: string;
-    /** The scene's one control: it runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
-    controls: { pause: string; play: string; replay: string };
     /** `missing` fills the system's place in act 1, where there is no shared library yet. */
     system: { name: string; released: string; missing: string };
     versions: { before: string; after: string };
@@ -196,8 +194,6 @@ export interface IPixelhbCase {
   mark: string;
   /** The accessible name of the drawing that paints itself beside the cover. */
   drawing: string;
-  /** The chapters run longer than 5 s, so they can be paused (WCAG 2.2.2). */
-  controls: { pause: string; play: string; replay: string };
   /** Chapter 01: four tools lit one at a time, each with a small demo, then the links. */
   exact: {
     kicker: string;

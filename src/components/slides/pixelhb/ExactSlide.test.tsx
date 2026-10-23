@@ -2,27 +2,23 @@ import { act, render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { pixelhbCase } from "@/content/cases";
+import { site } from "@/content/site";
 import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { stubReducedMotion } from "@/test/reducedMotion";
 import { EXACT_DELAY_MS, EXACT_STEP_MS, exactDuration } from "./exactTimeline";
 import { ExactSlide } from "./ExactSlide";
+import { pixelBlue } from "./PixelArt.style";
+import { LOUPE_RADIUS } from "./useExactScene";
 
-const { exact, controls } = pixelhbCase;
+const { exact } = pixelhbCase;
+const controls = site.playback;
 const duration = exactDuration(exact.tools.length);
 
-function stubReducedMotion(reduce: boolean) {
-  vi.stubGlobal("matchMedia", (query: string) => ({
-    matches: reduce && query.includes("reduce"),
-    media: query,
-    addEventListener() {},
-    removeEventListener() {},
-  }));
-}
-
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
-const start = () => centreLineObserver().report("[data-playback]", true);
+const start = () => centreLineObserver().reportAll(true);
 const lit = (container: HTMLElement) =>
   [...container.querySelectorAll("[data-card]")].map((card) => card.getAttribute("data-on"));
 /** Per heart in the fill demo: is its blue filled ("full"), not at all ("empty"), or partly? */
@@ -125,16 +121,19 @@ test("at the end every card is lit, the whole fill shows and the control offers 
 test("the loupe picks the heart's second blue and compares it with the main blue", () => {
   const { container } = render(<ExactSlide />);
   const patch = container.querySelector('[data-demo="loupe"] svg') as SVGElement;
-  expect(patch.getAttribute("viewBox")).toBe("0 0 5 5");
+  const side = 2 * LOUPE_RADIUS + 1;
+  expect(patch.getAttribute("viewBox")).toBe(`0 0 ${side} ${side}`);
   const centre = [...patch.querySelectorAll("rect")].find(
     (rect) =>
-      Number(rect.getAttribute("y")) === 2 &&
-      Number(rect.getAttribute("x")) <= 2 &&
-      Number(rect.getAttribute("x")) + Number(rect.getAttribute("width")) > 2,
+      Number(rect.getAttribute("y")) === LOUPE_RADIUS &&
+      Number(rect.getAttribute("x")) <= LOUPE_RADIUS &&
+      Number(rect.getAttribute("x")) + Number(rect.getAttribute("width")) > LOUPE_RADIUS,
   );
-  expect(centre?.getAttribute("data-key")).toBe("b");
-  expect(container.querySelector("[data-ring-top]")?.className).toContain("blue-700");
-  expect(container.querySelector("[data-ring-bottom]")?.className).toContain("bg-accent");
+  const picked = centre?.getAttribute("data-key") as keyof typeof pixelBlue;
+  expect(picked).toBe("b");
+  // The ring's top half shows the picked pixel's color; the bottom half is the main blue in hand.
+  expect(container.querySelector("[data-ring-top]")).toHaveClass(pixelBlue[picked].bg);
+  expect(container.querySelector("[data-ring-bottom]")).toHaveClass(pixelBlue.r.bg);
 });
 
 test("the control pauses the slide and resumes it", () => {

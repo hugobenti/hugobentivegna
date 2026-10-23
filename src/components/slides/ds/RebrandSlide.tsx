@@ -2,7 +2,7 @@
 
 import { designSystemCase } from "@/content/cases";
 import { slides } from "@/content/slides";
-import { Button, cx } from "@/design-system/ui";
+import { PlaybackControl, cx } from "@/design-system/ui";
 import { deck } from "../../deck/Deck.style";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
@@ -33,7 +33,7 @@ export function RebrandSlide() {
           </p>
         </div>
 
-        <div ref={ref} data-playback="" className={deck.reveal} style={stagger(3)}>
+        <div ref={ref} className={deck.reveal} style={stagger(3)}>
           <ul className={rebrandSlide.summaries}>
             <li>{rebrand.acts.without.summary}</li>
             <li>{rebrand.acts.with.summary}</li>
@@ -53,13 +53,7 @@ export function RebrandSlide() {
                     </span>
                   ))}
                 </p>
-                <Button
-                  variant="secondary"
-                  className={rebrandSlide.control}
-                  onClick={control.toggle}
-                >
-                  {control.label}
-                </Button>
+                <PlaybackControl {...control} />
               </div>
             )}
             <div

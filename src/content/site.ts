@@ -16,7 +16,7 @@ export const site: ISiteContent = {
   },
   supportLine: "Design systems · Front-end architecture · AI agents",
   monogram: "HB",
-  homeLabel: "Hugo Bentivegna, back to the start",
+  homeLabel: "HB, Hugo Bentivegna: back to the start",
   navLabel: "Primary",
   dotsLabel: "Sections",
   playback: { pause: "Pause", play: "Play", replay: "Replay" },

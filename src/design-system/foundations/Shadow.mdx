@@ -1,0 +1,31 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./Shadow.stories";
+
+<Meta of={Stories} />
+
+# Shadow
+
+Two shadows: a card lift for surfaces and an accent glow for highlights.
+
+<Canvas of={Stories.Elevation} />
+
+## Use when
+
+- `shadow-card` to lift cards and popovers off the page.
+- `shadow-glow` behind hero content or a highlighted element.
+
+## Don't use when
+
+- Shadows on every element: depth is a signal, not decoration.
+- Relying on a shadow to separate content: add a border.
+
+## Accessibility
+
+- Shadows are decorative; a border (`line`) separates content for people who can't see them.
+- The card shadow is dark: it only shows on dark surfaces such as these.
+
+## Do / Don't
+
+| Do                       | Don't                      |
+| ------------------------ | -------------------------- |
+| Card lift from the token | A new shadow per component |

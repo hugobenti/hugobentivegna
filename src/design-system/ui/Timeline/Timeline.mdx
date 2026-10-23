@@ -1,7 +1,8 @@
 import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
-import * as Stories from "./Timeline.stories";
+import * as AxisStories from "./TimelineAxis.stories";
+import * as ChapterStories from "./TimelineChapter.stories";
 
-<Meta of={Stories} />
+<Meta of={AxisStories} />
 
 # Timeline
 
@@ -10,8 +11,29 @@ Two building blocks for telling a career:
 - **`TimelineAxis`**: a time-scaled line with a tick per year, a span per company and a dot per role. Give it `activeIndex` and it fills up to that company, so a page can move through the career one chapter at a time.
 - **`TimelineChapter`**: one company's story: period, company, a chapter line, the roles held, one line of work and the stack that defined it.
 
-<Canvas of={Stories.Axis} />
-<Controls />
+## TimelineAxis
+
+<Canvas of={AxisStories.Default} />
+<Controls of={AxisStories.Default} />
+
+The axis appears from the `md` breakpoint up. Below it, only the chapters show.
+
+<Canvas of={AxisStories.FirstActive} />
+<Canvas of={AxisStories.LastActive} />
+<Canvas of={AxisStories.Static} />
+<Canvas of={AxisStories.SingleEntry} />
+
+## TimelineChapter
+
+<Canvas of={ChapterStories.Default} />
+<Controls of={ChapterStories.Default} />
+
+<Canvas of={ChapterStories.SingleRole} />
+<Canvas of={ChapterStories.LongContent} />
+
+On a phone-width screen the axis is hidden and each chapter gets a side rule with a marker:
+
+<Canvas of={ChapterStories.Mobile} />
 
 ## Use when
 
@@ -32,8 +54,9 @@ Two building blocks for telling a career:
 
 - The axis is decorative (`aria-hidden`): nothing it shows is missing from the chapters, so no information depends on position or color.
 - Each chapter is an `<article>` with a heading (`headingLevel`, default `h3`), an ordered list "Roles at …" and a list "Stack at …"; the → arrows are hidden from screen readers.
-- The axis is hidden on small screens, where chapters stack with a side rule.
-- Fill and dot transitions are disabled under reduced motion.
+- The axis is hidden below `md`, where chapters stack with a side rule and a marker.
+- Fill and dot transitions are disabled under reduced motion (`motion-reduce:transition-none`).
+- Colors come from semantic tokens (`accent`, `line`, `muted`, `bg` for the dot ring) rather than component tokens: the axis has none of its own.
 
 ## Do / Don't
 
@@ -43,4 +66,4 @@ Two building blocks for telling a career:
 | A chapter line that says what changed        | Repeating the job title as chapter |
 | Three or four tags that defined the period   | The full CV skills list            |
 
-<Canvas of={Stories.Composed} />
+<Canvas of={ChapterStories.Composed} />
