@@ -18,6 +18,7 @@ export const site: ISiteContent = {
   monogram: "HB",
   homeLabel: "Hugo Bentivegna, back to the start",
   navLabel: "Primary",
+  dotsLabel: "Sections",
   nav: [
     { label: "Experience", slideId: slides.timeline.id },
     {
