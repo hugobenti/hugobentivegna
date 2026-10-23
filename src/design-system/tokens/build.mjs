@@ -11,7 +11,6 @@ const src = (glob) => path.posix.join(here.split(path.sep).join("/"), "src", glo
 const outDir = path.join(here, "generated");
 
 const PREFIX = "hb";
-const THEMES = ["pixel"];
 const TRANSFORMS = ["name/kebab", "fontFamily/css", "cubicBezier/css", "shadow/css/shorthand"];
 
 /** @param {{ filePath: string }} token */
@@ -21,60 +20,35 @@ function layerOf(token) {
   return "semantic";
 }
 
-// Theme blocks omit primitives (declared once on :root, identical everywhere) but still reference
-// them. Resolve references against the unfiltered tree so those var() references are expected,
-// not flagged; any other warning (collisions, broken references) still fails the build.
+// Keep var() references to other tokens; any warning (collisions, broken references) still
+// fails the build.
 const cssBlock = ({ dictionary, options }) =>
   `${options.selector} {\n${formattedVariables({
     format: "css",
-    dictionary: { ...dictionary, tokens: dictionary.unfilteredTokens ?? dictionary.tokens },
+    dictionary,
     outputReferences: true,
     usesDtcg: true,
   })}\n}\n`;
 
-/**
- * One Style Dictionary per theme. Midnight is the base; a theme layers its overrides on top.
- * Every [data-theme] block re-declares all semantic and component tokens, because a custom
- * property that references another (var(--hb-color-accent)) is resolved where it is declared.
- */
-function dictionaryFor(theme) {
-  const files =
-    theme === "midnight"
-      ? [
-          { destination: "root.css", format: "hb/css-block", options: { selector: ":root" } },
-          {
-            destination: "midnight.css",
-            format: "hb/css-block",
-            filter: (token) => layerOf(token) !== "primitive",
-            options: { selector: '[data-theme="midnight"]' },
-          },
-        ]
-      : [
-          {
-            destination: `${theme}.css`,
-            format: "hb/css-block",
-            filter: (token) => layerOf(token) !== "primitive",
-            options: { selector: `[data-theme="${theme}"]` },
-          },
-        ];
-
-  return new StyleDictionary({
-    include:
-      theme === "midnight"
-        ? [src("primitive/*.tokens.json")]
-        : [src("primitive/*.tokens.json"), src("semantic/midnight.tokens.json")],
-    source:
-      theme === "midnight"
-        ? [src("semantic/midnight.tokens.json"), src("component/*.tokens.json")]
-        : [src("component/*.tokens.json"), src(`themes/${theme}.tokens.json`)],
-    hooks: { formats: { "hb/css-block": cssBlock } },
-    log: { verbosity: "default", warnings: "error" },
-    platforms: { css: { prefix: PREFIX, transforms: TRANSFORMS, files } },
-  });
-}
+const sd = new StyleDictionary({
+  source: [
+    src("primitive/*.tokens.json"),
+    src("semantic/midnight.tokens.json"),
+    src("component/*.tokens.json"),
+  ],
+  hooks: { formats: { "hb/css-block": cssBlock } },
+  log: { verbosity: "default", warnings: "error" },
+  platforms: {
+    css: {
+      prefix: PREFIX,
+      transforms: TRANSFORMS,
+      files: [{ destination: "root.css", format: "hb/css-block", options: { selector: ":root" } }],
+    },
+  },
+});
 
 /** Flat list of every token for the /system page and the contrast tests. */
-function toEntries(tokens, theme) {
+function toEntries(tokens) {
   return tokens.map((token) => ({
     name: token.path.join("."),
     cssVar: `--${token.name}`,
@@ -85,12 +59,11 @@ function toEntries(tokens, theme) {
         : JSON.stringify(token.original.$value),
     resolved: typeof token.$value === "string" ? token.$value : JSON.stringify(token.$value),
     layer: layerOf(token),
-    theme: layerOf(token) === "semantic" ? theme : null,
     ...(token.$description ? { description: token.$description } : {}),
   }));
 }
 
-/** Tailwind v4 theme: utilities point at the runtime variables so [data-theme] restyles them. */
+/** Tailwind v4 theme: utilities point at the runtime variables. */
 function tailwindTheme(tokens) {
   const has = (cssVar) => tokens.some((t) => `--${t.name}` === cssVar);
   const lines = [
@@ -112,7 +85,6 @@ function tailwindTheme(tokens) {
     `  --font-sans: var(--${PREFIX}-font-body);`,
     `  --font-display: var(--${PREFIX}-font-display);`,
     `  --font-mono: var(--${PREFIX}-font-code);`,
-    `  --font-pixel: var(--${PREFIX}-font-family-pixel);`,
     "",
   );
   for (const t of tokens) {
@@ -145,37 +117,18 @@ function tailwindTheme(tokens) {
 }
 
 async function build() {
-  const blocks = [];
-  const entries = [];
-  let baseTokens = [];
-
-  for (const theme of ["midnight", ...THEMES]) {
-    const sd = dictionaryFor(theme);
-    const outputs = await sd.formatPlatform("css");
-    blocks.push(...outputs.map((o) => o.output));
-
-    const { allTokens } = await sd.getPlatformTokens("css");
-    if (theme === "midnight") {
-      baseTokens = allTokens;
-      entries.push(...toEntries(allTokens, "midnight"));
-    } else {
-      entries.push(
-        ...toEntries(
-          allTokens.filter((t) => t.isSource && layerOf(t) === "semantic"),
-          theme,
-        ),
-      );
-    }
-  }
+  const outputs = await sd.formatPlatform("css");
+  const { allTokens } = await sd.getPlatformTokens("css");
+  const entries = toEntries(allTokens);
 
   await mkdir(outDir, { recursive: true });
   await writeFile(
     path.join(outDir, "tokens.css"),
-    `/* Generated by build.mjs. Do not edit. */\n${blocks.join("\n")}`,
+    `/* Generated by build.mjs. Do not edit. */\n${outputs.map((o) => o.output).join("\n")}`,
   );
-  await writeFile(path.join(outDir, "theme.css"), tailwindTheme(baseTokens));
+  await writeFile(path.join(outDir, "theme.css"), tailwindTheme(allTokens));
   await writeFile(path.join(outDir, "tokens.json"), `${JSON.stringify(entries, null, 2)}\n`);
-  console.log(`tokens: ${entries.length} entries, themes: midnight, ${THEMES.join(", ")}`);
+  console.log(`tokens: ${entries.length} entries`);
 }
 
 await build();

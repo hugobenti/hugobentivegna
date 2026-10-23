@@ -32,18 +32,6 @@
       "$description": "Made-up bank brands for the design-system case's rebrand scene.",
       "before": { "$value": "#2f5bd3", "$description": "The deep-blue brand before the rebrand." },
       "after": { "$value": "#0f7a6e", "$description": "The brand after the rebrand." }
-    },
-    "pixel": {
-      "$description": "PixelCraft slide palette.",
-      "950": { "$value": "#0f0e17" },
-      "900": { "$value": "#1a1825" },
-      "850": { "$value": "#232136" },
-      "700": { "$value": "#3a3754" },
-      "500": { "$value": "#a7a9be" },
-      "400": { "$value": "#c3c4d4" },
-      "50": { "$value": "#fffffe" },
-      "accent": { "$value": "#ffd803" },
-      "glow": { "$value": "#ffd80340" }
     }
   }
 }

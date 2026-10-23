@@ -1,9 +1,7 @@
 import generated from "./generated/tokens.json";
-import type { ITokenEntry, TThemeName } from "./tokens.type";
+import type { ITokenEntry } from "./tokens.type";
 
-export type { ITokenEntry, TThemeName, TTokenLayer } from "./tokens.type";
-
-export const themes: readonly TThemeName[] = ["midnight", "pixel"];
+export type { ITokenEntry, TTokenLayer } from "./tokens.type";
 
 export const tokens = generated as readonly ITokenEntry[];
 

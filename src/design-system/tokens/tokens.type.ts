@@ -1,5 +1,3 @@
-export type TThemeName = "midnight" | "pixel";
-
 export type TTokenLayer = "primitive" | "semantic" | "component";
 
 export interface ITokenEntry {
@@ -14,7 +12,5 @@ export interface ITokenEntry {
   /** Fully resolved value. */
   resolved: string;
   layer: TTokenLayer;
-  /** Theme a semantic value belongs to; null for primitives and component tokens. */
-  theme: TThemeName | null;
   description?: string;
 }
