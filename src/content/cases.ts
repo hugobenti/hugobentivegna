@@ -262,6 +262,40 @@ export const pixelhbCase: IPixelhbCase = {
     ],
     done: "Same pixels at every size.",
   },
+  controls: { pause: "Pause", play: "Play", replay: "Replay" },
+  memory: {
+    kicker: "02 · A million pixels",
+    title: "A million pixels in one megabyte.",
+    body: "A 1000 × 1000 canvas holds a million pixels. Stored as hex color strings, one state of it takes about 16 MB. PixelHB stores each layer as a Uint8Array instead: one byte per pixel, an index into a palette of up to 256 colors.",
+    storage: {
+      label: "Storage",
+      sizes: [
+        { label: "16 × 16", pixels: "256 pixels", scale: 0.016 },
+        { label: "64 × 64", pixels: "4,096 pixels", scale: 0.064 },
+        { label: "256 × 256", pixels: "65,536 pixels", scale: 0.256 },
+        { label: "1000 × 1000", pixels: "1,000,000 pixels", scale: 1 },
+      ],
+      bars: [
+        { label: "Hex color strings", value: "≈ 16 MB", share: 1 },
+        { label: "Palette indexes", value: "1 MB", share: 0.0625 },
+      ],
+    },
+    history: {
+      label: "Undo history",
+      title: "Undo keeps changes, not copies.",
+      body: "A stroke records only the pixels it changed: the layer, the pixel, the color before and after. A pixel painted twice in one stroke is one entry.",
+      grid: 8,
+      stroke: [
+        { index: 18, entry: "pixel 18 · 3 → 7" },
+        { index: 19, entry: "pixel 19 · 3 → 7" },
+        { index: 27, entry: "pixel 27 · 3 → 7" },
+        { index: 28, entry: "pixel 28 · 3 → 7" },
+        { index: 36, entry: "pixel 36 · 0 → 7" },
+        { index: 44, entry: "pixel 44 · 0 → 7" },
+      ],
+      footer: "A full copy per step would be 1 MB. This stroke: 6 entries.",
+    },
+  },
   cover: {
     kicker: "Case 03 · Personal project",
     title: "I needed a pixel-art editor, so I built one.",

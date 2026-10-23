@@ -199,6 +199,31 @@ export interface IPixelhbCase {
     /** Replaces the caption once everything is drawn; also read by screen readers. */
     done: string;
   };
+  /** The chapters run longer than 5 s, so they can be paused (WCAG 2.2.2). */
+  controls: { pause: string; play: string; replay: string };
+  /** Chapter 02: the storage a million pixels needs, and what undo keeps. */
+  memory: {
+    kicker: string;
+    title: string;
+    body: string;
+    storage: {
+      label: string;
+      /** Canvas sizes the readout steps through; `scale` is the square's side against 1000 (0..1). */
+      sizes: { label: string; pixels: string; scale: number }[];
+      /** `share` is the bar's width against the full bar (0..1). */
+      bars: { label: string; value: string; share: number }[];
+    };
+    history: {
+      label: string;
+      title: string;
+      body: string;
+      /** Side of the square grid the stroke is painted on. */
+      grid: number;
+      /** The stroke's pixels in the order they are painted, each with its history entry. */
+      stroke: { index: number; entry: string }[];
+      footer: string;
+    };
+  };
 }
 
 export interface IBrandAsset {

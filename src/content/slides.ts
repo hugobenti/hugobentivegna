@@ -17,6 +17,7 @@ export const slides = {
   aiBuild: { id: "build-on-it", label: "Build on it" },
   pixelCover: { id: "pixelhb", label: "PixelHB" },
   pixelBrand: { id: "signed-in-pixels", label: "Signed in pixels" },
+  pixelMemory: { id: "million-pixels", label: "A million pixels" },
   contact: { id: "contact", label: "Contact" },
 } as const satisfies Record<string, ISlideMeta>;
 
