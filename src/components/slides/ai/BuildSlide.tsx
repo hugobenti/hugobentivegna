@@ -2,10 +2,11 @@
 
 import { aiCase } from "@/content/cases";
 import { slides } from "@/content/slides";
-import { Button, cx } from "@/design-system/ui";
+import { Button, PlaybackControl, cx } from "@/design-system/ui";
 import { deck } from "../../deck/Deck.style";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
+import { ChapterIntro } from "../ChapterIntro/ChapterIntro";
 import { buildSlide } from "./BuildSlide.style";
 import { useReviewLoop } from "./useReviewLoop";
 
@@ -19,15 +20,7 @@ export function BuildSlide() {
     <Slide slide={slides.aiBuild}>
       <div className={buildSlide.content}>
         <div>
-          <p className={cx(deck.reveal, buildSlide.kicker)} style={stagger(0)}>
-            {build.kicker}
-          </p>
-          <h2 className={cx(deck.reveal, buildSlide.title)} style={stagger(1)}>
-            {build.title}
-          </h2>
-          <p className={cx(deck.reveal, buildSlide.body)} style={stagger(2)}>
-            {build.body}
-          </p>
+          <ChapterIntro kicker={build.kicker} title={build.title} body={build.body} />
           <p className={cx(deck.reveal, buildSlide.closing)} style={stagger(3)}>
             {build.closing}
           </p>
@@ -40,7 +33,7 @@ export function BuildSlide() {
 
         <div
           ref={ref}
-          data-playback=""
+
           {...progress}
           className={cx(deck.reveal, buildSlide.panel)}
           style={stagger(3)}
@@ -111,11 +104,7 @@ export function BuildSlide() {
                 </li>
               ))}
             </ul>
-            {control.shown ? (
-              <Button variant="secondary" className={buildSlide.control} onClick={control.toggle}>
-                {control.label}
-              </Button>
-            ) : null}
+            <PlaybackControl {...control} className={buildSlide.control} />
           </div>
         </div>
       </div>

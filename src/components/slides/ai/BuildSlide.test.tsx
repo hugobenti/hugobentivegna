@@ -3,28 +3,22 @@ import { act, render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { aiCase } from "@/content/cases";
+import { site } from "@/content/site";
 import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { stubReducedMotion } from "@/test/reducedMotion";
 import { BuildSlide } from "./BuildSlide";
 import { REVIEW_FIXED_MS, REVIEW_MS, REVIEW_STAGE_MS } from "./reviewTimeline";
 
-const { build, controls } = aiCase;
+const { build } = aiCase;
+const controls = site.playback;
 const { review } = build;
 
-function stubReducedMotion(reduce: boolean) {
-  vi.stubGlobal("matchMedia", (query: string) => ({
-    matches: reduce && query.includes("reduce"),
-    media: query,
-    addEventListener() {},
-    removeEventListener() {},
-  }));
-}
-
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
-const start = () => centreLineObserver().report("[data-playback]", true);
-const panel = (container: HTMLElement) => container.querySelector("[data-playback]") as HTMLElement;
+const start = () => centreLineObserver().reportAll(true);
+const panel = (container: HTMLElement) => container.querySelector("[data-stage]") as HTMLElement;
 
 beforeEach(() => {
   installFakeIntersectionObserver();

@@ -2,10 +2,11 @@
 
 import { aiCase } from "@/content/cases";
 import { slides } from "@/content/slides";
-import { Button, cx } from "@/design-system/ui";
+import { PlaybackControl, cx } from "@/design-system/ui";
 import { deck } from "../../deck/Deck.style";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
+import { ChapterIntro } from "../ChapterIntro/ChapterIntro";
 import { gapsSlide } from "./GapsSlide.style";
 import { useGapsScene } from "./useGapsScene";
 
@@ -18,20 +19,12 @@ export function GapsSlide() {
     <Slide slide={slides.aiGaps}>
       <div className={gapsSlide.content}>
         <div>
-          <p className={cx(deck.reveal, gapsSlide.kicker)} style={stagger(0)}>
-            {gaps.kicker}
-          </p>
-          <h2 className={cx(deck.reveal, gapsSlide.title)} style={stagger(1)}>
-            {gaps.title}
-          </h2>
-          <p className={cx(deck.reveal, gapsSlide.body)} style={stagger(2)}>
-            {gaps.body}
-          </p>
+          <ChapterIntro kicker={gaps.kicker} title={gaps.title} body={gaps.body} />
         </div>
 
         <div
           ref={ref}
-          data-playback=""
+
           className={cx(deck.reveal, gapsSlide.panel)}
           style={stagger(3)}
         >
@@ -69,11 +62,7 @@ export function GapsSlide() {
             <p className={gapsSlide.caption} aria-hidden="true">
               {caption}
             </p>
-            {control.shown ? (
-              <Button variant="secondary" className={gapsSlide.control} onClick={control.toggle}>
-                {control.label}
-              </Button>
-            ) : null}
+            <PlaybackControl {...control} className={gapsSlide.control} />
           </div>
           <p className={gapsSlide.summary}>{gaps.done}</p>
         </div>

@@ -2,10 +2,11 @@
 
 import { aiCase } from "@/content/cases";
 import { slides } from "@/content/slides";
-import { Button, cx } from "@/design-system/ui";
+import { PlaybackControl, cx } from "@/design-system/ui";
 import { deck } from "../../deck/Deck.style";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
+import { ChapterIntro } from "../ChapterIntro/ChapterIntro";
 import { foundationSlide } from "./FoundationSlide.style";
 import { useFoundationScene } from "./useFoundationScene";
 
@@ -18,15 +19,11 @@ export function FoundationSlide() {
     <Slide slide={slides.aiFoundation}>
       <div className={foundationSlide.content}>
         <div>
-          <p className={cx(deck.reveal, foundationSlide.kicker)} style={stagger(0)}>
-            {foundation.kicker}
-          </p>
-          <h2 className={cx(deck.reveal, foundationSlide.title)} style={stagger(1)}>
-            {foundation.title}
-          </h2>
-          <p className={cx(deck.reveal, foundationSlide.body)} style={stagger(2)}>
-            {foundation.body}
-          </p>
+          <ChapterIntro
+            kicker={foundation.kicker}
+            title={foundation.title}
+            body={foundation.body}
+          />
           <p className={cx(deck.reveal, foundationSlide.note)} style={stagger(3)}>
             {foundation.note}
           </p>
@@ -34,7 +31,7 @@ export function FoundationSlide() {
 
         <div
           ref={ref}
-          data-playback=""
+
           className={cx(deck.reveal, foundationSlide.demo)}
           style={stagger(3)}
         >
@@ -59,15 +56,7 @@ export function FoundationSlide() {
             ))}
           </ul>
           <div className={foundationSlide.footer}>
-            {control.shown ? (
-              <Button
-                variant="secondary"
-                className={foundationSlide.control}
-                onClick={control.toggle}
-              >
-                {control.label}
-              </Button>
-            ) : null}
+            <PlaybackControl {...control} />
           </div>
         </div>
       </div>

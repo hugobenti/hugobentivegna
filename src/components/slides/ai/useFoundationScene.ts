@@ -1,9 +1,9 @@
 import { aiCase } from "@/content/cases";
-import { usePlayback } from "../../deck/usePlayback";
+import { usePlaybackControl } from "../../deck/usePlaybackControl";
 import { foundationDuration, foundationFrame } from "./foundationTimeline";
 import type { IShownLine } from "./useFoundationScene.type";
 
-const { foundation, controls } = aiCase;
+const { foundation } = aiCase;
 const count = foundation.excerpts.length;
 const duration = foundationDuration(count);
 
@@ -12,8 +12,7 @@ const duration = foundationDuration(count);
  * them stay lit. Every excerpt is rendered from the start; only `on` changes.
  */
 export function useFoundationScene() {
-  const { ref, elapsed, paused, finished, controllable, toggle } =
-    usePlayback<HTMLDivElement>(duration);
+  const { ref, elapsed, control } = usePlaybackControl<HTMLDivElement>(duration);
   const frame = foundationFrame(elapsed, count);
   return {
     ref,
@@ -25,11 +24,6 @@ export function useFoundationScene() {
       })),
       on: frame.all || frame.current === index,
     })),
-    control: {
-      /** Only offered while it can act and something moves (not without JS or motion). */
-      shown: controllable,
-      label: finished ? controls.replay : paused ? controls.play : controls.pause,
-      toggle,
-    },
+    control,
   };
 }

@@ -103,7 +103,6 @@ export const aiCase: IAiCase = {
       { number: "03", label: "Build on it" },
     ],
   },
-  controls: { pause: "Pause", play: "Play", replay: "Replay" },
   gaps: {
     kicker: "01 · Find the gaps",
     title: "Before writing code, I asked what was missing.",

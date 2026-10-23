@@ -220,8 +220,6 @@ export interface ITool {
 
 export interface IAiCase {
   cover: ICaseCover;
-  /** Each scene runs longer than 5 s, so it can be paused (WCAG 2.2.2). */
-  controls: { pause: string; play: string; replay: string };
   /** Chapter 01: an agent compares product docs, the tech spec and the code before any work. */
   gaps: {
     kicker: string;
