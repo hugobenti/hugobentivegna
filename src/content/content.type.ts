@@ -180,6 +180,12 @@ export interface IExcerpt {
   lines: IExcerptLine[];
 }
 
+export interface IPixelhbCase {
+  cover: ICaseCover;
+  /** The accessible name of the logo lockup on the cover. */
+  mark: string;
+}
+
 export interface IAiCase {
   cover: ICaseCover;
   /** Each scene runs longer than 5 s, so it can be paused (WCAG 2.2.2). */

@@ -1,4 +1,4 @@
-import type { IAiCase, IDesignSystemCase } from "./content.type";
+import type { IAiCase, IDesignSystemCase, IPixelhbCase } from "./content.type";
 
 /** Design-system case: the real story, told without naming the company (spec 2026-10-17). */
 export const designSystemCase: IDesignSystemCase = {
@@ -237,5 +237,23 @@ export const aiCase: IAiCase = {
       checkMarks: { pending: "○", passed: "✓" },
       status: { open: "Open", merged: "Merged" },
     },
+  },
+};
+
+/** PixelHB case: a pixel-art editor I designed and built (spec 2026-10-23). */
+export const pixelhbCase: IPixelhbCase = {
+  mark: "PixelHB",
+  cover: {
+    kicker: "Case 03 · Personal project",
+    title: "PixelHB: a pixel-art editor, designed and built by Hugo Bentivegna.",
+    body: "PixelHB runs in the browser: layers, a reference image, your own palette, no account and no install. I designed the brand and the interface, wrote the engine and shipped it live. It's built to handle large pixel illustrations.",
+    meta: [
+      { label: "When", value: "2026" },
+      { label: "My role", value: "Product, brand, design and code" },
+    ],
+    chapters: [
+      { number: "01", label: "Signed in pixels" },
+      { number: "02", label: "Pixel-exact" },
+    ],
   },
 };
