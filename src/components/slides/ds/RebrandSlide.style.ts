@@ -23,7 +23,6 @@ export const rebrandSlide = {
   flags: "flex flex-wrap gap-2",
   /** WITHOUT / WITH: the act on screen is highlighted. */
   flag: "rounded-pill border border-line px-3 py-1.5 font-mono text-label text-subtle uppercase transition-colors duration-(--hb-duration-base) data-[active=true]:border-accent data-[active=true]:bg-accent data-[active=true]:text-on-accent",
-  control: "h-8 px-4 text-label",
   /** One act while playing; both acts' end states side by side under reduced motion. */
   acts: {
     playing: "grid",
@@ -106,8 +105,6 @@ export const rebrandScene = {
     "size-6 shrink-0 text-line group-data-[state=done]/dev:text-subtle group-data-[playing=true]/panel:group-data-[state=working]/dev:motion-safe:animate-pulse",
   systemAvatar:
     "size-7 shrink-0 text-subtle group-data-[playing=true]/panel:group-data-[state=working]/system:motion-safe:animate-pulse",
-  avatarHead: "fill-current",
-  avatarLaptop: "fill-raised stroke-subtle",
   track: cx(track, "flex-1"),
   fill,
   systemTrack: cx(track, "w-full"),

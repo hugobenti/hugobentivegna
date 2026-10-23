@@ -1,26 +1,19 @@
 import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { designSystemCase } from "@/content/cases";
+import { site } from "@/content/site";
 import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { stubReducedMotion } from "@/test/reducedMotion";
 import { RebrandSlide } from "./RebrandSlide";
 import { ACT1_MS, ACT2_START_MS, DEV_FINISH_MS, SCENE_MS } from "./rebrandTimeline";
 
 const { rebrand } = designSystemCase;
 
-function stubReducedMotion(reduce: boolean) {
-  vi.stubGlobal("matchMedia", (query: string) => ({
-    matches: reduce && query.includes("reduce"),
-    media: query,
-    addEventListener() {},
-    removeEventListener() {},
-  }));
-}
-
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
-const start = () => centreLineObserver().report("[data-playback]", true);
+const start = () => centreLineObserver().reportAll(true);
 const rebranded = (container: HTMLElement) =>
   container.querySelectorAll('[data-rebranded="true"]').length;
 const activeFlag = (container: HTMLElement) =>
@@ -67,11 +60,11 @@ test("the pause button stops the scene, and play resumes it", () => {
   start();
   advance(1700);
   const before = rebranded(container);
-  act(() => screen.getByRole("button", { name: rebrand.controls.pause }).click());
+  act(() => screen.getByRole("button", { name: site.playback.pause }).click());
   advance(3000);
   expect(rebranded(container)).toBe(before);
   expect(container.querySelectorAll('[data-playing="true"]')).toHaveLength(0);
-  act(() => screen.getByRole("button", { name: rebrand.controls.play }).click());
+  act(() => screen.getByRole("button", { name: site.playback.play }).click());
   // Resumes from 1.7 s, so act 1 ends after the remaining time, not a full act.
   advance(ACT1_MS - 1700);
   expect(rebranded(container)).toBe(6);
@@ -81,7 +74,7 @@ test("once finished, the button replays the scene from act 1", () => {
   const { container } = render(<RebrandSlide />);
   start();
   advance(SCENE_MS);
-  act(() => screen.getByRole("button", { name: rebrand.controls.replay }).click());
+  act(() => screen.getByRole("button", { name: site.playback.replay }).click());
   expect(activeFlag(container)).toBe(rebrand.acts.without.label);
   expect(rebranded(container)).toBe(0);
 });
@@ -102,7 +95,7 @@ test("reduced motion shows both acts at their end, with nothing to pause", () =>
   const { container } = render(<RebrandSlide />);
   expect(rebranded(container)).toBe(12);
   expect(container.querySelectorAll('[data-state="working"]')).toHaveLength(0);
-  expect(screen.queryByRole("button", { name: rebrand.controls.pause })).toBeNull();
+  expect(screen.queryByRole("button", { name: site.playback.pause })).toBeNull();
 });
 
 test("the content has one product per developer timing", () => {

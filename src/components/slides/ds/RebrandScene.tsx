@@ -1,5 +1,6 @@
 import { designSystemCase } from "@/content/cases";
 import { Button } from "@/design-system/ui";
+import { Avatar } from "./Avatar";
 import { rebrandScene } from "./RebrandSlide.style";
 import type { TRebrandSceneProps } from "./RebrandScene.type";
 
@@ -27,21 +28,7 @@ export function RebrandScene({ view, layout }: TRebrandSceneProps) {
 
       {view.system.visible ? (
         <div data-state={view.system.state} className={rebrandScene.system}>
-          <svg viewBox="0 0 40 40" className={rebrandScene.systemAvatar}>
-            <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
-            <path
-              d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"
-              className={rebrandScene.avatarHead}
-            />
-            <rect
-              x="11"
-              y="29"
-              width="18"
-              height="8"
-              rx="2"
-              className={rebrandScene.avatarLaptop}
-            />
-          </svg>
+          <Avatar className={rebrandScene.systemAvatar} />
           <span className={rebrandScene.systemText}>
             <span className={rebrandScene.systemName}>{rebrand.system.name}</span>
             <span className={rebrandScene.systemTrack}>
@@ -88,21 +75,7 @@ export function RebrandScene({ view, layout }: TRebrandSceneProps) {
               data-state={product.developer}
               className={rebrandScene.developer}
             >
-              <svg viewBox="0 0 40 40" className={rebrandScene.avatar}>
-                <circle cx="20" cy="13" r="7" className={rebrandScene.avatarHead} />
-                <path
-                  d="M7 37c1.3-8 6.5-11.5 13-11.5S31.7 29 33 37"
-                  className={rebrandScene.avatarHead}
-                />
-                <rect
-                  x="11"
-                  y="29"
-                  width="18"
-                  height="8"
-                  rx="2"
-                  className={rebrandScene.avatarLaptop}
-                />
-              </svg>
+              <Avatar className={rebrandScene.avatar} />
               <span className={rebrandScene.track}>
                 <span className={rebrandScene.fill} style={product.progress} />
               </span>

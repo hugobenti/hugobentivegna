@@ -1,6 +1,6 @@
 import { designSystemCase } from "@/content/cases";
 import { cssVars } from "@/design-system/ui";
-import { usePlayback } from "../../deck/usePlayback";
+import { usePlaybackControl } from "../../deck/usePlaybackControl";
 import {
   ACT2_START_MS,
   DEV_FINISH_MS,
@@ -56,7 +56,8 @@ const STILL_VIEWS = [
  * control the scene needs because it runs longer than 5 s.
  */
 export function useRebrandScene() {
-  const { ref, elapsed, still, paused, finished, toggle } = usePlayback<HTMLDivElement>(SCENE_MS);
+  const { ref, elapsed, still, paused, finished, control } =
+    usePlaybackControl<HTMLDivElement>(SCENE_MS);
   const frame = sceneFrame(elapsed);
   const actElapsed = frame.act === "with" ? elapsed - ACT2_START_MS : elapsed;
   return {
@@ -70,13 +71,6 @@ export function useRebrandScene() {
       label: rebrand.acts[act].label,
       active: !still && frame.act === act,
     })),
-    control: {
-      label: finished
-        ? rebrand.controls.replay
-        : paused
-          ? rebrand.controls.play
-          : rebrand.controls.pause,
-      toggle,
-    },
+    control,
   };
 }
