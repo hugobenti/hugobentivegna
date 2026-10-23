@@ -18,16 +18,9 @@ tokens (DTCG JSON) → Style Dictionary → CSS variables + Tailwind theme → U
 
 Components only use semantic and component tokens through Tailwind utilities such as `bg-surface`, `text-muted` or `font-display`. Tailwind's default palette is removed, so a raw color can't sneak in.
 
-## Themes
+## Color
 
-A theme remaps the semantic layer under `[data-theme="…"]`. Switch themes with the **paintbrush** in the toolbar:
-
-| Theme      | Used for                 |
-| ---------- | ------------------------ |
-| `midnight` | The whole site (default) |
-| `pixel`    | The PixelCraft slide     |
-
-Every theme passes WCAG 2.2 AA contrast; a test fails the build if one doesn't. The full token reference lives on the site's [/system](https://hugobentivegna.vercel.app/system) page.
+One theme, Midnight. Every text and UI pair passes WCAG 2.2 AA; `contrast.test.ts` fails the build if one doesn't. The full token reference lives on the site's [/system](https://hugobentivegna.vercel.app/system) page.
 
 ## Reading a component page
 
