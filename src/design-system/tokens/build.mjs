@@ -47,7 +47,7 @@ const sd = new StyleDictionary({
   },
 });
 
-/** Flat list of every token for the /system page and the contrast tests. */
+/** Flat list of every token for the Foundations pages in Storybook and the contrast tests. */
 function toEntries(tokens) {
   return tokens.map((token) => ({
     name: token.path.join("."),
