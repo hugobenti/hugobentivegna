@@ -19,6 +19,7 @@ export const site: ISiteContent = {
   homeLabel: "Hugo Bentivegna, back to the start",
   navLabel: "Primary",
   dotsLabel: "Sections",
+  playback: { pause: "Pause", play: "Play", replay: "Replay" },
   nav: [
     { label: "Experience", slideId: slides.timeline.id },
     {

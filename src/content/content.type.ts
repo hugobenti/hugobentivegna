@@ -1,5 +1,11 @@
 import type { ITimelineEntry } from "@/design-system/ui";
 
+export interface IPlaybackLabels {
+  pause: string;
+  play: string;
+  replay: string;
+}
+
 export interface INavLink {
   label: string;
   /** Id of the slide the link jumps to; links to slides that don't exist yet aren't rendered. */
@@ -27,6 +33,8 @@ export interface ISiteContent {
   navLabel: string;
   /** Names the section dots at the side of the page. */
   dotsLabel: string;
+  /** Labels of the pause control every animation longer than 5 s offers (WCAG 2.2.2). */
+  playback: IPlaybackLabels;
   nav: INavLink[];
 }
 

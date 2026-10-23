@@ -9,6 +9,8 @@ export { cssVars } from "./cssVars";
 export { DotNav } from "./DotNav/DotNav";
 export type { TDotNavItem, TDotNavProps } from "./DotNav/DotNav.type";
 export { focusRing, focusRingWithin } from "./focus.style";
+export { PlaybackControl } from "./PlaybackControl/PlaybackControl";
+export type { TPlaybackControlProps } from "./PlaybackControl/PlaybackControl.type";
 export { SectionNav } from "./SectionNav/SectionNav";
 export type { TSectionNavItem, TSectionNavProps } from "./SectionNav/SectionNav.type";
 export { Tag } from "./Tag/Tag";

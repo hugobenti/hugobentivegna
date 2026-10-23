@@ -17,6 +17,7 @@ export const button = {
     ghost: "text-fg hover:bg-raised",
   },
   size: {
+    sm: "h-8 px-4 text-label",
     md: "h-10 px-5 text-small",
     lg: "h-12 px-7 text-body",
   },
