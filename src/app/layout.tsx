@@ -7,7 +7,7 @@ export const metadata = siteMetadata;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-theme="midnight" className={fontVariables}>
+    <html lang="en" className={fontVariables}>
       <body>{children}</body>
     </html>
   );

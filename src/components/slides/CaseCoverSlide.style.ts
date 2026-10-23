@@ -1,7 +1,7 @@
 export const caseCoverSlide = {
   slide: "overflow-hidden",
   /**
-   * The theme's glow, drawn inside the slide's own box: the gradient fades out before any edge,
+   * The glow token, drawn inside the slide's own box: the gradient fades out before any edge,
    * so it never shows a hard line where two slides meet.
    */
   glow: "pointer-events-none absolute inset-0 bg-[radial-gradient(40%_45%_at_75%_45%,var(--hb-color-glow),transparent)]",

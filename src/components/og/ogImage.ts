@@ -9,22 +9,22 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 /**
- * Midnight colors as plain values: the image renderer can't read CSS variables, so the card
+ * Token colors as plain values: the image renderer can't read CSS variables, so the card
  * takes them from the generated tokens instead of hard-coding them.
  */
-function midnight(name: string): string {
-  const token = tokens.find((t) => t.name === `color.${name}` && t.theme === "midnight");
-  if (!token) throw new Error(`missing midnight token color.${name}`);
+function color(name: string): string {
+  const token = tokens.find((t) => t.name === `color.${name}`);
+  if (!token) throw new Error(`missing token color.${name}`);
   return token.resolved;
 }
 
 export const ogPalette = {
-  bg: midnight("bg"),
-  fg: midnight("fg"),
-  muted: midnight("muted"),
-  subtle: midnight("subtle"),
-  accent: midnight("accent"),
-  glow: midnight("glow"),
+  bg: color("bg"),
+  fg: color("fg"),
+  muted: color("muted"),
+  subtle: color("subtle"),
+  accent: color("accent"),
+  glow: color("glow"),
 };
 
 const fontFile = (weight: 400 | 800) =>

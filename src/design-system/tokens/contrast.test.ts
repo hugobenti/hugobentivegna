@@ -1,15 +1,12 @@
 import { describe, expect, test } from "vitest";
-import { contrastRatio, themes, tokens } from "./index";
-import type { TThemeName } from "./tokens.type";
+import { contrastRatio, tokens } from "./index";
 
-/** Resolved semantic colors for a theme; tokens a theme doesn't override fall back to midnight. */
-function semanticColors(theme: TThemeName): Record<string, string> {
+/** Resolved semantic colors, keyed without the "color." prefix. */
+function semanticColors(): Record<string, string> {
   const colors: Record<string, string> = {};
-  for (const source of ["midnight", theme] as const) {
-    for (const t of tokens) {
-      if (t.layer === "semantic" && t.type === "color" && t.theme === source) {
-        colors[t.name.replace(/^color\./, "")] = t.resolved;
-      }
+  for (const t of tokens) {
+    if (t.layer === "semantic" && t.type === "color") {
+      colors[t.name.replace(/^color\./, "")] = t.resolved;
     }
   }
   return colors;
@@ -42,8 +39,8 @@ describe("contrastRatio", () => {
   });
 });
 
-describe.each(themes)("%s theme meets WCAG 2.2 AA", (theme) => {
-  const c = semanticColors(theme);
+describe("Midnight meets WCAG 2.2 AA", () => {
+  const c = semanticColors();
 
   test.each([
     ["fg", "bg"],

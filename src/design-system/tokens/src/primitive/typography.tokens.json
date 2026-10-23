@@ -9,10 +9,6 @@
       "mono": {
         "$value": ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
         "$description": "JetBrains Mono, loaded by next/font."
-      },
-      "pixel": {
-        "$value": ["var(--font-silkscreen)", "ui-monospace", "monospace"],
-        "$description": "Silkscreen, used only by the pixel theme."
       }
     },
     "weight": {
