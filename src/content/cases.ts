@@ -242,7 +242,6 @@ export const aiCase: IAiCase = {
 export const pixelhbCase: IPixelhbCase = {
   mark: "PixelHB",
   drawing: "A retro computer drawn pixel by pixel in PixelHB colors",
-  controls: { pause: "Pause", play: "Play", replay: "Replay" },
   exact: {
     kicker: "01 · The editor",
     title: "Everything you need to draw pixel art, in the browser.",

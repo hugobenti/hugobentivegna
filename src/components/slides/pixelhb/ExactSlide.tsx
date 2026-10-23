@@ -2,10 +2,11 @@
 
 import { pixelhbCase } from "@/content/cases";
 import { slides } from "@/content/slides";
-import { Button, cx } from "@/design-system/ui";
+import { Button, cx, PlaybackControl } from "@/design-system/ui";
 import { deck } from "../../deck/Deck.style";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
+import { ChapterIntro } from "../ChapterIntro/ChapterIntro";
 import { exactSlide } from "./ExactSlide.style";
 import { PixelArt } from "./PixelArt";
 import { useExactScene } from "./useExactScene";
@@ -19,15 +20,7 @@ export function ExactSlide() {
     <Slide slide={slides.pixelExact}>
       <div className={exactSlide.content}>
         <div>
-          <p className={cx(deck.reveal, exactSlide.kicker)} style={stagger(0)}>
-            {exact.kicker}
-          </p>
-          <h2 className={cx(deck.reveal, exactSlide.title)} style={stagger(1)}>
-            {exact.title}
-          </h2>
-          <p className={cx(deck.reveal, exactSlide.body)} style={stagger(2)}>
-            {exact.body}
-          </p>
+          <ChapterIntro kicker={exact.kicker} title={exact.title} body={exact.body} />
           <div className={cx(deck.reveal, exactSlide.links)} style={stagger(3)}>
             <Button href={exact.live.href} external>
               {exact.live.label}
@@ -36,19 +29,10 @@ export function ExactSlide() {
               {exact.code.label}
             </Button>
           </div>
-          {control.shown ? (
-            <Button variant="secondary" className={exactSlide.control} onClick={control.toggle}>
-              {control.label}
-            </Button>
-          ) : null}
+          <PlaybackControl {...control} className={exactSlide.control} />
         </div>
 
-        <ul
-          ref={ref}
-          data-playback=""
-          className={cx(deck.reveal, exactSlide.cards)}
-          style={stagger(4)}
-        >
+        <ul ref={ref} className={cx(deck.reveal, exactSlide.cards)} style={stagger(4)}>
           {tools.map((tool) => (
             <li
               key={tool.name}

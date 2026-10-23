@@ -19,6 +19,9 @@ export type TPixelKey =
   | "r"
   | "b";
 
+/** A cell of a drawing is drawn (`on`) or not yet (`off`). */
+export type TCellState = "on" | "off";
+
 /** One string per row, one character per pixel; `.` is empty. */
 export type TPixelGrid = readonly string[];
 
