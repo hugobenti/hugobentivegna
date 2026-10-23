@@ -23,7 +23,7 @@ export const gapsSlide = {
 
   checks: "flex flex-col gap-2",
   /**
-   * One expectation. Idle checks are dimmed with the `muted` text color (AA on every theme,
+   * One expectation. Idle checks are dimmed with the `muted` text color (AA on Midnight,
    * unlike a faded card); a landed result colors the outline. The height never changes: the
    * badge and the reason only fade in.
    */
