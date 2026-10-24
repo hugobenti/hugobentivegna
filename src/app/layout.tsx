@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { ReactNode } from "react";
 import { siteMetadata } from "@/content/metadata";
 import { fontVariables } from "./fonts";
@@ -8,7 +9,10 @@ export const metadata = siteMetadata;
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={fontVariables}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
