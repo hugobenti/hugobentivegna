@@ -82,20 +82,20 @@ export const Contrast: TStory = {
               {fg.name} on {bg.name}
             </th>
             <td className={f.cell}>
-              {isText ? (
-                <span
-                  className={f.sample}
-                  style={{ color: `var(${fg.cssVar})`, backgroundColor: `var(${bg.cssVar})` }}
-                >
-                  Aa
-                </span>
-              ) : (
-                <span
-                  className={f.chip}
-                  style={{ backgroundColor: `var(${fg.cssVar})` }}
-                  aria-hidden="true"
-                />
-              )}
+              <span
+                className={f.sample}
+                style={{ color: `var(${fg.cssVar})`, backgroundColor: `var(${bg.cssVar})` }}
+              >
+                {isText ? (
+                  "Aa"
+                ) : (
+                  <span
+                    className={f.chip}
+                    style={{ backgroundColor: `var(${fg.cssVar})` }}
+                    aria-hidden="true"
+                  />
+                )}
+              </span>
             </td>
             <td className={f.cellCode}>{ratio.toFixed(2)}:1</td>
             <td className={f.cellCode}>

@@ -19,10 +19,10 @@ export const foundation = {
   cell: "border-b border-line py-3 pr-4 align-top text-muted",
   cellName: "border-b border-line py-3 pr-4 align-top font-mono font-medium text-fg",
   cellCode: "border-b border-line py-3 pr-4 align-top font-mono text-label text-muted",
-  /** Pair preview: text sample or filled chip of the foreground on the background. */
+  /** Pair preview, always on the pair's background: a text sample, or a chip filled with the foreground. */
   sample:
     "inline-flex min-w-16 items-center justify-center rounded-sm border border-line px-3 py-1",
-  chip: "inline-block h-6 w-16 rounded-sm border border-line",
+  chip: "inline-block h-4 w-8 rounded-sm",
   pass: "border-b border-line py-3 pr-4 align-top font-mono font-medium text-success",
   fail: "border-b border-line py-3 pr-4 align-top font-mono font-medium text-danger",
   /** Typography. */
