@@ -1,6 +1,3 @@
-import { cx } from "../ui/cx";
-import { focusRing } from "../ui/focus.style";
-
 /** Layout and specimen styles of the Foundations pages. Colors and sizes of the tokens themselves are set inline from the token's CSS variable, never here. */
 export const foundation = {
   page: "flex flex-col gap-12",
@@ -44,12 +41,5 @@ export const foundation = {
   motionRow: "grid items-center gap-2 md:grid-cols-[14rem_1fr] md:gap-8",
   track: "relative h-6 rounded-pill bg-raised",
   dot: "absolute top-1/2 left-0 size-4 -translate-y-1/2 rounded-pill bg-accent transition-[left] data-[moved=true]:left-[calc(100%-1rem)] motion-reduce:transition-none",
-  /** Focus. */
   row: "flex flex-wrap items-center gap-6",
-  demoLink: cx("rounded-sm text-fg underline underline-offset-4", focusRing),
-  forcedRing: "inline-flex rounded-pill border border-line bg-raised px-5 py-2 text-small text-fg",
-  code: cx(
-    "w-fit max-w-full overflow-x-auto rounded-md border border-line bg-surface p-4 font-mono text-label text-muted",
-    focusRing,
-  ),
 } as const;
