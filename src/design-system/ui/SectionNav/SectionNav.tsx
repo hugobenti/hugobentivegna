@@ -4,14 +4,20 @@ import type { TSectionNavProps } from "./SectionNav.type";
 
 /**
  * In-page section links for a sticky header: the active one is bold, inside accent brackets.
- * On narrow screens the row scrolls sideways and keeps the active link in view.
+ * On narrow screens the row scrolls sideways, keeps the active link centred, fades the edge that
+ * hides links and swaps long labels for their `shortLabel`.
  */
 export function SectionNav({ items, activeId, label = "Sections", className }: TSectionNavProps) {
-  const { listRef } = useSectionNav(activeId);
+  const { listRef, overflow, links } = useSectionNav(items, activeId);
   return (
     <nav aria-label={label} className={className}>
-      <ul ref={listRef} className={sectionNav.list}>
-        {items.map((item) => (
+      <ul
+        ref={listRef}
+        className={sectionNav.list}
+        data-overflow-start={overflow.start ? "" : undefined}
+        data-overflow-end={overflow.end ? "" : undefined}
+      >
+        {links.map((item) => (
           <li key={item.id} className={sectionNav.item}>
             <a
               href={item.href}
@@ -21,12 +27,14 @@ export function SectionNav({ items, activeId, label = "Sections", className }: T
               <span className={sectionNav.bracket} aria-hidden="true">
                 [
               </span>
-              <span className={sectionNav.text}>
-                <span className={sectionNav.label}>{item.label}</span>
-                <span className={sectionNav.sizer} aria-hidden="true">
-                  {item.label}
+              {item.texts.map((text) => (
+                <span key={text.variant} className={sectionNav.text[text.variant]}>
+                  <span className={sectionNav.label}>{text.label}</span>
+                  <span className={sectionNav.sizer} aria-hidden="true">
+                    {text.label}
+                  </span>
                 </span>
-              </span>
+              ))}
               <span className={sectionNav.bracket} aria-hidden="true">
                 ]
               </span>

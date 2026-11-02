@@ -1,4 +1,10 @@
-export type TSectionNavItem = { id: string; label: string; href: string };
+export type TSectionNavItem = {
+  id: string;
+  label: string;
+  href: string;
+  /** Compact label shown below the `md` breakpoint, where the full one would overflow the row. */
+  shortLabel?: string;
+};
 
 export type TSectionNavProps = {
   items: readonly TSectionNavItem[];

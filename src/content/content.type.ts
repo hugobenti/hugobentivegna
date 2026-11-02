@@ -8,6 +8,8 @@ export interface IPlaybackLabels {
 
 export interface INavLink {
   label: string;
+  /** Compact label for phones, where the full one would overflow the nav row. */
+  shortLabel?: string;
   /** Id of the slide the link jumps to; links to slides that don't exist yet aren't rendered. */
   slideId: string;
   /** Every slide in this link's section (e.g. a case); defaults to `slideId` alone. */

@@ -25,13 +25,16 @@ In-page links to the sections of a long page, for a sticky header. The section t
 - The active link has `aria-current="location"`, and its look comes from that attribute, so what is announced and what is shown can't disagree.
 - The brackets are decorative (`aria-hidden`), so a link's name is just its label.
 - Brackets and bold weight are reserved for every link, so the row never shifts when the active section changes.
-- On narrow screens the row scrolls sideways and keeps the active link in view, scrolling instantly when the visitor prefers reduced motion. The page itself never moves.
+- On narrow screens the row scrolls sideways and keeps the active link centred, scrolling instantly when the visitor prefers reduced motion. The page itself never moves.
+- The edge that hides links fades out, so the row reads as scrollable.
+- An item's optional `shortLabel` replaces its `label` below the `md` breakpoint. Only one of the two is rendered at a time (the other is `display: none`), so a link's name is never doubled.
 
 ## Do / Don't
 
 | Do                                      | Don't                                    |
 | --------------------------------------- | ---------------------------------------- |
 | Short section names ("Experience")      | One link per slide (use `DotNav`)        |
+| A `shortLabel` for any long label       | Let a long label overflow a phone row    |
 | One active section, or none             | Highlight several sections at once       |
 | Hide links to sections that don't exist | Show "coming soon" links that go nowhere |
 
