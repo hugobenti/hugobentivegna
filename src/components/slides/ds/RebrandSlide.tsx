@@ -14,7 +14,7 @@ const { rebrand } = designSystemCase;
 
 /**
  * The test: the rebrand. One scene plays the same rebrand without, then with, a design system;
- * a flag shows which act is on screen, and the one control pauses or replays it.
+ * a flag shows which act is on screen, and the one control plays, pauses or replays it.
  */
 export function RebrandSlide() {
   const { ref, still, sideBySide, views, playing, flags, control } = useRebrandScene();

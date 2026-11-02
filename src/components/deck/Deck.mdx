@@ -65,15 +65,16 @@ A slide made of several full-viewport steps under a pinned header: `Slide` with 
 
 ## `usePlayback` and `usePlaybackControl`
 
-`usePlayback(durationMs)` runs a scene's clock:
+`usePlayback(durationMs, options?)` runs a scene's clock:
 
-- Returns `ref` (attach it to the element), `elapsed`, `paused`, `finished`, `still`, `controllable` and `toggle`.
+- Returns `ref` (attach it to the element), `elapsed`, `paused`, `finished`, `idle`, `still`, `controllable` and `toggle`.
+- `options.autoplay` (default `true`). With `autoplay: false` it waits at the end state (`idle` is true, `elapsed` equals `durationMs`) until `toggle` plays it from 0, and returns to waiting when the element leaves the screen. Once played and finished, `idle` stays false, so the label reads Replay.
 - `elapsed` advances every 100 ms (`TICK_MS`) towards `durationMs` while the element crosses the viewport's centre line, pauses when it moves off that line, and holds at the end. CSS transitions smooth the steps between ticks.
 - Once the element leaves the screen it returns to 0, so coming back replays it.
 - `toggle` pauses and resumes, or replays once finished.
 - The server render, and visitors who prefer reduced motion, get the end state: `elapsed` equals `durationMs`, and `still` says it is the latter. `controllable` is true only once hydrated and while motion is allowed.
 
-`usePlaybackControl(durationMs)` is `usePlayback` plus the control WCAG 2.2.2 (Pause, Stop, Hide) asks for on animations longer than 5 s. It returns the same values plus `control`: `{ shown, label, onToggle }`, ready to spread into `PlaybackControl`. The label names the next action: **Replay** when finished, **Play** while paused, otherwise **Pause**.
+`usePlaybackControl(durationMs, options?)` is `usePlayback` plus the control WCAG 2.2.2 (Pause, Stop, Hide) asks for on animations longer than 5 s. It returns the same values plus `control`: `{ shown, label, onToggle }`, ready to spread into `PlaybackControl`. The label names the next action: **Play** while waiting (`idle`), **Replay** when finished, **Play** while paused, otherwise **Pause**.
 
 ```tsx
 const { ref, elapsed, control } = usePlaybackControl<HTMLDivElement>(DURATION_MS);

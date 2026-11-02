@@ -96,12 +96,14 @@ test("the scene only animates while it plays, never while it waits or holds", ()
   expect(playing()).toBe(0);
 });
 
-test("reduced motion shows both acts at their end, with nothing to pause", () => {
+test("reduced motion shows both acts at their end, with no control", () => {
   stubReducedMotion(true);
   const { container } = render(<RebrandSlide />);
   expect(rebranded(container)).toBe(12);
   expect(container.querySelectorAll('[data-state="working"]')).toHaveLength(0);
-  expect(screen.queryByRole("button", { name: site.playback.pause })).toBeNull();
+  for (const label of Object.values(site.playback)) {
+    expect(screen.queryByRole("button", { name: label })).toBeNull();
+  }
 });
 
 test("the content has one product per developer timing", () => {

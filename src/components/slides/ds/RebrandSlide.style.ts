@@ -23,7 +23,7 @@ export const rebrandSlide = {
   flags: "flex flex-wrap gap-2",
   /** WITHOUT / WITH: the act on screen is highlighted. */
   flag: "rounded-pill border border-line px-3 py-1.5 font-mono text-label text-subtle uppercase transition-colors duration-(--hb-duration-base) data-[active=true]:border-accent data-[active=true]:bg-accent data-[active=true]:text-on-accent",
-  /** One act while playing; both acts' end states side by side under reduced motion. */
+  /** One act while playing; both acts' end states side by side while waiting for Play and under reduced motion. */
   acts: {
     playing: "grid",
     still: "grid gap-8 lg:grid-cols-2",
