@@ -20,6 +20,13 @@ export const story = {
     "relative h-24 transform-gpu overflow-hidden rounded-lg border border-line [--hb-site-header:3.5rem]",
   /** A stage for a slide: positioned, so the slide's absolute glow stays inside it. */
   slideStage: "relative isolate overflow-hidden rounded-lg border border-line p-8 sm:p-12",
+  /**
+   * A screen-high stage (less the canvas's `p-8`) for a decoration placed against the slide's
+   * edges: positioned, so the absolute piece stays inside it; the variable is the header height
+   * deck.css sets on `.deck`.
+   */
+  fieldStage:
+    "relative h-[calc(100svh-4rem)] overflow-hidden rounded-lg border border-line bg-bg [--hb-site-header:3.5rem]",
   /** The share card is 1200 × 630; the viewport shows it at half size. */
   ogViewport: "h-[315px] w-[600px] overflow-hidden rounded-lg border border-line",
   ogScaled: "h-[630px] w-[1200px] origin-top-left scale-50",

@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import { pixelArtSize } from "./PixelArt.style";
+import { FIELD } from "../../deck/pixelField.data";
 import { HEART, LOCKUP, COMPUTER } from "./pixelArt.data";
 import { gridSize } from "./pixelGrid";
 import type { TPixelGrid } from "./pixelGrid.type";
@@ -16,6 +17,7 @@ const grids: Record<keyof typeof pixelArtSize, TPixelGrid> = {
   heart6x: HEART,
   /** The loupe's 5 × 5 patch. */
   loupe: Array.from({ length: 5 }, () => "rrrrr"),
+  field: FIELD,
 };
 
 test("every size is a whole multiple of its grid on both axes, at every breakpoint", () => {

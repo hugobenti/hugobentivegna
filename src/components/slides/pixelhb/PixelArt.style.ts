@@ -43,6 +43,8 @@ export const pixelArtSize = {
   /** The grid demo: 6 px a pixel, so its 1 px lines leave the pixels readable. */
   heart6x: "h-18 w-18",
   loupe: "h-15 w-15",
+  /** The 28 × 22 amber spill (`PixelField`): 12 px a pixel, 20 px from `lg` up. */
+  field: "h-66 w-84 lg:h-110 lg:w-140",
 };
 
 export const pixelArt = {

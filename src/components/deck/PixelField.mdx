@@ -1,0 +1,47 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as Stories from "./PixelField.stories";
+
+<Meta of={Stories} />
+
+# PixelField
+
+The PixelHB signature: amber pixels spilling in from an edge of the slide, held back at 40%. It replaces the blue radial glow; the grid is drawn by hand in `pixelField.data.ts`.
+
+<Canvas of={Stories.TopRight} />
+<Controls />
+
+## Use when
+
+- A slide needs a quiet signature in an empty corner: the hero, a case cover, the problem slide, contact, the 404.
+- Once per screen: one `PixelField` on a slide, in a corner the copy leaves empty.
+
+## Don't use when
+
+- The spot is behind body text, a list or a control: the pixels would cut through the reading line. Pick another placement or leave it out.
+- The slide already carries an illustration or a pixel drawing: two drawings compete.
+- You want motion: the field never fades, moves or reacts; it is the end state for every visitor, reduced motion or not.
+
+## Placement
+
+- `top-right` (default): below the fixed header (`--hb-site-header`), against the right edge.
+- `bottom-left`: the same corner mirrored on both axes, against the bottom-left corner.
+- `centre-right`: halfway down the right edge.
+- The parent must be positioned (`relative`) and clip its overflow; the field is `absolute` and ignores the pointer.
+- 12 px a pixel on phones (336 × 264 px), 20 px from `lg` up (560 × 440 px).
+
+## Accessibility
+
+- Decoration only: the wrapper is `aria-hidden`, so the drawing has no name and no role for assistive tech, and nothing in it takes focus.
+- One amber tone at 40% on the background: it carries no information, so it has no contrast requirement, and text never sits on it.
+- No transition or animation classes: nothing moves, with or without `prefers-reduced-motion`.
+
+## Do / Don't
+
+| Do                                    | Don't                          |
+| ------------------------------------- | ------------------------------ |
+| Put one field on a slide              | Stack two fields on one screen |
+| Keep it in the corner the copy leaves | Let it run behind a paragraph  |
+| Use the hand-drawn `FIELD` grid       | Generate pixels at runtime     |
+
+<Canvas of={Stories.BottomLeft} />
+<Canvas of={Stories.CentreRight} />
