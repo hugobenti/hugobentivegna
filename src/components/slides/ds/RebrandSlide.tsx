@@ -17,7 +17,7 @@ const { rebrand } = designSystemCase;
  * a flag shows which act is on screen, and the one control pauses or replays it.
  */
 export function RebrandSlide() {
-  const { ref, still, views, playing, flags, control } = useRebrandScene();
+  const { ref, still, sideBySide, views, playing, flags, control } = useRebrandScene();
   return (
     <Slide slide={slides.dsRebrand} className={rebrandSlide.slide}>
       <div className={rebrandSlide.content}>
@@ -59,10 +59,10 @@ export function RebrandSlide() {
             <div
               inert
               aria-hidden="true"
-              className={still ? rebrandSlide.acts.still : rebrandSlide.acts.playing}
+              className={sideBySide ? rebrandSlide.acts.still : rebrandSlide.acts.playing}
             >
               {views.map((view) => (
-                <RebrandScene key={view.act} view={view} layout={still ? "compact" : "wide"} />
+                <RebrandScene key={view.act} view={view} layout={sideBySide ? "compact" : "wide"} />
               ))}
             </div>
           </div>

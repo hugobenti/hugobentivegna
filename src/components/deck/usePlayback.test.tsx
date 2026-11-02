@@ -10,13 +10,14 @@ import { usePlayback } from "./usePlayback";
 
 const DURATION = 5000;
 
-function Probe() {
-  const { ref, elapsed, still, paused, finished, controllable, toggle } =
-    usePlayback<HTMLDivElement>(DURATION);
+function Probe({ autoplay = true }: { autoplay?: boolean }) {
+  const { ref, elapsed, still, idle, paused, finished, controllable, toggle } =
+    usePlayback<HTMLDivElement>(DURATION, { autoplay });
   return (
     <div ref={ref} data-probe="">
       <p>
-        elapsed={elapsed} still={String(still)} paused={String(paused)} finished=
+        elapsed={elapsed} still={String(still)} paused={String(paused)} idle={String(idle)}{" "}
+        finished=
         {String(finished)} controllable={String(controllable)}
       </p>
       <button type="button" onClick={toggle}>
@@ -166,4 +167,40 @@ test("once it has finished, the control replays it from the start", () => {
   advance(300);
   expect(shown()).toContain("elapsed=300 ");
   expect(shown()).toContain("finished=false");
+});
+
+test("without autoplay, it waits at the end state until played", () => {
+  render(<Probe autoplay={false} />);
+  report(true);
+  advance(2000);
+  expect(shown()).toContain(`elapsed=${DURATION} `);
+  expect(shown()).toContain("idle=true");
+  act(() => screen.getByRole("button", { name: "toggle" }).click());
+  advance(100);
+  expect(shown()).toContain("elapsed=100 ");
+  expect(shown()).toContain("idle=false");
+});
+
+test("without autoplay, finishing keeps idle false so the control reads Replay", () => {
+  render(<Probe autoplay={false} />);
+  report(true);
+  act(() => screen.getByRole("button", { name: "toggle" }).click());
+  advance(DURATION + 1000);
+  expect(shown()).toContain("idle=false");
+  expect(shown()).toContain("finished=true");
+});
+
+test("without autoplay, leaving the screen returns to the waiting end state", () => {
+  render(<Probe autoplay={false} />);
+  report(true);
+  act(() => screen.getByRole("button", { name: "toggle" }).click());
+  advance(1500);
+  report(false);
+  reportOnScreen(false);
+  expect(shown()).toContain(`elapsed=${DURATION} `);
+  expect(shown()).toContain("idle=true");
+  reportOnScreen(true);
+  report(true);
+  advance(1000);
+  expect(shown()).toContain(`elapsed=${DURATION} `);
 });

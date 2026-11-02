@@ -26,7 +26,10 @@
   --hb-site-header: 3.5rem;
 }
 
-/* Snapping only where full-screen slides make sense. */
+/*
+ * Snapping only where full-screen slides make sense. It stays mandatory, so every stop is a
+ * slide start, but a fast flick may pass several: no `scroll-snap-stop: always`.
+ */
 @media (min-width: 768px) and (min-height: 560px) {
   html:has(.deck) {
     scroll-snap-type: y mandatory;
@@ -41,7 +44,6 @@
     padding-top: calc(var(--hb-site-header) + 1.5rem);
     padding-bottom: 2.5rem;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
   }
 }
 
@@ -99,7 +101,6 @@
     min-height: 100svh;
     padding: var(--steps-header) var(--hb-space-gutter) 3rem;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
   }
 }
 

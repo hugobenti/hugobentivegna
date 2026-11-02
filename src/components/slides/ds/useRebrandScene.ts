@@ -45,7 +45,7 @@ function sceneView(frame: ISceneFrame, elapsed: number): ISceneView {
   };
 }
 
-/** Both acts at their end, side by side, for visitors who prefer reduced motion. */
+/** Both acts at their end, side by side: reduced motion, and the wait before Play. */
 const STILL_VIEWS = [
   sceneView(act1Frame(SCENE_MS), SCENE_MS),
   sceneView(act2Frame(SCENE_MS), SCENE_MS),
@@ -53,23 +53,27 @@ const STILL_VIEWS = [
 
 /**
  * Rebrand scene view model: act 1 then act 2 on one slide, flagged WITHOUT / WITH, with the one
- * control the scene needs because it runs longer than 5 s.
+ * control the scene needs because it runs longer than 5 s. Until Play is pressed (or always, with
+ * reduced motion) both acts sit side by side at their end; `sideBySide` says so, `still` only
+ * that nothing can be played.
  */
 export function useRebrandScene() {
-  const { ref, elapsed, still, paused, finished, control } =
-    usePlaybackControl<HTMLDivElement>(SCENE_MS);
+  const { ref, elapsed, still, idle, paused, finished, control } =
+    usePlaybackControl<HTMLDivElement>(SCENE_MS, { autoplay: false });
+  const sideBySide = still || idle;
   const frame = sceneFrame(elapsed);
   const actElapsed = frame.act === "with" ? elapsed - ACT2_START_MS : elapsed;
   return {
     ref,
     still,
-    views: still ? STILL_VIEWS : [sceneView(frame, actElapsed)],
+    sideBySide,
+    views: sideBySide ? STILL_VIEWS : [sceneView(frame, actElapsed)],
     /** Nothing animates while the scene waits, holds at the end, or is paused. */
     playing: elapsed > 0 && !finished && !paused,
     flags: (["without", "with"] as const).map((act) => ({
       act,
       label: rebrand.acts[act].label,
-      active: !still && frame.act === act,
+      active: !sideBySide && frame.act === act,
     })),
     control,
   };

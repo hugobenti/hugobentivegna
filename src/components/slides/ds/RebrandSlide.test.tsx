@@ -1,4 +1,5 @@
 import { act, render, screen } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { designSystemCase } from "@/content/cases";
 import { site } from "@/content/site";
@@ -13,7 +14,12 @@ import { ACT1_MS, ACT2_START_MS, DEV_FINISH_MS, SCENE_MS } from "./rebrandTimeli
 const { rebrand } = designSystemCase;
 
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
-const start = () => centreLineObserver().reportAll(true);
+const reachCentre = () => centreLineObserver().reportAll(true);
+/** On the centre line, then Play pressed: the scene runs from act 1. */
+const start = () => {
+  reachCentre();
+  act(() => screen.getByRole("button", { name: site.playback.play }).click());
+};
 const rebranded = (container: HTMLElement) =>
   container.querySelectorAll('[data-rebranded="true"]').length;
 const activeFlag = (container: HTMLElement) =>
@@ -100,4 +106,31 @@ test("reduced motion shows both acts at their end, with nothing to pause", () =>
 
 test("the content has one product per developer timing", () => {
   expect(rebrand.products).toHaveLength(DEV_FINISH_MS.length);
+});
+
+test("server render shows both acts and no control", () => {
+  const html = renderToString(<RebrandSlide />);
+  expect(html).toContain(rebrand.acts.without.title);
+  expect(html).toContain(rebrand.acts.with.title);
+  for (const label of Object.values(site.playback)) {
+    expect(html).not.toContain(`>${label}</button>`);
+  }
+});
+
+test("until played, both acts show side by side with a Play control", () => {
+  const { container } = render(<RebrandSlide />);
+  reachCentre();
+  advance(3000);
+  expect(rebranded(container)).toBe(12);
+  expect(screen.getByRole("button", { name: site.playback.play })).toBeInTheDocument();
+  expect(container.querySelectorAll('[data-flag][data-active="true"]')).toHaveLength(0);
+  expect(container.querySelectorAll('[data-playing="true"]')).toHaveLength(0);
+});
+
+test("after Play, one act shows at a time", () => {
+  const { container } = render(<RebrandSlide />);
+  start();
+  expect(rebranded(container)).toBe(0);
+  expect(activeFlag(container)).toBe(rebrand.acts.without.label);
+  expect(screen.getByRole("button", { name: site.playback.pause })).toBeInTheDocument();
 });

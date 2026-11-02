@@ -11,8 +11,8 @@ import { usePlaybackControl } from "./usePlaybackControl";
 
 const DURATION = 3000;
 
-function Probe() {
-  const { ref, control } = usePlaybackControl<HTMLDivElement>(DURATION);
+function Probe({ autoplay = true }: { autoplay?: boolean }) {
+  const { ref, control } = usePlaybackControl<HTMLDivElement>(DURATION, { autoplay });
   return (
     <div ref={ref}>
       <PlaybackControl {...control} />
@@ -48,4 +48,14 @@ test("offers no control when motion is reduced", () => {
   stubReducedMotion(true);
   render(<Probe />);
   expect(screen.queryByRole("button")).toBeNull();
+});
+
+test("without autoplay the control reads Play while waiting, then Pause once played", () => {
+  render(<Probe autoplay={false} />);
+  centreLineObserver().reportAll(true);
+  act(() => screen.getByRole("button", { name: play }).click());
+  act(() => vi.advanceTimersByTime(500));
+  expect(screen.getByRole("button", { name: pause })).toBeInTheDocument();
+  act(() => vi.advanceTimersByTime(DURATION));
+  expect(screen.getByRole("button", { name: replay })).toBeInTheDocument();
 });

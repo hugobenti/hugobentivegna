@@ -26,16 +26,22 @@ function subscribeToNothing() {
  * animation runs longer than 5 s. The server render and visitors who prefer reduced motion get
  * the end state (`still` marks the latter). `controllable` says whether to offer that control:
  * only once hydrated (before, nothing could act on it) and only while motion is allowed.
+ * With `autoplay: false` it waits at the end state (`idle`) until `toggle` plays it from 0, and
+ * returns to waiting whenever the element leaves the screen. Finished playback is not idle.
  */
-export function usePlayback<T extends HTMLElement>(durationMs: number) {
+export function usePlayback<T extends HTMLElement>(
+  durationMs: number,
+  { autoplay = true }: { autoplay?: boolean } = {},
+) {
   const ref = useRef<T>(null);
-  const [elapsed, setElapsed] = useState(0);
+  const [elapsed, setElapsed] = useState(autoplay ? 0 : durationMs);
+  const [idle, setIdle] = useState(!autoplay);
   const [active, setActive] = useState(false);
   const [paused, setPaused] = useState(false);
   // Bumped by a replay, so the timer starts again after it stopped at the end.
   const [run, setRun] = useState(0);
   // Read by the timer, so a tick that lands after the element moved away changes nothing.
-  const playing = useRef({ active: false, paused: false, elapsed: 0 });
+  const playing = useRef({ active: false, paused: false, elapsed: autoplay ? 0 : durationMs });
   // false only while rendering on the server, so markup without JavaScript shows the end state.
   const hydrated = useSyncExternalStore(
     subscribeToNothing,
@@ -63,10 +69,12 @@ export function usePlayback<T extends HTMLElement>(durationMs: number) {
     const onScreen = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) continue;
-        playing.current = { active: false, paused: false, elapsed: 0 };
+        const rest = autoplay ? 0 : durationMs;
+        playing.current = { active: false, paused: false, elapsed: rest };
         setActive(false);
         setPaused(false);
-        setElapsed(0);
+        setIdle(!autoplay);
+        setElapsed(rest);
       }
     });
     centre.observe(element);
@@ -75,10 +83,10 @@ export function usePlayback<T extends HTMLElement>(durationMs: number) {
       centre.disconnect();
       onScreen.disconnect();
     };
-  }, [still]);
+  }, [still, autoplay, durationMs]);
 
   useEffect(() => {
-    if (!active || still) return;
+    if (!active || still || idle) return;
     const timer = setInterval(() => {
       if (!playing.current.active || playing.current.paused) return;
       const next = Math.min(playing.current.elapsed + TICK_MS, durationMs);
@@ -87,9 +95,17 @@ export function usePlayback<T extends HTMLElement>(durationMs: number) {
       if (next === durationMs) clearInterval(timer);
     }, TICK_MS);
     return () => clearInterval(timer);
-  }, [active, still, durationMs, run]);
+  }, [active, still, idle, durationMs, run]);
 
   const toggle = () => {
+    if (idle) {
+      playing.current = { ...playing.current, paused: false, elapsed: 0 };
+      setIdle(false);
+      setPaused(false);
+      setElapsed(0);
+      setRun((count) => count + 1);
+      return;
+    }
     if (playing.current.elapsed >= durationMs) {
       playing.current = { ...playing.current, paused: false, elapsed: 0 };
       setPaused(false);
@@ -107,6 +123,7 @@ export function usePlayback<T extends HTMLElement>(durationMs: number) {
     ref,
     elapsed: shown,
     still,
+    idle,
     paused,
     finished: shown >= durationMs,
     controllable: animated,
