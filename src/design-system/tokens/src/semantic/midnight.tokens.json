@@ -14,26 +14,30 @@
       "$description": "Tertiary text: labels, kickers, captions."
     },
     "accent": {
-      "$value": "{palette.blue.400}",
-      "$description": "Brand accent: highlights, primary actions, active states."
+      "$value": "{palette.pixelhb.amber}",
+      "$description": "Brand accent: the PixelHB amber. Highlights, primary actions, active states."
     },
     "on-accent": { "$value": "{palette.ink.950}", "$description": "Text on an accent fill." },
     "line": { "$value": "{palette.ink.700}", "$description": "Decorative borders and dividers." },
-    "focus": { "$value": "{palette.blue.400}", "$description": "Keyboard focus ring." },
+    "focus": { "$value": "{palette.pixelhb.amber}", "$description": "Keyboard focus ring." },
     "success": {
       "$value": "{palette.green.400}",
       "$description": "Positive status text and outlines: ready, passed, added."
     },
     "warning": {
-      "$value": "{palette.amber.400}",
+      "$value": "{palette.yellow.400}",
       "$description": "Attention status text and outlines: a gap, a limit."
+    },
+    "highlight": {
+      "$value": "{palette.tint.amber}",
+      "$description": "The item an illustration is pointing at; never a focus ring."
     },
     "danger": {
       "$value": "{palette.red.400}",
       "$description": "Error status text and outlines: an error, a removed line."
     },
     "glow": {
-      "$value": "{palette.blue.glow}",
+      "$value": "{palette.glow}",
       "$description": "Soft radial light behind hero content."
     }
   },

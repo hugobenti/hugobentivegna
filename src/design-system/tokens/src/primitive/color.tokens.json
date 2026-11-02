@@ -11,22 +11,24 @@
       "400": { "$value": "#a5a5b0" },
       "50": { "$value": "#f4f4f6" }
     },
-    "blue": {
-      "$description": "Midnight's electric-blue accent.",
-      "400": { "$value": "#5aa2ff" },
-      "700": {
-        "$value": "#2c64c8",
-        "$description": "The accent's shade: the second blue in the PixelHB case's illustrations."
-      },
-      "glow": { "$value": "#408cff59" }
-    },
     "green": {
       "$description": "Positive status.",
       "400": { "$value": "#5fd39a" }
     },
-    "amber": {
+    "yellow": {
       "$description": "Attention status.",
-      "400": { "$value": "#ffb454" }
+      "400": { "$value": "#f4d35e" }
+    },
+    "tint": {
+      "$description": "Tinted surfaces.",
+      "amber": {
+        "$value": "#2d251d",
+        "$description": "Accent-tinted surface: the item an illustration points at."
+      }
+    },
+    "glow": {
+      "$value": "#eda74359",
+      "$description": "Amber glow behind slides; removed once PixelField replaces every glow."
     },
     "red": {
       "$description": "Error status.",

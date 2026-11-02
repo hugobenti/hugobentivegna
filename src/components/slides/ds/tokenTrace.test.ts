@@ -7,12 +7,14 @@ const names = (chain: readonly { name: string }[]) => chain.map((entry) => entry
 describe("traceToken", () => {
   test("follows a component token through its semantic role down to the palette", () => {
     const chain = traceToken(tokens, "button.primary.bg");
-    expect(names(chain)).toEqual(["button.primary.bg", "color.accent", "palette.blue.400"]);
+    const accent = tokens.find((token) => token.name === "color.accent");
+    const palette = accent?.value.replace(/^\{|\}$/g, "");
+    expect(names(chain)).toEqual(["button.primary.bg", "color.accent", palette]);
     expect(chain.map((entry) => entry.layer)).toEqual(["component", "semantic", "primitive"]);
   });
 
   test("a primitive traces to itself", () => {
-    expect(names(traceToken(tokens, "palette.blue.400"))).toEqual(["palette.blue.400"]);
+    expect(names(traceToken(tokens, "palette.ink.950"))).toEqual(["palette.ink.950"]);
   });
 
   test("an unknown name returns an empty chain", () => {

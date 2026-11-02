@@ -4,7 +4,7 @@ import { drawingDuration, drawingOrder, drawnCount } from "./drawingTimeline";
 import { COMPUTER } from "./pixelArt.data";
 import { cellStates, gridSize } from "./pixelGrid";
 
-/** Outline first, then the case, the screen, its text in blue then grey (with the keys), and the light. */
+/** Outline first, then the case, the screen, its text in amber then grey (with the keys), and the light. */
 const { width, height } = gridSize(COMPUTER);
 const order = drawingOrder(COMPUTER, ["M", "m", "G", "r", "q", "Y"]);
 

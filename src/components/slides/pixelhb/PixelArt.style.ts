@@ -1,12 +1,15 @@
 import type { TPixelKey } from "./pixelGrid.type";
 
 /**
- * The heart's two blues as both utilities, so the fill a pixel is drawn with and the background
+ * The heart's two ambers as both utilities, so the fill a pixel is drawn with and the background
  * of the loupe ring that shows it come from one place (classes stay literal for Tailwind).
  */
-export const pixelBlue = {
+export const pixelAccent = {
   r: { fill: "fill-accent", bg: "bg-accent" },
-  b: { fill: "fill-(--hb-palette-blue-700)", bg: "bg-(--hb-palette-blue-700)" },
+  b: {
+    fill: "fill-(--hb-palette-pixelhb-amber-shade)",
+    bg: "bg-(--hb-palette-pixelhb-amber-shade)",
+  },
 };
 
 /** Brand keys are fixed pencil colors; `i`/`d` follow the text color, `h` is the brand amber. */
@@ -28,8 +31,8 @@ export const pixelFill: Record<TPixelKey, string> = {
   i: "fill-fg",
   k: "fill-fg",
   h: "fill-(--hb-palette-pixelhb-amber)",
-  r: pixelBlue.r.fill,
-  b: pixelBlue.b.fill,
+  r: pixelAccent.r.fill,
+  b: pixelAccent.b.fill,
 };
 
 /** Whole-number scales only: the spacing unit is 4 px, so each size is a whole multiple of its grid. */

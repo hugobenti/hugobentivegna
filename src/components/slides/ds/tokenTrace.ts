@@ -4,7 +4,7 @@ const REFERENCE = /^\{([^{}]+)\}$/;
 
 /**
  * Follows a token's `{reference}` chain to the value it ends on, e.g.
- * button.primary.bg → color.accent → palette.blue.400.
+ * button.primary.bg → color.accent → palette.pixelhb.amber.
  * Returns [] for an unknown name.
  */
 export function traceToken(tokens: readonly ITokenEntry[], name: string): ITokenEntry[] {

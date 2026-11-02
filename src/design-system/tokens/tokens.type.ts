@@ -7,7 +7,7 @@ export interface ITokenEntry {
   cssVar: string;
   /** DTCG $type. */
   type: string;
-  /** Authored value, possibly a reference like "{palette.blue.400}". */
+  /** Authored value, possibly a reference like "{palette.pixelhb.amber}". */
   value: string;
   /** Fully resolved value. */
   resolved: string;

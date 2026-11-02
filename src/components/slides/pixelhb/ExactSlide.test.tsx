@@ -10,7 +10,7 @@ import {
 import { stubReducedMotion } from "@/test/reducedMotion";
 import { EXACT_DELAY_MS, EXACT_STEP_MS, exactDuration } from "./exactTimeline";
 import { ExactSlide } from "./ExactSlide";
-import { pixelBlue } from "./PixelArt.style";
+import { pixelAccent } from "./PixelArt.style";
 import { LOUPE_RADIUS } from "./useExactScene";
 
 const { exact } = pixelhbCase;
@@ -21,12 +21,12 @@ const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
 const start = () => centreLineObserver().reportAll(true);
 const lit = (container: HTMLElement) =>
   [...container.querySelectorAll("[data-card]")].map((card) => card.getAttribute("data-on"));
-/** Per heart in the fill demo: is its blue filled ("full"), not at all ("empty"), or partly? */
+/** Per heart in the fill demo: is its amber filled ("full"), not at all ("empty"), or partly? */
 const hearts = (container: HTMLElement) =>
   [...container.querySelectorAll('[data-demo="fill"] svg')].map((svg) => {
-    const blue = [...svg.querySelectorAll('rect[data-key="r"]')];
-    const on = blue.filter((rect) => rect.getAttribute("data-state") === "on").length;
-    return on === 0 ? "empty" : on === blue.length ? "full" : "partial";
+    const amber = [...svg.querySelectorAll('rect[data-key="r"]')];
+    const on = amber.filter((rect) => rect.getAttribute("data-state") === "on").length;
+    return on === 0 ? "empty" : on === amber.length ? "full" : "partial";
   });
 
 beforeEach(() => {
@@ -118,7 +118,7 @@ test("at the end every card is lit, the whole fill shows and the control offers 
   expect(screen.getByRole("button", { name: controls.replay })).toBeInTheDocument();
 });
 
-test("the loupe picks the heart's second blue and compares it with the main blue", () => {
+test("the loupe picks the heart's second amber and compares it with the main amber", () => {
   const { container } = render(<ExactSlide />);
   const patch = container.querySelector('[data-demo="loupe"] svg') as SVGElement;
   const side = 2 * LOUPE_RADIUS + 1;
@@ -129,11 +129,11 @@ test("the loupe picks the heart's second blue and compares it with the main blue
       Number(rect.getAttribute("x")) <= LOUPE_RADIUS &&
       Number(rect.getAttribute("x")) + Number(rect.getAttribute("width")) > LOUPE_RADIUS,
   );
-  const picked = centre?.getAttribute("data-key") as keyof typeof pixelBlue;
+  const picked = centre?.getAttribute("data-key") as keyof typeof pixelAccent;
   expect(picked).toBe("b");
-  // The ring's top half shows the picked pixel's color; the bottom half is the main blue in hand.
-  expect(container.querySelector("[data-ring-top]")).toHaveClass(pixelBlue[picked].bg);
-  expect(container.querySelector("[data-ring-bottom]")).toHaveClass(pixelBlue.r.bg);
+  // The ring's top half shows the picked pixel's color; the bottom half is the main amber in hand.
+  expect(container.querySelector("[data-ring-top]")).toHaveClass(pixelAccent[picked].bg);
+  expect(container.querySelector("[data-ring-bottom]")).toHaveClass(pixelAccent.r.bg);
 });
 
 test("the control pauses the slide and resumes it", () => {

@@ -28,7 +28,7 @@ export const WORDMARK: TPixelGrid = [
 /** Horizontal lockup: pencil, a gap of 4 pixels, wordmark (74 × 7). */
 export const LOCKUP: TPixelGrid = beside(PENCIL, WORDMARK, 4);
 
-/** The illustration sprite for the tools chapter, 12 × 12: `k` outline, `r` blue, `b` its shade. */
+/** The illustration sprite for the tools chapter, 12 × 12: `k` outline, `r` amber, `b` its shade. */
 export const HEART: TPixelGrid = [
   "............",
   ".kkk....kkk.",
@@ -46,7 +46,7 @@ export const HEART: TPixelGrid = [
 
 /**
  * The cover's drawing, 16 × 16: a retro computer in the brand palette. A beige case with a
- * ridge outline (`m`, `M`), a dark screen (`G`) with a line of blue text, a grey one and a blue cursor (`r`, `q`),
+ * ridge outline (`m`, `M`), a dark screen (`G`) with a line of amber text, a grey one and an amber cursor (`r`, `q`),
  * an amber power light (`Y`), and a keyboard with grey keys (`q`).
  */
 export const COMPUTER: TPixelGrid = [

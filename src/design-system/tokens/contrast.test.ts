@@ -27,15 +27,15 @@ describe("contrastRatio", () => {
   });
 
   test("is symmetric", () => {
-    expect(contrastRatio("#5aa2ff", "#0a0a0d")).toBeCloseTo(
-      contrastRatio("#0a0a0d", "#5aa2ff"),
+    expect(contrastRatio("#eda743", "#0a0a0d")).toBeCloseTo(
+      contrastRatio("#0a0a0d", "#eda743"),
       10,
     );
   });
 
   test("rejects values it cannot judge", () => {
-    expect(() => contrastRatio("#408cff59", "#000")).toThrow(/opaque hex/);
-    expect(() => contrastRatio("blue", "#000")).toThrow(/opaque hex/);
+    expect(() => contrastRatio("#eda74359", "#000")).toThrow(/opaque hex/);
+    expect(() => contrastRatio("not-a-color", "#000")).toThrow(/opaque hex/);
   });
 });
 
@@ -49,6 +49,8 @@ describe("Midnight meets WCAG 2.2 AA", () => {
     ["muted", "surface"],
     ["subtle", "bg"],
     ["subtle", "surface"],
+    ["fg", "highlight"],
+    ["muted", "highlight"],
   ])("text %s on %s ≥ 4.5:1", (fg, bg) => {
     expect(ratio(c, fg, bg)).toBeGreaterThanOrEqual(4.5);
   });
