@@ -33,7 +33,7 @@ export function BuildSlide() {
 
         <div
           ref={ref}
-
+          data-panel=""
           {...progress}
           className={cx(deck.reveal, buildSlide.panel)}
           style={stagger(3)}
@@ -104,7 +104,9 @@ export function BuildSlide() {
                 </li>
               ))}
             </ul>
-            <PlaybackControl {...control} className={buildSlide.control} />
+            <div className={buildSlide.slot}>
+              <PlaybackControl {...control} className={buildSlide.control} />
+            </div>
           </div>
         </div>
       </div>

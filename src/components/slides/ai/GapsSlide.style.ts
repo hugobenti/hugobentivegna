@@ -49,10 +49,9 @@ export const gapsSlide = {
     "group-data-[state=gap]/check:opacity-100 group-data-[state=gap]/check:[clip-path:inset(0)]",
   ),
 
-  footer: "flex min-h-8 items-center justify-between gap-4",
+  footer: "flex items-end justify-between gap-4",
   /** Two lines reserved: the closing line wraps on phones, and the panel must not grow. */
   caption: "min-h-[2lh] text-small text-muted",
-  control: "shrink-0",
   /** The outcome for screen readers; the caption above is visual only. */
   summary: "sr-only",
 };

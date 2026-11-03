@@ -6,8 +6,9 @@ export const exactSlide = {
   content:
     "mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:items-center lg:gap-10",
   links: "mt-6 flex flex-wrap gap-3",
-  control: "mt-6",
 
+  /** The four-tool grid and, under it, the playback control. */
+  panel: "flex flex-col gap-3",
   cards: "grid gap-3 sm:grid-cols-2",
   /** The lit card takes the highlight tint; the colors fade, nothing resizes. */
   card: cx(

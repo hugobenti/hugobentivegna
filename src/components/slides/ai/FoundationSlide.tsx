@@ -31,7 +31,7 @@ export function FoundationSlide() {
 
         <div
           ref={ref}
-
+          data-panel=""
           className={cx(deck.reveal, foundationSlide.demo)}
           style={stagger(3)}
         >
@@ -60,7 +60,7 @@ export function FoundationSlide() {
               </li>
             ))}
           </ul>
-          <div className={foundationSlide.footer}>
+          <div className={deck.playbackSlot}>
             <PlaybackControl {...control} />
           </div>
         </div>

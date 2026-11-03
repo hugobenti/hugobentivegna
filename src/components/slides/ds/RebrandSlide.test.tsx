@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { designSystemCase } from "@/content/cases";
 import { site } from "@/content/site";
@@ -6,11 +6,13 @@ import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { focusables } from "@/test/focusables";
 import { stubReducedMotion } from "@/test/reducedMotion";
 import { RebrandSlide } from "./RebrandSlide";
 import { ACT1_MS, ACT2_START_MS, DEV_FINISH_MS, SCENE_MS } from "./rebrandTimeline";
 
 const { rebrand } = designSystemCase;
+const controls = site.playback;
 
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
 const start = () => centreLineObserver().reportAll(true);
@@ -104,4 +106,16 @@ test("reduced motion shows both acts at their end, with nothing to pause", () =>
 
 test("the content has one product per developer timing", () => {
   expect(rebrand.products).toHaveLength(DEV_FINISH_MS.length);
+});
+
+test("the playback control is the last focusable element inside the panel", () => {
+  const { container } = render(<RebrandSlide />);
+  start();
+  const panel = container.querySelector("[data-panel]") as HTMLElement;
+  expect(panel).not.toBeNull();
+  const last = focusables(panel).at(-1);
+  const control = within(panel).getByRole("button", { name: controls.pause });
+  expect(last).toBe(control);
+  const content = panel.querySelector("[inert]") as HTMLElement;
+  expect(content.compareDocumentPosition(control) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 });
