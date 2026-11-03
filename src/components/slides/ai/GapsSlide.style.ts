@@ -12,7 +12,7 @@ export const gapsSlide = {
   /** A source the agent reads; it lights up when read and stays lit. */
   source: cx(
     "flex items-center gap-1.5 rounded-pill border border-line px-3 py-1.5 text-small text-muted",
-    "transition-[border-color,color,box-shadow] duration-(--hb-duration-slow)",
+    "transition-colors duration-(--hb-duration-slow)",
     "data-[on=true]:bg-highlight data-[on=true]:text-fg",
   ),
   sourceBadge: "font-mono text-label text-accent",

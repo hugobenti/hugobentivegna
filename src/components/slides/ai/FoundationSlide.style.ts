@@ -20,7 +20,7 @@ export const foundationSlide = {
   header: "flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 font-mono text-label",
   file: "text-muted",
   fileName: "text-accent",
-  reader: "text-subtle",
+  reader: "text-subtle group-data-[on=true]/excerpt:text-muted",
   lines: cx(
     "mt-2 flex flex-col gap-0.5 text-small text-muted",
     "transition-colors duration-(--hb-duration-slow) group-data-[on=true]/excerpt:text-fg group-data-[read=true]/excerpt:text-fg",
@@ -29,7 +29,7 @@ export const foundationSlide = {
   line: {
     plain: "",
     strong: "font-semibold",
-    label: "font-mono text-label text-subtle",
+    label: "font-mono text-label text-subtle group-data-[on=true]/excerpt:text-muted",
     error: "font-mono text-label text-danger",
   } satisfies Record<NonNullable<IExcerptLine["tone"]> | "plain", string>,
 

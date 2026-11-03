@@ -52,7 +52,7 @@ export function RebrandSlide() {
                       <span aria-hidden="true" className={rebrandSlide.flagMarker}>
                         {flag.marker}
                       </span>
-                      {flag.label}
+                      <span>{flag.label}</span>
                     </span>
                   ))}
                 </p>

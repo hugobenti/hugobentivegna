@@ -17,7 +17,9 @@ const start = () => centreLineObserver().reportAll(true);
 const rebranded = (container: HTMLElement) =>
   container.querySelectorAll('[data-rebranded="true"]').length;
 const activeFlag = (container: HTMLElement) =>
-  container.querySelector('[data-flag][data-active="true"]')?.textContent;
+  container.querySelector('[data-flag][data-active="true"] > span:not([aria-hidden])')?.textContent;
+const markers = (container: HTMLElement, selector: string) =>
+  container.querySelectorAll(`${selector} > span[aria-hidden="true"]`).length;
 
 beforeEach(() => {
   installFakeIntersectionObserver();
@@ -44,11 +46,13 @@ test("the outcome is readable without watching the scene", () => {
 test("one slide plays act 1, then act 2, and flags which one is showing", () => {
   const { container } = render(<RebrandSlide />);
   start();
-  expect(activeFlag(container)).toContain(rebrand.acts.without.label);
+  expect(activeFlag(container)).toBe(rebrand.acts.without.label);
+  expect(markers(container, '[data-flag][data-active="true"]')).toBe(1);
+  expect(container.querySelectorAll("[data-flag]")).toHaveLength(2);
   advance(ACT1_MS);
   expect(rebranded(container)).toBe(6);
   advance(ACT2_START_MS - ACT1_MS);
-  expect(activeFlag(container)).toContain(rebrand.acts.with.label);
+  expect(activeFlag(container)).toBe(rebrand.acts.with.label);
   expect(rebranded(container)).toBe(0);
   advance(SCENE_MS);
   expect(rebranded(container)).toBe(6);
@@ -75,7 +79,7 @@ test("once finished, the button replays the scene from act 1", () => {
   start();
   advance(SCENE_MS);
   act(() => screen.getByRole("button", { name: site.playback.replay }).click());
-  expect(activeFlag(container)).toContain(rebrand.acts.without.label);
+  expect(activeFlag(container)).toBe(rebrand.acts.without.label);
   expect(rebranded(container)).toBe(0);
 });
 
