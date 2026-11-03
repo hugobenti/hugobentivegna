@@ -1,5 +1,5 @@
 export const problemSlide = {
-  slide: "overflow-hidden",
+  slide: "overflow-clip",
   /** The glow token, low behind the headline and faded out before the slide's edges. */
   glow: "pointer-events-none absolute inset-0 bg-[radial-gradient(45%_40%_at_50%_60%,var(--hb-color-glow),transparent)] opacity-60",
   content: "relative mx-auto w-full max-w-6xl",

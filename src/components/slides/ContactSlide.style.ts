@@ -1,5 +1,5 @@
 export const contactSlide = {
-  slide: "overflow-hidden",
+  slide: "overflow-clip",
   /** Same soft accent light as the hero, from the bottom-left this time. */
   glow: "pointer-events-none absolute -bottom-1/3 -left-1/4 size-[60vmax] rounded-pill bg-[radial-gradient(circle,var(--hb-color-glow),transparent_60%)] blur-3xl",
   /** One column below `lg`, so every row starts at the gutter; two columns from `lg`. */

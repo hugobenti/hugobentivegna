@@ -22,6 +22,7 @@ export const contact: IContactContent = {
 
 export const notFound: INotFoundContent = {
   code: "404",
+  documentTitle: `Not found · ${site.name}`,
   title: "This slide doesn't exist.",
   body: "The link may be old, or the page moved. Everything lives on the home deck.",
   back: { label: "Back to the start", href: "/" },

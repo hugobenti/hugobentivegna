@@ -1,6 +1,9 @@
 import { notFound } from "@/content/contact";
+import { notFoundMetadata } from "@/content/metadata";
 import { Button } from "@/design-system/ui";
 import { notFoundPage } from "./not-found.style";
+
+export const metadata = notFoundMetadata;
 
 export default function NotFound() {
   return (

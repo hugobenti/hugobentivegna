@@ -1,7 +1,7 @@
 import { cx, focusRing } from "@/design-system/ui";
 
 export const caseCoverSlide = {
-  slide: "overflow-hidden",
+  slide: "overflow-clip",
   /**
    * The glow token, drawn inside the slide's own box: the gradient fades out before any edge,
    * so it never shows a hard line where two slides meet.
