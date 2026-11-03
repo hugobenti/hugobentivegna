@@ -21,7 +21,11 @@ export function HeroSlide() {
         <p className={cx(deck.enter, hero.intro)} style={stagger(2)}>
           {site.intro}
         </p>
-        <ol className={cx(deck.enter, hero.cases)} style={stagger(3)}>
+        <p className={cx(deck.enter, hero.availability)} style={stagger(3)}>
+          <span className={hero.availabilityDot} aria-hidden="true" />
+          {site.availability}
+        </p>
+        <ol className={cx(deck.enter, hero.cases)} style={stagger(4)}>
           {heroCaseLinks.map((entry) => (
             <li key={entry.slideId}>
               <a href={entry.href} className={hero.caseLink}>

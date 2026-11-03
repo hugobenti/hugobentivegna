@@ -33,6 +33,8 @@ export interface ISiteContent {
   name: string;
   role: string;
   location: string;
+  /** Availability, shown in the hero and on the contact slide. */
+  availability: string;
   /** Small line above the headline on the share card. */
   kicker: string;
   /** Hero headline, split so the accent phrase can be styled. */
@@ -80,8 +82,6 @@ export interface ILinkContent {
 export interface IContactContent {
   /** Closing statement. */
   title: string;
-  /** Availability line under the title. */
-  status: string;
   intro: string;
   email: string;
   /** Opens the visitor's mail app. */

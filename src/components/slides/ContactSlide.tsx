@@ -1,4 +1,5 @@
 import { contact } from "@/content/contact";
+import { site } from "@/content/site";
 import { slides } from "@/content/slides";
 import { Button, Card, CopyText, cx } from "@/design-system/ui";
 import { deck } from "../deck/Deck.style";
@@ -18,7 +19,7 @@ export function ContactSlide() {
           </h2>
           <p className={cx(deck.reveal, contactSlide.status)} style={stagger(1)}>
             <span className={contactSlide.statusDot} aria-hidden="true" />
-            {contact.status}
+            {site.availability}
           </p>
           <p className={cx(deck.reveal, contactSlide.intro)} style={stagger(2)}>
             {contact.intro}

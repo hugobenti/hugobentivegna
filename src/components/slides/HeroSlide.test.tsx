@@ -15,3 +15,8 @@ test("the hero links to each case cover", () => {
     expect(links[index]).toHaveAccessibleName(expect.stringContaining(label));
   });
 });
+
+test("the hero states availability", () => {
+  render(<HeroSlide />);
+  expect(screen.getByText(site.availability)).toBeInTheDocument();
+});
