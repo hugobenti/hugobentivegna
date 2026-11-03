@@ -21,7 +21,7 @@ export const designSystemCase: IDesignSystemCase = {
   problem: {
     kicker: "01 · The problem",
     title: "Figma had the screens. Code had copies.",
-    body: "At a digital bank with 5+ products, design kept every screen in Figma. Each project re-coded the same components, so changes were made per product.",
+    body: "At a digital bank with 5+ products, design kept every screen in Figma. Projects re-coded the same components: every change, once per product.",
   },
   decision: {
     kicker: "02 · One system, built together",
@@ -107,7 +107,7 @@ export const aiCase: IAiCase = {
   gaps: {
     kicker: "01 · Find the gaps",
     title: "Before writing code, I asked what was missing.",
-    body: "MCP, the standard way to connect AI to tools, let an agent read the docs, spec and code to find missing endpoints, data and filters.",
+    body: "MCP, the standard way to connect AI to tools, let an agent check the real code, not just docs, and find missing endpoints, data, filters.",
     feature: "Feature · Devices",
     illustration: "Illustration",
     sources: [
@@ -151,7 +151,7 @@ export const aiCase: IAiCase = {
   foundation: {
     kicker: "02 · Lay the foundation",
     title: "Rules the agent reads, and rules it can't break.",
-    body: "I documented the UI Kit for two readers: when to use each component, when not, how it stays accessible. AGENTS.md set conventions, enforced by lint.",
+    body: "I documented the UI Kit for two readers: when to use each component, when not, and how it stays accessible. Lint enforced AGENTS.md's important rules.",
     note: "From this site's repository, built the same way.",
     excerptsLabel: "Excerpts from this site's repository",
     excerpts: [
@@ -200,7 +200,7 @@ export const aiCase: IAiCase = {
   build: {
     kicker: "03 · Build on it",
     title: "Then page after page, on the same patterns.",
-    body: "AI drafted each page from the kit and documented patterns. I reviewed every change; tests decided what was done. Speed and quality stopped competing.",
+    body: "AI drafted each page from the kit and documented patterns. I reviewed every change; tests decided when it was done. Speed and quality stopped competing.",
     closing: "This site was built the same way. The rules, docs and reviews are on GitHub.",
     repo: { label: "See the repository", href: "https://github.com/hugobenti/hugobentivegna" },
     review: {
