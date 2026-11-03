@@ -15,9 +15,9 @@ const cover: ICaseCover = {
     { label: "Stack", value: "React, TypeScript, Storybook" },
   ],
   chapters: [
-    { number: "01", label: "Find the problem" },
-    { number: "02", label: "Build the system" },
-    { number: "03", label: "Ship it" },
+    { number: "01", label: "Find the problem", slideId: "find-the-problem" },
+    { number: "02", label: "Build the system", slideId: "build-the-system" },
+    { number: "03", label: "Ship it", slideId: "ship-it" },
   ],
 };
 

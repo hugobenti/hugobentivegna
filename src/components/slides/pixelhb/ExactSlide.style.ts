@@ -13,7 +13,7 @@ export const exactSlide = {
   card: cx(
     "group flex flex-col gap-2 rounded-lg border border-line bg-surface p-4",
     "motion-safe:transition-[border-color,box-shadow] motion-safe:duration-(--hb-duration-slow)",
-    "data-[state=current]:border-accent data-[state=current]:shadow-[0_0_0_4px_var(--hb-color-glow)]",
+    "data-[state=current]:border-line data-[state=current]:bg-highlight data-[state=current]:text-fg",
   ),
   name: cx(
     "text-body font-bold text-subtle",

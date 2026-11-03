@@ -1,3 +1,5 @@
+import { cx, focusRing } from "@/design-system/ui";
+
 export const caseCoverSlide = {
   slide: "overflow-hidden",
   /**
@@ -18,6 +20,9 @@ export const caseCoverSlide = {
   metaLabel: "font-mono text-label text-subtle uppercase",
   metaValue: "mt-2 text-body text-fg",
   chapters: "mt-12 flex flex-wrap gap-3",
-  chapter: "rounded-pill border border-line px-4 py-2 font-mono text-small text-muted",
+  chapter: cx(
+    "inline-block rounded-pill border border-line px-4 py-2 font-mono text-small text-muted transition-colors duration-(--hb-duration-base) hover:border-muted hover:text-fg",
+    focusRing,
+  ),
   chapterNumber: "mr-2 text-accent",
 };

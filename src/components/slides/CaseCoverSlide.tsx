@@ -2,11 +2,13 @@ import { cx } from "@/design-system/ui";
 import { deck } from "../deck/Deck.style";
 import { Slide } from "../deck/Slide";
 import { stagger } from "../deck/stagger";
+import { useCaseCover } from "./useCaseCover";
 import { caseCoverSlide } from "./CaseCoverSlide.style";
 import type { TCaseCoverSlideProps } from "./CaseCoverSlide.type";
 
 /** Opens a case study: what it is, when, my role, and the chapters ahead. */
 export function CaseCoverSlide({ slide, cover, mark, aside }: TCaseCoverSlideProps) {
+  const { chapters } = useCaseCover(cover);
   return (
     <Slide slide={slide} className={caseCoverSlide.slide}>
       <div className={caseCoverSlide.glow} aria-hidden="true" />
@@ -35,10 +37,12 @@ export function CaseCoverSlide({ slide, cover, mark, aside }: TCaseCoverSlidePro
             ))}
           </dl>
           <ol className={cx(deck.reveal, caseCoverSlide.chapters)} style={stagger(4)}>
-            {cover.chapters.map((chapter) => (
-              <li key={chapter.number} className={caseCoverSlide.chapter}>
-                <span className={caseCoverSlide.chapterNumber}>{chapter.number}</span>
-                {chapter.label}
+            {chapters.map((chapter) => (
+              <li key={chapter.number}>
+                <a href={chapter.href} className={caseCoverSlide.chapter}>
+                  <span className={caseCoverSlide.chapterNumber}>{chapter.number}</span>
+                  {chapter.label}
+                </a>
               </li>
             ))}
           </ol>

@@ -22,7 +22,7 @@ The slide that opens a case study: what it is, when, my role, and the chapters a
 
 ## Behavior
 
-- Everything enters with the slide (`reveal`), staggered: mark and kicker 0, title 1, body 2, meta 3, chapters 4. The aside enters with the body (2).
+- Everything enters with the slide (`reveal`), staggered: mark and kicker 0, title 1, body 2, meta 3, chapters 4. Each chapter is a link to its slide (`#slideId`, from the content) with the focus ring. The aside enters with the body (2).
 - With an `aside`, the copy sits on the left and the picture on the right from `lg` up; without one, the copy takes the width.
 - A soft glow is drawn inside the slide's own box, so no hard line shows where two slides meet.
 - The reveal and the slide's own layout come from `deck.css`, which Storybook does not load: here the lines simply show, in a stage that stands in for the slide.

@@ -50,7 +50,7 @@ export const buildSlide = {
   srLabel: "sr-only",
 
   comment: cx(
-    "rounded-r-md border-l-2 border-accent bg-raised px-3 py-2 opacity-0",
+    "rounded-md border border-line bg-raised px-3 py-2 opacity-0",
     reveal,
     "group-data-[commented=true]/review:opacity-100",
   ),

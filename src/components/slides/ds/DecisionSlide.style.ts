@@ -14,7 +14,7 @@ export const decisionSlide = {
     "flex items-center gap-2 rounded-md border border-line bg-raised px-3 py-2 font-mono text-label text-muted",
     "transition-[border-color,color,box-shadow] duration-(--hb-duration-slow)",
     "data-[state=applied]:border-subtle data-[state=applied]:text-fg",
-    "data-[state=current]:border-accent data-[state=current]:text-fg data-[state=current]:shadow-[0_0_0_4px_var(--hb-color-glow)]",
+    "data-[state=current]:bg-highlight data-[state=current]:text-fg",
   ),
   swatch: "size-4 shrink-0 rounded-sm border border-subtle",
   tokenName: "text-fg",

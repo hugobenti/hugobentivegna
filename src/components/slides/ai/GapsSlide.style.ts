@@ -13,7 +13,7 @@ export const gapsSlide = {
   source: cx(
     "flex items-center gap-1.5 rounded-pill border border-line px-3 py-1.5 text-small text-muted",
     "transition-[border-color,color,box-shadow] duration-(--hb-duration-slow)",
-    "data-[on=true]:border-accent data-[on=true]:text-fg data-[on=true]:shadow-[0_0_0_4px_var(--hb-color-glow)]",
+    "data-[on=true]:bg-highlight data-[on=true]:text-fg",
   ),
   sourceBadge: "font-mono text-label text-accent",
 

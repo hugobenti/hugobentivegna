@@ -49,6 +49,9 @@ export function RebrandSlide() {
                       data-active={flag.active}
                       className={rebrandSlide.flag}
                     >
+                      <span aria-hidden="true" className={rebrandSlide.flagMarker}>
+                        {flag.marker}
+                      </span>
                       {flag.label}
                     </span>
                   ))}

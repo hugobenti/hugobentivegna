@@ -69,6 +69,7 @@ export function useRebrandScene() {
     flags: (["without", "with"] as const).map((act) => ({
       act,
       label: rebrand.acts[act].label,
+      marker: rebrand.flagMarker,
       active: !still && frame.act === act,
     })),
     control,

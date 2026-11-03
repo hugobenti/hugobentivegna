@@ -20,6 +20,7 @@ const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
 const start = () => centreLineObserver().reportAll(true);
 const cards = () =>
   within(screen.getByRole("list", { name: foundation.excerptsLabel })).getAllByRole("listitem");
+const read = () => cards().map((card) => card.getAttribute("data-read"));
 const lit = () => cards().map((card) => card.getAttribute("data-on"));
 
 /** A source file as prose: markdown emphasis and code ticks removed, whitespace collapsed. */
@@ -56,7 +57,7 @@ test("every excerpt's text is in the page before it plays", () => {
   });
 });
 
-test("once active, each excerpt is lit in turn, then all of them stay lit", () => {
+test("once active, each excerpt is lit in turn, then all of them read as done", () => {
   render(<FoundationSlide />);
   expect(lit()).toEqual(["false", "false", "false"]);
   start();
@@ -65,14 +66,32 @@ test("once active, each excerpt is lit in turn, then all of them stay lit", () =
   advance(FOUNDATION_STEP_MS);
   expect(lit()).toEqual(["false", "true", "false"]);
   advance(duration);
-  expect(lit()).toEqual(["true", "true", "true"]);
+  expect(lit()).toEqual(["false", "false", "false"]);
+  expect(read()).toEqual(["true", "true", "true"]);
   expect(screen.getByRole("button", { name: controls.replay })).toBeInTheDocument();
 });
 
-test("with reduced motion every excerpt is lit and there is nothing to control", () => {
+test("at the end every card reads as done and none is highlighted", () => {
+  const { container } = render(<FoundationSlide />);
+  start();
+  advance(duration);
+  expect(container.querySelectorAll('[data-on="true"]')).toHaveLength(0);
+  expect(read()).toEqual(["true", "true", "true"]);
+});
+
+test("an excerpt stays marked as read after focus moves on", () => {
+  render(<FoundationSlide />);
+  start();
+  advance(FOUNDATION_DELAY_MS + FOUNDATION_STEP_MS);
+  expect(read()).toEqual(["true", "false", "false"]);
+  expect(lit()).toEqual(["false", "true", "false"]);
+});
+
+test("with reduced motion every excerpt reads as done and there is nothing to control", () => {
   stubReducedMotion(true);
   render(<FoundationSlide />);
-  expect(lit()).toEqual(["true", "true", "true"]);
+  expect(lit()).toEqual(["false", "false", "false"]);
+  expect(read()).toEqual(["true", "true", "true"]);
   expect(screen.queryAllByRole("button")).toEqual([]);
 });
 

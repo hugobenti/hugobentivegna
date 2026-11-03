@@ -109,7 +109,7 @@ export interface ICaseCover {
   title: string;
   body: string;
   meta: { label: string; value: string }[];
-  chapters: { number: string; label: string }[];
+  chapters: { number: string; label: string; slideId: string }[];
 }
 
 export interface IDesignSystemCase {
@@ -142,6 +142,8 @@ export interface IDesignSystemCase {
     closing: string;
     /** Per act: its label, its line in the scene, and a text summary for screen readers. */
     acts: Record<TSceneAct, { label: string; title: string; summary: string }>;
+    /** Drawn before the label of the act on screen (the label is the accessible text). */
+    flagMarker: string;
     /** Counter naming who does the work in each act, e.g. "6 developers". */
     developers: Record<TSceneAct, string>;
     /** Follows the "3/6" count of rebranded products. */
