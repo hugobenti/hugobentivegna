@@ -101,6 +101,7 @@ export interface IContactContent {
 
 export interface INotFoundContent {
   code: string;
+  documentTitle: string;
   title: string;
   body: string;
   back: ILinkContent;

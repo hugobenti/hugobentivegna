@@ -6,7 +6,7 @@ const fill =
   "block h-full origin-left scale-x-(--progress) rounded-pill bg-accent transition-[scale] duration-100 ease-linear";
 
 export const rebrandSlide = {
-  slide: "overflow-hidden",
+  slide: "overflow-clip",
   content: "relative mx-auto flex w-full max-w-6xl flex-col gap-6",
   kicker: "font-mono text-label text-subtle uppercase",
   title: "mt-4 font-display text-h2 font-extrabold text-balance text-fg",
