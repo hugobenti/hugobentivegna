@@ -61,7 +61,7 @@ export const designSystemCase: IDesignSystemCase = {
     acts: {
       without: {
         label: "Without a design system",
-        title: "The same rebrand, done six times.",
+        title: "The same rebrand, done once per product.",
         summary:
           "Without a design system, a developer on each product makes the same rebrand by hand.",
       },
@@ -90,7 +90,7 @@ export const aiCase: IAiCase = {
   cover: {
     kicker: "Case study · AI-assisted development",
     title: "A front-end built for two readers: engineers and AI agents.",
-    body: "How I set up a new IoT portal so AI could help build it, fast and on-pattern.",
+    body: "How I set up a new IoT portal so AI could help build it, fast and following the same patterns.",
     meta: [
       { label: "When", value: "2025 – 2026" },
       { label: "My role", value: "Built the UI Kit foundation and the portal's pages" },
@@ -105,7 +105,7 @@ export const aiCase: IAiCase = {
   gaps: {
     kicker: "01 · Find the gaps",
     title: "Before writing code, I asked what was missing.",
-    body: "Through MCP, an AI agent read the product docs, the tech spec and the company's Git repositories. Checking the real code, not just the docs, showed exactly what each screen needed, what the API already did, and what was missing: endpoints, data, filters.",
+    body: "Through MCP, the standard way to connect an AI agent to tools and data, an agent read the product docs, the tech spec and the company's Git repositories. Checking the real code, not just the docs, showed exactly what each screen needed, what the API already did, and what was missing: endpoints, data, filters.",
     feature: "Feature · Devices",
     illustration: "Illustration",
     sources: [
