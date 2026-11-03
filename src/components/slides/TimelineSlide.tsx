@@ -33,7 +33,11 @@ export function TimelineSlide() {
           return (
             <li key={entry.id} data-step={index} className={deck.step}>
               <div className={timelineSlide.step}>
-                <TimelineChapter entry={entry} headingLevel={3} className={deck.reveal} />
+                <TimelineChapter
+                  entry={entry}
+                  headingLevel={3}
+                  className={cx(deck.reveal, timelineSlide.chapter)}
+                />
                 <Artifact active={index === activeIndex} className={deck.reveal} />
               </div>
             </li>

@@ -54,7 +54,10 @@
 /* ---------- Multi-step slides ---------- */
 
 .slide-steps {
-  --steps-header: 13rem;
+  /* What the header renders at md+ (padding, title, axis): 216px at its tallest. */
+  --steps-header: 13.6rem;
+  /* A chapter starts at least this far under the axis; any room left over is centred (see .step). */
+  --steps-gap: 5rem;
   display: block;
   padding: 0;
 }
@@ -97,7 +100,7 @@
     flex-direction: column;
     justify-content: center;
     min-height: 100svh;
-    padding: var(--steps-header) var(--hb-space-gutter) 3rem;
+    padding: calc(var(--steps-header) + var(--steps-gap)) var(--hb-space-gutter) 3rem;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }

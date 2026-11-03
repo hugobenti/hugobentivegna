@@ -36,6 +36,7 @@ export function OuribankArtifact({ active, className }: TArtifactProps) {
         <div className={s.cards}>
           {cards.map((card) => (
             <span key={card.key} className={s.card} style={card.style}>
+              <span className={s.cardMedia} />
               <span className={s.cardTitle} />
               <span className={s.cardLine} />
               <span className={s.cardLine} />
