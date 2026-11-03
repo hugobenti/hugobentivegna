@@ -21,13 +21,13 @@ export const designSystemCase: IDesignSystemCase = {
   problem: {
     kicker: "01 · The problem",
     title: "Figma had the screens. Code had copies.",
-    body: "At a digital bank with 5+ products, the design team kept every screen in Figma. In code, each project rebuilt the same components, so every change had to be made once per product.",
+    body: "At a digital bank with 5+ products, design kept every screen in Figma. Each project re-coded the same components, so changes were made per product.",
   },
   decision: {
     kicker: "02 · One system, built together",
     title:
       "A well-documented design system is the source of truth that connects design and development.",
-    body: "As the components matured in code, the Figma library matured with them. Colors and type kept the same names on both sides, and I was the engineering voice in design discussions.",
+    body: "Components matured in code and the Figma library with them. Colors and type shared names on both sides; I was engineering's voice in design.",
     tokensLabel: "Tokens the button is built from",
     groups: [
       { label: "Shape", tokens: [{ token: "button.radius" }] },
@@ -107,7 +107,7 @@ export const aiCase: IAiCase = {
   gaps: {
     kicker: "01 · Find the gaps",
     title: "Before writing code, I asked what was missing.",
-    body: "Through MCP, the standard way to connect an AI agent to tools and data, an agent read the product docs, the tech spec and the company's Git repositories. Checking the real code, not just the docs, showed exactly what each screen needed, what the API already did, and what was missing: endpoints, data, filters.",
+    body: "MCP, the standard way to connect AI to tools, let an agent read the docs, spec and code to find missing endpoints, data and filters.",
     feature: "Feature · Devices",
     illustration: "Illustration",
     sources: [
@@ -151,7 +151,7 @@ export const aiCase: IAiCase = {
   foundation: {
     kicker: "02 · Lay the foundation",
     title: "Rules the agent reads, and rules it can't break.",
-    body: "I documented the UI Kit for two readers: when to use each component, when not to, and how it stays accessible. AGENTS.md set the repository's conventions, and lint rules turned the important ones into errors.",
+    body: "I documented the UI Kit for two readers: when to use each component, when not, how it stays accessible. AGENTS.md set conventions, enforced by lint.",
     note: "From this site's repository, built the same way.",
     excerptsLabel: "Excerpts from this site's repository",
     excerpts: [
@@ -200,7 +200,7 @@ export const aiCase: IAiCase = {
   build: {
     kicker: "03 · Build on it",
     title: "Then page after page, on the same patterns.",
-    body: "AI drafted each page from the kit and the documented patterns. I reviewed every change, and tests decided when a task was done. Speed and quality stopped pulling against each other.",
+    body: "AI drafted each page from the kit and documented patterns. I reviewed every change; tests decided what was done. Speed and quality stopped competing.",
     closing: "This site was built the same way. The rules, docs and reviews are on GitHub.",
     repo: { label: "See the repository", href: "https://github.com/hugobenti/hugobentivegna" },
     review: {
@@ -247,7 +247,7 @@ export const pixelhbCase: IPixelhbCase = {
   exact: {
     kicker: "01 · The editor",
     title: "Everything you need to draw pixel art, in the browser.",
-    body: "Layers, a reference image, undo and redo, and a palette of up to 256 colors. Export a PNG, or the whole file as JSON. Your work saves itself as you draw.",
+    body: "Layers, reference image, undo, redo, up to 256 colors. Export PNG, or the file as JSON. Autosaves as you draw.",
     illustration: "Illustration",
     tools: [
       {
