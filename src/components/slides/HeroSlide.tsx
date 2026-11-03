@@ -1,3 +1,4 @@
+import { heroCaseLinks } from "@/content/navigation";
 import { site } from "@/content/site";
 import { slides } from "@/content/slides";
 import { cx } from "@/design-system/ui";
@@ -12,22 +13,26 @@ export function HeroSlide() {
       <div className={hero.glow} aria-hidden="true" />
 
       <div className={hero.content}>
-        <p className={cx(deck.enter, hero.kicker)} style={stagger(1)}>
-          {site.kicker}
-        </p>
-        <h1 className={cx(deck.enter, hero.headline)} style={stagger(2)}>
+        <h1 className={cx(deck.enter, hero.headline)} style={stagger(1)}>
           <span className={hero.line}>{site.headline.lead}</span>
           <span className={hero.accent}>{site.headline.accent}</span>
           <span className={hero.line}>{site.headline.tail}</span>
         </h1>
-        <p className={cx(deck.enter, hero.support)} style={stagger(3)}>
-          {site.supportLine}
+        <p className={cx(deck.enter, hero.intro)} style={stagger(2)}>
+          {site.intro}
         </p>
+        <ol className={cx(deck.enter, hero.cases)} style={stagger(3)}>
+          {heroCaseLinks.map((entry) => (
+            <li key={entry.slideId}>
+              <a href={entry.href} className={hero.caseLink}>
+                <span className={hero.caseNumber}>{entry.number}</span>
+                <span className={hero.caseLabel}>{entry.label}</span>
+                <span className={hero.caseOutcome}>{entry.outcome}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
       </div>
-
-      <p className={cx(deck.enter, hero.cue)} style={stagger(5)} aria-hidden="true">
-        Scroll ↓
-      </p>
     </Slide>
   );
 }

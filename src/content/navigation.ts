@@ -1,7 +1,7 @@
 import { site } from "./site";
 import { slideList } from "./slides";
-import type { INavLink } from "./content.type";
-import type { TAvailableNavLink } from "./navigation.type";
+import type { IHeroCase, INavLink } from "./content.type";
+import type { TAvailableNavLink, THeroCaseLink } from "./navigation.type";
 
 /** Nav links whose slide exists, so the nav never points at a section that isn't built yet. */
 export function availableNavLinks(
@@ -11,6 +11,16 @@ export function availableNavLinks(
   return nav
     .filter((link) => slides.some((slide) => slide.id === link.slideId))
     .map((link) => ({ ...link, id: link.slideId, href: `#${link.slideId}` }));
+}
+
+/** Hero cases whose slide exists, with their hash: the same rule as the nav. */
+export function availableHeroCases(
+  cases: readonly IHeroCase[],
+  slides: readonly { id: string }[],
+): THeroCaseLink[] {
+  return cases
+    .filter((entry) => slides.some((slide) => slide.id === entry.slideId))
+    .map((entry) => ({ ...entry, href: `#${entry.slideId}` }));
 }
 
 /**
@@ -24,3 +34,6 @@ export function activeNavLink(nav: readonly INavLink[], slideId: string): string
 
 /** The site header's links, as rendered. */
 export const navLinks = availableNavLinks(site.nav, slideList);
+
+/** The hero's case links, as rendered. */
+export const heroCaseLinks = availableHeroCases(site.heroCases, slideList);

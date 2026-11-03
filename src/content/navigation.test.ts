@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { activeNavLink, availableNavLinks } from "./navigation";
+import { activeNavLink, availableHeroCases, availableNavLinks } from "./navigation";
 
 const nav = [
   { label: "Work", slideId: "timeline" },
@@ -38,4 +38,17 @@ test("a link without a section is active on its own slide only", () => {
 
 test("slides outside every section (the hero) leave nothing active", () => {
   expect(activeNavLink(sections, "hero")).toBeNull();
+});
+
+test("hero case links skip cases whose slide isn't built", () => {
+  const cases = [
+    { number: "01", label: "One", outcome: "First.", slideId: "one" },
+    { number: "02", label: "Two", outcome: "Second.", slideId: "two" },
+    { number: "03", label: "Three", outcome: "Third.", slideId: "three" },
+  ];
+  const slides = [{ id: "one" }, { id: "three" }];
+  expect(availableHeroCases(cases, slides)).toEqual([
+    { number: "01", label: "One", outcome: "First.", slideId: "one", href: "#one" },
+    { number: "03", label: "Three", outcome: "Third.", slideId: "three", href: "#three" },
+  ]);
 });
