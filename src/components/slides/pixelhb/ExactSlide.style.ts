@@ -8,9 +8,13 @@ export const exactSlide = {
   links: "mt-6 flex flex-wrap gap-3",
   /**
    * The real editor under the links; its caption answers the cards' "Illustration" labels. On
-   * desktops under 800 px tall it shrinks to 12rem, so the slide still fits the screen (1280 × 720).
+   * desktops under 800 px tall it shrinks to 12rem, so the slide still fits the screen (1280 × 720);
+   * under 720 px tall (short laptops, e.g. 1366 × 768 less the browser chrome) it is hidden.
    */
-  shot: "mt-8 flex max-w-md flex-col gap-2 lg:[@media(max-height:799px)]:max-w-48",
+  shot: cx(
+    "mt-8 flex max-w-md flex-col gap-2",
+    "lg:[@media(max-height:719px)]:hidden lg:[@media(max-height:799px)]:max-w-48",
+  ),
   shotImage: "h-auto w-full rounded-md border border-line shadow-card",
   shotCaption: "font-mono text-label text-subtle uppercase",
 

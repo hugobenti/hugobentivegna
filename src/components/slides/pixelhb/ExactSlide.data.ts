@@ -6,6 +6,6 @@ export const EDITOR_SHOT = {
   src: "/pixelhb-editor.webp",
   width: 2880,
   height: 1800,
-  /** The rendered width: the full column below lg, the 18rem copy column from lg up. */
-  sizes: "(min-width: 1024px) 18rem, 90vw",
+  /** The rendered width: the 18rem copy column from lg up; below, the column, at most 28rem. */
+  sizes: "(min-width: 1024px) 18rem, min(90vw, 28rem)",
 };
