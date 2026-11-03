@@ -5,6 +5,7 @@ import { cx } from "@/design-system/ui";
 import { deck } from "../deck/Deck.style";
 import { Slide } from "../deck/Slide";
 import { stagger } from "../deck/stagger";
+import { availability } from "./Availability.style";
 import { hero } from "./HeroSlide.style";
 
 export function HeroSlide() {
@@ -21,8 +22,8 @@ export function HeroSlide() {
         <p className={cx(deck.enter, hero.intro)} style={stagger(2)}>
           {site.intro}
         </p>
-        <p className={cx(deck.enter, hero.availability)} style={stagger(3)}>
-          <span className={hero.availabilityDot} aria-hidden="true" />
+        <p className={cx(deck.enter, availability.line, hero.availability)} style={stagger(3)}>
+          <span className={availability.dot} aria-hidden="true" />
           {site.availability}
         </p>
         <ol className={cx(deck.enter, hero.cases)} style={stagger(4)}>
