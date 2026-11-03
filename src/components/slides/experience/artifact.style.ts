@@ -6,12 +6,12 @@ import { cx } from "@/design-system/ui";
  */
 export const artifact = {
   frame:
-    "group hidden overflow-hidden rounded-lg border border-line bg-surface shadow-card md:block",
+    "group hidden overflow-hidden rounded-lg border border-line bg-surface shadow-card md:flex md:flex-col",
   chrome: "flex items-center gap-3 border-b border-line px-4 py-3",
   dots: "flex gap-1.5",
   dot: "size-2.5 rounded-pill bg-line",
   title: "font-mono text-label text-subtle",
-  body: "flex flex-col gap-5 p-5",
+  body: "flex flex-col gap-5 p-5 md:flex-1 md:justify-center",
   /** Small uppercase caption above a group inside the window. */
   caption: "font-mono text-label text-subtle uppercase",
   /** Base transition for anything that animates in; --i staggers it. */

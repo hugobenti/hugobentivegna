@@ -56,8 +56,8 @@
 .slide-steps {
   /* What the header renders at md+ (padding, title, axis): 216px at its tallest. */
   --steps-header: 13.6rem;
-  /* Breathing room kept on both sides of a chapter, so it sits centred under the axis. */
-  --steps-gap: 1.5rem;
+  /* A chapter starts this far under the axis (md+ gap is 5rem; see .step). */
+  --steps-gap: 5rem;
   display: block;
   padding: 0;
 }
@@ -98,9 +98,9 @@
   .step:last-child {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100svh;
-    padding: calc(var(--steps-header) + var(--steps-gap)) var(--hb-space-gutter) var(--steps-gap);
+    padding: calc(var(--steps-header) + var(--steps-gap)) var(--hb-space-gutter) 1.5rem;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
