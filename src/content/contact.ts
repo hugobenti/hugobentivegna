@@ -4,19 +4,21 @@ import type { IContactContent, INotFoundContent } from "./content.type";
 const email = "hugobenti@gmail.com";
 
 export const contact: IContactContent = {
-  kicker: "Contact",
   title: "Let's build something people enjoy using.",
+  status: "Open to new senior roles · Remote or São Paulo",
   intro:
     "Based in São Paulo, working in English and Portuguese. Email is the fastest way to reach me.",
   email,
   emailAction: { label: "Send an email", href: `mailto:${email}` },
-  profiles: [
-    { label: "LinkedIn", href: "https://linkedin.com/in/hugo-bentivegna" },
-    { label: "GitHub", href: "https://github.com/hugobenti" },
-  ],
+  profiles: [{ label: "LinkedIn", href: "https://linkedin.com/in/hugo-bentivegna" }],
   cv: { label: "Download CV", href: "/Hugo-Bentivegna-CV-10_2026.pdf" },
+  cvTitle: "CV",
+  cvMeta: "PDF · 154 KB · October 2026",
   credit: `Designed and built by ${site.name} on its own design system.`,
-  storybook: { label: "Explore the design system", href: site.storybookUrl },
+  footerLinks: [
+    { label: "GitHub", href: "https://github.com/hugobenti" },
+    { label: "Explore the design system", href: site.storybookUrl },
+  ],
 };
 
 export const notFound: INotFoundContent = {

@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
+import { button } from "@/design-system/ui/Button/Button.style";
 import { ContactSlide } from "./ContactSlide";
 
 const email = "hugobenti@gmail.com";
@@ -34,6 +35,16 @@ test("the CV downloads a file that is actually published", () => {
   expect(cv).toHaveAttribute("download");
   const href = cv.getAttribute("href") ?? "";
   expect(existsSync(path.join(process.cwd(), "public", href))).toBe(true);
+});
+
+test("one primary action, and the CV is a button-weight download", () => {
+  const { container } = render(<ContactSlide />);
+  const primary = button.variant.primary.split(" ")[0] ?? "";
+  const secondary = button.variant.secondary.split(" ")[2] ?? "";
+  expect(container.querySelectorAll(`[class~="${primary}"]`)).toHaveLength(1);
+  const cv = screen.getByRole("link", { name: "Download CV" });
+  expect(cv).toHaveAttribute("download");
+  expect(cv).toHaveClass(secondary);
 });
 
 test("no phone number appears on the page", () => {

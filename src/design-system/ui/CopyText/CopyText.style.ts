@@ -5,7 +5,7 @@ export const copyText = {
   base: "relative inline-flex",
   /** The text itself is the control; dotted underline + icon say "this does something" without hover. */
   trigger: cx(
-    "peer inline-flex cursor-copy items-center gap-2 rounded-sm font-mono text-fg",
+    "peer inline-flex min-h-11 cursor-copy items-center gap-2 rounded-sm font-mono text-fg",
     "underline decoration-line decoration-dotted underline-offset-4",
     "transition-colors duration-(--hb-duration-fast) ease-out hover:decoration-accent",
     focusRing,

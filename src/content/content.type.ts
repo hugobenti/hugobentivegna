@@ -64,9 +64,10 @@ export interface ILinkContent {
 }
 
 export interface IContactContent {
-  kicker: string;
   /** Closing statement. */
   title: string;
+  /** Availability line under the title. */
+  status: string;
   intro: string;
   email: string;
   /** Opens the visitor's mail app. */
@@ -75,8 +76,13 @@ export interface IContactContent {
   profiles: ILinkContent[];
   /** The CV as published (unchanged PDF in public/). */
   cv: ILinkContent;
+  /** Heading of the CV card. */
+  cvTitle: string;
+  /** Format, size and date of the CV file; its size is checked against public/. */
+  cvMeta: string;
   credit: string;
-  storybook: ILinkContent;
+  /** Links in the footer row, after the credit. */
+  footerLinks: ILinkContent[];
 }
 
 export interface INotFoundContent {

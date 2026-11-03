@@ -23,6 +23,7 @@ Shows a short piece of text, such as an email address, that copies itself when c
 ## Accessibility
 
 - The text is a real `<button>`, so its accessible name is the text itself ("hugobenti@gmail.com, button") and it works with Enter and Space.
+- The button is at least 44 px high (`min-h-11`), so it is an easy touch target on phones even at small text sizes.
 - The hint ("Click to copy") is the button's description, read after the name; it is also a `role="status"` live region, so "Copied" or the failure message is announced without moving focus.
 - Hover isn't required: the hint also shows on keyboard focus, and the dotted underline plus copy icon signal the affordance on touch screens.
 - If copying fails (permission denied, insecure page, older browser), the text gets selected and the hint explains the shortcut. It never fails silently.
