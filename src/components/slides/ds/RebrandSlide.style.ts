@@ -96,7 +96,7 @@ export const rebrandScene = {
   productVersion: "font-mono text-small",
   productBody: "flex flex-col gap-2 p-3",
   /** The mock "Balance" caption is decoration; short screens drop it to keep the slide in view. */
-  balanceLabel: "hidden text-small text-subtle md:[@media(min-height:761px)]:block",
+  balanceLabel: "hidden text-small text-subtle md:block md:[@media(max-height:760px)]:hidden",
   /** Below `md` the cards are compact: brand header and button, no balance (`display: none`, so assistive tech skips it too). */
   balance: "hidden truncate text-small font-bold text-fg tabular-nums md:block",
   action: "mt-1 h-8 w-full px-2 text-label",
