@@ -2,10 +2,17 @@ import { cx } from "@/design-system/ui";
 import { pixelAccent } from "./PixelArt.style";
 
 export const exactSlide = {
-  /** Copy, links and control on the left, the four tool cards on the right from lg up. */
+  /** Copy, links and the editor screenshot on the left, the four tool cards on the right from lg up. */
   content:
     "mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:items-center lg:gap-10",
   links: "mt-6 flex flex-wrap gap-3",
+  /**
+   * The real editor under the links; its caption answers the cards' "Illustration" labels. On
+   * desktops under 800 px tall it shrinks to 12rem, so the slide still fits the screen (1280 × 720).
+   */
+  shot: "mt-8 flex max-w-md flex-col gap-2 lg:[@media(max-height:799px)]:max-w-48",
+  shotImage: "h-auto w-full rounded-md border border-line shadow-card",
+  shotCaption: "font-mono text-label text-subtle uppercase",
 
   /** The four-tool grid and, under it, the playback control. */
   panel: "flex flex-col gap-3",
@@ -27,11 +34,13 @@ export const exactSlide = {
     "motion-safe:transition-colors motion-safe:duration-(--hb-duration-slow)",
   ),
 
-  /** The demo's box is reserved from the start; only its drawing fades in. */
+  /** The demo's box is reserved from the start, with its first frame drawn in it. */
   demo: "relative mt-auto flex h-20 items-center rounded-sm border border-line bg-bg px-4",
   label: "absolute top-1 right-2 font-mono text-label text-subtle uppercase",
-  art: cx(
-    "flex items-end gap-3 opacity-0 data-[on=true]:opacity-100",
+  art: "flex items-end gap-3",
+  /** A piece of a demo that fades in on its card's turn; the first frame around it never moves. */
+  piece: cx(
+    "opacity-0 data-[on=true]:opacity-100",
     "motion-safe:transition-opacity motion-safe:duration-(--hb-duration-slow)",
   ),
 

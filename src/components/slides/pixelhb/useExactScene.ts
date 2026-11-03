@@ -1,11 +1,12 @@
 import { pixelhbCase } from "@/content/cases";
+import type { ITool } from "@/content/content.type";
 import { usePlaybackControl } from "../../deck/usePlaybackControl";
 import { exactCard, exactDuration, exactFillCount, exactFrame } from "./exactTimeline";
 import type { TPixelArtSize } from "./PixelArt.type";
 import { HEART } from "./pixelArt.data";
 import { cellStates, gridCells, gridSize } from "./pixelGrid";
 import type { TPixelKey } from "./pixelGrid.type";
-import type { IExactSceneTool, TRingKey } from "./useExactScene.type";
+import type { IExactLoupe, IExactSceneTool, IZoomStep, TRingKey } from "./useExactScene.type";
 
 const { exact } = pixelhbCase;
 const duration = exactDuration(exact.tools.length);
@@ -31,9 +32,11 @@ const zoomSizes: TPixelArtSize[] = ["heart1x", "heart2x", "heart4x"];
 
 /**
  * Pixel-exact chapter view model: the four tool cards light in turn (a card stays lit once it
- * has had its turn), each fading in its demo. The fill demo fills three hearts' amber, in the
- * order of three bucket clicks, one heart each; the zoom, grid and loupe demos are static drawings.
- * All copy is rendered from the start and every demo's box is reserved, so only opacity changes.
+ * has had its turn). Every demo shows its first frame from the start, so no box is ever empty:
+ * zoom the 1× heart, grid the heart, fill the outlined hearts, the loupe its ring. On its card's
+ * turn the rest fades in: the 2× and 4× hearts, the grid lines, three bucket clicks that fill the
+ * hearts' amber one heart each, and the loupe's lens. All copy is rendered from the start and
+ * every demo's box is reserved, so only opacity changes.
  */
 export function useExactScene() {
   const { ref, elapsed, control } = usePlaybackControl<HTMLUListElement>(duration);
@@ -46,21 +49,30 @@ export function useExactScene() {
     ),
   );
 
+  const tools = exact.tools.map((tool, index): IExactSceneTool => {
+    const state = exactCard(frame, index);
+    return { ...tool, on: state !== "idle", state };
+  });
+  const turned = (demo: ITool["demo"]) => tools.some((tool) => tool.demo === demo && tool.on);
+
   return {
     ref,
-    tools: exact.tools.map((tool, index): IExactSceneTool => {
-      const state = exactCard(frame, index);
-      return { ...tool, on: state !== "idle", state };
-    }),
+    tools,
     demos: {
-      zoom: zoomSizes,
+      zoom: zoomSizes.map((size, index): IZoomStep => ({
+        size,
+        on: index === 0 || turned("zoom"),
+      })),
       heart: HEART,
+      /** The grid lines over the heart; the heart itself shows from the start. */
+      grid: turned("grid"),
       fills,
       loupe: {
         grid: patch,
         picked,
         current: CURRENT,
-      },
+        lens: turned("loupe"),
+      } satisfies IExactLoupe,
     },
     control,
   };
