@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { aiCase } from "@/content/cases";
@@ -8,6 +8,7 @@ import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { focusables } from "@/test/focusables";
 import { stubReducedMotion } from "@/test/reducedMotion";
 import { BuildSlide } from "./BuildSlide";
 import { REVIEW_FIXED_MS, REVIEW_MS, REVIEW_STAGE_MS } from "./reviewTimeline";
@@ -96,4 +97,13 @@ test("without JavaScript there is no control that couldn't work", () => {
   for (const label of Object.values(controls)) {
     expect(html).not.toMatch(new RegExp(`<button[^>]*>${label}</button>`));
   }
+});
+
+test("the playback control is the last focusable element inside the panel", () => {
+  const { container } = render(<BuildSlide />);
+  start();
+  const panel = container.querySelector("[data-panel]") as HTMLElement;
+  expect(panel).not.toBeNull();
+  const last = focusables(panel).at(-1);
+  expect(last).toBe(within(panel).getByRole("button", { name: controls.pause }));
 });

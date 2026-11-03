@@ -38,7 +38,7 @@ export function RebrandSlide() {
             <li>{rebrand.acts.without.summary}</li>
             <li>{rebrand.acts.with.summary}</li>
           </ul>
-          <div data-playing={playing} className={rebrandSlide.panel}>
+          <div data-panel="" data-playing={playing} className={rebrandSlide.panel}>
             {still ? null : (
               <div className={rebrandSlide.bar}>
                 <p className={rebrandSlide.flags} aria-hidden="true">
@@ -56,7 +56,6 @@ export function RebrandSlide() {
                     </span>
                   ))}
                 </p>
-                <PlaybackControl {...control} />
               </div>
             )}
             <div
@@ -67,6 +66,9 @@ export function RebrandSlide() {
               {views.map((view) => (
                 <RebrandScene key={view.act} view={view} layout={still ? "compact" : "wide"} />
               ))}
+            </div>
+            <div className={deck.playbackSlot}>
+              <PlaybackControl {...control} />
             </div>
           </div>
           <p className={rebrandSlide.closing}>{rebrand.closing}</p>

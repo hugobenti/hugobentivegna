@@ -19,7 +19,7 @@ export const rebrandSlide = {
    */
   panel:
     "group/panel flex flex-col gap-4 rounded-lg border border-line bg-surface p-5 [@media(max-height:760px)]:gap-3 [@media(max-height:760px)]:p-4",
-  bar: "flex flex-wrap items-center justify-between gap-3",
+  bar: "flex flex-wrap items-center gap-3",
   flags: "flex flex-wrap gap-2",
   /** WITHOUT / WITH: a caption; the act on screen is full-strength text with a marker. */
   flag: "group/flag px-1 py-1.5 font-mono text-label text-subtle uppercase transition-colors duration-(--hb-duration-base) data-[active=true]:text-fg",

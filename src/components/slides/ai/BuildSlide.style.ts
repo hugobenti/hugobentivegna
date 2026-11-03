@@ -66,7 +66,7 @@ export const buildSlide = {
   ruleFile: "text-success",
   ruleMessage: "mt-1 text-muted",
 
-  footer: "flex min-h-14 items-center justify-between gap-4 border-t border-line px-4 py-3",
+  footer: "flex items-end justify-between gap-4 border-t border-line px-4 pt-3 pr-5 pb-5",
   checks: "flex flex-wrap gap-x-4 gap-y-1 font-mono text-label",
   check:
     "text-subtle transition-colors duration-(--hb-duration-base) data-[passed=true]:text-success",

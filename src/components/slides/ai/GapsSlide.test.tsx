@@ -7,6 +7,7 @@ import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { focusables } from "@/test/focusables";
 import { stubReducedMotion } from "@/test/reducedMotion";
 import { GapsSlide } from "./GapsSlide";
 import { GAPS_DELAY_MS, GAPS_REVEAL_MS, GAPS_SOURCE_MS, gapsDuration } from "./gapsTimeline";
@@ -92,4 +93,13 @@ test("without JavaScript the page shows the results and no control that couldn't
     expect(html).not.toMatch(new RegExp(`<button[^>]*>${label}</button>`));
   }
   expect(html).toContain(gaps.checks[0].badge);
+});
+
+test("the playback control is the last focusable element inside the panel", () => {
+  const { container } = render(<GapsSlide />);
+  start();
+  const panel = container.querySelector("[data-panel]") as HTMLElement;
+  expect(panel).not.toBeNull();
+  const last = focusables(panel).at(-1);
+  expect(last).toBe(within(panel).getByRole("button", { name: controls.pause }));
 });

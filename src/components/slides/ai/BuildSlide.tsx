@@ -33,7 +33,7 @@ export function BuildSlide() {
 
         <div
           ref={ref}
-
+          data-panel=""
           {...progress}
           className={cx(deck.reveal, buildSlide.panel)}
           style={stagger(3)}

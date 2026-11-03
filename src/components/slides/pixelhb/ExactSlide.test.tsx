@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { pixelhbCase } from "@/content/cases";
@@ -7,6 +7,7 @@ import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { focusables } from "@/test/focusables";
 import { stubReducedMotion } from "@/test/reducedMotion";
 import { EXACT_DELAY_MS, EXACT_STEP_MS, exactDuration } from "./exactTimeline";
 import { ExactSlide } from "./ExactSlide";
@@ -164,4 +165,13 @@ test("without JavaScript the page shows the end state and no control that couldn
   }
   expect(html).not.toContain('data-on="false"');
   expect(html).toContain(exact.live.href);
+});
+
+test("the playback control is the last focusable element inside the panel", () => {
+  const { container } = render(<ExactSlide />);
+  start();
+  const panel = container.querySelector("[data-panel]") as HTMLElement;
+  expect(panel).not.toBeNull();
+  const last = focusables(panel).at(-1);
+  expect(last).toBe(within(panel).getByRole("button", { name: controls.pause }));
 });

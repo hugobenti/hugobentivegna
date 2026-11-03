@@ -12,6 +12,11 @@ export const deck = {
   reveal: "reveal",
   /** Time-based entrance on first load. */
   enter: "enter",
+  /**
+   * Where a scene's playback control sits: the bottom-right corner of its panel, last in Tab order.
+   * It keeps the control's height (a `sm` button) even when the control isn't rendered.
+   */
+  playbackSlot: "flex min-h-8 justify-end",
   /** Dot navigation: vertically centred on the right, hidden where slides don't snap. */
   dots: "fixed top-1/2 right-3 z-10 hidden -translate-y-1/2 md:block [@media(max-height:559px)]:hidden",
 };

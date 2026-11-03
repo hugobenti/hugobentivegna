@@ -8,6 +8,7 @@ import {
   centreLineObserver,
   installFakeIntersectionObserver,
 } from "@/test/fakeIntersectionObserver";
+import { focusables } from "@/test/focusables";
 import { stubReducedMotion } from "@/test/reducedMotion";
 import { FoundationSlide } from "./FoundationSlide";
 import { FOUNDATION_DELAY_MS, FOUNDATION_STEP_MS, foundationDuration } from "./foundationTimeline";
@@ -100,4 +101,13 @@ test("without JavaScript there is no control that couldn't work", () => {
   for (const label of Object.values(controls)) {
     expect(html).not.toMatch(new RegExp(`<button[^>]*>${label}</button>`));
   }
+});
+
+test("the playback control is the last focusable element inside the panel", () => {
+  const { container } = render(<FoundationSlide />);
+  start();
+  const panel = container.querySelector("[data-panel]") as HTMLElement;
+  expect(panel).not.toBeNull();
+  const last = focusables(panel).at(-1);
+  expect(last).toBe(within(panel).getByRole("button", { name: controls.pause }));
 });

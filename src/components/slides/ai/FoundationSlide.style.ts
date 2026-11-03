@@ -32,6 +32,4 @@ export const foundationSlide = {
     label: "font-mono text-label text-subtle group-data-[on=true]/excerpt:text-muted",
     error: "font-mono text-label text-danger",
   } satisfies Record<NonNullable<IExcerptLine["tone"]> | "plain", string>,
-
-  footer: "flex min-h-8 justify-end",
 };

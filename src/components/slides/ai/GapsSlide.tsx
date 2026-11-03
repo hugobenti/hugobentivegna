@@ -24,7 +24,7 @@ export function GapsSlide() {
 
         <div
           ref={ref}
-
+          data-panel=""
           className={cx(deck.reveal, gapsSlide.panel)}
           style={stagger(3)}
         >
@@ -62,7 +62,7 @@ export function GapsSlide() {
             <p className={gapsSlide.caption} aria-hidden="true">
               {caption}
             </p>
-            <PlaybackControl {...control} className={gapsSlide.control} />
+            <PlaybackControl {...control} />
           </div>
           <p className={gapsSlide.summary}>{gaps.done}</p>
         </div>
