@@ -39,8 +39,9 @@ test("the CV downloads a file that is actually published", () => {
 
 test("one primary action, and the CV is a button-weight download", () => {
   const { container } = render(<ContactSlide />);
-  const primary = button.variant.primary.split(" ")[0] ?? "";
-  const secondary = button.variant.secondary.split(" ")[2] ?? "";
+  const primary = button.variant.primary.split(" ").find((token) => token.startsWith("bg-(")) ?? "";
+  const secondary =
+    button.variant.secondary.split(" ").find((token) => token.startsWith("border-(")) ?? "";
   expect(container.querySelectorAll(`[class~="${primary}"]`)).toHaveLength(1);
   const cv = screen.getByRole("link", { name: "Download CV" });
   expect(cv).toHaveAttribute("download");
