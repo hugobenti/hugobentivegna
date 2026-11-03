@@ -101,5 +101,8 @@ test("the playback control is the last focusable element inside the panel", () =
   const panel = container.querySelector("[data-panel]") as HTMLElement;
   expect(panel).not.toBeNull();
   const last = focusables(panel).at(-1);
-  expect(last).toBe(within(panel).getByRole("button", { name: controls.pause }));
+  const control = within(panel).getByRole("button", { name: controls.pause });
+  expect(last).toBe(control);
+  const content = within(panel).getByRole("list", { name: gaps.checksLabel }) as HTMLElement;
+  expect(content.compareDocumentPosition(control) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 });

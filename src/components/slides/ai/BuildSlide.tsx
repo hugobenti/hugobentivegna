@@ -104,7 +104,9 @@ export function BuildSlide() {
                 </li>
               ))}
             </ul>
-            <PlaybackControl {...control} className={buildSlide.control} />
+            <div className={buildSlide.slot}>
+              <PlaybackControl {...control} className={buildSlide.control} />
+            </div>
           </div>
         </div>
       </div>

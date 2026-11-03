@@ -1,4 +1,5 @@
 import { cx } from "@/design-system/ui";
+import { deck } from "../../deck/Deck.style";
 import { chapterLayout } from "../ChapterIntro/ChapterIntro.style";
 
 /**
@@ -66,10 +67,11 @@ export const buildSlide = {
   ruleFile: "text-success",
   ruleMessage: "mt-1 text-muted",
 
-  footer: "flex items-end justify-between gap-4 border-t border-line px-4 pt-3 pr-5 pb-5",
+  footer: "flex items-end justify-between gap-4 border-t border-line pt-3 pr-5 pb-5 pl-4",
   checks: "flex flex-wrap gap-x-4 gap-y-1 font-mono text-label",
   check:
     "text-subtle transition-colors duration-(--hb-duration-base) data-[passed=true]:text-success",
   /** Wide enough for its longest label, so Pause → Replay never rewraps the checks. */
-  control: "min-w-24 shrink-0",
+  slot: cx(deck.playbackSlot, "shrink-0"),
+  control: "min-w-24",
 };
