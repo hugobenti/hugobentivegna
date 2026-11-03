@@ -9,14 +9,20 @@ export const timelineSlide = {
   inner: column,
   title: "font-display text-h2 font-bold text-fg",
   axis: "mt-6",
-  /** Chapter on the left, its artifact on the right from md up. */
+  /** Chapter on the left, its artifact on the right from md up; the artifact widens at lg. */
   step: cx(
     column,
-    "md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-stretch md:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)]",
-    /* At least 62% of the room under the axis, so a chapter fills its stop. */
-    "md:min-h-[calc((100svh-var(--steps-header))*0.62)]",
+    "md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-center md:gap-12",
+    "lg:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] lg:gap-16",
+  ),
+  /**
+   * The chapter text steps up with the artifacts (from lg on screens 800px tall, see
+   * experience/artifact.style): the summary becomes a lead and the groups get more air, so the
+   * two columns balance. Targets the kit chapter's roles (ol), summary (p after it) and stack (ul).
+   */
+  chapter: cx(
+    "lg:[@media(min-height:50rem)]:[&>ol]:mt-7",
+    "lg:[@media(min-height:50rem)]:[&>ol+p]:mt-4 lg:[@media(min-height:50rem)]:[&>ol+p]:text-h3 lg:[@media(min-height:50rem)]:[&>ol+p]:text-balance",
+    "lg:[@media(min-height:50rem)]:[&>ul]:mt-9",
   ),
 };
-
-/** Text column and artifact both fill the chapter block; the text is centred in it. */
-export const timelineChapterFill = "md:flex md:flex-col md:justify-center";

@@ -7,7 +7,7 @@ import { deck } from "../deck/Deck.style";
 import { Slide } from "../deck/Slide";
 import { useActiveStep } from "../deck/useActiveStep";
 import { artifacts } from "./experience/artifacts";
-import { timelineChapterFill, timelineSlide } from "./TimelineSlide.style";
+import { timelineSlide } from "./TimelineSlide.style";
 
 /**
  * Experience: the axis stays pinned while each company is its own scroll step. The chapter
@@ -36,7 +36,7 @@ export function TimelineSlide() {
                 <TimelineChapter
                   entry={entry}
                   headingLevel={3}
-                  className={cx(deck.reveal, timelineChapterFill)}
+                  className={cx(deck.reveal, timelineSlide.chapter)}
                 />
                 <Artifact active={index === activeIndex} className={deck.reveal} />
               </div>
