@@ -5,8 +5,18 @@ import { SectionNav } from "./SectionNav";
 
 const items = [
   { id: "timeline", label: "Experience", href: "#timeline" },
-  { id: "design-systems", label: "Case 01 · Design systems", href: "#design-systems" },
-  { id: "ai-plan", label: "Case 02 · AI-driven development", href: "#ai-plan" },
+  {
+    id: "design-systems",
+    label: "Case 01 · Design systems",
+    shortLabel: "01 · Design systems",
+    href: "#design-systems",
+  },
+  {
+    id: "ai-plan",
+    label: "Case 02 · AI-driven development",
+    shortLabel: "02 · AI",
+    href: "#ai-plan",
+  },
   { id: "pixelhb", label: "Projects", href: "#pixelhb" },
   { id: "contact", label: "Contact", href: "#contact" },
 ];
@@ -16,7 +26,11 @@ const meta = {
   component: SectionNav,
   args: { items, activeId: "design-systems", label: "Primary" },
   argTypes: {
-    items: { control: "object", description: "One `{ id, label, href }` per section, in order." },
+    items: {
+      control: "object",
+      description:
+        "One `{ id, label, href, shortLabel? }` per section, in order. `shortLabel` replaces `label` below the `md` breakpoint.",
+    },
     activeId: {
       control: "select",
       options: [null, ...items.map((item) => item.id)],
@@ -58,7 +72,7 @@ export const Interactive: TStory = {
 };
 
 /**
- * On a phone-width screen the row scrolls sideways and keeps the active link in view. Media
+ * On a phone-width screen the row scrolls sideways and centres the active link, fades the edge that hides links and swaps in each item's `shortLabel`. Media
  * queries follow the window, so the story loads the nav in a phone-width frame with the last
  * section active.
  */

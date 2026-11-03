@@ -24,16 +24,19 @@ export const site: ISiteContent = {
     { label: "Experience", slideId: slides.timeline.id },
     {
       label: "Case 01 · Design systems",
+      shortLabel: "01 · Design systems",
       slideId: slides.dsCover.id,
       section: [slides.dsCover.id, slides.dsProblem.id, slides.dsDecision.id, slides.dsRebrand.id],
     },
     {
       label: "Case 02 · AI-assisted development",
+      shortLabel: "02 · AI",
       slideId: slides.aiCover.id,
       section: [slides.aiCover.id, slides.aiGaps.id, slides.aiFoundation.id, slides.aiBuild.id],
     },
     {
       label: "Case 03 · PixelHB",
+      shortLabel: "03 · PixelHB",
       slideId: slides.pixelCover.id,
       section: [slides.pixelCover.id, slides.pixelExact.id],
     },
