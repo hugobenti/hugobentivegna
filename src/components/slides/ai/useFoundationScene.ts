@@ -8,8 +8,9 @@ const count = foundation.excerpts.length;
 const duration = foundationDuration(count);
 
 /**
- * Foundation view model: once the slide is active each excerpt is lit in turn, then all of
- * them stay lit. Every excerpt is rendered from the start; only `on` changes.
+ * Foundation view model: once the slide is active each excerpt is highlighted in turn (`on`);
+ * those already passed, and all of them at the end, are `read`. Every excerpt is rendered from
+ * the start; only `on` and `read` change.
  */
 export function useFoundationScene() {
   const { ref, elapsed, control } = usePlaybackControl<HTMLDivElement>(duration);
@@ -22,7 +23,8 @@ export function useFoundationScene() {
         text: line.text,
         tone: line.tone ?? "plain",
       })),
-      on: frame.all || frame.current === index,
+      on: frame.current === index,
+      read: frame.all || (frame.current !== null && index < frame.current),
     })),
     control,
   };

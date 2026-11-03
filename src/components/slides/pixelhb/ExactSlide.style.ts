@@ -9,11 +9,11 @@ export const exactSlide = {
   control: "mt-6",
 
   cards: "grid gap-3 sm:grid-cols-2",
-  /** The lit card takes the accent border and glow; the colors fade, nothing resizes. */
+  /** The lit card takes the highlight tint; the colors fade, nothing resizes. */
   card: cx(
     "group flex flex-col gap-2 rounded-lg border border-line bg-surface p-4",
-    "motion-safe:transition-[border-color,box-shadow] motion-safe:duration-(--hb-duration-slow)",
-    "data-[state=current]:border-accent data-[state=current]:shadow-[0_0_0_4px_var(--hb-color-glow)]",
+    "motion-safe:transition-colors motion-safe:duration-(--hb-duration-slow)",
+    "data-[state=current]:bg-highlight data-[state=current]:text-fg",
   ),
   name: cx(
     "text-body font-bold text-subtle",

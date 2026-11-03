@@ -49,7 +49,10 @@ export function RebrandSlide() {
                       data-active={flag.active}
                       className={rebrandSlide.flag}
                     >
-                      {flag.label}
+                      <span aria-hidden="true" className={rebrandSlide.flagMarker}>
+                        {flag.marker}
+                      </span>
+                      <span>{flag.label}</span>
                     </span>
                   ))}
                 </p>

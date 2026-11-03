@@ -37,7 +37,12 @@ export function FoundationSlide() {
         >
           <ul aria-label={foundation.excerptsLabel} className={foundationSlide.excerpts}>
             {excerpts.map((excerpt) => (
-              <li key={excerpt.file} data-on={excerpt.on} className={foundationSlide.excerpt}>
+              <li
+                key={excerpt.file}
+                data-on={excerpt.on}
+                data-read={excerpt.read}
+                className={foundationSlide.excerpt}
+              >
                 <p className={foundationSlide.header}>
                   <span className={foundationSlide.file}>
                     <span className={foundationSlide.fileName}>{excerpt.file}</span> ·{" "}

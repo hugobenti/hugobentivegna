@@ -11,14 +11,14 @@ export const decisionSlide = {
   tokens: "flex flex-wrap gap-2",
   /** A token chip; it lights up while its step lands and stays lit once applied. */
   token: cx(
-    "flex items-center gap-2 rounded-md border border-line bg-raised px-3 py-2 font-mono text-label text-muted",
-    "transition-[border-color,color,box-shadow] duration-(--hb-duration-slow)",
+    "group/token flex items-center gap-2 rounded-md border border-line bg-raised px-3 py-2 font-mono text-label text-muted",
+    "transition-colors duration-(--hb-duration-slow)",
     "data-[state=applied]:border-subtle data-[state=applied]:text-fg",
-    "data-[state=current]:border-accent data-[state=current]:text-fg data-[state=current]:shadow-[0_0_0_4px_var(--hb-color-glow)]",
+    "data-[state=current]:bg-highlight data-[state=current]:text-fg",
   ),
   swatch: "size-4 shrink-0 rounded-sm border border-subtle",
   tokenName: "text-fg",
-  tokenValue: "text-subtle",
+  tokenValue: "text-subtle group-data-[state=current]/token:text-muted",
 
   stage: "flex flex-col items-center gap-4 border-t border-line pt-8",
   /**

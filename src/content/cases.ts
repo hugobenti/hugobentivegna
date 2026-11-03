@@ -1,3 +1,4 @@
+import { slides } from "./slides";
 import type { IAiCase, IDesignSystemCase, IPixelhbCase } from "./content.type";
 
 /** Design-system case: the real story, told without naming the company (spec 2026-10-17). */
@@ -12,9 +13,9 @@ export const designSystemCase: IDesignSystemCase = {
       { label: "With", value: "The design team and product squads" },
     ],
     chapters: [
-      { number: "01", label: "The problem" },
-      { number: "02", label: "One system" },
-      { number: "03", label: "The rebrand" },
+      { number: "01", label: "The problem", slideId: slides.dsProblem.id },
+      { number: "02", label: "One system", slideId: slides.dsDecision.id },
+      { number: "03", label: "The rebrand", slideId: slides.dsRebrand.id },
     ],
   },
   problem: {
@@ -58,6 +59,7 @@ export const designSystemCase: IDesignSystemCase = {
     title: "Then the brand changed, across 5+ products.",
     lead: "A dark theme had already tested the names. The rebrand was the real one.",
     closing: "The squads updated a version and fixed a few details in their page CSS.",
+    flagMarker: "▸",
     acts: {
       without: {
         label: "Without a design system",
@@ -97,9 +99,9 @@ export const aiCase: IAiCase = {
       { label: "With", value: "Product, backend teams and AI agents" },
     ],
     chapters: [
-      { number: "01", label: "Find the gaps" },
-      { number: "02", label: "Lay the foundation" },
-      { number: "03", label: "Build on it" },
+      { number: "01", label: "Find the gaps", slideId: slides.aiGaps.id },
+      { number: "02", label: "Lay the foundation", slideId: slides.aiFoundation.id },
+      { number: "03", label: "Build on it", slideId: slides.aiBuild.id },
     ],
   },
   gaps: {
@@ -280,6 +282,6 @@ export const pixelhbCase: IPixelhbCase = {
       { label: "When", value: "2026" },
       { label: "My role", value: "Product, brand, design and code" },
     ],
-    chapters: [{ number: "01", label: "The editor" }],
+    chapters: [{ number: "01", label: "The editor", slideId: slides.pixelExact.id }],
   },
 };
