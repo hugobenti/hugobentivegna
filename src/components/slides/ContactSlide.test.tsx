@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
+import { site } from "@/content/site";
 import { button } from "@/design-system/ui/Button/Button.style";
 import { ContactSlide } from "./ContactSlide";
 
@@ -52,4 +53,9 @@ test("no phone number appears on the page", () => {
   const { container } = render(<ContactSlide />);
   expect(container.textContent).not.toMatch(/\+?55|\d{4,5}-\d{4}|99374/);
   expect(container.innerHTML).not.toMatch(/tel:/);
+});
+
+test("the contact slide shows the shared availability", () => {
+  render(<ContactSlide />);
+  expect(screen.getByText(site.availability)).toBeInTheDocument();
 });

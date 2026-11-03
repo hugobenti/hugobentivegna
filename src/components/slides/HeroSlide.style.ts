@@ -9,6 +9,7 @@ export const hero = {
   line: "block",
   accent: "block text-accent",
   intro: "mt-6 max-w-2xl text-body text-muted",
+  availability: "mt-4",
   /** The cases, the proof behind the headline: three columns from lg up, stacked below. */
   cases: "mt-10 grid gap-6 lg:grid-cols-3 lg:gap-10",
   caseLink: cx(

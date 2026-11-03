@@ -8,6 +8,7 @@ export const site: ISiteContent = {
   name: "Hugo Bentivegna",
   role: "Senior Software Engineer",
   location: "São Paulo",
+  availability: "Open to new roles · Remote or São Paulo",
   kicker: "Hugo Bentivegna · Senior Software Engineer · São Paulo",
   headline: {
     lead: "High-quality UI,",

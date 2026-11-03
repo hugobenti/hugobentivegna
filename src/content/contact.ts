@@ -5,7 +5,6 @@ const email = "hugobenti@gmail.com";
 
 export const contact: IContactContent = {
   title: "Let's build something people enjoy using.",
-  status: "Open to new senior roles · Remote or São Paulo",
   intro:
     "Based in São Paulo, working in English and Portuguese. Email is the fastest way to reach me.",
   email,
