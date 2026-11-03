@@ -6,6 +6,15 @@ export interface IPlaybackLabels {
   replay: string;
 }
 
+export interface IHeroCase {
+  number: string;
+  label: string;
+  /** One line on what the case achieved. */
+  outcome: string;
+  /** Id of the case's cover slide; cases whose slide doesn't exist yet aren't rendered. */
+  slideId: string;
+}
+
 export interface INavLink {
   label: string;
   /** Compact label for phones, where the full one would overflow the nav row. */
@@ -24,11 +33,16 @@ export interface ISiteContent {
   name: string;
   role: string;
   location: string;
-  /** Small line above the headline. */
+  /** Small line above the headline on the share card. */
   kicker: string;
   /** Hero headline, split so the accent phrase can be styled. */
   headline: { lead: string; accent: string; tail: string };
+  /** The share card's and meta description's line of specialties. */
   supportLine: string;
+  /** Who Hugo is, under the hero headline. */
+  intro: string;
+  /** The hero's links to each case, with the outcome it proves. */
+  heroCases: IHeroCase[];
   /** The site header: its monogram (a link back to the start) and its section links. */
   monogram: string;
   homeLabel: string;

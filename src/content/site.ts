@@ -15,6 +15,27 @@ export const site: ISiteContent = {
     tail: "who use it.",
   },
   supportLine: "Design systems · Front-end architecture · AI agents",
+  intro: "I'm Hugo Bentivegna, a senior software engineer in São Paulo.",
+  heroCases: [
+    {
+      number: "01",
+      label: "Design systems",
+      outcome: "A rebrand across 5+ products, shipped as one version bump.",
+      slideId: slides.dsCover.id,
+    },
+    {
+      number: "02",
+      label: "AI-assisted development",
+      outcome: "Repository rules and lint that let AI agents build on the same patterns.",
+      slideId: slides.aiCover.id,
+    },
+    {
+      number: "03",
+      label: "PixelHB",
+      outcome: "A pixel-art editor, from brand to browser, built on my own.",
+      slideId: slides.pixelCover.id,
+    },
+  ],
   monogram: "HB",
   homeLabel: "HB, Hugo Bentivegna: back to the start",
   navLabel: "Primary",
