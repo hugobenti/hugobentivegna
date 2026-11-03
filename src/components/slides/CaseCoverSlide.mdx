@@ -24,7 +24,7 @@ The slide that opens a case study: what it is, when, my role, and the chapters a
 
 - Everything enters with the slide (`reveal`), staggered: mark and kicker 0, title 1, body 2, meta 3, chapters 4. The aside enters with the body (2).
 - With an `aside`, the copy sits on the left and the picture on the right from `lg` up; without one, the copy takes the width.
-- A soft glow is drawn inside the slide's own box, so no hard line shows where two slides meet.
+- A `PixelField` spill sits at `fieldPlacement` (default `centre-right`), clipped by the slide's own box, so no hard line shows where two slides meet.
 - The reveal and the slide's own layout come from `deck.css`, which Storybook does not load: here the lines simply show, in a stage that stands in for the slide.
 
 <Canvas of={Stories.WithMarkAndAside} />
@@ -33,7 +33,7 @@ The slide that opens a case study: what it is, when, my role, and the chapters a
 
 - The slide is a labelled `<section>` (`slide.label`); the title is its `h2`.
 - The meta items are a description list (`dl`) and the chapters an ordered list (`ol`), so counts and order are announced.
-- The glow is decorative (`aria-hidden`). The mark and the aside must carry their own accessible name (`PixelArt` takes a `label`).
+- The spill is decorative (`aria-hidden`). The mark and the aside must carry their own accessible name (`PixelArt` takes a `label`).
 - Text uses `fg`, `muted` and `subtle`, which meet AA on the page background.
 
 ## Do / Don't

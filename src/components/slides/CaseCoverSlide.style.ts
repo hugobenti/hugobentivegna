@@ -1,10 +1,5 @@
 export const caseCoverSlide = {
   slide: "overflow-hidden",
-  /**
-   * The glow token, drawn inside the slide's own box: the gradient fades out before any edge,
-   * so it never shows a hard line where two slides meet.
-   */
-  glow: "pointer-events-none absolute inset-0 bg-[radial-gradient(40%_45%_at_75%_45%,var(--hb-color-glow),transparent)]",
   /** With an aside: copy on the left and the picture on the right from lg up; stacked below. */
   content:
     "relative mx-auto grid w-full max-w-6xl gap-12 lg:items-center lg:has-[>[data-aside]]:grid-cols-[minmax(0,1fr)_auto]",

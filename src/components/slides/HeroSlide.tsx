@@ -2,6 +2,7 @@ import { site } from "@/content/site";
 import { slides } from "@/content/slides";
 import { cx } from "@/design-system/ui";
 import { deck } from "../deck/Deck.style";
+import { PixelField } from "../deck/PixelField";
 import { Slide } from "../deck/Slide";
 import { stagger } from "../deck/stagger";
 import { hero } from "./HeroSlide.style";
@@ -9,7 +10,7 @@ import { hero } from "./HeroSlide.style";
 export function HeroSlide() {
   return (
     <Slide slide={slides.hero} className={hero.slide}>
-      <div className={hero.glow} aria-hidden="true" />
+      <PixelField placement="top-right" />
 
       <div className={hero.content}>
         <p className={cx(deck.enter, hero.kicker)} style={stagger(1)}>

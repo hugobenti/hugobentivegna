@@ -2,6 +2,7 @@ import { contact } from "@/content/contact";
 import { slides } from "@/content/slides";
 import { Button, CopyText, cx } from "@/design-system/ui";
 import { deck } from "../deck/Deck.style";
+import { PixelField } from "../deck/PixelField";
 import { Slide } from "../deck/Slide";
 import { stagger } from "../deck/stagger";
 import { contactSlide } from "./ContactSlide.style";
@@ -10,7 +11,7 @@ import { contactSlide } from "./ContactSlide.style";
 export function ContactSlide() {
   return (
     <Slide slide={slides.contact} className={contactSlide.slide}>
-      <div className={contactSlide.glow} aria-hidden="true" />
+      <PixelField placement="bottom-left" />
       <div className={contactSlide.content}>
         <p className={cx(deck.reveal, contactSlide.kicker)} style={stagger(0)}>
           {contact.kicker}

@@ -1,15 +1,22 @@
 import { cx } from "@/design-system/ui";
 import { deck } from "../deck/Deck.style";
+import { PixelField } from "../deck/PixelField";
 import { Slide } from "../deck/Slide";
 import { stagger } from "../deck/stagger";
 import { caseCoverSlide } from "./CaseCoverSlide.style";
 import type { TCaseCoverSlideProps } from "./CaseCoverSlide.type";
 
 /** Opens a case study: what it is, when, my role, and the chapters ahead. */
-export function CaseCoverSlide({ slide, cover, mark, aside }: TCaseCoverSlideProps) {
+export function CaseCoverSlide({
+  slide,
+  cover,
+  mark,
+  aside,
+  fieldPlacement = "centre-right",
+}: TCaseCoverSlideProps) {
   return (
     <Slide slide={slide} className={caseCoverSlide.slide}>
-      <div className={caseCoverSlide.glow} aria-hidden="true" />
+      <PixelField placement={fieldPlacement} />
       <div className={caseCoverSlide.content}>
         <div>
           {mark ? (

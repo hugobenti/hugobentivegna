@@ -1,7 +1,5 @@
 export const contactSlide = {
   slide: "overflow-hidden",
-  /** Same soft accent light as the hero, from the bottom-left this time. */
-  glow: "pointer-events-none absolute -bottom-1/3 -left-1/4 size-[60vmax] rounded-pill bg-[radial-gradient(circle,var(--hb-color-glow),transparent_60%)] blur-3xl",
   content: "relative mx-auto w-full max-w-6xl",
   kicker: "font-mono text-label text-subtle uppercase",
   title: "mt-6 max-w-4xl font-display text-display font-extrabold text-fg",

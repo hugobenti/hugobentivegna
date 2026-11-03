@@ -35,6 +35,7 @@ export default function Home() {
         cover={pixelhbCase.cover}
         mark={<PixelArt grid={LOCKUP} label={pixelhbCase.mark} size="lockup" />}
         aside={<DrawingDemo />}
+        fieldPlacement="bottom-left"
       />
       <ExactSlide />
       <ContactSlide />
