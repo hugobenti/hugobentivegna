@@ -119,3 +119,21 @@ test("the playback control is the last focusable element inside the panel", () =
   const content = panel.querySelector("[inert]") as HTMLElement;
   expect(content.compareDocumentPosition(control) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 });
+
+test("the reduced-motion end state shows as many products as its counter says", () => {
+  stubReducedMotion(true);
+  const { container } = render(<RebrandSlide />);
+  const acts = container.querySelectorAll("[data-act]");
+  expect(acts).toHaveLength(2);
+  for (const act of acts) {
+    const counter = /(\d+)\/(\d+)/.exec(act.textContent ?? "");
+    expect(counter).not.toBeNull();
+    // jsdom has no CSS: a card counts as shown unless a class on it or its list hides it.
+    const shown = [...act.querySelectorAll("li")].filter(
+      (card) =>
+        !/(^|[\s:\]])hidden(\s|$)/.test(`${card.className} ${card.parentElement?.className}`),
+    );
+    expect(shown).toHaveLength(Number(counter?.[2]));
+    expect(Number(counter?.[2])).toBe(rebrand.products.length);
+  }
+});
