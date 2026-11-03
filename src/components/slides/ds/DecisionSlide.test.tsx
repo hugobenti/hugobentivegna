@@ -1,6 +1,7 @@
 import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { designSystemCase } from "@/content/cases";
+import { tokens } from "@/design-system/tokens";
 import {
   centreLineObserver,
   installFakeIntersectionObserver,
@@ -31,7 +32,8 @@ test("lists the real token values the button is built from", () => {
   render(<DecisionSlide />);
   const list = screen.getByRole("list", { name: decision.tokensLabel });
   expect(list).toHaveTextContent("button.primary.bg");
-  expect(list).toHaveTextContent("#5aa2ff");
+  const accent = tokens.find((token) => token.name === "color.accent");
+  expect(list).toHaveTextContent(accent!.resolved);
   expect(list).toHaveTextContent("999px");
 });
 

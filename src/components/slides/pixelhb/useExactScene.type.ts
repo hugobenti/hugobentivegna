@@ -2,7 +2,7 @@ import type { ITool } from "@/content/content.type";
 import type { TExactCardState } from "./exactTimeline.type";
 import type { TPixelGrid, TPixelKey } from "./pixelGrid.type";
 
-/** The colors a loupe ring can show: the heart's two blues. */
+/** The colors a loupe ring can show: the heart's two ambers. */
 export type TRingKey = Extract<TPixelKey, "r" | "b">;
 
 export interface IExactSceneTool extends ITool {

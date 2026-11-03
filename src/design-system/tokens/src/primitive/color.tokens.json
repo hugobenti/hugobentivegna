@@ -2,40 +2,42 @@
   "palette": {
     "$type": "color",
     "ink": {
-      "$description": "Midnight neutrals: near-black to near-white.",
-      "950": { "$value": "#0a0a0d" },
-      "900": { "$value": "#131318" },
-      "850": { "$value": "#1b1b22" },
-      "700": { "$value": "#2a2a33" },
-      "500": { "$value": "#8b8b96" },
-      "400": { "$value": "#a5a5b0" },
-      "50": { "$value": "#f4f4f6" }
-    },
-    "blue": {
-      "$description": "Midnight's electric-blue accent.",
-      "400": { "$value": "#5aa2ff" },
-      "700": {
-        "$value": "#2c64c8",
-        "$description": "The accent's shade: the second blue in the PixelHB case's illustrations."
-      },
-      "glow": { "$value": "#408cff59" }
+      "$description": "Warm neutrals with a hint of the amber accent: near-black to near-white.",
+      "950": { "$value": "#0c0b09" },
+      "900": { "$value": "#16130f" },
+      "850": { "$value": "#1f1b16" },
+      "700": { "$value": "#302a22" },
+      "500": { "$value": "#958d80" },
+      "400": { "$value": "#b0a89b" },
+      "50": { "$value": "#f6f2ec" }
     },
     "green": {
       "$description": "Positive status.",
-      "400": { "$value": "#5fd39a" }
+      "400": { "$value": "#9fd36b" }
     },
-    "amber": {
+    "yellow": {
       "$description": "Attention status.",
-      "400": { "$value": "#ffb454" }
+      "400": { "$value": "#f2d15a" }
+    },
+    "tint": {
+      "$description": "Tinted surfaces.",
+      "amber": {
+        "$value": "#2e2519",
+        "$description": "Accent-tinted surface: the item an illustration points at."
+      }
+    },
+    "glow": {
+      "$value": "#eda74359",
+      "$description": "Amber glow behind slides; removed once PixelField replaces every glow."
     },
     "red": {
       "$description": "Error status.",
-      "400": { "$value": "#ff8a8a" }
+      "400": { "$value": "#f2836e" }
     },
     "bank": {
       "$description": "Made-up bank brands for the design-system case's rebrand scene.",
-      "before": { "$value": "#2f5bd3", "$description": "The deep-blue brand before the rebrand." },
-      "after": { "$value": "#0f7a6e", "$description": "The brand after the rebrand." }
+      "before": { "$value": "#a83d59", "$description": "The wine brand before the rebrand." },
+      "after": { "$value": "#566b1e", "$description": "The olive brand after the rebrand." }
     },
     "pixelhb": {
       "$description": "PixelHB brand colors, fixed in every context (brand.md Palette).",

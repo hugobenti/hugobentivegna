@@ -35,6 +35,8 @@ const pairs = [
   ["muted", "surface", 4.5],
   ["subtle", "bg", 4.5],
   ["subtle", "surface", 4.5],
+  ["fg", "highlight", 4.5],
+  ["muted", "highlight", 4.5],
   ["on-accent", "accent", 4.5],
   ["success", "bg", 4.5],
   ["success", "surface", 4.5],

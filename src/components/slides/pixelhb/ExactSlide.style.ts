@@ -1,5 +1,5 @@
 import { cx } from "@/design-system/ui";
-import { pixelBlue } from "./PixelArt.style";
+import { pixelAccent } from "./PixelArt.style";
 
 export const exactSlide = {
   /** Copy, links and control on the left, the four tool cards on the right from lg up. */
@@ -50,6 +50,6 @@ export const exactSlide = {
   half: "absolute inset-x-0 h-1/2",
   halfTop: "top-0",
   halfBottom: "bottom-0",
-  ringFill: { r: pixelBlue.r.bg, b: pixelBlue.b.bg },
+  ringFill: { r: pixelAccent.r.bg, b: pixelAccent.b.bg },
   lens: "absolute inset-1 overflow-hidden rounded-pill bg-bg",
 };
