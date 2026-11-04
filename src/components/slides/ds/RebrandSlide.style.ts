@@ -34,7 +34,8 @@ export const rebrandSlide = {
 
 export const rebrandScene = {
   act: "flex flex-col gap-4 [@media(max-height:760px)]:gap-3",
-  header: "flex flex-wrap items-end justify-between gap-4",
+  /** Below `md` it follows the system, so the counters sit directly above the products. */
+  header: "flex flex-wrap items-end justify-between gap-4 md:order-none",
   actLabel: "font-mono text-label text-subtle uppercase",
   actTitle: "mt-1 font-display text-h3 font-bold text-fg",
   counters: "flex gap-6",
@@ -47,9 +48,9 @@ export const rebrandScene = {
    * place and height, so the scene keeps its size when the acts switch.
    */
   system:
-    "group/system mx-auto flex h-12 w-full max-w-sm items-center gap-3 rounded-md border border-line bg-raised px-4 transition-[border-color] duration-(--hb-duration-base) data-[state=released]:border-accent",
+    "group/system order-first mx-auto md:order-none flex h-12 w-full max-w-sm items-center gap-3 rounded-md border border-line bg-raised px-4 transition-[border-color] duration-(--hb-duration-base) data-[state=released]:border-accent",
   noSystem:
-    "mx-auto flex h-12 w-full max-w-sm items-center justify-center rounded-md border border-dashed border-line px-4 font-mono text-label text-subtle",
+    "order-first mx-auto md:order-none flex h-12 w-full max-w-sm items-center justify-center rounded-md border border-dashed border-line px-4 font-mono text-label text-subtle",
   systemText: "flex min-w-0 flex-1 flex-col gap-2",
   systemName: "font-mono text-small text-fg",
   /**
@@ -72,11 +73,11 @@ export const rebrandScene = {
 
   /**
    * Two per row on phones so names and amounts stay readable. The side-by-side still acts show
-   * the first three products each, so both fit one screen.
+   * all six products each, three per row, so the counter always matches what is on screen.
    */
   products: {
     wide: "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6",
-    compact: "grid grid-cols-3 gap-3 [&>li:nth-child(n+4)]:hidden",
+    compact: "grid grid-cols-2 gap-3 sm:grid-cols-3",
   },
   /**
    * A made-up product screen with its own mini theme: it re-declares the kit's button tokens
@@ -95,8 +96,9 @@ export const rebrandScene = {
   productVersion: "font-mono text-small",
   productBody: "flex flex-col gap-2 p-3",
   /** The mock "Balance" caption is decoration; short screens drop it to keep the slide in view. */
-  balanceLabel: "text-small text-subtle [@media(max-height:760px)]:hidden",
-  balance: "truncate text-small font-bold text-fg tabular-nums",
+  balanceLabel: "hidden text-small text-subtle md:block md:[@media(max-height:760px)]:hidden",
+  /** Below `md` the cards are compact: brand header and button, no balance (`display: none`, so assistive tech skips it too). */
+  balance: "hidden truncate text-small font-bold text-fg tabular-nums md:block",
   action: "mt-1 h-8 w-full px-2 text-label",
 
   /** Act 1: the product's own developer and their progress; kept but invisible in act 2. */
