@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { pixelhbCase } from "@/content/cases";
 import { slides } from "@/content/slides";
 import { Button, cx, PlaybackControl } from "@/design-system/ui";
@@ -7,13 +8,17 @@ import { deck } from "../../deck/Deck.style";
 import { Slide } from "../../deck/Slide";
 import { stagger } from "../../deck/stagger";
 import { ChapterIntro } from "../ChapterIntro/ChapterIntro";
+import { EDITOR_SHOT } from "./ExactSlide.data";
 import { exactSlide } from "./ExactSlide.style";
 import { PixelArt } from "./PixelArt";
 import { useExactScene } from "./useExactScene";
 
 const { exact } = pixelhbCase;
 
-/** Chapter 01 of the PixelHB case: four tools lit one at a time, each with a small demo. */
+/**
+ * Chapter 01 of the PixelHB case: the real editor under the links, and four tools lit one at a
+ * time, each with a small illustrated demo.
+ */
 export function ExactSlide() {
   const { ref, tools, demos, control } = useExactScene();
   return (
@@ -29,6 +34,17 @@ export function ExactSlide() {
               {exact.code.label}
             </Button>
           </div>
+          <figure className={cx(deck.reveal, exactSlide.shot)} style={stagger(4)}>
+            <Image
+              src={EDITOR_SHOT.src}
+              width={EDITOR_SHOT.width}
+              height={EDITOR_SHOT.height}
+              sizes={EDITOR_SHOT.sizes}
+              alt={exact.shot.alt}
+              className={exactSlide.shotImage}
+            />
+            <figcaption className={exactSlide.shotCaption}>{exact.shot.caption}</figcaption>
+          </figure>
         </div>
 
         <div data-panel="" className={exactSlide.panel}>
@@ -45,21 +61,26 @@ export function ExactSlide() {
                 <p className={exactSlide.toolBody}>{tool.body}</p>
                 <div data-demo={tool.demo} aria-hidden="true" className={exactSlide.demo}>
                   <span className={exactSlide.label}>{exact.illustration}</span>
-                  <div data-on={tool.on} className={exactSlide.art}>
+                  <div className={exactSlide.art}>
                     {tool.demo === "zoom"
-                      ? demos.zoom.map((size) => (
-                          <PixelArt
-                            key={size}
-                            grid={demos.heart}
-                            label={exact.illustration}
-                            size={size}
-                          />
+                      ? demos.zoom.map((step) => (
+                          <div key={step.size} data-on={step.on} className={exactSlide.piece}>
+                            <PixelArt
+                              grid={demos.heart}
+                              label={exact.illustration}
+                              size={step.size}
+                            />
+                          </div>
                         ))
                       : null}
                     {tool.demo === "grid" ? (
                       <div className={exactSlide.gridBox}>
                         <PixelArt grid={demos.heart} label={exact.illustration} size="heart6x" />
-                        <div data-grid="" className={exactSlide.grid} />
+                        <div
+                          data-grid=""
+                          data-on={demos.grid}
+                          className={cx(exactSlide.grid, exactSlide.piece)}
+                        />
                       </div>
                     ) : null}
                     {tool.demo === "fill"
@@ -93,11 +114,13 @@ export function ExactSlide() {
                           )}
                         />
                         <div className={exactSlide.lens}>
-                          <PixelArt
-                            grid={demos.loupe.grid}
-                            label={exact.illustration}
-                            size="loupe"
-                          />
+                          <div data-on={demos.loupe.lens} className={exactSlide.piece}>
+                            <PixelArt
+                              grid={demos.loupe.grid}
+                              label={exact.illustration}
+                              size="loupe"
+                            />
+                          </div>
                         </div>
                       </div>
                     ) : null}

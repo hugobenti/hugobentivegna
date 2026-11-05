@@ -273,6 +273,10 @@ export const pixelhbCase: IPixelhbCase = {
     ],
     live: { label: "Try it live", href: "https://pixelhb.vercel.app" },
     code: { label: "View code", href: "https://github.com/hugobenti/pixelHB" },
+    shot: {
+      alt: "Screenshot of the PixelHB editor: a 16 × 16 pixel heart in red, with a dark outline, a purple shade and a white highlight, on a transparent canvas. Above it, the toolbar with undo, redo, layers, brush, eraser, paint bucket, color picker and zoom, and a 16-color palette.",
+      caption: "Screenshot · the live editor",
+    },
   },
   cover: {
     kicker: "Case 03 · Personal project",

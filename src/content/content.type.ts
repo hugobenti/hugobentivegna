@@ -219,7 +219,7 @@ export interface IPixelhbCase {
   mark: string;
   /** The accessible name of the drawing that paints itself beside the cover. */
   drawing: string;
-  /** Chapter 01: four tools lit one at a time, each with a small demo, then the links. */
+  /** Chapter 01: four tools lit one at a time, each with a small demo, then the links and the real editor. */
   exact: {
     kicker: string;
     title: string;
@@ -229,6 +229,11 @@ export interface IPixelhbCase {
     tools: [ITool, ITool, ITool, ITool];
     live: ILinkContent;
     code: ILinkContent;
+    /** The screenshot of the live editor under the links: what it shows, and where it is live. */
+    shot: {
+      alt: string;
+      caption: string;
+    };
   };
 }
 
