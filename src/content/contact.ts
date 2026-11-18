@@ -10,9 +10,9 @@ export const contact: IContactContent = {
   email,
   emailAction: { label: "Send an email", href: `mailto:${email}` },
   profiles: [{ label: "LinkedIn", href: "https://linkedin.com/in/hugo-bentivegna" }],
-  cv: { label: "Download CV", href: "/Hugo-Bentivegna-CV-10_2026.pdf" },
+  cv: { label: "Download CV", href: "/Hugo-Bentivegna-CV-11_2026.pdf" },
   cvTitle: "CV",
-  cvMeta: "PDF · 154 KB · October 2026",
+  cvMeta: "PDF · 153 KB · November 2026",
   credit: `Designed and built by ${site.name} on its own design system.`,
   footerLinks: [
     { label: "GitHub", href: "https://github.com/hugobenti" },
